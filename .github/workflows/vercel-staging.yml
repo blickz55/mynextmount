@@ -1,0 +1,27 @@
+# Optional: deploys the staging branch to Vercel when GitHub secrets are set.
+# Simpler alternative: connect the repo in the Vercel dashboard (Git integration)
+# and set Production Branch = staging + add www.mynextmount.com — no workflow needed.
+#
+# Secrets (Vercel → Project → Settings → Environment Variables / Account tokens):
+#   VERCEL_TOKEN       — https://vercel.com/account/tokens
+#   VERCEL_ORG_ID      — from .vercel/project.json after `vercel link`
+#   VERCEL_PROJECT_ID  — from .vercel/project.json
+
+name: Deploy staging (Vercel)
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod"
+          working-directory: ./

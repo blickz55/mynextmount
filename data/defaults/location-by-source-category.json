@@ -1,0 +1,14 @@
+{
+  "vendor": "Vendor NPC (which NPC and zone varies by mount)",
+  "quest": "Quest reward (chain and zone vary)",
+  "achievement": "Achievement reward (criteria vary)",
+  "drop": "Dungeon, raid, or world drop — check Wowhead for instance or boss",
+  "profession": "Crafted — profession and materials vary",
+  "promotion": "Limited promotion or bonus — often time-gated",
+  "petstore": "Battle.net Shop or WoW in-game Shop",
+  "tcg": "TCG or special redemption — verify current obtain path",
+  "tradingpost": "Trading Post (Tender) — stock rotates",
+  "discovery": "Secret or hidden route — guides help narrow it down",
+  "worldevent": "Seasonal world event (see in-game calendar)",
+  "default": "See Wowhead spell link for where to obtain"
+}

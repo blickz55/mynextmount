@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "batches": [
+    {
+      "batchId": "c4-pilot-2025-03",
+      "recordedAt": "2025-03-24T12:00:00.000Z",
+      "reviewer": "Set at merge (GitHub handle or name)",
+      "sourceClass": "Maintainer paraphrase from general game knowledge + Wowhead spell pages; no comment HTML stored. Epic C.4 script available for future LLM drafts (npm run farm-tip:draft).",
+      "spellIds": [63796, 127170, 171828],
+      "llmModel": null,
+      "notes": "Pilot batch for C.4 acceptance: diverse raid/world-adjacent drops. Final one-liners edited for site voice; run farm-tip-llm-draft.mjs with FARM_TIP_OPENAI_API_KEY for true LLM-assisted drafts on later batches."
+    }
+  ]
+}

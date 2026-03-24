@@ -1,0 +1,174 @@
+# Cursor Rules — MyNextMount (mynextmount.com) MVP
+
+## 🎯 Product Goal
+Build a local-first tool that:
+- Accepts a pasted export string from World of Warcraft
+- Identifies mounts the user does NOT own
+- Recommends what mounts to farm next based on:
+  - Easiest to obtain
+  - Rarest / most prestigious
+
+This is a PERSONAL TOOL first, not a production SaaS.
+
+---
+
+## 🧠 Core Principle
+ALWAYS optimize for:
+> "What should I farm next right now?"
+
+Avoid:
+- Overengineering
+- Premature scalability
+- UI polish over functionality
+
+---
+
+## 🧱 Architecture Constraints
+
+### Frontend
+- Next.js (App Router)
+- Single page MVP
+- No authentication
+
+### Backend
+- No database
+- Use static JSON files:
+  - `/data/mounts.json` (canonical baseline)
+  - `/data/mounts.stubs.json` (optional dev stubs; merged at load in `lib/mounts.ts`)
+
+### State
+- In-memory only
+- No persistence required
+
+---
+
+## 📦 Data Model Rules
+
+### Mount Object Schema (STRICT)
+
+Each mount MUST follow:
+
+```ts
+type Mount = {
+  id: number; // mount summon SPELL ID (see docs/export-contract.md)
+  name: string;
+  source: string;
+  boss?: string;
+  location: string;
+  dropRate: number; // 0 to 1
+  difficulty: number; // 1 (easy) to 5 (hard)
+  timeToComplete: number; // minutes
+  lockout: "daily" | "weekly" | "none";
+  expansion: string;
+  tags: string[];
+  // Optional (Epic B.1+): wowheadUrl, commentsUrl, iconFileId, iconUrl, sourceCategory, retailObtainable, asOfPatch, farmTip, guide (see data/mount-guides.json), wowheadCommentDigest, wowheadCommentDigestAsOf (see data/wowhead-comment-digests.json)
+};
+🔌 Input Contract
+Export String Format (v1) — full spec: docs/export-contract.md
+M:<spellId>,<spellId>,...
+
+Rules:
+
+Always starts with M: (mount summon spell IDs, not journal mountId)
+Comma-separated spell IDs
+No spaces required (parser trims tokens)
+
+You MUST:
+
+Validate input
+Gracefully handle malformed input
+⚙️ Core Logic Rules
+Step 1 — Parse Input
+
+Convert string → number[] of owned mount IDs
+
+Step 2 — Filter
+
+Return mounts where:
+
+mount.id NOT IN ownedMountIds
+Step 3 — Scoring Modes
+🟢 EASIEST MODE
+score = 
+  (1 - difficulty/5) * 0.5 +
+  (dropRate) * 0.3 +
+  (1 / timeToComplete) * 0.2
+🔴 RAREST MODE
+score =
+  (1 - dropRate) * 0.6 +
+  (difficulty/5) * 0.2 +
+  (isRareTag ? 1 : 0) * 0.2
+Step 4 — Output
+Sort descending by score
+Return top 10 mounts
+🖥️ UI Rules
+
+MVP UI MUST include:
+
+Textarea (paste export string)
+Mode selector:
+"Easiest"
+"Rarest"
+Button: "Find My Mounts"
+Results list:
+Name
+Location
+Boss
+Why it's recommended
+🧪 Testing Rules
+
+Every feature MUST be testable via:
+
+Manual test:
+
+Paste export string
+Click button
+Verify results
+
+DO NOT add automated tests yet.
+
+🚫 Explicit Non-Goals
+
+Do NOT build:
+
+Authentication
+API routes unless absolutely necessary
+Database
+Styling frameworks beyond basic CSS
+Heavy addon work beyond export in `addons/MountFarmExport/` (CurseForge: MyNextMount)
+🧭 Execution Rules for Cursor
+
+When given:
+
+"Execute Story X.X.X"
+
+You MUST:
+
+Identify required files
+Implement ONLY that story
+Keep changes minimal
+Ensure app still runs
+
+When unsure:
+
+Choose simplest implementation
+🧼 Code Quality
+Use TypeScript
+Keep functions small and pure
+No unnecessary abstractions
+Prefer clarity over cleverness
+🔄 Iteration Strategy
+
+Always prioritize:
+
+Working end-to-end flow
+Then improve scoring
+Then improve data
+THEN consider expansion
+🧠 Guiding Question
+
+Before writing code, ask:
+
+"Does this help the user decide what to farm next?"
+
+If not, do not build it.

@@ -1,0 +1,22 @@
+{
+  "dryRun": false,
+  "region": "us",
+  "catalogSpellIds": 1578,
+  "resolved": 1576,
+  "missingSpellMiscRow": 1,
+  "zeroIconFileDataId": 1,
+  "missingListfileEntry": 0,
+  "overrides": {
+    "added": 0,
+    "updated": 0,
+    "skippedHasMountIcon": 26,
+    "skippedExistingOverride": 1550
+  },
+  "missingMiscSample": [
+    371571
+  ],
+  "zeroIconSample": [
+    1254363
+  ],
+  "missingListfileSample": []
+}

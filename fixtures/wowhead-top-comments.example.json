@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "sourceNote": "Example only — replace with your real note, e.g. Manual copy of top 5 voted comments from Wowhead spell page on 2026-03-24 (personal use).",
+  "entries": [
+    {
+      "spellId": 40192,
+      "comments": [
+        {
+          "text": "Example excerpt 1: players often mention weekly lockout and that the drop is extremely rare."
+        },
+        {
+          "text": "Example excerpt 2: someone suggests running with a group that agrees on mount loot rules before the boss."
+        },
+        {
+          "text": "Example excerpt 3: reminder that legacy loot mode affects how many items drop."
+        }
+      ]
+    }
+  ]
+}

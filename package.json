@@ -1,0 +1,38 @@
+{
+  "name": "mynextmount",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true}); console.log('Removed .next')\"",
+    "dev:clean": "npm run clean && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "data:merge-stubs": "node scripts/merge-export-stubs.mjs",
+    "data:check-coverage": "node scripts/check-mount-coverage.mjs",
+    "data:check-surface": "node scripts/check-mount-surface.mjs",
+    "data:check-drift": "node scripts/check-mount-drift.mjs",
+    "data:build": "node scripts/build-mounts.mjs",
+    "data:apply-scores": "node scripts/apply-scoring-heuristics.mjs",
+    "data:spell-baseline": "node scripts/spell-baseline.mjs",
+    "data:enrich-metadata": "node scripts/enrich-mount-metadata.mjs",
+    "data:sync-spell-icons": "node scripts/sync-spell-icons.mjs",
+    "data:ingest-mount-map": "node scripts/ingest-mount-spell-map.mjs",
+    "addon:sync-guides": "node scripts/generate-addon-guides.mjs",
+    "farm-tip:draft": "node scripts/farm-tip-llm-draft.mjs",
+    "data:wowhead-digest": "node scripts/report-wowhead-digests.mjs",
+    "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

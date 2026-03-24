@@ -1,0 +1,21 @@
+node_modules
+.next
+*.tsbuildinfo
+.vercel
+out
+*.log
+.env*.local
+
+# Harvest pipeline (Epic B.0): keep manifests in git; ignore volatile cache/logs
+data/build/cache/
+data/build/harvest.log
+data/build/farm-tip-llm-last-prompt.txt
+data/build/farm-tip-llm-draft-output.json
+data/build/wowhead-digest-llm-prompts.txt
+data/build/wowhead-digest-llm-draft-output.json
+
+# Copied from data/*logo* at build/dev (see next.config.ts)
+public/mynextmount-brand.png
+public/mynextmount-brand.svg
+public/mynextmount-brand.webp
+public/mynextmount-brand.jpg

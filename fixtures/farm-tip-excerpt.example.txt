@@ -1,0 +1,4 @@
+# spellId: 63796
+# sourceNote: EXAMPLE — replace with your own lawful excerpt (e.g. short notes you typed after reading Wowhead / official pages; do not paste long comment threads).
+
+Mimiron's Head is tied to Ulduar and Yogg-Saron; historically hard-mode conditions affected whether the mount could drop. Retail may use legacy loot rules or group loot — confirm difficulty and lockout on Wowhead before farming weekly.

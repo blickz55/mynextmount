@@ -1,0 +1,53 @@
+{
+  "40192": {
+    "asOf": "2026-03-24",
+    "lines": [
+      "Ashes drop from Kael’thas in Tempest Keep (The Eye); instance is a weekly lockout.",
+      "The mount is a classic ultra-rare raid drop—budget many clears unless RNG smiles.",
+      "PUGs and communities sometimes organize legacy TK runs; agree on loot rules before joining.",
+      "Check your edition’s loot rules (personal vs legacy) so you know whether the mount can trade."
+    ]
+  },
+  "72286": {
+    "asOf": "2026-03-24",
+    "lines": [
+      "Invincible’s Reins drop from the Lich King in Icecrown Citadel on the legacy heroic-25 difficulty ruleset for that content.",
+      "Widely considered one of the rarest farmable mounts—expect a long campaign.",
+      "ICC has multiple wings; full clears take time; plan lockouts if you’re on multiple characters.",
+      "Before paying for a ‘mount run,’ verify difficulty, lockout, and what the group guarantees."
+    ]
+  },
+  "60002": {
+    "asOf": "2026-03-24",
+    "lines": [
+      "The Time-Lost Proto-Drake is a Storm Peaks rare spawn; competition for the tag is common.",
+      "Vyragosa shares the same general rare ecosystem—many stories are about mistiming or missing the TLPD path.",
+      "NPC-scanning addons and community spawn timers help but are not a guarantee; WoW’s API limits still apply in 12.x.",
+      "Camping can take days or weeks; set realistic expectations and take breaks."
+    ]
+  },
+  "6648": {
+    "asOf": "2026-03-24",
+    "lines": [
+      "Chestnut Mare is a vendor mount—buy from human racial vendors (e.g. Elwynn area) for a few silver.",
+      "No grind: if it’s missing from your journal, check the correct vendor list for your faction.",
+      "Useful as a cheap completion tick for mount collectors."
+    ]
+  },
+  "71810": {
+    "asOf": "2026-03-24",
+    "lines": [
+      "Wrathful Gladiator’s Frost Wyrm was a Wrath-era arena seasonal reward—not obtainable the same way today.",
+      "New players often discover it only via the journal grayed out; verify current sources in the mount panel.",
+      "If you see it on the BMAH or promotions, those windows are rare—community news threads spell out timing."
+    ]
+  },
+  "5784": {
+    "asOf": "2026-03-24",
+    "lines": [
+      "Felsteed is the Warlock class mount quest chain (Classic-era flow varies by edition—check your client).",
+      "Low friction compared to drop mounts; new warlocks usually pick it up through the class intro experience.",
+      "If the spell is missing, verify you completed the right questline for your game version."
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "ignoreWowheadUrlForSpellIds": [],
+  "ignoreCommentsUrlForSpellIds": [],
+  "ignoreIconForSpellIds": [],
+  "notes": [
+    "Spell IDs listed here are treated as satisfied for the corresponding surface check in npm run data:check-surface -- --strict.",
+    "Document each id in docs/ or a short comment in commit messages — do not use this to hide silent data rot."
+  ]
+}

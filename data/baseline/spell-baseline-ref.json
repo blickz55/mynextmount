@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": null,
+  "expectedMountIndexEntries": 1578,
+  "toleranceMountIndex": 0,
+  "expectedUniqueSpellCount": null,
+  "toleranceUnique": 0,
+  "notes": "Epic B.3 gate for npm run data:spell-baseline. expectedMountIndexEntries must match the live API index (± toleranceMountIndex). If expectedUniqueSpellCount is a number, uniqueSummonSpellCount is checked too (journal mounts sharing one summon spell make unique < index). Patch day: npm run data:spell-baseline -- --update-ref then commit this file + optional data/build/mount-spells-raw.json."
+}

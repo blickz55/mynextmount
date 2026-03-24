@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "excludedSpellIds": [],
+  "notes": [
+    "Spell IDs listed in excludedSpellIds are obtainable in-game (or appear in API) but are intentionally omitted from mounts.json. Each ID must be justified in docs/mount-catalog-exceptions.md.",
+    "Empty array means no intentional omissions are tracked yet."
+  ]
+}

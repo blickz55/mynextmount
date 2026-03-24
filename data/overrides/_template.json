@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1,
+  "notes": "Epic B.2 — optional per-spell patches (merge after API row). See docs/data-harvesting.md.",
+  "patches": []
+}

@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-03-24T14:51:03.730Z",
+  "strict": true,
+  "thresholds": {
+    "minIcon": 95,
+    "minWowhead": 100,
+    "minComments": 100,
+    "minDigest": 0,
+    "minFarmTip": 0,
+    "minGuide": 0
+  },
+  "totals": {
+    "mergedRows": 1578,
+    "nonStubRows": 1578,
+    "stubRows": 0,
+    "nameIssueCount": 0
+  },
+  "metrics": {
+    "icon": {
+      "ok": 1576,
+      "missing": 2,
+      "pct": 99.87325728770595
+    },
+    "wowheadUrl": {
+      "ok": 1578,
+      "missing": 0,
+      "pct": 100
+    },
+    "commentsUrl": {
+      "ok": 1578,
+      "missing": 0,
+      "pct": 100
+    },
+    "digest": {
+      "ok": 6,
+      "missing": 1572,
+      "pct": 0.38022813688212925
+    },
+    "farmTip": {
+      "ok": 16,
+      "missing": 1562,
+      "pct": 1.0139416983523446
+    },
+    "guide": {
+      "ok": 6,
+      "missing": 1572,
+      "pct": 0.38022813688212925
+    }
+  },
+  "topMissingIconSpellIds": [
+    {
+      "id": 371571,
+      "name": "Dragon Isles Drake Model Test"
+    },
+    {
+      "id": 1254363,
+      "name": "(PH) Legion Remix Mount"
+    }
+  ],
+  "missingIconCount": 2,
+  "strictPassed": true,
+  "failures": []
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-03-23T12:00:00.000Z",
+  "gameVersion": "retail-11.x.x",
+  "gitCommit": "optional-short-sha",
+  "notes": "Replace with real run output when npm run data:build exists.",
+  "rowCount": 0,
+  "spellIdCount": 0,
+  "sources": [
+    {
+      "tier": 1,
+      "name": "Blizzard Game Data API",
+      "endpointOrNote": "/data/wow/mount/index + per-mount detail",
+      "retrievedAt": "2026-03-23T12:00:00.000Z"
+    }
+  ],
+  "settings": {
+    "defaultRequestsPerSecondPerHost": 1,
+    "cacheTtlSeconds": 86400,
+    "respectRobotsTxt": true
+  }
+}
