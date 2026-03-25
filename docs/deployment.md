@@ -35,6 +35,7 @@ You can disable or delete that workflow if you rely entirely on Vercel’s Git i
 ## Local parity
 
 - **`NEXT_PUBLIC_SITE_URL`** — canonical site URL for `metadataBase` / Open Graph (defaults to `https://www.mynextmount.com` in code if unset).
+- **`npm run test`** — Vitest regression suite (parse, ownership filter, scoring, sort order); same command CI runs before lint/build.
 
 ## CI without deploy
 

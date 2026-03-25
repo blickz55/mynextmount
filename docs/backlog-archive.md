@@ -648,6 +648,24 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 ---
 
+# PHASE G — Quality, ops, and testing (archive)
+
+## Epic G.1 — Regression tests ✅ Complete
+
+### Requirement G.1.1
+
+- Unit tests for: parse, filter-owned invariant, scoring determinism, **ordering of scored lists** (full sort + client slice).
+- Fixture: small JSON + known export string → expected **head** of sorted recommendations (and invariant: no owned IDs in results).
+
+**Implemented**
+
+- **`vitest`** + **`npm run test`** / **`npm run test:watch`**.
+- **`fixtures/g1-mount-catalog.json`** — six synthetic mounts with distinct easiest/rarest ordering among the unowned subset.
+- **`tests/g1-regression.test.ts`** — `parseMountExport`, `filterUnownedMounts`, `scoreEasiest` / `scoreRarest` determinism, `sortMountsByScore` full order + first-three “head” for both modes vs export **`M:100001,100002`**.
+- **`.github/workflows/ci.yml`** — runs **`npm run test`** before lint and build.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -657,5 +675,6 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 | **C** | C.1–C.4 |
 | **D** | D.1–D.10 (through filters, infinite scroll & brand) |
 | **E** | E.1 |
+| **G** | G.1 |
 
-**Next work:** root **`backlog.md`** — **G.1** / **G.2**, then **F.1** / **F.2** when you are ready to commercialize.
+**Next work:** root **`backlog.md`** — **G.2**, then **F.1** / **F.2** when you are ready to commercialize.

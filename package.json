@@ -9,6 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "data:merge-stubs": "node scripts/merge-export-stubs.mjs",
     "data:check-coverage": "node scripts/check-mount-coverage.mjs",
     "data:check-surface": "node scripts/check-mount-surface.mjs",
@@ -33,6 +35,7 @@
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^3.2.4"
   }
 }

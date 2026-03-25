@@ -94,12 +94,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE G — Quality, ops, and testing
 
-## Epic G.1 — Regression tests
-
-### Requirement G.1.1
-
-- Unit tests for: parse, filter-owned invariant, scoring determinism, **ordering of scored lists** (formerly “top 10”; now full sort + client slice).
-- Fixture: small JSON + known export string → expected **head** of sorted recommendations (and invariant: no owned IDs in results).
+**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build.
 
 ## Epic G.2 — Performance
 
@@ -140,14 +135,13 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 
 | Priority | Epic / item | Why |
 |----------|-------------|-----|
-| **1** | **G.1** — Regression tests | Protects the **ownership invariant** and scoring as you keep shipping; cheap to run in CI. |
-| **2** | **G.2** — Perf / virtualization | Next likely pain point after **D.10** for players with **very large** collections (**View your mounts** first). |
+| **1** | **G.2** — Perf / virtualization | Next likely pain point after **D.10** for players with **very large** collections (**View your mounts** first). |
 | **3** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
 | **4** | **F.1** — Business clarity | **Before** auth or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
 | **5** | **F.2** — Auth / tiers | Only after F.1 + **`docs/auth-strategy.md`**; still optional for a paste-only public site. |
 
-**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **G.1 → G.2** is the main product-quality track.
+**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **G.2** is the main product-quality track after **G.1** (shipped).
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**). Last updated: backlog groom — **D.10** archived, **F/G** prioritized.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**). Last updated: **G.1** regression tests shipped.*

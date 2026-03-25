@@ -1,0 +1,74 @@
+[
+  {
+    "id": 100001,
+    "name": "G1 Fixture — easiest bias",
+    "source": "DROP — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 0.9,
+    "difficulty": 1,
+    "timeToComplete": 10,
+    "lockout": "none",
+    "expansion": "Fixture",
+    "tags": []
+  },
+  {
+    "id": 100002,
+    "name": "G1 Fixture — rarest bias",
+    "source": "DROP — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 0.01,
+    "difficulty": 5,
+    "timeToComplete": 100,
+    "lockout": "weekly",
+    "expansion": "Fixture",
+    "tags": ["rare"]
+  },
+  {
+    "id": 100003,
+    "name": "G1 Fixture — mid C",
+    "source": "VENDOR — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 0.5,
+    "difficulty": 3,
+    "timeToComplete": 60,
+    "lockout": "none",
+    "expansion": "Fixture",
+    "tags": []
+  },
+  {
+    "id": 100004,
+    "name": "G1 Fixture — mid D",
+    "source": "QUEST — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 0.2,
+    "difficulty": 2,
+    "timeToComplete": 30,
+    "lockout": "none",
+    "expansion": "Fixture",
+    "tags": []
+  },
+  {
+    "id": 100005,
+    "name": "G1 Fixture — mid E",
+    "source": "ACHIEVEMENT — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 0.8,
+    "difficulty": 4,
+    "timeToComplete": 120,
+    "lockout": "none",
+    "expansion": "Fixture",
+    "tags": []
+  },
+  {
+    "id": 100006,
+    "name": "G1 Fixture — hard F",
+    "source": "DROP — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 0.05,
+    "difficulty": 5,
+    "timeToComplete": 200,
+    "lockout": "weekly",
+    "expansion": "Fixture",
+    "tags": []
+  }
+]
