@@ -152,6 +152,10 @@ Ensure app still runs
 When unsure:
 
 Choose simplest implementation
+
+### Git (default until you say otherwise)
+
+After completing implementation work that changes the repo: **commit** with a clear message and **push to `origin/main`** so GitHub / CI / Vercel stay in sync. Skip push only if the user explicitly asks for local-only changes or no git operations.
 🧼 Code Quality
 Use TypeScript
 Keep functions small and pure
