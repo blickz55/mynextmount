@@ -68,6 +68,26 @@ Per mount, typical order:
 
 Then **`npm run addon:sync-guides`** when **`mount-guides.json`** changes.
 
+### Automated guide drafts (LLM)
+
+```bash
+# Preview which rows would run (default first 10 missing guides)
+npm run content:guides-batch -- --only-missing --dry-run
+
+# Generate 25 guides → data/build/mount-guides-batch.json (gitignored)
+npm run content:guides-batch -- --limit=25 --only-missing
+
+# Merge into data/mount-guides.json and sync addon
+npm run content:guides-batch -- --limit=25 --only-missing --apply
+npm run addon:sync-guides
+```
+
+- **Env:** **`CONTENT_GUIDES_OPENAI_API_KEY`** or **`FARM_TIP_OPENAI_API_KEY`** in **`.env.local`**; optional **`CONTENT_GUIDES_LLM_MODEL`**, **`CONTENT_GUIDES_LLM_DELAY_MS`**.
+- **`--limit=0`** — no cap (whole filtered list; expensive).
+- **`--spell-id=N`** — single mount.
+- **`--force`** — overwrite an existing guide.
+- Batches append to **`data/content-guides-provenance.json`**.
+
 ---
 
 ## Marketing honesty

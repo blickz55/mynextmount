@@ -24,6 +24,8 @@ using any combination of **`data/mounts.json`** fields, HTTP fetches, APIs, and 
 
 **Cursor / AI agents** are **authorized** to implement and run these pipelines when the maintainer requests.
 
+**Shipped command:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**).
+
 ---
 
 ## Product scope (baseline)

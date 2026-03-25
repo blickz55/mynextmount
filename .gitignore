@@ -14,6 +14,7 @@ data/build/farm-tip-llm-draft-output.json
 data/build/wowhead-digest-llm-prompts.txt
 data/build/wowhead-digest-llm-draft-output.json
 data/build/guide-experience-coverage.json
+data/build/mount-guides-batch.json
 
 # Copied from data/*logo* at build/dev (see next.config.ts)
 public/mynextmount-brand.png

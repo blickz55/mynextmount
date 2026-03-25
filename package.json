@@ -25,6 +25,7 @@
     "farm-tip:draft": "node scripts/farm-tip-llm-draft.mjs",
     "data:wowhead-digest": "node scripts/report-wowhead-digests.mjs",
     "data:guide-experience": "node scripts/report-guide-experience-coverage.mjs",
+    "content:guides-batch": "node scripts/content-guides-batch.mjs",
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs"
   },
   "dependencies": {

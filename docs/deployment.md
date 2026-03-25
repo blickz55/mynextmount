@@ -41,6 +41,7 @@ You can delete **`.github/workflows/vercel-staging.yml`** if you will never use 
 - **`docs/mobile-smoke-checklist.md`** — quick pass for **`/`** and **`/tool`** on a narrow viewport (Epic **H.1**).
 - **`docs/a11y-audit.md`** — accessibility baseline + manual checklist (Epic **I.2**).
 - **`npm run data:guide-experience`** — guide + digest + farm-tip coverage vs **`mounts.json`** (Epic **I.6**); see **`docs/guide-experience-roadmap.md`**.
+- **`npm run content:guides-batch`** — LLM batch for **`mount-guides.json`** (OpenAI key in **`.env.local`**); see same doc.
 
 ## CI without deploy
 
