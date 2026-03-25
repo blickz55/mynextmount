@@ -4,6 +4,28 @@ This document is the **authoritative policy** for **Phase B** (`backlog.md`). An
 
 ---
 
+## Maintainer override — automated content JSON (guides, digests, farm tips)
+
+**Status:** Active by **project maintainer decision** (see **`.cursorrules`** — *Content automation*).
+
+The maintainer may use **dedicated** npm scripts (e.g. `npm run content:…` — add under **`package.json`** as implemented) to **automatically** populate or refresh:
+
+- **`data/mount-guides.json`**
+- **`data/wowhead-comment-digests.json`**
+- **`data/farm-tips.json`**
+
+using any combination of **`data/mounts.json`** fields, HTTP fetches, APIs, and LLMs. **Human review before merge is recommended, not required** by repo policy.
+
+**Still required for a clean architecture**
+
+- Do **not** silently fold undocumented third-party bulk fetch into **`npm run data:build`** unless you explicitly document that coupling.
+- Prefer **paraphrase** over verbatim Wowhead or other third-party prose in committed JSON.
+- **Legal / ToS:** Automation may conflict with third-party terms ([Wowhead ToU](https://www.wowhead.com/terms-of-use), etc.). **The person who runs the command** accepts responsibility. This override does not grant rights from Blizzard, Wowhead, or anyone else.
+
+**Cursor / AI agents** are **authorized** to implement and run these pipelines when the maintainer requests.
+
+---
+
 ## Product scope (baseline)
 
 | Decision | Current choice | Revisit when |
@@ -39,11 +61,11 @@ Use sources **in order**. Do not skip to a lower tier for bulk data when a highe
 
 ### Phase B build boundary (comments & community text)
 
-**Phase B** npm scripts (**`data:build`**, **`data:apply-scores`**, **`data:enrich-metadata`**, **`data:sync-spell-icons`**, **`data:spell-baseline`**, **`data:check-coverage`**, **`data:check-drift`**, **`data:check-surface`**, ingest helpers, etc.) must **not** bulk-fetch Wowhead comment threads, Reddit posts, or other Tier-3 prose into committed JSON. That matches Tier 3 above and keeps the build reproducible without crawling gray-area endpoints.
+**Phase B** npm scripts (**`data:build`**, **`data:apply-scores`**, **`data:enrich-metadata`**, **`data:sync-spell-icons`**, **`data:spell-baseline`**, **`data:check-coverage`**, **`data:check-drift`**, **`data:check-surface`**, ingest helpers, etc.) must **not** bulk-fetch Wowhead comment threads, Reddit posts, or other Tier-3 prose **into those scripts’ default code paths** unless you have **explicitly** documented an exception. Keep **`data:build`** Blizzard/API-first unless you intentionally couple it (not recommended).
 
-During Phase B, **`data/farm-tips.json`** is **hand-written or self-paraphrased** one-liners only (no pipeline that mirrors third-party comments into the repo).
+**Exception:** Separate **content automation** scripts (see **Maintainer override** above) **may** fetch or generate Tier-3–style prose into **`farm-tips.json`**, **`wowhead-comment-digests.json`**, and **`mount-guides.json`** when the maintainer runs them. That is **not** “Phase B” in the sense of the core mount index pipeline.
 
-**Phase C — Epic C.4** (backlog) covers an optional **human-in-the-loop** workflow: lawfully obtained excerpts (e.g. manual copy, or automation only where ToU clearly allows) → **LLM summarization** into **original** tips → editor review → merge to **`farm-tips.json`**. That work is **explicitly not** part of the Phase B build chain until promoted and documented.
+**Phase C — Epic C.4** workflows in **`docs/farm-tip-llm-workflow.md`** and **`docs/wowhead-digests.md`** remain valid **conservative** options; the maintainer may also run **fully automated** batches without a manual gate per repo policy.
 
 ---
 
@@ -278,7 +300,7 @@ Each row already links **`commentsUrl`** on Wowhead for deep reading.
 | **4. Score heuristics** | Source category + `data/overrides/` | `dropRate`, `difficulty`, etc. | Document heuristics in this file when stable. |
 | **5. Emit** | Merged model | `mounts.json` + **manifest** | Sort by `id`; validate schema. |
 
-**Phase B scope:** stages 1–5 above do **not** include bulk ingestion of Wowhead/Reddit **comments** into committed data. Tip expansion from community text is **Phase C — Epic C.4** (governed LLM + review), not a build-phase dependency.
+**Phase B scope:** stages 1–5 above do **not** include bulk ingestion of Wowhead/Reddit **comments** into **`mounts.json`** or the core harvest manifest. **Separate** content scripts may still write **`mount-guides.json`**, **`wowhead-comment-digests.json`**, and **`farm-tips.json`** per **Maintainer override** above.
 
 ---
 
@@ -290,12 +312,12 @@ Each row already links **`commentsUrl`** on Wowhead for deep reading.
 ### Website — comment digests (Epic D.5)
 
 - **`data/wowhead-comment-digests.json`** is **not** produced by **`data:build`**. It merges at app load (`lib/mounts.ts`) into **`wowheadCommentDigest`** / **`wowheadCommentDigestAsOf`**.
-- **Tiers:** fully manual bullets, or **LLM paraphrase** from up to **five** lawfully obtained comment excerpts per mount (**human review** before commit). No in-repo bulk Wowhead HTML scrape — see **`docs/wowhead-digests.md`** and **`npm run wowhead-digest:draft`**.
+- **Tiers:** manual, LLM from excerpts (**`npm run wowhead-digest:draft`**), or **automated batch** scripts (**maintainer** — **`docs/wowhead-digests.md`** Tier 3). **Human review** is optional per repo policy; **ToS** is the operator’s responsibility.
 - **`npm run data:wowhead-digest`** writes **`data/build/wowhead-digest-report.json`** and can enforce pilot coverage with **`--strict-pilots`**.
 
 ### Full farm row coverage (all mounts)
 
-- **`docs/guide-experience-roadmap.md`** — batched path to **guide + digest + farm tip** for the whole catalog (governance unchanged).
+- **`docs/guide-experience-roadmap.md`** — batched path to **guide + digest + farm tip** for the whole catalog (**Maintainer override** allows automation).
 - **`npm run data:guide-experience`** — combined percentages vs **`data/mounts.json`** → **`data/build/guide-experience-coverage.json`**.
 
 ---

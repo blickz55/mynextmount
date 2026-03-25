@@ -16,7 +16,7 @@ When you say *“Execute Story X.Y.Z”*, map to an epic below unless you overri
 
 - **Ownership is sacred**: Anything the player’s export says they **own** must **never** appear in “farm next” results (keep invariant across all features).
 - **No fake completeness until we mean it**: Do not claim “all mounts” until the dataset and ID contract are verified against a real export.
-- **Respect Blizzard & third-party ToS**: Prefer **official APIs** and **licensed/allowed** asset use over aggressive scraping or redistributing Wowhead content verbatim at scale.
+- **Respect Blizzard & third-party ToS** (operator responsibility): Prefer **official APIs** for the **mount index**; **guides/digests/tips** may be filled with **automated batch** tools per **`docs/data-harvesting.md`** (*Maintainer override*) — you own compliance and copy quality.
 - **12.0 / Midnight reality**: Assume Retail addon capabilities **may shrink**; design so **the website + static data** remain useful even if the addon is display-only or export-only.
 
 ---

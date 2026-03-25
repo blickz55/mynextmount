@@ -24,15 +24,17 @@ You write **`lines`** yourself from general game knowledge. No third-party comme
 This is the supported workflow when you want the UI to reflect **what the thread emphasizes**, without pasting Wowhead verbatim into the repo.
 
 1. **Lawful inputs only** — For each mount, collect up to **five** comment bodies from the Wowhead spell page (typically the **highest-voted** or **top of thread**). Obtain them in a way you are comfortable with under [Wowhead Terms of Use](https://www.wowhead.com/terms-of-use) and your risk tolerance — e.g. **manual copy from your browser** while you review the page. Do **not** commit raw comment dumps to git; keep excerpts only in **local** JSON batches under `data/build/` if needed, or paste into a fixture you delete after merging.
-2. **LLM = paraphrase engine** — Run **`npm run wowhead-digest:draft`** with a JSON batch (see [Input format](#input-format-for-wowhead-digestdraft)). The model must output **new wording**; you **review** every bullet for accuracy, tone, and non-verbatim phrasing before merging.
-3. **Human gate** — Copy reviewed **`lines`** (and **`asOf`**) into **`data/wowhead-comment-digests.json`**. Nothing from this script ships to users until you commit that merge.
+2. **LLM = paraphrase engine** — Run **`npm run wowhead-digest:draft`** with a JSON batch (see [Input format](#input-format-for-wowhead-digestdraft)). The model must output **new wording**; **review** is recommended before merge but **not required** by repo policy (see **`docs/data-harvesting.md`** — *Maintainer override*).
+3. **Merge** — Copy **`lines`** (and **`asOf`**) into **`data/wowhead-comment-digests.json`** (or use a batch script that writes the file directly when you automate).
 4. **Provenance (recommended)** — Append a batch row to **`data/wowhead-digest-provenance.json`** (see template below): reviewer, **`sourceNote`**, spell ids, optional **`llmModel`**.
 
 **Product copy** should still present these as **summarized community tips**, not as official Wowhead or Blizzard text.
 
-### Tier 3 — Automated fetch (not included)
+### Tier 3 — Automated batch pipeline (maintainer)
 
-Bulk HTML scraping or undocumented APIs are **out of scope** for in-repo scripts until there is a **documented, ToU-safe** feed. If Wowhead (or another host) publishes a stable JSON contract you may use, prefer that and document it in **`docs/data-harvesting.md`** under provenance.
+The maintainer may run **custom** scripts (invoked via **`npm run …`**) that fetch or derive comment text, paraphrase via LLM, and write **`data/wowhead-comment-digests.json`** in bulk. **ToS / legal risk is on the operator.** Cursor/agents are **allowed** to implement this when asked — see **`.cursorrules`** and **`docs/data-harvesting.md`** (*Maintainer override*).
+
+Prefer **paraphrase**; do not commit **verbatim** full threads or raw HTML snapshots when you can avoid it.
 
 ## Input format for `wowhead-digest:draft`
 

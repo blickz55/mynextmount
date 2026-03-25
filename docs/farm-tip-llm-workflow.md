@@ -4,9 +4,9 @@ This is the **optional Phase C** path for expanding **`data/farm-tips.json`**. I
 
 ## Governance
 
-1. **Lawful input only** — Paste or type **short excerpts** you are allowed to use (your own notes, paraphrase after reading Wowhead, text you have permission to use). Do **not** bulk-scrape comments, Reddit HTML, or violate site **ToU** / **robots.txt**.
-2. **LLM = draft assistant** — The model must **paraphrase**; the committed string must be **human-reviewed** and must not be a verbatim copy of third-party comments.
-3. **Provenance** — Before merging tips, append a batch to **`data/farm-tip-provenance.json`** (`reviewer`, `sourceClass`, `spellIds`, optional `llmModel`).
+1. **Input & ToU** — You may use manual excerpts **or** automated fetch pipelines per **`docs/data-harvesting.md`** (*Maintainer override*). **Legal compliance is the operator’s responsibility.**
+2. **LLM = draft assistant** — The model should **paraphrase**; **human review** before merge is **recommended**, not required by repo policy.
+3. **Provenance (recommended)** — Append a batch to **`data/farm-tip-provenance.json`** (`reviewer`, `sourceClass`, `spellIds`, optional `llmModel`).
 
 ## Commands
 

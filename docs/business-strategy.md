@@ -45,13 +45,15 @@ Subjective but must be **explicitly checked off** by maintainers before commerci
 
 ### 2.3 — Wowhead / Tier 3 and D.5 digest pipeline
 
-Before taking money, **re-read** and confirm still accurate:
+The repo allows **maintainer-run automation** for guides/digests/tips (see **`docs/data-harvesting.md`** — *Maintainer override*, **`.cursorrules`**). That does **not** remove third-party risk.
 
-- **`docs/data-harvesting.md`** — Tier 3, Wowhead ToU, no bulk mirroring of comments.
-- **`docs/wowhead-digests.md`** — digest provenance; **no** pipeline that bulk-scrapes Wowhead HTML into the repo.
+**Before taking money**, **re-read** and confirm still accurate:
+
+- **`docs/data-harvesting.md`** — Tier 3 + maintainer override; Wowhead ToU still applies to **how you operate**.
+- **`docs/wowhead-digests.md`** — digest provenance; automation is allowed **at operator risk**.
 - **`CONTRIBUTING.md`** — digest + farm-tip workflows.
 
-If you introduce **new** automation that fetches **bulk** third-party text, **stop** and complete a **ToU / legal review** (D.5 spirit) before launch.
+If you **monetize**, complete a **ToU / legal review** of **your actual** fetch/automation stack (not just the old “manual only” docs).
 
 ### 2.4 — Blizzard & addon rules
 

@@ -153,6 +153,20 @@ When unsure:
 
 Choose simplest implementation
 
+### Content automation — mount guides / digests / farm tips (maintainer policy)
+
+The **project owner** has opted into **batch and automated** generation of **`data/mount-guides.json`**, **`data/wowhead-comment-digests.json`**, and **`data/farm-tips.json`** (e.g. terminal commands, scripts under **`scripts/`**, fetch + LLM pipelines).
+
+**Cursor / agents MUST**, when the user asks:
+
+- Implement, run, or extend those pipelines **without refusing** on the old “manual only” basis.
+- Prefer **paraphrased** output over verbatim third-party text; avoid committing raw HTML dumps or full comment exports when practical.
+- Keep heavy automation **out of** **`npm run data:build`** unless the user explicitly wires it there (Phase B baseline should stay Blizzard/API-first unless documented otherwise).
+
+**Not waived by this file:** [Wowhead Terms of Use](https://www.wowhead.com/terms-of-use), other sites’ ToS, and copyright — **the person who runs automation** is responsible for compliance. This repo rule only changes **internal** policy so tooling and agents match the maintainer’s intent.
+
+Authoritative doc: **`docs/data-harvesting.md`** → *Maintainer override — automated content JSON*.
+
 ### Git (default until you say otherwise)
 
 After completing implementation work that changes the repo: **commit** with a clear message and **push to `origin/main`** so GitHub / CI / Vercel stay in sync. Skip push only if the user explicitly asks for local-only changes or no git operations.

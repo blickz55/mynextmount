@@ -13,7 +13,7 @@ Short **summarized** tips (not verbatim comments): **`data/wowhead-comment-diges
 
 Add or edit **`data/mount-guides.json`** using the **human-in-the-loop** workflow and quality bar in **`docs/guides.md`** (section **Harvesting workflow (Epic C.3)**).
 
-**Scaling guides + digests + tips to the full catalog:** **`docs/guide-experience-roadmap.md`**. Progress metric: **`npm run data:guide-experience`**.
+**Scaling guides + digests + tips to the full catalog:** **`docs/guide-experience-roadmap.md`**. Progress metric: **`npm run data:guide-experience`**. **Automated batch generation** is **allowed** (maintainer responsibility for ToU — **`docs/data-harvesting.md`** *Maintainer override*, **`.cursorrules`**).
 
 After JSON changes:
 

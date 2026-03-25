@@ -1,6 +1,8 @@
 # Roadmap: full farm guide experience for every mount
 
-This document is the **execution path** to replicate the rich expandable row (written **farm guide**, **“Why”** line, **summarized community tips**, **Wowhead** link + disclaimer) for **all mounts in `data/mounts.json`** — without changing the product rule: **no bulk automated scraping** of Wowhead or other sites; **human review** before merge. See **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/wowhead-digests.md`**, **`docs/farm-tip-llm-workflow.md`**.
+This document is the **execution path** to replicate the rich expandable row (written **farm guide**, **“Why”** line, **summarized community tips**, **Wowhead** link + disclaimer) for **all mounts in `data/mounts.json`**.
+
+**Policy:** The maintainer may use **automated batch commands** (scripts + terminal) to fill **`mount-guides.json`**, **`wowhead-comment-digests.json`**, and **`farm-tips.json`**. **Human review is optional**; **third-party ToS and law** remain the **operator’s** responsibility. See **`docs/data-harvesting.md`** (*Maintainer override*), **`.cursorrules`** (*Content automation*), **`docs/guides.md`**, **`docs/wowhead-digests.md`**, **`docs/farm-tip-llm-workflow.md`**.
 
 ---
 
@@ -18,11 +20,11 @@ The UI already renders the card when data exists (`lib/mounts.ts` merges these a
 
 ---
 
-## Governance (non-negotiable)
+## Governance (repo policy)
 
-1. **Lawful inputs** for digest / tip workflows — manual excerpting or automation only where **ToU** / **robots.txt** clearly allow; see **`docs/wowhead-digests.md`** Tier 2 vs Tier 3.
-2. **No verbatim Wowhead comments** in the repo; **paraphrase + review**.
-3. **Provenance** — append batches to **`data/wowhead-digest-provenance.json`** and **`data/farm-tip-provenance.json`** when you use LLM-assisted drafts.
+1. **Operator responsibility** — You choose how to obtain inputs (manual, API, fetch). **Compliance** with [Wowhead ToU](https://www.wowhead.com/terms-of-use) and similar is **your** call; the repo **authorizes** automation when you want it.
+2. **Quality** — Prefer **paraphrase** over verbatim comment paste; avoid raw HTML dumps in git when practical.
+3. **Provenance (recommended)** — Append batches to **`data/wowhead-digest-provenance.json`** and **`data/farm-tip-provenance.json`** for auditability, even when skipping manual review.
 
 ---
 
@@ -68,11 +70,10 @@ Then **`npm run addon:sync-guides`** when **`mount-guides.json`** changes.
 
 ---
 
-## What we are not doing (until policy changes)
+## Marketing honesty
 
-- **Unattended** HTML crawl of Wowhead comment threads into git.
-- Shipping **raw** comment dumps.
-- Claiming **100% guide coverage** in marketing until **`data:guide-experience`** (or a stricter gate you define) hits your chosen threshold.
+- Do not claim **“official Wowhead”** or **100% human-verified** unless that is true.
+- Optional: tie public claims to **`npm run data:guide-experience`** (or **`data:check-surface`**) thresholds you document.
 
 ---
 

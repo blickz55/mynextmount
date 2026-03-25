@@ -2,11 +2,13 @@
 
 ## Harvesting workflow (Epic C.3)
 
-This is the **human-in-the-loop** process for adding or updating entries in **`data/mount-guides.json`**. It complements **Tier 1** facts from **`npm run data:build`** (`name`, `source`, `sourceCategory`, links) and the policy in **`docs/data-harvesting.md`**. It does **not** replace Phase B scripts or bulk-scrape Wowhead.
+This is the default **quality-first** process for **`data/mount-guides.json`**. It complements **Tier 1** facts from **`npm run data:build`** (`name`, `source`, `sourceCategory`, links) and **`docs/data-harvesting.md`**.
 
-For **catalog-wide** coverage goals (same UI block on every mount), see **`docs/guide-experience-roadmap.md`** and **`npm run data:guide-experience`**.
+**Maintainer automation:** You may instead run **batch scripts** (terminal commands) that generate **`overview`**, **`checklist`**, **`sourceUrl`**, and **`sourceLabel`** for many mounts at once — including fetch + LLM flows. **Human review is optional** per repo policy; **ToS / legal compliance is your responsibility** (see **`docs/data-harvesting.md`** — *Maintainer override* and **`.cursorrules`**). Cursor/agents are **authorized** to build those scripts when you ask.
 
-### Roles
+For **catalog-wide** coverage goals, see **`docs/guide-experience-roadmap.md`** and **`npm run data:guide-experience`**.
+
+### Roles (manual / review pass)
 
 - **Research:** Open the primary page (usually [Wowhead](https://www.wowhead.com/) spell/item/quest/NPC or an official Blizzard article). Skim comments only for *hints*; do not paste comment text into the repo.
 - **Draft:** Write **`overview`** and **`checklist`** in **your own words** — short, accurate, cautious where Retail rules change by patch.
@@ -28,9 +30,9 @@ You do **not** need a separate generator: **`npm run data:build`** already fills
 1. Run **`data:build`** (and **`data:apply-scores`** if needed) so the row exists.
 2. Add **`mount-guides.json`** entry by hand from research — **no commit** of raw HTML or long copied guides.
 
-### What not to do
+### What not to do (quality)
 
-- Do not bulk-ingest Wowhead comments or Reddit threads into JSON (see **Epic C.4** / **`docs/data-harvesting.md`** — Phase B boundary and optional LLM path).
+- Avoid committing **verbatim** long excerpts of Wowhead comments or Reddit threads as “guides”; prefer **original or paraphrased** prose with a **`sourceUrl`** citation.
 - Do not ship **`MyNextMountGuides.lua`** by hand; always **`npm run addon:sync-guides`** after JSON changes.
 
 ### Quality bar (summary)
