@@ -3,6 +3,7 @@ import mountsStubsData from "@/data/mounts.stubs.json";
 import farmTipsData from "@/data/farm-tips.json";
 import mountGuidesData from "@/data/mount-guides.json";
 import mountIconOverrides from "@/data/mount-icon-overrides.json";
+import wowheadItemBySpell from "@/data/overrides/wowhead-item-by-spell.json";
 import wowheadCommentDigests from "@/data/wowhead-comment-digests.json";
 import type { Mount } from "@/types/mount";
 import type { MountGuide } from "@/types/mountGuide";
@@ -37,6 +38,23 @@ function mergeCanonicalAndStubs(): Mount[] {
   return merged;
 }
 
+/** Prefer `data/overrides/wowhead-item-by-spell.json`, then optional `wowheadItemId` on the row. */
+function mergeWowheadItemPage(mount: Mount): Mount {
+  const map = wowheadItemBySpell as Record<string, unknown>;
+  const fromMap = Number(map[String(mount.id)]);
+  if (Number.isFinite(fromMap) && fromMap > 0) {
+    return { ...mount, wowheadItemId: fromMap };
+  }
+  if (
+    typeof mount.wowheadItemId === "number" &&
+    Number.isFinite(mount.wowheadItemId) &&
+    mount.wowheadItemId > 0
+  ) {
+    return mount;
+  }
+  return mount;
+}
+
 function mergeFarmTips(mount: Mount): Mount {
   if (!/^\d+$/.test(String(mount.id))) return mount;
   const tip = (farmTipsData as Record<string, string>)[String(mount.id)];
@@ -61,11 +79,20 @@ function mergeGuide(mount: Mount): Mount {
   if (!g?.overview?.trim() || !Array.isArray(g.checklist) || !g.sourceUrl?.trim()) {
     return mount;
   }
+  const itemId = mount.wowheadItemId;
+  const useItem =
+    typeof itemId === "number" && Number.isFinite(itemId) && itemId > 0;
+  const sourceUrl = useItem
+    ? `https://www.wowhead.com/item=${itemId}`
+    : g.sourceUrl.trim();
+  const sourceLabel = useItem
+    ? `Wowhead — ${mount.name} (item)`
+    : (g.sourceLabel || "Source").trim();
   const guide: MountGuide = {
     overview: g.overview.trim(),
     checklist: g.checklist.map((s) => String(s)),
-    sourceUrl: g.sourceUrl.trim(),
-    sourceLabel: (g.sourceLabel || "Source").trim(),
+    sourceUrl,
+    sourceLabel,
   };
   return { ...mount, guide };
 }
@@ -81,29 +108,35 @@ function mergeIconOverride(mount: Mount): Mount {
   return { ...mount, iconUrl: url };
 }
 
-const DIGEST_MAX_LINES = 5;
+const DIGEST_MAX_LINES = 10;
 
-type DigestRow = { asOf?: string; lines?: unknown };
+type DigestRow = { asOf?: string; lines?: unknown; flavor?: unknown };
 
-/** Epic D.5 — Reviewed digests (manual or LLM-paraphrased from lawful excerpts; see docs/wowhead-digests.md). */
+/** Epic D.5 — Flavor + acquisition bullets from `data/wowhead-comment-digests.json` (LLM or editorial). */
 function mergeWowheadCommentDigest(mount: Mount): Mount {
   const row = (wowheadCommentDigests as Record<string, DigestRow>)[String(mount.id)];
-  if (!row || !Array.isArray(row.lines)) return mount;
-  const lines = row.lines
-    .map((s) => String(s).trim())
-    .filter(Boolean)
-    .slice(0, DIGEST_MAX_LINES);
-  if (lines.length === 0) return mount;
+  if (!row) return mount;
+  const lines = Array.isArray(row.lines)
+    ? row.lines
+        .map((s) => String(s).trim())
+        .filter(Boolean)
+        .slice(0, DIGEST_MAX_LINES)
+    : [];
+  const flavor =
+    typeof row.flavor === "string" ? row.flavor.trim() : "";
+  if (lines.length === 0 && !flavor) return mount;
   const asOf = typeof row.asOf === "string" ? row.asOf.trim() : "";
   return {
     ...mount,
-    wowheadCommentDigest: lines,
+    ...(lines.length ? { wowheadCommentDigest: lines } : {}),
+    ...(flavor ? { wowheadMountFlavor: flavor } : {}),
     ...(asOf ? { wowheadCommentDigestAsOf: asOf } : {}),
   };
 }
 
 /** All mounts from static data; use this from recommendation / filter logic. */
 export const mounts: Mount[] = mergeCanonicalAndStubs()
+  .map(mergeWowheadItemPage)
   .map(mergeFarmTips)
   .map(mergeGuide)
   .map(mergeIconOverride)

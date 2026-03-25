@@ -1,30 +1,38 @@
-import { wowheadCommentsUrl } from "@/lib/wowheadCommentsUrl";
+import { resolveWowheadCommentsLink } from "@/lib/wowheadCommentsUrl";
 import type { Mount } from "@/types/mount";
 
 type Props = {
   mount: Mount;
 };
 
-/**
- * Epic D.1 — Opens Wowhead spell page with comments hash in a new tab.
- */
+/** Compact inline link to Wowhead comments (item page when mapped). */
 export function WowheadCommentsLink({ mount }: Props) {
-  const href = wowheadCommentsUrl(mount);
-  if (!href) return null;
+  const target = resolveWowheadCommentsLink(mount);
+  if (!target) return null;
 
-  const label = `Wowhead comments for ${mount.name}`;
+  const label =
+    target.pageKind === "item"
+      ? `Wowhead item comments for ${mount.name}`
+      : `Wowhead spell comments for ${mount.name}`;
+
+  const suffix =
+    target.pageKind === "item"
+      ? "Item page, comments tab"
+      : "Spell page until item id is mapped";
 
   return (
     <div style={{ marginTop: "0.35rem", fontSize: "0.85rem" }}>
       <a
-        href={href}
+        href={target.href}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${label} (opens in new tab)`}
       >
-        Wowhead comments
+        {target.pageKind === "item"
+          ? "Wowhead (item → comments)"
+          : "Wowhead (spell → comments)"}
       </a>
-      <span style={{ color: "#888" }}> — community tips & drop notes</span>
+      <span style={{ color: "#888" }}> — {suffix}</span>
     </div>
   );
 }

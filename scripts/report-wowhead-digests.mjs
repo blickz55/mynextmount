@@ -37,12 +37,14 @@ function main() {
   const digestKeys = new Set(
     Object.keys(digests).filter((k) => /^\d+$/.test(k)),
   );
-  const withDigestLines = Object.entries(digests).filter(([k, v]) => {
+  const withDigestContent = Object.entries(digests).filter(([k, v]) => {
     if (!/^\d+$/.test(k)) return false;
-    const lines = v?.lines;
-    return Array.isArray(lines) && lines.some((s) => String(s).trim());
+    const flavor = typeof v?.flavor === "string" && v.flavor.trim();
+    const lines =
+      Array.isArray(v?.lines) && v.lines.some((s) => String(s).trim());
+    return Boolean(flavor || lines);
   });
-  const digestIdSet = new Set(withDigestLines.map(([k]) => Number(k)));
+  const digestIdSet = new Set(withDigestContent.map(([k]) => Number(k)));
 
   const pilotMissing = PILOT_SPELL_IDS.filter((id) => !digestIdSet.has(id));
 
@@ -53,7 +55,7 @@ function main() {
     counts: {
       mountRows: mounts.length,
       rowsWithWowheadUrl: withWowhead.length,
-      digestSpellIdsWithLines: digestIdSet.size,
+      digestSpellIdsWithContent: digestIdSet.size,
     },
     pilots: {
       expectedSpellIds: PILOT_SPELL_IDS,
@@ -68,13 +70,13 @@ function main() {
 
   console.log(`[wowhead-digest-report] Wrote ${outPath}`);
   console.log(
-    `  mount rows: ${report.counts.mountRows}; with wowheadUrl: ${report.counts.rowsWithWowheadUrl}; digest ids (non-empty): ${report.counts.digestSpellIdsWithLines}`,
+    `  mount rows: ${report.counts.mountRows}; with wowheadUrl: ${report.counts.rowsWithWowheadUrl}; digest ids (flavor or lines): ${report.counts.digestSpellIdsWithContent}`,
   );
   if (pilotMissing.length > 0) {
     console.log(`  WARNING pilot spell ids missing digest: ${pilotMissing.join(", ")}`);
     if (strictPilots) process.exit(1);
   } else {
-    console.log("  pilots: all 6 guide spell ids have digest lines.");
+    console.log("  pilots: all 6 guide spell ids have digest content.");
   }
 }
 

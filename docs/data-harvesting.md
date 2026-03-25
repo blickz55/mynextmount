@@ -24,7 +24,7 @@ using any combination of **`data/mounts.json`** fields, HTTP fetches, APIs, and 
 
 **Cursor / AI agents** are **authorized** to implement and run these pipelines when the maintainer requests.
 
-**Shipped commands:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**). **`npm run content:wowhead-digests-from-web`** — HTTP fetch of Wowhead comment JSON (operator-configured URL / cookie) plus OpenAI paraphrase into **`wowhead-comment-digests.json`** (see **`docs/wowhead-digests.md`**).
+**Shipped commands:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**). **`npm run content:mount-flavor-batch`** — OpenAI **flavor** + **how to obtain** bullets from **`mounts.json`** metadata only (no Wowhead scraping) into **`wowhead-comment-digests.json`** with **`--apply`** (see **`docs/wowhead-digests.md`**).
 
 ---
 

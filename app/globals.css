@@ -1038,6 +1038,19 @@ code.inline-code {
   color: var(--text);
 }
 
+.comment-digest__flavor {
+  margin: 0 0 0.55rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.comment-digest__subheading {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 .comment-digest__list {
   margin: 0 0 0.55rem;
   padding-left: 1.2rem;

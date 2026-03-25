@@ -27,8 +27,11 @@ function guideComplete(guidesFile, id) {
 
 function digestComplete(digests, id) {
   const row = digests[String(id)];
-  if (!row || !Array.isArray(row.lines)) return false;
-  return row.lines.some((s) => String(s).trim());
+  if (!row) return false;
+  const flavor = typeof row.flavor === "string" && row.flavor.trim();
+  const lines =
+    Array.isArray(row.lines) && row.lines.some((s) => String(s).trim());
+  return Boolean(flavor || lines);
 }
 
 function farmTipPresent(tips, id) {

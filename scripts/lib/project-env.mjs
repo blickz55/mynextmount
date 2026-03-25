@@ -3,14 +3,15 @@ import { join } from "node:path";
 
 /**
  * Load `.env` then `.env.local` from project root into `process.env`.
- * Fills only keys that are unset or empty (so `.env.local` wins over empty OS vars).
+ * `.env` only fills keys that are unset or empty (OS env wins if set).
+ * `.env.local` overrides any previous value for keys it defines (Next.js-style).
  */
 export function loadProjectEnv(root) {
-  loadDotEnvFile(root, ".env");
-  loadDotEnvFile(root, ".env.local");
+  loadDotEnvFile(root, ".env", false);
+  loadDotEnvFile(root, ".env.local", true);
 }
 
-function loadDotEnvFile(root, relPath) {
+function loadDotEnvFile(root, relPath, overrideFromFile) {
   const p = join(root, relPath);
   if (!existsSync(p)) return 0;
   let text = readFileSync(p, "utf8");
@@ -35,7 +36,7 @@ function loadDotEnvFile(root, relPath) {
       val = val.slice(1, -1);
     }
     const cur = process.env[key];
-    if (cur === undefined || cur === "") process.env[key] = val;
+    if (overrideFromFile || cur === undefined || cur === "") process.env[key] = val;
     n += 1;
   }
   return n;

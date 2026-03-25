@@ -8,6 +8,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { loadWowheadItemOverrideMap } from "./lib/wowhead-item-override.mjs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 
@@ -27,7 +29,34 @@ const guidesFile = JSON.parse(
   readFileSync(join(root, "data", "mount-guides.json"), "utf8"),
 );
 const mounts = JSON.parse(readFileSync(join(root, "data", "mounts.json"), "utf8"));
+const itemOverrideMap = loadWowheadItemOverrideMap(root);
 const nameById = new Map(mounts.map((m) => [m.id, m.name]));
+const mountById = new Map(mounts.map((m) => [m.id, m]));
+
+function effectiveItemId(spellId) {
+  const row = mountById.get(spellId);
+  const fromRow = row?.wowheadItemId;
+  if (typeof fromRow === "number" && Number.isFinite(fromRow) && fromRow > 0) {
+    return fromRow;
+  }
+  const n = Number(itemOverrideMap[String(spellId)]);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+function effectiveGuideSource(spellId, g) {
+  const itemId = effectiveItemId(spellId);
+  const name = nameById.get(spellId) || `Spell ${spellId}`;
+  if (itemId != null) {
+    return {
+      sourceUrl: `https://www.wowhead.com/item=${itemId}`,
+      sourceLabel: `Wowhead — ${name} (item)`,
+    };
+  }
+  return {
+    sourceUrl: g.sourceUrl || "",
+    sourceLabel: g.sourceLabel || "Source",
+  };
+}
 
 const guides = guidesFile.guides || {};
 const spellIds = Object.keys(guides)
@@ -52,11 +81,12 @@ for (const id of spellIds) {
   const g = guides[String(id)];
   if (!g) continue;
   const name = nameById.get(id) || `Spell ${id}`;
+  const src = effectiveGuideSource(id, g);
   lines.push(`  [${id}] = {`);
   lines.push(`    name = ${luaStr(name)},`);
   lines.push(`    overview = ${luaStr(g.overview || "")},`);
-  lines.push(`    sourceUrl = ${luaStr(g.sourceUrl || "")},`);
-  lines.push(`    sourceLabel = ${luaStr(g.sourceLabel || "Source")},`);
+  lines.push(`    sourceUrl = ${luaStr(src.sourceUrl)},`);
+  lines.push(`    sourceLabel = ${luaStr(src.sourceLabel)},`);
   lines.push(`    checklist = {`);
   for (const step of g.checklist || []) {
     lines.push(`      ${luaStr(step)},`);

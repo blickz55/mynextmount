@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "batches": [
+    {
+      "at": "2026-03-25T19:13:32.388Z",
+      "model": "gpt-4o-mini",
+      "apply": false,
+      "spellIds": [],
+      "errors": []
+    },
+    {
+      "at": "2026-03-25T19:15:28.113Z",
+      "model": "gpt-4o-mini",
+      "apply": true,
+      "spellIds": [
+        6648
+      ],
+      "errors": []
+    }
+  ]
+}

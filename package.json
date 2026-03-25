@@ -29,7 +29,7 @@
     "content:guides-batch": "node scripts/content-guides-batch.mjs",
     "content:guides-refine-checklists": "node scripts/content-guides-refine-checklists.mjs",
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs",
-    "content:wowhead-digests-from-web": "node scripts/wowhead-digest-from-comments.mjs"
+    "content:mount-flavor-batch": "node scripts/mount-flavor-batch.mjs"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.23",

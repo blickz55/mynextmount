@@ -1,6 +1,6 @@
 # Roadmap: full farm guide experience for every mount
 
-This document is the **execution path** to replicate the rich expandable row (written **farm guide**, **“Why”** line, **summarized community tips**, **Wowhead** link + disclaimer) for **all mounts in `data/mounts.json`**.
+This document is the **execution path** to replicate the rich expandable row (written **farm guide**, **“Why”** line, **mount spotlight** flavor + how-to bullets, **Wowhead** link to comments + disclaimer) for **all mounts in `data/mounts.json`**.
 
 **Policy:** The maintainer may use **automated batch commands** (scripts + terminal) to fill **`mount-guides.json`**, **`wowhead-comment-digests.json`**, and **`farm-tips.json`**. **Human review is optional**; **third-party ToS and law** remain the **operator’s** responsibility. See **`docs/data-harvesting.md`** (*Maintainer override*), **`.cursorrules`** (*Content automation*), **`docs/guides.md`**, **`docs/wowhead-digests.md`**, **`docs/farm-tip-llm-workflow.md`**.
 
@@ -13,7 +13,7 @@ The UI already renders the card when data exists (`lib/mounts.ts` merges these a
 | Layer | File | Purpose |
 |--------|------|---------|
 | **Guide** | **`data/mount-guides.json`** | Overview + checklist + **sourceUrl** / **sourceLabel** (Epic C.1 / C.3 workflow). |
-| **Community tips** | **`data/wowhead-comment-digests.json`** | Up to **5** reviewed paraphrase lines + **`asOf`** (Epic D.5). |
+| **Mount spotlight** | **`data/wowhead-comment-digests.json`** | Optional **`flavor`** + up to **10** **`lines`** (how to obtain) + **`asOf`** (Epic D.5); prefer **`npm run content:mount-flavor-batch`** from metadata. |
 | **Why line** | **`data/farm-tips.json`** | Short one-liner merged into recommendation copy (optional LLM assist + review — Epic C.4). |
 
 **“Rich panel” (matches the flagship screenshot):** at least **guide + digest** on the same mount. **Farm tip** improves the headline **Why** but is tracked separately.
@@ -24,7 +24,7 @@ The UI already renders the card when data exists (`lib/mounts.ts` merges these a
 
 1. **Operator responsibility** — You choose how to obtain inputs (manual, API, fetch). **Compliance** with [Wowhead ToU](https://www.wowhead.com/terms-of-use) and similar is **your** call; the repo **authorizes** automation when you want it.
 2. **Quality** — Prefer **paraphrase** over verbatim comment paste; avoid raw HTML dumps in git when practical.
-3. **Provenance (recommended)** — Append batches to **`data/wowhead-digest-provenance.json`** and **`data/farm-tip-provenance.json`** for auditability, even when skipping manual review.
+3. **Provenance (recommended)** — Append batches to **`data/mount-flavor-provenance.json`** / **`data/wowhead-digest-provenance.json`** and **`data/farm-tip-provenance.json`** for auditability, even when skipping manual review.
 
 ---
 

@@ -1,61 +1,81 @@
-import { wowheadCommentsUrl } from "@/lib/wowheadCommentsUrl";
+import { resolveWowheadCommentsLink } from "@/lib/wowheadCommentsUrl";
 import type { Mount } from "@/types/mount";
 
-const MAX_LINES = 5;
+const MAX_LINES = 10;
 
 type Props = {
   mount: Mount;
 };
 
 /**
- * Epic D.5 — Summarized community tips (build-time data) + link to full Wowhead comments.
+ * Mount spotlight (flavor + how-to bullets from JSON) + Wowhead link to comments tab.
  */
 export function WowheadCommentDigest({ mount }: Props) {
-  const href = wowheadCommentsUrl(mount);
+  const target = resolveWowheadCommentsLink(mount);
+  const flavor = mount.wowheadMountFlavor?.trim();
   const raw = mount.wowheadCommentDigest;
   const lines = Array.isArray(raw)
     ? raw.map((s) => String(s).trim()).filter(Boolean).slice(0, MAX_LINES)
     : [];
 
-  if (!href && lines.length === 0) return null;
+  const hasCopy = Boolean(flavor) || lines.length > 0;
+  if (!target && !hasCopy) return null;
 
-  const linkLabel = `Open full Wowhead comments for ${mount.name}`;
+  const linkLabel =
+    target?.pageKind === "item"
+      ? `Wowhead item page, comments tab — ${mount.name}`
+      : `Wowhead spell page, comments tab — ${mount.name}`;
+
+  const linkExplanation =
+    target?.pageKind === "item"
+      ? "We open the item page (the journal “teach item” context) on the comments section."
+      : "Spell page is shown until you map a Wowhead item id in data/overrides/wowhead-item-by-spell.json.";
 
   return (
     <div className="comment-digest">
-      {lines.length > 0 ? (
+      {hasCopy ? (
         <>
-          <p className="comment-digest__heading">Community tips (summarized)</p>
-          <ul className="comment-digest__list">
-            {lines.map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
+          <p className="comment-digest__heading">Mount spotlight</p>
+          {flavor ? (
+            <p className="comment-digest__flavor">{flavor}</p>
+          ) : null}
+          {lines.length > 0 ? (
+            <>
+              <p className="comment-digest__subheading">How to obtain</p>
+              <ul className="comment-digest__list">
+                {lines.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
           <p className="comment-digest__fineprint">
-            Tips are short, reviewed paraphrases of typical player discussion (often informed by
-            top-thread comments), not verbatim Wowhead posts.
+            Spotlight copy is produced with OpenAI from our mount metadata (or edited by hand in
+            data). Treat as orientation only; confirm drops, vendors, and patch changes in-game.
             {mount.wowheadCommentDigestAsOf
               ? ` Updated ${mount.wowheadCommentDigestAsOf}.`
               : ""}
           </p>
         </>
-      ) : href ? (
+      ) : target ? (
         <p className="comment-digest__empty">
-          No comment digest in our data yet for this mount.
+          No spotlight copy in our data yet for this mount.
         </p>
       ) : null}
 
-      {href ? (
+      {target ? (
         <div>
           <a
-            href={href}
+            href={target.href}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${linkLabel} (opens in new tab)`}
           >
-            Open full comments on Wowhead
+            {target.pageKind === "item"
+              ? "Open Wowhead (item → comments)"
+              : "Open Wowhead (spell → comments)"}
           </a>
-          <span className="comment-digest__suffix"> — raw thread and votes</span>
+          <span className="comment-digest__suffix"> — {linkExplanation}</span>
         </div>
       ) : null}
     </div>

@@ -27,6 +27,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadProjectEnv } from "./lib/project-env.mjs";
+import { applyWowheadItemIdToMountsList } from "./lib/wowhead-item-override.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -64,7 +65,7 @@ Checklist quality (critical — the product already shows a Wowhead source link)
 - If retailObtainable is false, write steps that reflect unobtainable / legacy status using the metadata (e.g. check journal grayed source, BMAH history) without sending them to an external browser as step 1.
 
 Also output:
-- "communityTips": array of ${MIN_COMMUNITY_TIPS}–${MAX_COMMUNITY_TIPS} strings for the site's "Community tips (summarized)" block (same slot as Wowhead digest UI).
+- "communityTips": array of ${MIN_COMMUNITY_TIPS}–${MAX_COMMUNITY_TIPS} strings for the site's "Mount spotlight" how-to bullets (same data slot as wowhead-comment-digests.json lines).
 - Each tip is one concise bullet, max ${MAX_COMMUNITY_TIP_CHARS} characters, plain English, no HTML, no markdown list markers inside strings, no leading "• ".
 - Write original wording in the *spirit* of typical forum / comment-thread discussion (lockouts, difficulty, camping competition, vendor quirks, BMAH, etc.) using ONLY the mount metadata provided — not quotes of real comments.
 - Do not claim you read a specific thread; stay grounded in the JSON fields and cautious phrasing ("often", "check current patch in-game") where rules vary.
@@ -125,6 +126,13 @@ function guideCompleteInFile(guidesFile, id) {
 }
 
 function defaultSourceUrl(mount) {
+  if (
+    typeof mount.wowheadItemId === "number" &&
+    Number.isFinite(mount.wowheadItemId) &&
+    mount.wowheadItemId > 0
+  ) {
+    return `https://www.wowhead.com/item=${mount.wowheadItemId}`;
+  }
   const u = typeof mount.wowheadUrl === "string" ? mount.wowheadUrl.trim() : "";
   if (/^https?:\/\//i.test(u)) return u;
   return `https://www.wowhead.com/spell=${mount.id}`;
@@ -132,6 +140,13 @@ function defaultSourceUrl(mount) {
 
 function defaultSourceLabel(mount) {
   const name = typeof mount.name === "string" ? mount.name : "Mount";
+  if (
+    typeof mount.wowheadItemId === "number" &&
+    Number.isFinite(mount.wowheadItemId) &&
+    mount.wowheadItemId > 0
+  ) {
+    return `Wowhead — ${name} (item)`;
+  }
   return `Wowhead — ${name} (spell ${mount.id})`;
 }
 
@@ -150,6 +165,7 @@ function mountPayload(mount) {
     dropRate: mount.dropRate,
     timeToComplete: mount.timeToComplete,
     asOfPatch: mount.asOfPatch,
+    wowheadItemId: mount.wowheadItemId,
     wowheadUrl: mount.wowheadUrl,
     commentsUrl: mount.commentsUrl,
     tags: Array.isArray(mount.tags) ? mount.tags.slice(0, 12) : [],
@@ -288,11 +304,12 @@ async function main() {
   loadProjectEnv(root);
   const args = parseArgs(process.argv.slice(2));
 
-  const mounts = loadJson(mountsPath);
+  let mounts = loadJson(mountsPath);
   if (!Array.isArray(mounts)) {
     console.error("[content-guides-batch] mounts.json must be an array.");
     process.exit(2);
   }
+  mounts = applyWowheadItemIdToMountsList(mounts, root);
 
   const existingGuides = existsSync(guidesPath) ? loadJson(guidesPath) : { schemaVersion: 1, guides: {} };
 

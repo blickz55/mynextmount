@@ -16,6 +16,11 @@ export type Mount = {
   /** Epic B.1 optional extensions — omit until harvest pipeline fills them. */
   wowheadUrl?: string;
   commentsUrl?: string;
+  /**
+   * Wowhead item id for the page that teaches this mount (bridle/reins/item).
+   * When set, outbound “comments on Wowhead” links use `/item=…#comments` (journal item context).
+   */
+  wowheadItemId?: number;
   iconFileId?: number;
   /** Blizzard spell media asset URL (Tier 1 enrich); preferred over synthetic file-id URL. */
   iconUrl?: string;
@@ -28,8 +33,10 @@ export type Mount = {
   farmTip?: string;
   /** Epic C.1 — optional checklist guide from `data/mount-guides.json`. */
   guide?: MountGuide;
-  /** Epic D.5 — ≤5 summarized tips from `data/wowhead-comment-digests.json` (merged at load). */
+  /** Epic D.5 — acquisition / how-to bullets from `data/wowhead-comment-digests.json` (merged at load). */
   wowheadCommentDigest?: string[];
+  /** Optional short flavor paragraph (same file; LLM or editorial). */
+  wowheadMountFlavor?: string;
   /** ISO date string; editorial refresh of digest lines. */
   wowheadCommentDigestAsOf?: string;
 };

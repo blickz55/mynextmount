@@ -20,6 +20,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadProjectEnv } from "./lib/project-env.mjs";
+import { applyWowheadItemIdToMountsList } from "./lib/wowhead-item-override.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -116,6 +117,7 @@ function mountPayload(mount) {
     dropRate: mount.dropRate,
     timeToComplete: mount.timeToComplete,
     asOfPatch: mount.asOfPatch,
+    wowheadItemId: mount.wowheadItemId,
     wowheadUrl: mount.wowheadUrl,
     tags: Array.isArray(mount.tags) ? mount.tags.slice(0, 12) : [],
   };
@@ -199,11 +201,12 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
 
   const guidesFile = loadJson(guidesPath);
-  const mounts = loadJson(mountsPath);
+  let mounts = loadJson(mountsPath);
   if (!Array.isArray(mounts)) {
     console.error("[guides-refine-checklists] mounts.json must be an array.");
     process.exit(2);
   }
+  mounts = applyWowheadItemIdToMountsList(mounts, root);
   const mountById = new Map(mounts.map((m) => [m.id, m]));
 
   const guides = guidesFile.guides || {};

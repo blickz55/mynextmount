@@ -2,17 +2,19 @@
 
 ## What we link
 
-The site uses **summon spell IDs** everywhere (`docs/export-contract.md`). Wowhead’s matching page is the **spell** URL:
+The site keys mounts by **summon spell id** (`docs/export-contract.md`). **Outbound “comments on Wowhead” links** prefer the **item** that teaches the mount when **`wowheadItemId`** is set (from **`data/overrides/wowhead-item-by-spell.json`** or the mount row):
 
-`https://www.wowhead.com/spell=<id>#comments`
+`https://www.wowhead.com/item=<itemId>#comments`
 
-Rows store **`commentsUrl`** (with `#comments`) and **`wowheadUrl`** (spell page without hash) from **`npm run data:build`**. The UI prefers **`commentsUrl`** so the **comments** tab is the default landing target (Epic D.1).
+That matches the journal item context where discussion usually lives. The UI states that the link opens the **comments** section on purpose.
+
+If no item id is mapped, we fall back to the spell URL from **`wowheadUrl`** / **`commentsUrl`** (still with **`#comments`**) and label it as the spell page until an override exists.
 
 ## Behavior
 
 - Links open in a **new tab** (`target="_blank"`, `rel="noopener noreferrer"`).
-- **Epic D.5:** expandable rows use **Open full comments on Wowhead** for the outbound link; summarized bullets are separate — see **`docs/wowhead-digests.md`**.
+- **Epic D.5:** expandable rows show **Mount spotlight** (flavor + how-to bullets) and a separate Wowhead link — see **`docs/wowhead-digests.md`**.
 
 ## If Wowhead changes URLs
 
-If `#comments` stops scrolling to the comments section, update **`lib/wowheadCommentsUrl.ts`** / row URLs in **`data/mounts.json`** (or overrides) and this doc. The **mount** journal page (`/mount=…`) uses a different id than our export spell id — we only switch if the product contract changes.
+If `#comments` stops scrolling to the comments section, update **`lib/wowheadCommentsUrl.ts`** / row URLs in **`data/mounts.json`** (or overrides) and this doc.

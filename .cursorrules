@@ -61,7 +61,7 @@ type Mount = {
   lockout: "daily" | "weekly" | "none";
   expansion: string;
   tags: string[];
-  // Optional (Epic B.1+): wowheadUrl, commentsUrl, iconFileId, iconUrl, sourceCategory, retailObtainable, asOfPatch, farmTip, guide (see data/mount-guides.json), wowheadCommentDigest, wowheadCommentDigestAsOf (see data/wowhead-comment-digests.json)
+  // Optional (Epic B.1+): wowheadUrl, commentsUrl, iconFileId, iconUrl, sourceCategory, retailObtainable, asOfPatch, farmTip, guide (see data/mount-guides.json), wowheadMountFlavor, wowheadCommentDigest, wowheadCommentDigestAsOf (see data/wowhead-comment-digests.json)
 };
 🔌 Input Contract
 Export String Format (v1) — full spec: docs/export-contract.md
