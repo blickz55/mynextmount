@@ -28,9 +28,9 @@ If you prefer CI to invoke Vercel instead of only the Vercel Git app:
 1. Install Vercel CLI locally: `npm i -g vercel`, run `vercel link` in the repo root, and note **org** and **project** IDs in `.vercel/project.json`.
 2. Create a token: Vercel → Account → **Tokens**.
 3. In GitHub → repo → **Settings → Secrets and variables → Actions**, add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
-4. Push to branch **`staging`**; workflow **`.github/workflows/vercel-staging.yml`** runs `vercel deploy --prod`.
+4. **Actions** → **Deploy staging (Vercel)** → **Run workflow** (uses the branch you select, e.g. **`staging`**). It does **not** run on push, so Vercel’s Git integration can be your only automatic deploy without extra notification noise.
 
-You can disable or delete that workflow if you rely entirely on Vercel’s Git integration.
+You can delete **`.github/workflows/vercel-staging.yml`** if you will never use CLI deploy from GitHub.
 
 ## Local parity
 
@@ -41,4 +41,4 @@ You can disable or delete that workflow if you rely entirely on Vercel’s Git i
 
 **`.github/workflows/ci.yml`** runs **`npm run test`**, **`npm run lint`**, and **`npm run build`** on pushes and PRs to `main` / `staging` / `master`. **`eslint.config.mjs`** must exist so `next lint` does not try to open an interactive wizard (that fails on GitHub with exit code 1).
 
-**`.github/workflows/vercel-staging.yml`** only runs when **`VERCEL_TOKEN`**, **`VERCEL_ORG_ID`**, and **`VERCEL_PROJECT_ID`** repository secrets are all set. If you deploy only via the Vercel Git integration, leave those unset and the workflow is skipped (no failure spam).
+**`.github/workflows/vercel-staging.yml`** is **manual-only** (`workflow_dispatch`). It does not run on push, so it won’t email you when Vercel already deploys from Git.

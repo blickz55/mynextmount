@@ -1,22 +1,15 @@
-# Optional: deploys the staging branch to Vercel when GitHub secrets are set.
-# Simpler alternative: connect the repo in the Vercel dashboard (Git integration)
-# and set Production Branch = staging + add www.mynextmount.com — no workflow needed.
+# Optional: CLI deploy to Vercel — NOT triggered on git push (avoids GitHub “no jobs” emails
+# when you use Vercel’s Git integration instead). Run manually: Actions → this workflow → Run workflow.
 #
-# Secrets (Vercel → Project → Settings → Environment Variables / Account tokens):
-#   VERCEL_TOKEN       — https://vercel.com/account/tokens
-#   VERCEL_ORG_ID      — from .vercel/project.json after `vercel link`
-#   VERCEL_PROJECT_ID  — from .vercel/project.json
+# Secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID (see docs/deployment.md).
 
 name: Deploy staging (Vercel)
 
 on:
-  push:
-    branches: [staging]
+  workflow_dispatch:
 
 jobs:
   deploy:
-    # Skip when using Vercel Git integration only (no CLI secrets) — avoids a red X on every push.
-    if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
