@@ -1,11 +1,11 @@
 --[[
   Epic C.2 — In-game farm guides (checklist + source link).
-  Data: MountFarmGuides.lua (run: npm run addon:sync-guides).
-  Progress: MountFarmExportDB.guideChecks[spellId][stepIndex] — per ACCOUNT (SavedVariables).
-  Slash: /mfguides
+  Data: MyNextMountGuides.lua (run: npm run addon:sync-guides).
+  Progress: MyNextMountDB.guideChecks[spellId][stepIndex] — per ACCOUNT (SavedVariables).
+  Slash: /mnguides or /mfguides
 ]]
 
-local ADDON_NAME = "MountFarmExport"
+local ADDON_NAME = "MyNextMount"
 
 local guideFrame
 local guideNameStr
@@ -16,7 +16,7 @@ local guideScrollChild
 local checkPool = {}
 local pendingSourceUrl = ""
 
-StaticPopupDialogs["MOUNT_FARM_GUIDE_SOURCE_COPY"] = {
+StaticPopupDialogs["MYNEXTMOUNT_GUIDE_SOURCE_COPY"] = {
   text = "Source URL (|cffaaaaaaCtrl+C|r to copy):",
   button1 = OKAY,
   timeout = 0,
@@ -34,25 +34,25 @@ StaticPopupDialogs["MOUNT_FARM_GUIDE_SOURCE_COPY"] = {
 }
 
 local function GuideDataReady()
-  return MountFarmGuideData and MountFarmGuideData.order and #MountFarmGuideData.order > 0
+  return MyNextMountGuideData and MyNextMountGuideData.order and #MyNextMountGuideData.order > 0
 end
 
-function MountFarmGuideUI_IsStepChecked(spellId, stepIndex)
-  local db = MountFarmExportDB and MountFarmExportDB.guideChecks
+function MyNextMountGuideUI_IsStepChecked(spellId, stepIndex)
+  local db = MyNextMountDB and MyNextMountDB.guideChecks
   if not db or not db[spellId] then
     return false
   end
   return db[spellId][stepIndex] and true or false
 end
 
-function MountFarmGuideUI_SetStepChecked(spellId, stepIndex, checked)
-  MountFarmExportDB = MountFarmExportDB or {}
-  MountFarmExportDB.guideChecks = MountFarmExportDB.guideChecks or {}
-  MountFarmExportDB.guideChecks[spellId] = MountFarmExportDB.guideChecks[spellId] or {}
+function MyNextMountGuideUI_SetStepChecked(spellId, stepIndex, checked)
+  MyNextMountDB = MyNextMountDB or {}
+  MyNextMountDB.guideChecks = MyNextMountDB.guideChecks or {}
+  MyNextMountDB.guideChecks[spellId] = MyNextMountDB.guideChecks[spellId] or {}
   if checked then
-    MountFarmExportDB.guideChecks[spellId][stepIndex] = true
+    MyNextMountDB.guideChecks[spellId][stepIndex] = true
   else
-    MountFarmExportDB.guideChecks[spellId][stepIndex] = nil
+    MyNextMountDB.guideChecks[spellId][stepIndex] = nil
   end
 end
 
@@ -62,7 +62,7 @@ local function GetCurrentSpellId()
   if not GuideDataReady() then
     return nil
   end
-  local order = MountFarmGuideData.order
+  local order = MyNextMountGuideData.order
   if currentGuideListIndex < 1 then
     currentGuideListIndex = 1
   end
@@ -75,7 +75,7 @@ end
 local function EnsureCheckPool(n)
   while #checkPool < n do
     local i = #checkPool + 1
-    local cb = CreateFrame("CheckButton", "MountFarmGuideCheck" .. i, guideScrollChild, "UICheckButtonTemplate")
+    local cb = CreateFrame("CheckButton", "MyNextMountGuideCheck" .. i, guideScrollChild, "UICheckButtonTemplate")
     cb:SetSize(22, 22)
     local fs = guideScrollChild:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     fs:SetJustifyH("LEFT")
@@ -85,7 +85,7 @@ local function EnsureCheckPool(n)
       local sid = self.spellId
       local idx = self.stepIndex
       if sid and idx then
-        MountFarmGuideUI_SetStepChecked(sid, idx, self:GetChecked())
+        MyNextMountGuideUI_SetStepChecked(sid, idx, self:GetChecked())
       end
     end)
     checkPool[i] = cb
@@ -100,7 +100,7 @@ local function RefreshGuideContent()
   if not GuideDataReady() then
     guideNameStr:SetText("No guides loaded")
     guideSpellStr:SetText("")
-    guideOverviewStr:SetText("Regenerate MountFarmGuides.lua (npm run addon:sync-guides).")
+    guideOverviewStr:SetText("Regenerate MyNextMountGuides.lua (npm run addon:sync-guides).")
     for _, cb in ipairs(checkPool) do
       cb:Hide()
       if cb.labelFs then
@@ -112,7 +112,7 @@ local function RefreshGuideContent()
   end
 
   local spellId = GetCurrentSpellId()
-  local data = MountFarmGuideData.byId[spellId]
+  local data = MyNextMountGuideData.byId[spellId]
   if not data then
     guideNameStr:SetText("Missing guide data")
     guideSpellStr:SetText("ID " .. tostring(spellId))
@@ -133,7 +133,7 @@ local function RefreshGuideContent()
     if i <= n then
       cb.spellId = spellId
       cb.stepIndex = i
-      cb:SetChecked(MountFarmGuideUI_IsStepChecked(spellId, i))
+      cb:SetChecked(MyNextMountGuideUI_IsStepChecked(spellId, i))
       cb.labelFs:SetWidth(430)
       cb.labelFs:SetText(steps[i])
       cb.labelFs:Show()
@@ -165,7 +165,7 @@ local function HideGuideUI()
   end
 end
 
-function MountFarmGuideUI_Open()
+function MyNextMountGuideUI_Open()
   if not GuideDataReady() then
     print(
       "|cffffcc00"
@@ -175,14 +175,14 @@ function MountFarmGuideUI_Open()
     return
   end
   if not guideFrame then
-    MountFarmGuideUI_CreateFrame()
+    MyNextMountGuideUI_CreateFrame()
   end
   RefreshGuideContent()
   guideFrame:Show()
 end
 
-function MountFarmGuideUI_CreateFrame()
-  local f = CreateFrame("Frame", "MountFarmGuideFrame", UIParent, "BackdropTemplate")
+function MyNextMountGuideUI_CreateFrame()
+  local f = CreateFrame("Frame", "MyNextMountGuideFrame", UIParent, "BackdropTemplate")
   f:SetSize(520, 420)
   f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
   f:SetFrameStrata("DIALOG")
@@ -224,7 +224,7 @@ function MountFarmGuideUI_CreateFrame()
     end
     currentGuideListIndex = currentGuideListIndex - 1
     if currentGuideListIndex < 1 then
-      currentGuideListIndex = #MountFarmGuideData.order
+      currentGuideListIndex = #MyNextMountGuideData.order
     end
     RefreshGuideContent()
   end)
@@ -238,7 +238,7 @@ function MountFarmGuideUI_CreateFrame()
       return
     end
     currentGuideListIndex = currentGuideListIndex + 1
-    if currentGuideListIndex > #MountFarmGuideData.order then
+    if currentGuideListIndex > #MyNextMountGuideData.order then
       currentGuideListIndex = 1
     end
     RefreshGuideContent()
@@ -251,7 +251,7 @@ function MountFarmGuideUI_CreateFrame()
   guideOverviewStr:SetJustifyH("LEFT")
   guideOverviewStr:SetWordWrap(true)
 
-  guideScroll = CreateFrame("ScrollFrame", "MountFarmGuideScroll", f, "UIPanelScrollFrameTemplate")
+  guideScroll = CreateFrame("ScrollFrame", "MyNextMountGuideScroll", f, "UIPanelScrollFrameTemplate")
   guideScroll:SetPoint("TOPLEFT", guideOverviewStr, "BOTTOMLEFT", -8, -12)
   guideScroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -32, 96)
 
@@ -266,14 +266,14 @@ function MountFarmGuideUI_CreateFrame()
   sourceBtn:SetText("Copy source URL")
   sourceBtn:SetScript("OnClick", function()
     local sid = GetCurrentSpellId()
-    local data = sid and MountFarmGuideData.byId[sid]
+    local data = sid and MyNextMountGuideData.byId[sid]
     local u = data and data.sourceUrl
     if not u or u == "" then
       print("|cffffcc00" .. ADDON_NAME .. ":|r No source URL for this guide.")
       return
     end
     pendingSourceUrl = u
-    StaticPopup_Show("MOUNT_FARM_GUIDE_SOURCE_COPY")
+    StaticPopup_Show("MYNEXTMOUNT_GUIDE_SOURCE_COPY")
   end)
 
   local closeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
@@ -290,7 +290,7 @@ function MountFarmGuideUI_CreateFrame()
   f:Hide()
 end
 
-function MountFarmGuideUI_OnOptionsCanvasReady(canvas, anchorBelow)
+function MyNextMountGuideUI_OnOptionsCanvasReady(canvas, anchorBelow)
   if not canvas or not anchorBelow then
     return
   end
@@ -305,9 +305,9 @@ function MountFarmGuideUI_OnOptionsCanvasReady(canvas, anchorBelow)
   ghelp:SetJustifyH("LEFT")
   ghelp:SetWordWrap(true)
   ghelp:SetText(
-    "Same checklists as |cffddddddmynextmount.com|r (|cffdddddddata/mount-guides.json|r → |cffddddddMountFarmGuides.lua|r). "
-      .. "Checkbox progress is saved |cffaaaaaaper account|r in SavedVariables (|cffddddddMountFarmExportDB.guideChecks|r). "
-      .. "No network required. |cffdddddd/mfguides|r opens the window."
+    "Same checklists as |cffddddddmynextmount.com|r (|cffdddddddata/mount-guides.json|r → |cffddddddMyNextMountGuides.lua|r). "
+      .. "Checkbox progress is saved |cffaaaaaaper account|r in SavedVariables (|cffddddddMyNextMountDB.guideChecks|r). "
+      .. "No network required. |cffdddddd/mnguides|r or |cffdddddd/mfguides|r opens the window."
   )
 
   local gbtn = CreateFrame("Button", nil, canvas, "UIPanelButtonTemplate")
@@ -315,11 +315,12 @@ function MountFarmGuideUI_OnOptionsCanvasReady(canvas, anchorBelow)
   gbtn:SetPoint("TOPLEFT", ghelp, "BOTTOMLEFT", 0, -10)
   gbtn:SetText("Open farm guide window")
   gbtn:SetScript("OnClick", function()
-    MountFarmGuideUI_Open()
+    MyNextMountGuideUI_Open()
   end)
 end
 
-SLASH_MOUNTFARMGUIDE1 = "/mfguides"
-SlashCmdList["MOUNTFARMGUIDE"] = function()
-  MountFarmGuideUI_Open()
+SLASH_MYNEXTMOUNTGUIDE1 = "/mnguides"
+SLASH_MYNEXTMOUNTGUIDE2 = "/mfguides"
+SlashCmdList["MYNEXTMOUNTGUIDE"] = function()
+  MyNextMountGuideUI_Open()
 end

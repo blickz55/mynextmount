@@ -16,7 +16,7 @@ This is the **human-in-the-loop** process for adding or updating entries in **`d
 2. Read **`source` / `sourceCategory`** on that row from Tier 1 data — your guide should not contradict them without a note (e.g. “legacy; verify on Wowhead”).
 3. Draft **3–6** checklist lines: ordered, actionable, **text-only** (no 3D navigation).
 4. Add the JSON object under **`guides["<spellId>"]`** (string key).
-5. Run **`npx tsc --noEmit`**, **`npm run addon:sync-guides`**, then verify **web** (unowned mount in recommendations) and **`/mfguides`** in-game after **`/reload`**.
+5. Run **`npx tsc --noEmit`**, **`npm run addon:sync-guides`**, then verify **web** (unowned mount in recommendations) and **`/mnguides`** (or **`/mfguides`**) in-game after **`/reload`**.
 6. In the PR description, list **spell id**, **sourceUrl**, and one line on what you verified (e.g. “lockout + difficulty on Wowhead 12.x”).
 
 ### Optional: stub from API, then human pass
@@ -29,7 +29,7 @@ You do **not** need a separate generator: **`npm run data:build`** already fills
 ### What not to do
 
 - Do not bulk-ingest Wowhead comments or Reddit threads into JSON (see **Epic C.4** / **`docs/data-harvesting.md`** — Phase B boundary and optional LLM path).
-- Do not ship **`MountFarmGuides.lua`** by hand; always **`npm run addon:sync-guides`** after JSON changes.
+- Do not ship **`MyNextMountGuides.lua`** by hand; always **`npm run addon:sync-guides`** after JSON changes.
 
 ### Quality bar (summary)
 
@@ -54,10 +54,10 @@ Guides are merged onto mount rows in **`lib/mounts.ts`** (same pattern as **`far
 
 ## Addon (Epic C.2)
 
-1. After editing **`data/mount-guides.json`**, run **`npm run addon:sync-guides`** — regenerates **`addons/MountFarmExport/MountFarmGuides.lua`** (do not hand-edit that file).
-2. In-game: **`/mfguides`** or **Esc → Options → AddOns → MyNextMount → Open farm guide window**.
+1. After editing **`data/mount-guides.json`**, run **`npm run addon:sync-guides`** — regenerates **`addons/MyNextMount/MyNextMountGuides.lua`** (do not hand-edit that file).
+2. In-game: **`/mnguides`** (alias **`/mfguides`**) or **Esc → Options → AddOns → MyNextMount → Open farm guide window**.
 3. **Prev / Next** cycles pilot mounts. **Copy source URL** opens a dialog (same pattern as the website URL copy). **No HTTP** from the addon.
-4. **SavedVariables:** **`MountFarmExportDB.guideChecks[spellId][stepIndex]`** — stored **per account** (all characters on the realm group share the same SavedVariables file for that account). Survives **`/reload`** and relog.
+4. **SavedVariables:** **`MyNextMountDB.guideChecks[spellId][stepIndex]`** — stored **per account** (all characters on the realm group share the same SavedVariables file for that account). Survives **`/reload`** and relog.
 
 ## Quality bar
 
@@ -69,4 +69,4 @@ Guides are merged onto mount rows in **`lib/mounts.ts`** (same pattern as **`far
 
 1. Look up the mount’s **summon spell id** (`data/mounts.json` **`id`** / export `M:` list).
 2. Add an entry under **`guides["<id>"]`** in **`mount-guides.json`**.
-3. Run **`npx tsc --noEmit`**, **`npm run addon:sync-guides`**, and spot-check on the site + in-game **`/mfguides`**.
+3. Run **`npx tsc --noEmit`**, **`npm run addon:sync-guides`**, and spot-check on the site + in-game **`/mnguides`**.

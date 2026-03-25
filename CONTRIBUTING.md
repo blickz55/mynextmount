@@ -15,7 +15,7 @@ Add or edit **`data/mount-guides.json`** using the **human-in-the-loop** workflo
 
 After JSON changes:
 
-- `npm run addon:sync-guides` — regenerates **`addons/MountFarmExport/MountFarmGuides.lua`** for the **MyNextMount** WoW addon (do not edit that file by hand).
+- `npm run addon:sync-guides` — regenerates **`addons/MyNextMount/MyNextMountGuides.lua`** for the **MyNextMount** WoW addon (do not edit that file by hand).
 - `npx tsc --noEmit` — sanity-check TypeScript.
 
 ## Data & harvesting (Phase B)

@@ -91,7 +91,7 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 **Implemented**
 
 - **Esc → Options → AddOns → MyNextMount** (`Settings.RegisterCanvasLayoutCategory`): title, version, **Open export for website** (runs same flow as `/mountexport`), wrapped **how-to** text pointing at `docs/export-contract.md` on disk.
-- Optional **`MountFarmExportDB.websiteUrl`** + **Show website URL** → small popup to **Ctrl+C** (local dev URL, etc.). No combat hooks; journal read only in existing export path.
+- Optional **`MyNextMountDB.websiteUrl`** (legacy upgrades: merged from **`MountFarmExportDB`**) + **Show website URL** → small popup to **Ctrl+C** (local dev URL, etc.). No combat hooks; journal read only in existing export path.
 
 ---
 
@@ -335,7 +335,7 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 - **`lib/mounts.ts`** — merges guides after farm tips.
 - **`components/MountGuideBlock.tsx`** — overview, ordered checklist with checkboxes, **Source** link; used in **`app/page.tsx`** on farm recommendations.
 - **`docs/guides.md`** — schema, quality bar, how to add entries.
-- **Addon:** **`MountFarmGuides.lua`** + UI shipped in **Epic C.2** (see below).
+- **Addon:** **`MyNextMountGuides.lua`** + UI shipped in **Epic C.2** (see below).
 
 ---
 
@@ -352,10 +352,10 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 **Implemented**
 
-- **`npm run addon:sync-guides`** → **`scripts/generate-addon-guides.mjs`** → **`addons/MountFarmExport/MountFarmGuides.lua`** (from **`data/mount-guides.json`** + names from **`mounts.json`**).
-- **`addons/MountFarmExport/MountFarmGuideUI.lua`** — **`/mfguides`**, Prev/Next through pilots, overview + **UICheckButtonTemplate** checklist, **Copy source URL** dialog; **`MountFarmGuideUI_OnOptionsCanvasReady`** hooked from **`MountFarmExport.lua`** settings canvas.
-- **`MountFarmExportDB.guideChecks[spellId][stepIndex]`** — **per account** SavedVariables (documented in **`docs/addon-install.md`**).
-- **`.toc`** loads **`MountFarmGuides.lua`** → **`MountFarmGuideUI.lua`** → **`MountFarmExport.lua`**; version **1.1.0**.
+- **`npm run addon:sync-guides`** → **`scripts/generate-addon-guides.mjs`** → **`addons/MyNextMount/MyNextMountGuides.lua`** (from **`data/mount-guides.json`** + names from **`mounts.json`**).
+- **`addons/MyNextMount/MyNextMountGuideUI.lua`** — **`/mnguides`** / **`/mfguides`**, Prev/Next through pilots, overview + **UICheckButtonTemplate** checklist, **Copy source URL** dialog; **`MyNextMountGuideUI_OnOptionsCanvasReady`** hooked from **`MyNextMount.lua`** settings canvas.
+- **`MyNextMountDB.guideChecks[spellId][stepIndex]`** — **per account** SavedVariables (documented in **`docs/addon-install.md`**).
+- **`.toc`** loads **`MyNextMountGuides.lua`** → **`MyNextMountGuideUI.lua`** → **`MyNextMount.lua`** (folder **`addons/MyNextMount/`**; addon version **1.2.0** after rename from **`MountFarmExport`**).
 
 ---
 
@@ -615,7 +615,7 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 **Implemented**
 
-- **`app/page.tsx`**, **`app/layout.tsx`**, **`app/globals.css`**, **`next.config.ts`**, **`.gitignore`**, **`lib/mountSourceBucket.ts`**, **`lib/selectTopMountsByScore.ts`**, **`addons/MountFarmExport/*`**, docs touch-ups.
+- **`app/page.tsx`**, **`app/layout.tsx`**, **`app/globals.css`**, **`next.config.ts`**, **`.gitignore`**, **`lib/mountSourceBucket.ts`**, **`lib/selectTopMountsByScore.ts`**, **`addons/MyNextMount/*`**, docs touch-ups.
 
 **Follow-ups:** virtualize **farm** list if DOM cost matters at extreme lengths (**G.2**); CurseForge listing URL (**parking lot**).
 

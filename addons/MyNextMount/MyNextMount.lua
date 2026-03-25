@@ -5,14 +5,14 @@
   Options: Esc → Options → AddOns → MyNextMount
 ]]
 
-local ADDON_NAME = "MountFarmExport"
+local ADDON_NAME = "MyNextMount"
 
-MountFarmExportDB = MountFarmExportDB or {}
-MountFarmExportDB.websiteUrl = MountFarmExportDB.websiteUrl or ""
+MyNextMountDB = MyNextMountDB or {}
+MyNextMountDB.websiteUrl = MyNextMountDB.websiteUrl or ""
 
 local pendingDocsUrl = ""
 
-StaticPopupDialogs["MOUNT_FARM_EXPORT_URL_COPY"] = {
+StaticPopupDialogs["MYNEXTMOUNT_URL_COPY"] = {
   text = "Website URL (|cffaaaaaaCtrl+C|r to copy):",
   button1 = OKAY,
   timeout = 0,
@@ -97,7 +97,7 @@ local function CreateExportUI()
     return
   end
 
-  local f = CreateFrame("Frame", "MountFarmExportExportFrame", UIParent, "BackdropTemplate")
+  local f = CreateFrame("Frame", "MyNextMountExportFrame", UIParent, "BackdropTemplate")
   f:SetSize(540, 320)
   f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
   f:SetFrameStrata("DIALOG")
@@ -143,11 +143,11 @@ local function CreateExportUI()
     f:StopMovingOrSizing()
   end)
 
-  local scroll = CreateFrame("ScrollFrame", "MountFarmExportScroll", f, "UIPanelScrollFrameTemplate")
+  local scroll = CreateFrame("ScrollFrame", "MyNextMountExportScroll", f, "UIPanelScrollFrameTemplate")
   scroll:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -72)
   scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -44, 48)
 
-  local edit = CreateFrame("EditBox", "MountFarmExportEdit", scroll)
+  local edit = CreateFrame("EditBox", "MyNextMountExportEdit", scroll)
   edit:SetMultiLine(true)
   edit:SetAutoFocus(false)
   edit:SetFontObject("ChatFontNormal")
@@ -200,8 +200,8 @@ local function RunExport()
     return
   end
 
-  MountFarmExportDB.lastExportTime = time()
-  MountFarmExportDB.lastExportCount = count
+  MyNextMountDB.lastExportTime = time()
+  MyNextMountDB.lastExportCount = count
 
   print(
     "|cff00ccff"
@@ -234,7 +234,7 @@ local function RegisterOptionsPanel()
     return
   end
 
-  local canvas = CreateFrame("Frame", "MountFarmExportSettingsCanvas", UIParent)
+  local canvas = CreateFrame("Frame", "MyNextMountSettingsCanvas", UIParent)
   canvas:Hide()
   canvas:SetSize(640, 520)
 
@@ -280,7 +280,7 @@ local function RegisterOptionsPanel()
   urlNote:SetJustifyH("LEFT")
   urlNote:SetWordWrap(true)
   urlNote:SetText(
-    "Set once per account, e.g. |cffdddddd/run MountFarmExportDB.websiteUrl=\"https://mynextmount.com\"|r "
+    "Set once per account, e.g. |cffdddddd/run MyNextMountDB.websiteUrl=\"https://mynextmount.com\"|r "
       .. "or |cffdddddd\"http://localhost:3000\"|r for local dev. Then use the button below to open a copy dialog."
   )
 
@@ -289,7 +289,7 @@ local function RegisterOptionsPanel()
   urlBtn:SetPoint("TOPLEFT", urlNote, "BOTTOMLEFT", 0, -12)
   urlBtn:SetText("Show website URL")
   urlBtn:SetScript("OnClick", function()
-    local u = MountFarmExportDB.websiteUrl
+    local u = MyNextMountDB.websiteUrl
     if not u or u == "" then
       print(
         "|cffffcc00"
@@ -299,11 +299,11 @@ local function RegisterOptionsPanel()
       return
     end
     pendingDocsUrl = u
-    StaticPopup_Show("MOUNT_FARM_EXPORT_URL_COPY")
+    StaticPopup_Show("MYNEXTMOUNT_URL_COPY")
   end)
 
-  if MountFarmGuideUI_OnOptionsCanvasReady then
-    MountFarmGuideUI_OnOptionsCanvasReady(canvas, urlBtn)
+  if MyNextMountGuideUI_OnOptionsCanvasReady then
+    MyNextMountGuideUI_OnOptionsCanvasReady(canvas, urlBtn)
   end
 
   local category = Settings.RegisterCanvasLayoutCategory(canvas, displayTitle)
@@ -314,10 +314,41 @@ local function RegisterOptionsPanel()
   Settings.RegisterAddOnCategory(category)
 end
 
+local function MigrateLegacySavedVariables()
+  local leg = _G.MountFarmExportDB
+  if type(leg) ~= "table" then
+    return
+  end
+  if leg.websiteUrl and leg.websiteUrl ~= "" and (not MyNextMountDB.websiteUrl or MyNextMountDB.websiteUrl == "") then
+    MyNextMountDB.websiteUrl = leg.websiteUrl
+  end
+  if type(leg.guideChecks) == "table" then
+    MyNextMountDB.guideChecks = MyNextMountDB.guideChecks or {}
+    for sid, steps in pairs(leg.guideChecks) do
+      MyNextMountDB.guideChecks[sid] = MyNextMountDB.guideChecks[sid] or {}
+      for idx, v in pairs(steps) do
+        if v and not MyNextMountDB.guideChecks[sid][idx] then
+          MyNextMountDB.guideChecks[sid][idx] = v
+        end
+      end
+    end
+  end
+  if leg.lastExportTime and not MyNextMountDB.lastExportTime then
+    MyNextMountDB.lastExportTime = leg.lastExportTime
+  end
+  if leg.lastExportCount and not MyNextMountDB.lastExportCount then
+    MyNextMountDB.lastExportCount = leg.lastExportCount
+  end
+  if next(leg) ~= nil then
+    MountFarmExportDB = nil
+  end
+end
+
 local loadFrame = CreateFrame("Frame")
 loadFrame:RegisterEvent("ADDON_LOADED")
 loadFrame:SetScript("OnEvent", function(_, _, name)
   if name == ADDON_NAME then
+    MigrateLegacySavedVariables()
     RegisterOptionsPanel()
   end
 end)

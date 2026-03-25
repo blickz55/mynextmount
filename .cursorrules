@@ -135,7 +135,7 @@ Authentication
 API routes unless absolutely necessary
 Database
 Styling frameworks beyond basic CSS
-Heavy addon work beyond export in `addons/MountFarmExport/` (CurseForge: MyNextMount)
+Heavy addon work beyond export in `addons/MyNextMount/` (CurseForge: MyNextMount)
 🧭 Execution Rules for Cursor
 
 When given:

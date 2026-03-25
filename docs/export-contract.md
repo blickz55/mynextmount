@@ -93,7 +93,7 @@ Paste → **Find My Mounts** → those three must **not** appear in the top reco
 
 ## Official addon (Epic A.2)
 
-**MyNextMount** — retail add-on source in-repo: **`addons/MountFarmExport/`** (folder name unchanged for existing installs). Install: **`docs/addon-install.md`**.
+**MyNextMount** — retail add-on source in-repo: **`addons/MyNextMount/`**. Install: **`docs/addon-install.md`**.
 
 Slash: **`/mountexport`** (alias **`/mynextmount`**) — emits the same **`v1`** `M:` string (mount summon spell IDs, sorted ascending, no spaces).
 

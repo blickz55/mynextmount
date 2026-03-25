@@ -9,15 +9,13 @@ Slash commands:
 - `/mountexport`
 - `/mynextmount`
 
-**Options panel (Epic A.3 + C.2):** **Esc** → **Options** → **AddOns** → **MyNextMount** — **Open export for website**, optional **website URL**, and **Open farm guide window** (see **Epic C.2** in `docs/guides.md`). Slash **`/mfguides`** opens the same guide UI.
+**Options panel (Epic A.3 + C.2):** **Esc** → **Options** → **AddOns** → **MyNextMount** — **Open export for website**, optional **website URL**, and **Open farm guide window** (see **Epic C.2** in `docs/guides.md`). Slash **`/mnguides`** (alias **`/mfguides`**) opens the same guide UI.
 
 ## Install (Retail)
 
-1. Copy the folder `addons/MountFarmExport` from this repo into your WoW **Retail** add-ons directory, so you have:
+1. Copy the folder **`addons/MyNextMount`** from this repo into your WoW **Retail** add-ons directory, so you have:
 
-   `World of Warcraft\_retail_\Interface\AddOns\MountFarmExport\MountFarmExport.toc`
-
-   (The folder name stays **`MountFarmExport`** for compatibility; the in-game title is **MyNextMount**.)
+   `World of Warcraft\_retail_\Interface\AddOns\MyNextMount\MyNextMount.toc`
 
 2. Restart WoW or `/reload`.
 3. Enable **MyNextMount** on the AddOns list (check **Load out of date AddOns** if your patch is newer than the `## Interface` line in the `.toc`).
@@ -30,9 +28,17 @@ The site’s **How to** panel (**`/tool`**) and the **`/`** pitch link to one ou
 - **`NEXT_PUBLIC_ADDON_LISTING_URL`** — set at build time (Vercel **Environment Variables** or `.env.local`) to your **project** URL when it exists.
 - If unset, **`getAddonListingUrl()`** in **`lib/addonListing.ts`** uses **CurseForge search** for `MyNextMount` so the link is never empty.
 
-**Manual install** from git is always documented here (folder **`addons/MountFarmExport`**) and linked from the same panels as **`ADDON_INSTALL_DOCS_URL`**.
+**Manual install** from git is always documented here (folder **`addons/MyNextMount`**) and linked from the same panels as **`ADDON_INSTALL_DOCS_URL`**.
 
-When you publish on CurseForge, add a CurseForge project ID line to **`MountFarmExport.toc`** (e.g. `## X-Curse-Project-ID: 123456`) per [CurseForge’s packaging docs](https://docs.curseforge.com/docs/getting-started/adding-a-project/project-details) if you use their release flow.
+When you publish on CurseForge, add a CurseForge project ID line to **`MyNextMount.toc`** (e.g. `## X-Curse-Project-ID: 123456`) per [CurseForge’s packaging docs](https://docs.curseforge.com/docs/getting-started/adding-a-project/project-details) if you use their release flow.
+
+## Upgrade from `MountFarmExport` (old folder name)
+
+1. Exit WoW. Delete **`Interface\AddOns\MountFarmExport`** (the old folder).
+2. Copy **`Interface\AddOns\MyNextMount`** from this repo.
+3. **SavedVariables (optional):** rename  
+   `WTF\Account\<account>\SavedVariables\MountFarmExport.lua` → **`MyNextMount.lua`**.  
+   On first load, the addon merges **`MountFarmExportDB`** into **`MyNextMountDB`** and clears the legacy table. If you skip this step, you only lose prior optional URL / guide checkboxes / last export metadata.
 
 ## Notes
 
@@ -43,7 +49,9 @@ When you publish on CurseForge, add a CurseForge project ID line to **`MountFarm
 
 ## Saved variables
 
-`MountFarmExportDB` stores:
+Primary: **`MyNextMountDB`**. The **`.toc`** still declares **`MountFarmExportDB`** temporarily so a renamed **`MountFarmExport.lua`** SavedVariables file loads; the main script merges into **`MyNextMountDB`** and then clears legacy data when present.
+
+`MyNextMountDB` stores:
 
 - `lastExportTime` (Unix seconds) and `lastExportCount` from the last export.
 - `websiteUrl` (optional) for the copy dialog.

@@ -1,10 +1,10 @@
 ## Interface: 110105, 120000
 ## Title: MyNextMount
 ## Notes: Exports collected mount spell IDs as M:... for mynextmount.com (see docs/export-contract.md). Optional farm guides (Epic C.2). Website install link: docs/addon-install.md § Public listing.
-## Version: 1.1.0
+## Version: 1.2.0
 ## Author: MyNextMount
-## SavedVariables: MountFarmExportDB
+## SavedVariables: MyNextMountDB, MountFarmExportDB
 
-MountFarmGuides.lua
-MountFarmGuideUI.lua
-MountFarmExport.lua
+MyNextMountGuides.lua
+MyNextMountGuideUI.lua
+MyNextMount.lua

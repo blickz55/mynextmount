@@ -6,7 +6,7 @@
 
 ## Context
 
-Retail **Midnight / patch 12.x** introduced large-scale **AddOn security** changes aimed at limiting addons that **derive combat decisions** from rich runtime data. This project’s WoW addon (**`addons/MountFarmExport/`**) is **not** a combat mod: it reads the **Mount Journal** (`C_MountJournal`), builds the **`M:`** export string (`docs/export-contract.md`), and shows it in an **EditBox** for the player to copy. Recommendations and guides are consumed on the **website** (or as static text in the guide UI).
+Retail **Midnight / patch 12.x** introduced large-scale **AddOn security** changes aimed at limiting addons that **derive combat decisions** from rich runtime data. This project’s WoW addon (**`addons/MyNextMount/`**) is **not** a combat mod: it reads the **Mount Journal** (`C_MountJournal`), builds the **`M:`** export string (`docs/export-contract.md`), and shows it in an **EditBox** for the player to copy. Recommendations and guides are consumed on the **website** (or as static text in the guide UI).
 
 We still need a written strategy because:
 
@@ -28,9 +28,9 @@ The following is **not** legal advice and must be re-checked against **live clie
 | **Combat / secrets** | New **secret value** plumbing (`C_Secrets.*`, `canaccesssecrets`, widget secret aspects) and messaging that addons should not use raw combat/unit data for **automated decision-making**. Deprecated combat-log–related globals moved behind deprecation addons. | **None** for export path: we do not subscribe to `COMBAT_LOG_EVENT_UNFILTERED` or similar for core features. |
 | **Restrictions** | `C_RestrictedActions.GetAddOnRestrictionState` / `IsAddOnRestrictionActive`, event **`ADDON_RESTRICTION_STATE_CHANGED`**. | Monitor if Blizzard ever buckets **non-combat** UI (e.g. journal scraping) into restricted modes; today journal APIs are the intended surface. |
 | **Combat log** | `C_CombatLog.IsCombatLogRestricted` and filtered combat log events; legacy unfiltered combat APIs deprecated. | **Out of scope** unless we add combat features (we should not). |
-| **TOC / interface** | Wiki lists TOC **`120000`** for 12.0.0 (bump **`MountFarmExport.toc`** `## Interface` with each supported retail build). | Release hygiene only. |
+| **TOC / interface** | Wiki lists TOC **`120000`** for 12.0.0 (bump **`MyNextMount.toc`** `## Interface` with each supported retail build). | Release hygiene only. |
 | **Clipboard** | Still **no** stable server-side “copy string to OS clipboard” API for arbitrary text. Practical pattern remains **EditBox** + user **Ctrl+A** / **Ctrl+C** (documented in **`docs/addon-install.md`**). | If EditBox selection or focus is ever blocked in a context we use, switch to **Fallback B**. |
-| **SavedVariables** | No new hard cap published in this ADR’s sources; WoW still serializes SV to disk. Risk is **size** and **load time**, not a numeric quota. | Keep **`MountFarmExportDB`** small: prefs + **`guideChecks`** sparse table only; never store the full mount list in SV. |
+| **SavedVariables** | No new hard cap published in this ADR’s sources; WoW still serializes SV to disk. Risk is **size** and **load time**, not a numeric quota. | Keep **`MyNextMountDB`** small: prefs + **`guideChecks`** sparse table only; never store the full mount list in SV. |
 
 ## Decision
 
@@ -59,7 +59,7 @@ This matches Blizzard’s stated split between **cosmetic / journal** style addo
 
 - **Positive:** Architecture is already aligned with the restrictive direction of 12.x; combat API loss does not block the product thesis.
 - **Negative:** We must **watch patch notes** and **`ADDON_RESTRICTION_STATE_CHANGED`** behavior; journal APIs could theoretically be constrained later.
-- **Process:** On each major patch, smoke-test **`/mountexport`**, guide window **`/mfguides`**, and **SavedVariables** reload; update **`.toc` interface** and this ADR’s research blurb if the wiki/API summary shows journal-relevant removals.
+- **Process:** On each major patch, smoke-test **`/mountexport`**, guide window **`/mnguides`** / **`/mfguides`**, and **SavedVariables** reload; update **`.toc` interface** and this ADR’s research blurb if the wiki/API summary shows journal-relevant removals.
 
 ## Triggers (when to invoke fallbacks)
 
