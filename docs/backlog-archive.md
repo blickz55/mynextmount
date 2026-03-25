@@ -648,6 +648,35 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 ---
 
+# PHASE F — Monetization & commercial (archive)
+
+## Epic F.2 — Identity, OAuth roadmap, subscription-ready tiers ✅ Complete (strategy)
+
+**Scope delivered:** Documentation + types only — **no** production auth, sessions, or billing.
+
+### Requirement F.2.1 — Phased authentication
+
+**Implemented in** **`docs/auth-strategy.md`:** Phase A (email/password, hashing, sessions, CSRF, rate limits); Phase B (Google, Apple, **Battle.net** OIDC); identity linking + merge strategy notes; non-goals.
+
+### Requirement F.2.2 — Monetization posture
+
+**Implemented:** Entitlements / feature-flag rules (server authoritative); addon vs website paywall alignment with Blizzard addon guidelines.
+
+### Requirement F.2.3 — Standard vs. premium
+
+**Implemented:** Table captured in **`docs/auth-strategy.md`**; SKUs remain under **F.1**.
+
+### Acceptance
+
+- **`docs/auth-strategy.md`** before Phase A implementation; **Battle.net OAuth** aligned with [develop.battle.net](https://develop.battle.net/) guides (Using OAuth, authorization code flow, legal) and sample repo reference.
+
+**Artifacts**
+
+- **`docs/auth-strategy.md`**
+- **`types/entitlements.ts`** — `PlanId`, `Entitlements`, `ANONYMOUS_ENTITLEMENTS`
+
+---
+
 # PHASE G — Quality, ops, and testing (archive)
 
 ## Epic G.1 — Regression tests ✅ Complete
@@ -689,6 +718,7 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 | **C** | C.1–C.4 |
 | **D** | D.1–D.10 (through filters, infinite scroll & brand) |
 | **E** | E.1 |
+| **F** | F.2 (strategy) |
 | **G** | G.1, G.2 |
 
-**Next work:** root **`backlog.md`** — **F.1** / **F.2** when you are ready to commercialize (or parking-lot polish).
+**Next work:** root **`backlog.md`** — **F.1** business clarity, then future **auth Phase A** implementation when ready (or **H.1** / **H.2** UX).

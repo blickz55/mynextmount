@@ -41,36 +41,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE F — Monetization & commercial (later)
 
-## Epic F.2 — Identity, OAuth roadmap, and subscription-ready tiers (future)
-
-**Goal:** Move from anonymous paste-only toward **accounts** that can support **subscriptions** and **sync** later, without blocking today’s local-first MVP.
-
-### Requirement F.2.1 — Phased authentication
-
-1. **Phase A (future):** **Home-grown** email (or username) + password — modern password hashing (e.g. Argon2/bcrypt), rate limits, CSRF-safe sessions, secure cookies, **no** secrets in client.
-2. **Phase B (post-launch):** Optional **OIDC / OAuth2** sign-in: **Google**, **Apple**, **Battle.net** (Blizzard) — same user record, linked identities, merge strategy documented.
-3. **Non-goals for v1 of auth:** No “social graph”; minimal PII; align retention with **`docs/data-harvesting.md`** when accounts land.
-
-### Requirement F.2.2 — Monetization posture
-
-- Architecture should allow **feature flags** or **entitlements** (e.g. `plan: "free" | "premium"`) so **standard vs. premium** can ship without a rewrite.
-- **Addon rules:** Any paid web feature that touches the in-game addon must stay within **Blizzard addon guidelines** (no paywalled gameplay in the addon itself; website can gate **data/views**).
-
-### Requirement F.2.3 — Standard vs. premium (options to decide later)
-
-| Area | **Standard (free)** | **Premium (examples)** |
-|------|---------------------|-------------------------|
-| Core recommender | Paste export, filtered sorted list + scroll, rarest block, Wowhead links | Same or higher caps / convenience |
-| Digests / tips | Community summaries as shipped | **Faster** refresh cadence, **more** mounts covered, or **editor-curated** bundles |
-| Guides | Static checklist + source link | **Video/route packs**, **lockout planner** (if built) |
-| Accounts | Optional anonymous | **Saved exports**, **history**, **sync across devices** |
-| Support / ops | Best-effort | Priority, custom thresholds |
-
-*Exact SKUs are a **business** decision under **Epic F.1**; F.2 is technical + policy runway.*
-
-**Acceptance**
-
-- ADR or short **`docs/auth-strategy.md`** before implementing Phase A; Battle.net OAuth documented against current Blizzard developer portal rules.
+**Done (see archive):** **F.2** — **`docs/auth-strategy.md`** (phased auth, Battle.net OAuth pointers to [develop.battle.net](https://develop.battle.net/), entitlements / addon rules, standard vs premium table) and **`types/entitlements.ts`** (`PlanId`, `ANONYMOUS_ENTITLEMENTS`). **No** login UI, sessions, or payments in this epic — implement **Phase A** only after F.1 + checklist in that doc.
 
 ---
 
@@ -176,11 +147,11 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 | **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
 | **2** | **H.2** — Brand → **`/`** navigation | Fast “go home” / reset mental model; standard web pattern for public visitors. |
 | **3** | **H.1** — Mobile optimization | Many users run the site beside WoW on a phone; complements prior D.8 responsive work. |
-| **4** | **F.1** — Business clarity | **Before** auth or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
-| **5** | **F.2** — Auth / tiers | Only after F.1 + **`docs/auth-strategy.md`**; still optional for a paste-only public site. |
+| **4** | **F.1** — Business clarity | **Before** implementing auth Phase A or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
+| **5** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. Building login is a **separate future epic** after **F.1**. |
 
-**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **Phase G** is shipped; **H.1** / **H.2** are the main **UX** track before deeper commercial work.
+**Do not implement auth Phase A or payments until** you are intentionally moving past “personal tool that others can use for free” **and** **F.1** is far enough along. **Phase G** is shipped; **H.1** / **H.2** remain the main **UX** track; **F.2** doc work is done.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**). Last updated: **Phase H** — **H.1** mobile UX + **H.2** brand navigation added.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.2** strategy). Last updated: **F.2** — **`docs/auth-strategy.md`** + entitlements types.*
