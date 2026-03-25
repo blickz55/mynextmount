@@ -2,11 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteBrand } from "@/components/SiteBrand";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ADDON_INSTALL_DOCS_URL, getAddonListingUrl } from "@/lib/addonListing";
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
     : "";
+
+const addonListingUrl = getAddonListingUrl();
 
 export const metadata: Metadata = {
   title: "Coming soon",
@@ -49,6 +52,25 @@ export default function ComingSoonPage() {
           IDs). The site never treats something you own as a farming target, and
           you can narrow results by how mounts are obtained (dungeon, vendor,
           achievement, and more).
+        </p>
+        <p className="coming-soon-lead">
+          Install <strong>MyNextMount</strong> from the{" "}
+          <a
+            href={addonListingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            public listing
+          </a>{" "}
+          or follow{" "}
+          <a
+            href={ADDON_INSTALL_DOCS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            manual install
+          </a>{" "}
+          from the repository.
         </p>
         <p className="coming-soon-lead coming-soon-lead--last">
           The full experience is still in active development; we&apos;re

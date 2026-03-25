@@ -23,6 +23,17 @@ Slash commands:
 3. Enable **MyNextMount** on the AddOns list (check **Load out of date AddOns** if your patch is newer than the `## Interface` line in the `.toc`).
 4. Log in, run `/mountexport`, copy the string from the popup, paste into the site.
 
+## Public listing (website)
+
+The site’s **How to** panel (**`/tool`**) and the **`/`** pitch link to one outbound URL for players who use CurseForge, Wago, Overwolf, etc.:
+
+- **`NEXT_PUBLIC_ADDON_LISTING_URL`** — set at build time (Vercel **Environment Variables** or `.env.local`) to your **project** URL when it exists.
+- If unset, **`getAddonListingUrl()`** in **`lib/addonListing.ts`** uses **CurseForge search** for `MyNextMount` so the link is never empty.
+
+**Manual install** from git is always documented here (folder **`addons/MountFarmExport`**) and linked from the same panels as **`ADDON_INSTALL_DOCS_URL`**.
+
+When you publish on CurseForge, add a CurseForge project ID line to **`MountFarmExport.toc`** (e.g. `## X-Curse-Project-ID: 123456`) per [CurseForge’s packaging docs](https://docs.curseforge.com/docs/getting-started/adding-a-project/project-details) if you use their release flow.
+
 ## Notes
 
 - **Spell IDs** match `docs/export-contract.md` and `mounts.json` `id` after Epic A.1.

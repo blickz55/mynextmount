@@ -769,6 +769,22 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ---
 
+# PHASE I — Near-term polish (archive)
+
+## Epic I.1 — Official addon listing URL ✅ Complete
+
+### Requirement I.1.1
+
+**Implemented**
+
+- **`lib/addonListing.ts`** — **`getAddonListingUrl()`** reads **`NEXT_PUBLIC_ADDON_LISTING_URL`**; default **CurseForge search** for `MyNextMount`. **`ADDON_INSTALL_DOCS_URL`** → **`docs/addon-install.md`** on GitHub.
+- **`app/tool/page.tsx`** — How To step 1: **public addon listing** + **manual install** links.
+- **`app/page.tsx`** — coming-soon pitch: same pairing.
+- **`docs/addon-install.md`** — § **Public listing**; CurseForge **`.toc`** note when published.
+- **`docs/deployment.md`**, **`.env.example`** — env var documented.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -781,5 +797,6 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
 | **H** | H.1, H.2 |
+| **I** | I.1 |
 
-**Next work:** root **`backlog.md`** — **Phase I** (near-term polish) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*
+**Next work:** root **`backlog.md`** — **Phase I** (I.2–I.5 near-term polish) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*

@@ -29,6 +29,7 @@ Use **Chrome DevTools** (or Safari Web Inspector) at **~390×844** (iPhone 12/13
 
 ## Functional
 
+- [ ] **How to** (I.1): first step **public addon listing** and **manual install** open in a new tab; URLs match **`NEXT_PUBLIC_ADDON_LISTING_URL`** or default CurseForge search.
 - [ ] Paste export → submit → scroll through **farm list** load-more; cards wrap long names without overflow.
 - [ ] Open **View Your Mounts** with a **large** export (≥48 mounts): virtualized grid scrolls smoothly; **1 column** on narrow width.
 

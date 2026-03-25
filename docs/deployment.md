@@ -12,6 +12,7 @@ The app is a **static Next.js** site (`next build` → prerendered pages). No da
    - Output: Next default  
 4. **Environment variables** (Project → Settings → Environment Variables), for **Production** (and Preview if you want):
    - `NEXT_PUBLIC_SITE_URL` = `https://www.mynextmount.com`  
+   - **`NEXT_PUBLIC_ADDON_LISTING_URL`** (optional) — canonical **MyNextMount** page on CurseForge, Wago, etc. When the addon is published, set this so **How to** and **`/`** point at the real project instead of the default CurseForge search. See **`docs/addon-install.md`** § *Public listing*.
    - Add any keys you use locally from **`.env.example`** (e.g. Blizzard API) only if a future server/edge feature needs them; the current home page does not call Blizzard at runtime.
 5. **Pre-prod on `www`:**  
    - Git → **Production Branch** = `staging` (or your pre-prod branch name).  
@@ -35,6 +36,7 @@ You can delete **`.github/workflows/vercel-staging.yml`** if you will never use 
 ## Local parity
 
 - **`NEXT_PUBLIC_SITE_URL`** — canonical site URL for `metadataBase` / Open Graph (defaults to `https://www.mynextmount.com` in code if unset).
+- **`NEXT_PUBLIC_ADDON_LISTING_URL`** — optional; **`lib/addonListing.ts`** falls back to CurseForge search for `MyNextMount` when unset (Epic **I.1**).
 - **`npm run test`** — Vitest regression suite (parse, ownership filter, scoring, sort order); same command CI runs before lint/build.
 - **`docs/mobile-smoke-checklist.md`** — quick pass for **`/`** and **`/tool`** on a narrow viewport (Epic **H.1**).
 

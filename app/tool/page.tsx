@@ -31,6 +31,7 @@ import { scoreEasiest } from "@/lib/scoreEasiest";
 import { scoreRarest } from "@/lib/scoreRarest";
 import { selectTopOwnedByRarest } from "@/lib/selectTopOwnedByRarest";
 import { sortMountsByScore } from "@/lib/selectTopMountsByScore";
+import { ADDON_INSTALL_DOCS_URL, getAddonListingUrl } from "@/lib/addonListing";
 import type { Mount } from "@/types/mount";
 import type { RecommendationMode } from "@/types/recommendationMode";
 
@@ -40,6 +41,8 @@ const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
     : "";
+
+const addonListingUrl = getAddonListingUrl();
 
 export default function HomePage() {
   const [exportString, setExportString] = useState("");
@@ -152,14 +155,22 @@ export default function HomePage() {
         <h2 className="how-to-panel__title">How to get your export</h2>
         <ol className="how-to-panel__list">
           <li>
-            Install the <strong>MyNextMount</strong> addon through your favorite
-            addon installer, such as{" "}
+            Install <strong>MyNextMount</strong> from the{" "}
             <a
-              href="https://www.curseforge.com/wow/addons"
+              href={addonListingUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              CurseForge
+              public addon listing
+            </a>{" "}
+            (CurseForge / Wago / your installer). For a folder copy from this
+            repo, see{" "}
+            <a
+              href={ADDON_INSTALL_DOCS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              manual install
             </a>
             .
           </li>
