@@ -25,6 +25,12 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 
 import { loadProjectEnv } from "./lib/project-env.mjs";
+import {
+  MAX_COMMENTS_IN,
+  DIGEST_LLM_SYSTEM,
+  buildDigestUserPrompt,
+  callOpenAIForDigestLines,
+} from "./lib/wowhead-digest-llm.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -32,19 +38,7 @@ const outDir = join(root, "data", "build");
 const promptsPath = join(outDir, "wowhead-digest-llm-prompts.txt");
 const outputPath = join(outDir, "wowhead-digest-llm-draft-output.json");
 
-const MAX_COMMENTS_IN = 5;
-const MAX_LINES_OUT = 5;
 const LLM_DELAY_MS_DEFAULT = 750;
-
-const SYSTEM = `You summarize World of Warcraft mount farming discussion for a personal fansite.
-Rules:
-- Output EXACTLY one JSON object with a single key "lines" (array of strings).
-- Emit between 3 and ${MAX_LINES_OUT} strings (fewer only if excerpts are empty or useless).
-- Each string is one concise bullet under 220 characters, plain English, for players farming the mount.
-- PARAPHRASE only: do NOT copy sentences or distinctive phrases from the excerpts.
-- Prefer actionable tips (source, lockout, difficulty, routes) when supported; mark uncertainty ("often", "check current patch") when excerpts conflict.
-- No HTML, no markdown list markers inside strings, no leading "• ".
-- No insults, no real-world personal data; game advice only.`;
 
 function parseArgs(argv) {
   let file = "";
@@ -95,66 +89,6 @@ function normalizeInput(raw) {
   return { sourceNote, entries };
 }
 
-function buildUserPrompt(spellId, mountName, sourceNote, commentTexts) {
-  const blocks = commentTexts
-    .map((t, i) => `--- Excerpt ${i + 1} ---\n${t}`)
-    .join("\n\n");
-  return [
-    `Summon spell ID: ${spellId}`,
-    mountName ? `Mount name (from site dataset): ${mountName}` : "",
-    `How excerpts were obtained: ${sourceNote}`,
-    "",
-    `Up to ${MAX_COMMENTS_IN} community comment excerpts (paraphrase targets; do not quote verbatim):`,
-    blocks || "(no excerpt text — output 0–2 cautious generic lines suggesting the user check Wowhead for current tips.)",
-    "",
-    `Respond with JSON only: {"lines":["bullet one","bullet two",...]} (max ${MAX_LINES_OUT} bullets).`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-}
-
-async function callOpenAI({ apiKey, baseUrl, model, user }) {
-  const url = `${baseUrl.replace(/\/$/, "")}/chat/completions`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model,
-      temperature: 0.35,
-      messages: [
-        { role: "system", content: SYSTEM },
-        { role: "user", content: user },
-      ],
-    }),
-  });
-  const text = await res.text();
-  if (!res.ok) {
-    throw new Error(`OpenAI HTTP ${res.status}: ${text.slice(0, 400)}`);
-  }
-  const data = JSON.parse(text);
-  const content = data.choices?.[0]?.message?.content;
-  if (typeof content !== "string") {
-    throw new Error("No choices[0].message.content in response");
-  }
-  const trimmed = content.trim();
-  const jsonMatch = trimmed.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error(`Could not find JSON in model output: ${trimmed.slice(0, 200)}`);
-  }
-  const parsed = JSON.parse(jsonMatch[0]);
-  if (!Array.isArray(parsed.lines)) {
-    throw new Error('JSON missing array "lines"');
-  }
-  const lines = parsed.lines
-    .map((s) => String(s).trim())
-    .filter(Boolean)
-    .slice(0, MAX_LINES_OUT);
-  return lines;
-}
-
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -203,9 +137,9 @@ async function main() {
   const promptSections = [];
   for (const e of entries) {
     const mountName = loadMountName(e.spellId);
-    const user = buildUserPrompt(e.spellId, mountName, sourceNote, e.comments);
+    const user = buildDigestUserPrompt(e.spellId, mountName, sourceNote, e.comments);
     promptSections.push(
-      `\n\n########## SPELL ${e.spellId} (${mountName || "unknown name"}) ##########\n=== SYSTEM ===\n${SYSTEM}\n\n=== USER ===\n${user}\n`,
+      `\n\n########## SPELL ${e.spellId} (${mountName || "unknown name"}) ##########\n=== SYSTEM ===\n${DIGEST_LLM_SYSTEM}\n\n=== USER ===\n${user}\n`,
     );
   }
   writeFileSync(promptsPath, promptSections.join(""), "utf8");
@@ -244,9 +178,9 @@ async function main() {
   for (let i = 0; i < entries.length; i += 1) {
     const e = entries[i];
     const mountName = loadMountName(e.spellId);
-    const user = buildUserPrompt(e.spellId, mountName, sourceNote, e.comments);
+    const user = buildDigestUserPrompt(e.spellId, mountName, sourceNote, e.comments);
     console.log(`[wowhead-digest-llm-draft] ${i + 1}/${entries.length} spell ${e.spellId} (${model})…`);
-    const lines = await callOpenAI({ apiKey, baseUrl, model, user });
+    const lines = await callOpenAIForDigestLines({ apiKey, baseUrl, model, user });
     drafts[String(e.spellId)] = { lines, mountName: mountName || null };
     if (i < entries.length - 1) await sleep(delayMs);
   }

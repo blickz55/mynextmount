@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import catalogJson from "../fixtures/g1-mount-catalog.json";
 import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
+import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
 import { parseMountExport } from "@/lib/parseMountExport";
 import { scoreEasiest } from "@/lib/scoreEasiest";
 import { scoreRarest } from "@/lib/scoreRarest";
@@ -69,7 +70,18 @@ describe("filterUnownedMounts — ownership invariant (G.1)", () => {
     if (!parsed.ok) return;
     const unowned = filterUnownedMounts(catalog, parsed.ids);
     const ids = unowned.map((m) => m.id).sort((a, b) => a - b);
-    expect(ids).toEqual([100003, 100004, 100005, 100006]);
+    expect(ids).toEqual([100003, 100004, 100005, 100006, 100007]);
+  });
+
+  it("excludes retailObtainable:false from farm recommendation pool", () => {
+    const parsed = parseMountExport(G1_EXPORT_OWNED_FIRST_TWO);
+    expect(parsed.ok).toBe(true);
+    if (!parsed.ok) return;
+    const unowned = filterUnownedMounts(catalog, parsed.ids);
+    const farmable = filterMountsEligibleForFarmRecommendations(unowned);
+    expect(farmable.map((m) => m.id).sort((a, b) => a - b)).toEqual([
+      100003, 100004, 100005, 100006,
+    ]);
   });
 });
 
@@ -92,7 +104,9 @@ describe("sortMountsByScore — ordering + slice head (G.1)", () => {
     const parsed = parseMountExport(G1_EXPORT_OWNED_FIRST_TWO);
     expect(parsed.ok).toBe(true);
     if (!parsed.ok) return;
-    const unowned = filterUnownedMounts(catalog, parsed.ids);
+    const unowned = filterMountsEligibleForFarmRecommendations(
+      filterUnownedMounts(catalog, parsed.ids),
+    );
     const sorted = sortMountsByScore(unowned, scoreEasiest);
     expect(sorted.map((m) => m.id)).toEqual([100004, 100003, 100005, 100006]);
     expect(sorted.slice(0, 3).map((m) => m.id)).toEqual([
@@ -104,7 +118,9 @@ describe("sortMountsByScore — ordering + slice head (G.1)", () => {
     const parsed = parseMountExport(G1_EXPORT_OWNED_FIRST_TWO);
     expect(parsed.ok).toBe(true);
     if (!parsed.ok) return;
-    const unowned = filterUnownedMounts(catalog, parsed.ids);
+    const unowned = filterMountsEligibleForFarmRecommendations(
+      filterUnownedMounts(catalog, parsed.ids),
+    );
     const sorted = sortMountsByScore(unowned, scoreRarest);
     expect(sorted.map((m) => m.id)).toEqual([100006, 100004, 100003, 100005]);
     expect(sorted.slice(0, 3).map((m) => m.id)).toEqual([
@@ -116,7 +132,9 @@ describe("sortMountsByScore — ordering + slice head (G.1)", () => {
     const parsed = parseMountExport(G1_EXPORT_OWNED_FIRST_TWO);
     expect(parsed.ok).toBe(true);
     if (!parsed.ok) return;
-    const unowned = filterUnownedMounts(catalog, parsed.ids);
+    const unowned = filterMountsEligibleForFarmRecommendations(
+      filterUnownedMounts(catalog, parsed.ids),
+    );
     const run = () =>
       sortMountsByScore(unowned, scoreEasiest)
         .map((m) => m.id)

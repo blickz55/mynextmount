@@ -53,12 +53,19 @@ function OwnedMountRow({ row: r }: { row: Row }) {
       ) : (
         <span className="owned-collection__icon-spacer" aria-hidden />
       )}
-      <span
-        className="owned-collection__name"
+      <div
+        className="owned-collection__name-stack"
         title={r.mount?.name ?? `Spell ${r.spellId}`}
       >
-        {r.mount ? r.mount.name : `Unknown (${r.spellId})`}
-      </span>
+        <span className="owned-collection__name-text">
+          {r.mount ? r.mount.name : `Unknown (${r.spellId})`}
+        </span>
+        {r.mount?.retailObtainable === false ? (
+          <span className="owned-collection__badge-unobtainable">
+            No longer obtainable
+          </span>
+        ) : null}
+      </div>
       <div
         className="rarity-bar"
         role="img"

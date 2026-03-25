@@ -173,9 +173,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=5784",
     "commentsUrl": "https://www.wowhead.com/spell=5784#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 136103,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/spell_nature_swiftness.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 6648,
@@ -479,9 +477,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=13819",
     "commentsUrl": "https://www.wowhead.com/spell=13819#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 136103,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/spell_nature_swiftness.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 15779,
@@ -1045,9 +1041,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=23161",
     "commentsUrl": "https://www.wowhead.com/spell=23161#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 132238,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_dreadsteed.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 23214,
@@ -1063,9 +1057,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=23214",
     "commentsUrl": "https://www.wowhead.com/spell=23214#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 132226,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_charger.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 23219,
@@ -1935,9 +1927,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=34767",
     "commentsUrl": "https://www.wowhead.com/spell=34767#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 132226,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_charger.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 34769,
@@ -1953,9 +1943,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=34769",
     "commentsUrl": "https://www.wowhead.com/spell=34769#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 136103,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/spell_nature_swiftness.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 34790,
@@ -2606,8 +2594,9 @@
     ],
     "wowheadUrl": "https://www.wowhead.com/spell=43688",
     "commentsUrl": "https://www.wowhead.com/spell=43688#comments",
-    "retailObtainable": true,
-    "sourceCategory": "drop"
+    "retailObtainable": false,
+    "sourceCategory": "drop",
+    "asOfPatch": "curated-2025-03"
   },
   {
     "id": 43899,
@@ -2825,9 +2814,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=48778",
     "commentsUrl": "https://www.wowhead.com/spell=48778#comments",
     "retailObtainable": true,
-    "sourceCategory": "vendor",
-    "iconFileId": 237534,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/spell_deathknight_summondeathcharger.jpg"
+    "sourceCategory": "vendor"
   },
   {
     "id": 48954,
@@ -3274,8 +3261,9 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=59976",
     "commentsUrl": "https://www.wowhead.com/spell=59976#comments",
-    "retailObtainable": true,
-    "sourceCategory": "vendor"
+    "retailObtainable": false,
+    "sourceCategory": "vendor",
+    "asOfPatch": "curated-2025-03"
   },
   {
     "id": 59996,
@@ -3326,8 +3314,9 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=60021",
     "commentsUrl": "https://www.wowhead.com/spell=60021#comments",
-    "retailObtainable": true,
-    "sourceCategory": "achievement"
+    "retailObtainable": false,
+    "sourceCategory": "achievement",
+    "asOfPatch": "curated-2025-03"
   },
   {
     "id": 60024,
@@ -4024,8 +4013,9 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=64927",
     "commentsUrl": "https://www.wowhead.com/spell=64927#comments",
-    "retailObtainable": true,
-    "sourceCategory": "vendor"
+    "retailObtainable": false,
+    "sourceCategory": "vendor",
+    "asOfPatch": "curated-2025-03"
   },
   {
     "id": 64977,
@@ -4531,9 +4521,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=69820",
     "commentsUrl": "https://www.wowhead.com/spell=69820#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 132245,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_kodo_03.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 69826,
@@ -4549,9 +4537,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=69826",
     "commentsUrl": "https://www.wowhead.com/spell=69826#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 329848,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_kodosunwalkerelite.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 71342,
@@ -4667,9 +4653,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=73629",
     "commentsUrl": "https://www.wowhead.com/spell=73629#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 136103,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/spell_nature_swiftness.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 73630,
@@ -4685,9 +4669,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=73630",
     "commentsUrl": "https://www.wowhead.com/spell=73630#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 132226,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_charger.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 74856,
@@ -11317,9 +11299,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=270562",
     "commentsUrl": "https://www.wowhead.com/spell=270562#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 1980723,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_dwarfpaladinram_red.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 270564,
@@ -11335,9 +11315,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=270564",
     "commentsUrl": "https://www.wowhead.com/spell=270564#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 1980722,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_dwarfpaladinram_gold.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 271646,
@@ -12393,9 +12371,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=290608",
     "commentsUrl": "https://www.wowhead.com/spell=290608#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 2564351,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_zandalaripaladinmount.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 290718,
@@ -16621,9 +16597,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=363613",
     "commentsUrl": "https://www.wowhead.com/spell=363613#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 4070328,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_lightforgedtalbuk.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 363701,
@@ -16961,9 +16935,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=368896",
     "commentsUrl": "https://www.wowhead.com/spell=368896#comments",
     "retailObtainable": true,
-    "sourceCategory": "achievement",
-    "iconFileId": 4622499,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_companionprotodragon.jpg"
+    "sourceCategory": "achievement"
   },
   {
     "id": 368899,
@@ -17938,9 +17910,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=395644",
     "commentsUrl": "https://www.wowhead.com/spell=395644#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 4094306,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_eagle2windmount_white.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 397406,
@@ -20889,9 +20859,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=453785",
     "commentsUrl": "https://www.wowhead.com/spell=453785#comments",
     "retailObtainable": true,
-    "sourceCategory": "quest",
-    "iconFileId": 5350153,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_earthenpaladinmount.jpg"
+    "sourceCategory": "quest"
   },
   {
     "id": 454682,
@@ -24472,9 +24440,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1253924",
     "commentsUrl": "https://www.wowhead.com/spell=1253924#comments",
     "retailObtainable": true,
-    "sourceCategory": "achievement",
-    "iconFileId": 6916450,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_rutaanibirdmount_pink.jpg"
+    "sourceCategory": "achievement"
   },
   {
     "id": 1253927,
@@ -24988,9 +24954,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1261334",
     "commentsUrl": "https://www.wowhead.com/spell=1261334#comments",
     "retailObtainable": true,
-    "sourceCategory": "worldevent",
-    "iconFileId": 7164285,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_kaijubatmount_orange.jpg"
+    "sourceCategory": "worldevent"
   },
   {
     "id": 1261336,
@@ -25070,9 +25034,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1261349",
     "commentsUrl": "https://www.wowhead.com/spell=1261349#comments",
     "retailObtainable": true,
-    "sourceCategory": "achievement",
-    "iconFileId": 7414436,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_amanipangolinmount_forest.jpg"
+    "sourceCategory": "achievement"
   },
   {
     "id": 1261351,
@@ -25174,9 +25136,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1261579",
     "commentsUrl": "https://www.wowhead.com/spell=1261579#comments",
     "retailObtainable": true,
-    "sourceCategory": "vendor",
-    "iconFileId": 6966388,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_stalkermount_orange.jpg"
+    "sourceCategory": "vendor"
   },
   {
     "id": 1261583,
@@ -25407,9 +25367,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1263635",
     "commentsUrl": "https://www.wowhead.com/spell=1263635#comments",
     "retailObtainable": true,
-    "sourceCategory": "drop",
-    "iconFileId": 6996382,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_white_hawkstrider.jpg"
+    "sourceCategory": "drop"
   },
   {
     "id": 1264621,
@@ -25541,9 +25499,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1266702",
     "commentsUrl": "https://www.wowhead.com/spell=1266702#comments",
     "retailObtainable": true,
-    "sourceCategory": "vendor",
-    "iconFileId": 7455623,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_cosmicflyermount_purple.jpg"
+    "sourceCategory": "vendor"
   },
   {
     "id": 1266703,
@@ -25559,9 +25515,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1266703",
     "commentsUrl": "https://www.wowhead.com/spell=1266703#comments",
     "retailObtainable": true,
-    "sourceCategory": "achievement",
-    "iconFileId": 7455624,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_cosmicflyermount_red.jpg"
+    "sourceCategory": "achievement"
   },
   {
     "id": 1266980,
@@ -25881,9 +25835,7 @@
     "wowheadUrl": "https://www.wowhead.com/spell=1270673",
     "commentsUrl": "https://www.wowhead.com/spell=1270673#comments",
     "retailObtainable": true,
-    "sourceCategory": "achievement",
-    "iconFileId": 7502453,
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_resinrhinomount_pink.jpg"
+    "sourceCategory": "achievement"
   },
   {
     "id": 1270675,

@@ -179,6 +179,26 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
+## Epic J.6 — In-game guide import (website → addon feedback loop)
+
+**Goal:** Close the loop: after the site ranks **top farm targets** for the player, let them pull the **AI-assisted / curated guide text** (summaries, steps, tips — same lineage as **`mount-guides.json`** / site expandable rows) **into the MyNextMount addon** so they can read it **in-game** without alt-tabbing.
+
+### Requirement J.6.1
+
+- **Product slice:** Define how the player selects **which mounts** to sync (e.g. top *N* from current tool results, or explicit picks) and what payload shape the addon accepts (size limits, UTF-8, versioning).
+- **Transport:** Choose a practical path under addon constraints — e.g. **paste buffer** (generated block the site copies; addon **`/importguides`** parses), or **optional** file drop / companion step if allowed; document in **`docs/export-contract.md`** or a sibling **`docs/guide-import-contract.md`**.
+- **In-game UX:** Addon panel or slash command listing imported mounts with **scrollable text**, **staleness** indicator or “refresh from site” hint, and clear fallback when a mount has no guide.
+
+### Requirement J.6.2
+
+- **Governance:** Imported text must respect the same **provenance / disclaimer** posture as the site (see **`docs/guides.md`**, **`docs/wowhead-digests.md`**); no implication that Blizzard endorses generated copy.
+
+**Acceptance**
+
+- Working **round-trip story** documented end-to-end: **export** → site farm list → **import guides** for at least those mounts → readable in-game; plus a short note in **`docs/adr-012-addon-strategy.md`** (or ADR) if strategy shifts.
+
+---
+
 # Open questions (need your answers when possible)
 
 1. **Target product**: Retail only, or Classic too? (Drives API and mount list.)
@@ -196,7 +216,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 | **2** | **I.3** — How To polish | Faster first successful paste. |
 | **3** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
 | **4** | **I.5** — Farm virtualization | Only if measured need. |
-| **—** | **J.1–J.5** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. |
+| **—** | **J.1–J.6** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. (**J.6** = website → addon guide import / feedback loop.) |
 | **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 
 **Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2. **Phase G** and **Phase H** are shipped.
@@ -207,4 +227,4 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**, **I.2**). Last updated: parking lot promoted to **Phase I** + **Phase J**.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**, **I.2**). Last updated: **J.6** added (in-game guide import / website → addon loop).*

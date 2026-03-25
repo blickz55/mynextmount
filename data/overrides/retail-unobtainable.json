@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Verify on Wowhead before adding rows.",
+  "patches": [
+    {
+      "id": 59976,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2025-03"
+    },
+    {
+      "id": 60021,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2025-03"
+    },
+    {
+      "id": 43688,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2025-03"
+    },
+    {
+      "id": 64927,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2025-03"
+    }
+  ]
+}

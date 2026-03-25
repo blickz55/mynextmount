@@ -63,7 +63,12 @@ function loadJson(path) {
   return JSON.parse(readFileSync(join(root, path), "utf8"));
 }
 
-function defaultMountFromApi(spellId, detail) {
+/**
+ * Blizzard mount detail JSON has no stable "unobtainable in Retail" flag.
+ * (`should_exclude_if_uncollected` is not equivalent — many farmable mounts set it.)
+ * Curated false values live in `data/overrides/retail-unobtainable.json`.
+ */
+function defaultMountFromApi(spellId, detail, asOfPatch) {
   const name =
     pickDisplayString(detail.name) || `Mount (spell ${spellId})`;
   const st =
@@ -88,6 +93,7 @@ function defaultMountFromApi(spellId, detail) {
     wowheadUrl: `https://www.wowhead.com/spell=${spellId}`,
     commentsUrl: `https://www.wowhead.com/spell=${spellId}#comments`,
     retailObtainable: true,
+    asOfPatch,
   };
   if (typeof st === "string" && st) {
     row.sourceCategory = st.toLowerCase();
@@ -222,7 +228,7 @@ async function main() {
       continue;
     }
 
-    const row = defaultMountFromApi(spellId, detail);
+    const row = defaultMountFromApi(spellId, detail, asOfPatch);
     applyRowOverride(row, overridesById.get(spellId));
     bySpellId.set(spellId, row);
 
@@ -265,7 +271,7 @@ async function main() {
     gameVersion: asOfPatch,
     gitCommit: process.env.GITHUB_SHA || process.env.GIT_COMMIT || undefined,
     notes:
-      "Epic B.2 + B.5 — Blizzard mount API + mount-to-summon-spell map + sourceCategory scoring heuristics + data/overrides/*.json",
+      "Epic B.2 + B.5 — Blizzard mount API + mount-to-summon-spell map + sourceCategory scoring heuristics + data/overrides/*.json (incl. retail-unobtainable) + per-row asOfPatch",
     rowCount: mounts.length,
     spellIdCount: mounts.length,
     excludedSkipped: skippedExcluded,

@@ -292,9 +292,10 @@ html[data-theme="dark"] > body {
 
 .site-brand__logo {
   display: block;
-  max-height: 4.5rem;
+  max-height: 5rem;
   width: auto;
-  max-width: min(100%, 280px);
+  /* Wide strips (e.g. mount lineup in data/images/mynextmount-logo.png) */
+  max-width: min(100%, 520px);
   height: auto;
   margin: 0 0 0.5rem;
   object-fit: contain;
@@ -490,13 +491,26 @@ html[data-theme="dark"] > body {
   font-size: 0.78rem;
 }
 
-.owned-collection__name {
+.owned-collection__name-stack {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  color: var(--text);
+}
+
+.owned-collection__name-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--text);
+}
+
+.owned-collection__badge-unobtainable {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.2;
 }
 
 .owned-collection__icon-spacer {
@@ -906,6 +920,13 @@ html[data-theme="dark"] .btn-primary {
   min-width: 0;
   flex: 1 1 12rem;
   overflow-wrap: anywhere;
+}
+
+.mount-result-card__unobtainable {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  flex: 1 1 100%;
 }
 
 .mount-result-card__meta {

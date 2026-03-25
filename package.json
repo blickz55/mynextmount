@@ -16,6 +16,7 @@
     "data:check-surface": "node scripts/check-mount-surface.mjs",
     "data:check-drift": "node scripts/check-mount-drift.mjs",
     "data:build": "node scripts/build-mounts.mjs",
+    "data:apply-overrides": "node scripts/apply-mount-overrides.mjs",
     "data:apply-scores": "node scripts/apply-scoring-heuristics.mjs",
     "data:spell-baseline": "node scripts/spell-baseline.mjs",
     "data:enrich-metadata": "node scripts/enrich-mount-metadata.mjs",
@@ -26,7 +27,9 @@
     "data:wowhead-digest": "node scripts/report-wowhead-digests.mjs",
     "data:guide-experience": "node scripts/report-guide-experience-coverage.mjs",
     "content:guides-batch": "node scripts/content-guides-batch.mjs",
-    "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs"
+    "content:guides-refine-checklists": "node scripts/content-guides-refine-checklists.mjs",
+    "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs",
+    "content:wowhead-digests-from-web": "node scripts/wowhead-digest-from-comments.mjs"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.23",

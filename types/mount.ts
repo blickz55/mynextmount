@@ -20,7 +20,9 @@ export type Mount = {
   /** Blizzard spell media asset URL (Tier 1 enrich); preferred over synthetic file-id URL. */
   iconUrl?: string;
   sourceCategory?: string;
+  /** false = curated “no longer obtainable in Retail” (`data/overrides/retail-unobtainable.json`). Omitted or true = eligible for farm list. */
   retailObtainable?: boolean;
+  /** Harvest or curation stamp (e.g. build manifest gameVersion or `curated-…`). */
   asOfPatch?: string;
   /** Optional one-line farm context from `data/farm-tips.json` (merged at load). */
   farmTip?: string;

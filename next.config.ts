@@ -13,21 +13,39 @@ const configDir = dirname(__filename);
 const dataDir = join(configDir, "data");
 const publicDir = join(configDir, "public");
 
-function pickLogoFile(files: string[]): string | null {
-  const images = files.filter(
+function listImageBasenames(dir: string): string[] {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter(
     (f) => /\.(png|svg|webp|jpe?g)$/i.test(f) && !f.startsWith("."),
   );
-  const preferred = images.find((f) => /^mynextmount-logo\./i.test(f));
+}
+
+/** Prefer `mynextmount-logo.*`, then any basename containing `logo`. */
+function pickLogoBasename(files: string[]): string | null {
+  const preferred = files.find((f) => /^mynextmount-logo\./i.test(f));
   if (preferred) return preferred;
-  const anyLogo = images.find((f) => /logo/i.test(f));
+  const anyLogo = files.find((f) => /logo/i.test(f));
   return anyLogo ?? null;
 }
 
+/**
+ * Copies one file from `data/images/` (preferred) or `data/` into `public/`
+ * as `mynextmount-brand.<ext>` and returns its URL for SiteBrand.
+ * Drop `data/images/mynextmount-logo.png` (or svg/webp) to override.
+ */
 function syncBrandLogoFromData(): string | null {
   if (!existsSync(dataDir)) return null;
-  const name = pickLogoFile(readdirSync(dataDir));
-  if (!name) return null;
-  const src = join(dataDir, name);
+  const imagesDir = join(dataDir, "images");
+  const inImages = pickLogoBasename(listImageBasenames(imagesDir));
+  const inRoot = pickLogoBasename(listImageBasenames(dataDir));
+  const picked =
+    inImages != null
+      ? { src: join(imagesDir, inImages), name: inImages }
+      : inRoot != null
+        ? { src: join(dataDir, inRoot), name: inRoot }
+        : null;
+  if (!picked) return null;
+  const { src, name } = picked;
   const ext = extname(name).toLowerCase();
   const outExt = ext === ".jpeg" ? ".jpg" : ext;
   const destName = `mynextmount-brand${outExt}`;

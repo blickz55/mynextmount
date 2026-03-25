@@ -18,6 +18,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
+import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
 import { mounts } from "@/lib/mounts";
 import {
   anySourceFilterEnabled,
@@ -62,10 +63,17 @@ export default function HomePage() {
     return filterUnownedMounts(mounts, parsedIds);
   }, [parsedIds]);
 
+  const farmableUnownedMounts = useMemo(
+    () => filterMountsEligibleForFarmRecommendations(unownedMounts),
+    [unownedMounts],
+  );
+
   const filteredUnowned = useMemo(() => {
     if (!anySourceFilterEnabled(sourceFilters)) return [];
-    return unownedMounts.filter((m) => sourceFilters[getMountSourceBucket(m)]);
-  }, [unownedMounts, sourceFilters]);
+    return farmableUnownedMounts.filter(
+      (m) => sourceFilters[getMountSourceBucket(m)],
+    );
+  }, [farmableUnownedMounts, sourceFilters]);
 
   const scoreFn = mode === "easiest" ? scoreEasiest : scoreRarest;
 
@@ -143,6 +151,10 @@ export default function HomePage() {
   const filtersActive = anySourceFilterEnabled(sourceFilters);
   const showFarmSection = parsedIds !== null;
   const unownedEmpty = parsedIds !== null && unownedMounts.length === 0;
+  const allUnownedMarkedUnobtainable =
+    parsedIds !== null &&
+    unownedMounts.length > 0 &&
+    farmableUnownedMounts.length === 0;
 
   return (
     <main
@@ -319,6 +331,11 @@ export default function HomePage() {
                             <div className="mount-result-card__head">
                               <MountIcon mount={mount} />
                               <strong>{mount.name}</strong>
+                              {mount.retailObtainable === false ? (
+                                <span className="mount-result-card__unobtainable">
+                                  No longer obtainable
+                                </span>
+                              ) : null}
                               <span className="mount-result-card__meta">
                                 — {getMountLocationLabel(mount)}
                               </span>
@@ -382,7 +399,19 @@ export default function HomePage() {
                 </p>
               )}
 
-              {filtersActive && !unownedEmpty && sortedFarmList.length === 0 && (
+              {filtersActive && allUnownedMarkedUnobtainable && (
+                <p className="status-block" role="status" aria-live="polite">
+                  You still have unowned mounts in the catalog, but every one
+                  is marked{" "}
+                  <strong>no longer obtainable</strong> in Retail (curated
+                  list). Nothing to farm from this dataset.
+                </p>
+              )}
+
+              {filtersActive &&
+                !unownedEmpty &&
+                !allUnownedMarkedUnobtainable &&
+                sortedFarmList.length === 0 && (
                 <p className="status-block" role="status" aria-live="polite">
                   No mounts match your selected filters. Try turning more
                   sources on.

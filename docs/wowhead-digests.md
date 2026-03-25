@@ -55,6 +55,7 @@ Example: **`fixtures/wowhead-top-comments.example.json`**.
 - **`npm run data:wowhead-digest`** — writes **`data/build/wowhead-digest-report.json`** (coverage counts + pilot spell id check).
 - **`npm run data:wowhead-digest -- --strict-pilots`** — exit **1** if any of the six guide pilot spell ids lack a non-empty digest.
 - **`npm run wowhead-digest:draft -- --file=path/to/batch.json`** — LLM draft from excerpt batch (see [Tier 2](#tier-2--llm-from-top-comment-excerpts-allowed-path)). Optional: **`--spell-id=N`**, **`--max=N`**.
+- **`npm run content:wowhead-digests-from-web`** — **fetch** Wowhead comment JSON (best-effort URL templates), take top-voted bodies, **paraphrase** with the same digest LLM rules, write **`data/build/wowhead-digest-from-web-batch.json`**, optional **`--apply`** → **`data/wowhead-comment-digests.json`**. Wowhead often returns **403** from datacenter IPs; use a normal home connection and/or **`WOWHEAD_COOKIE`**, and set **`WOWHEAD_COMMENTS_URL_TEMPLATE`** from DevTools (Network) if the default URLs do not return JSON. Flags: **`--limit=N`**, **`--only-missing`**, **`--spell-id=N`**, **`--digest-force`**, **`--dry-run`**, **`--delay-ms=`**.
 
 ### Environment (LLM)
 

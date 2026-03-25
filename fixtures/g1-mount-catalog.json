@@ -70,5 +70,19 @@
     "lockout": "weekly",
     "expansion": "Fixture",
     "tags": []
+  },
+  {
+    "id": 100007,
+    "name": "G1 Fixture — unobtainable (excluded from farm list)",
+    "source": "ACHIEVEMENT — Regression fixture",
+    "location": "Fixture Vale",
+    "dropRate": 1,
+    "difficulty": 1,
+    "timeToComplete": 5,
+    "lockout": "none",
+    "expansion": "Fixture",
+    "tags": [],
+    "retailObtainable": false,
+    "asOfPatch": "fixture"
   }
 ]

@@ -24,7 +24,7 @@ using any combination of **`data/mounts.json`** fields, HTTP fetches, APIs, and 
 
 **Cursor / AI agents** are **authorized** to implement and run these pipelines when the maintainer requests.
 
-**Shipped command:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**).
+**Shipped commands:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**). **`npm run content:wowhead-digests-from-web`** — HTTP fetch of Wowhead comment JSON (operator-configured URL / cookie) plus OpenAI paraphrase into **`wowhead-comment-digests.json`** (see **`docs/wowhead-digests.md`**).
 
 ---
 
@@ -351,6 +351,18 @@ See **`.env.example`** for all **`SURFACE_*`** variables.
 
 ---
 
+## Retail obtainability (farm list)
+
+Blizzard’s static **mount detail** JSON has **no** trustworthy “no longer obtainable in Retail” flag. In particular, **`should_exclude_if_uncollected`** is **not** a proxy for unobtainable (many still-farmable mounts use it).
+
+- **`data/overrides/retail-unobtainable.json`** — per **summon spell id**: **`retailObtainable: false`** and optional **`asOfPatch`** (verify on Wowhead before adding rows).
+- **`npm run data:apply-overrides`** — merges **all** `data/overrides/*.json` patches into **`data/mounts.json`** without the API (run after editing overrides).
+- **`npm run data:build`** — applies the same overrides when rebuilding from the API.
+
+The app excludes **`retailObtainable === false`** from **Top mounts to farm**; **View your mounts** labels those rows **No longer obtainable**.
+
+---
+
 ## Stubs vs master (`merge-export-stubs`, Epic B.7)
 
 - **`data/mounts.json`** — canonical Retail baseline from **`npm run data:build`** (+ overrides / enrich). **Do not** pollute it with dev export stubs.
@@ -368,7 +380,7 @@ See **`.env.example`** for all **`SURFACE_*`** variables.
 4. Run `npm run data:build` (includes scoring heuristics + overrides).
 5. Run **`npm run data:enrich-metadata`** (Epic B.4) to refresh **`iconFileId`** (+ review **`metadata-enrich-report.json`** for name spot-checks).
 5b. Run **`npm run data:sync-spell-icons`** (Epic B.8) so **`mount-icon-overrides.json`** stays aligned with Retail DB2 exports (spell API **404** gaps); review **`spell-icon-sync-report.json`** for missing rows.
-6. If you only changed **`scoring-heuristics.mjs`** or want to re-merge overrides without a full API rebuild, run **`npm run data:apply-scores`**.
+6. If you only changed **`scoring-heuristics.mjs`** or want to re-merge overrides without a full API rebuild, run **`npm run data:apply-scores`**. If you only changed **`data/overrides/*.json`** (e.g. **`retail-unobtainable.json`**), run **`npm run data:apply-overrides`**.
 7. Run **`npm run data:check-drift -- --spell-diff`** (Epic B.6) — index + spell set vs **`mounts.json`**; review **`data/build/drift-report.json`** and new spell IDs. Use **`--strict`** in CI only with a full walk (no **`--max`**).
 8. Run **`npm run data:check-coverage`** (Epic B.1) with API credentials — fails if obtainable spells are missing from `mounts.json` unless listed in **`data/catalog-exceptions.json`**.
 9. Run **`npm run data:check-surface`** (Epic D.6) — informational locally; use **`--strict`** before commercial launch once icon/link thresholds are green (see **Pre-commercial completeness** above).
