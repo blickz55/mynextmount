@@ -82,7 +82,7 @@ npm run content:guides-batch -- --limit=25 --only-missing --apply
 npm run addon:sync-guides
 ```
 
-- **Env:** **`CONTENT_GUIDES_OPENAI_API_KEY`** or **`FARM_TIP_OPENAI_API_KEY`** in **`.env.local`**; optional **`CONTENT_GUIDES_LLM_MODEL`**, **`CONTENT_GUIDES_LLM_DELAY_MS`**.
+- **Env:** **`OPENAI_API_KEY`** or **`FARM_TIP_OPENAI_API_KEY`** or **`CONTENT_GUIDES_OPENAI_API_KEY`** in **`.env.local`** (uncommented `KEY=value` line); optional **`CONTENT_GUIDES_LLM_MODEL`**, **`CONTENT_GUIDES_LLM_DELAY_MS`**.
 - **`--limit=0`** — no cap (whole filtered list; expensive).
 - **`--spell-id=N`** — single mount.
 - **`--force`** — overwrite an existing guide.

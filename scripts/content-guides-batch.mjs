@@ -9,8 +9,8 @@
  *   npm run content:guides-batch -- --spell-id=40192 --dry-run
  *   npm run content:guides-batch -- --limit=50 --only-missing --apply
  *
- * Env (reuses farm-tip key if CONTENT_GUIDES_* unset):
- *   CONTENT_GUIDES_OPENAI_API_KEY | FARM_TIP_OPENAI_API_KEY
+ * Env (first match wins):
+ *   CONTENT_GUIDES_OPENAI_API_KEY | FARM_TIP_OPENAI_API_KEY | OPENAI_API_KEY
  *   CONTENT_GUIDES_LLM_MODEL | FARM_TIP_LLM_MODEL (default gpt-4o-mini)
  *   CONTENT_GUIDES_OPENAI_BASE_URL | FARM_TIP_OPENAI_BASE_URL
  *   CONTENT_GUIDES_LLM_DELAY_MS (default 900)
@@ -261,6 +261,7 @@ async function main() {
   const apiKey =
     process.env.CONTENT_GUIDES_OPENAI_API_KEY ||
     process.env.FARM_TIP_OPENAI_API_KEY ||
+    process.env.OPENAI_API_KEY ||
     "";
   const baseUrl =
     process.env.CONTENT_GUIDES_OPENAI_BASE_URL ||
@@ -289,8 +290,15 @@ async function main() {
     }
 
     if (!apiKey) {
+      const envPath = join(root, ".env.local");
       console.error(
-        "[content-guides-batch] Set CONTENT_GUIDES_OPENAI_API_KEY or FARM_TIP_OPENAI_API_KEY in .env.local",
+        "[content-guides-batch] No OpenAI API key found. Add one of these to .env.local (project root, no quotes):",
+      );
+      console.error(
+        "  OPENAI_API_KEY=sk-...   OR   FARM_TIP_OPENAI_API_KEY=sk-...   OR   CONTENT_GUIDES_OPENAI_API_KEY=sk-...",
+      );
+      console.error(
+        `  (Scripts load ${envPath} — ${existsSync(envPath) ? "file exists" : "file missing"}.)`,
       );
       process.exit(2);
     }
