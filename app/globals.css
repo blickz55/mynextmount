@@ -370,6 +370,18 @@ html[data-theme="dark"] > body {
   line-height: 1.4;
 }
 
+/* Scroll + max height live here (was on .disclosure-block__body--scroll). */
+.owned-collection__viewport {
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.owned-collection__viewport--auto {
+  max-height: none;
+  overflow: visible;
+}
+
 .owned-collection__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

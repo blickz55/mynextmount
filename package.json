@@ -27,6 +27,7 @@
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs"
   },
   "dependencies": {
+    "@tanstack/react-virtual": "^3.13.23",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

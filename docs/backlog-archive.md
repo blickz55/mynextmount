@@ -666,6 +666,20 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 ---
 
+## Epic G.2 — Performance ✅ Complete
+
+### Requirement G.2.1
+
+- Site remains fast with **full mount list** (virtualize long lists if needed — **View your mounts** grid first for huge exports; then farm list if needed).
+
+**Implemented**
+
+- **`@tanstack/react-virtual`** — **`components/OwnedMountsCollection.tsx`** window-mounts rows when export size ≥ **`OWNED_MOUNTS_VIRTUALIZE_MIN` (48)**; each virtual row is one or two mounts matching the **600px** 1-column vs 2-column layout (`ResizeObserver` on the scroll viewport).
+- Scroll + **`max-height: min(70vh, 28rem)`** moved to **`.owned-collection__viewport`**; **View your mounts** disclosure body no longer uses **`.disclosure-block__body--scroll`** (avoids nested scroll).
+- **Farm list:** still **incremental DOM** via intersection observer + **`PAGE_SIZE`** batches (not thousands of cards at once); optional future **window** virtualization noted in parking lot if UX changes.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -675,6 +689,6 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 | **C** | C.1–C.4 |
 | **D** | D.1–D.10 (through filters, infinite scroll & brand) |
 | **E** | E.1 |
-| **G** | G.1 |
+| **G** | G.1, G.2 |
 
-**Next work:** root **`backlog.md`** — **G.2**, then **F.1** / **F.2** when you are ready to commercialize.
+**Next work:** root **`backlog.md`** — **F.1** / **F.2** when you are ready to commercialize (or parking-lot polish).

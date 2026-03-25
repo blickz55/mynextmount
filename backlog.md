@@ -94,13 +94,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE G — Quality, ops, and testing
 
-**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build.
-
-## Epic G.2 — Performance
-
-### Requirement G.2.1
-
-- Site remains fast with **full mount list** (virtualize long lists if needed — **View your mounts** grid first for huge exports; then farm list if needed).
+**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build. **G.2** — **View your mounts** uses **`@tanstack/react-virtual`** when the export has **≥48** mounts (windowed rows, 1- or 2-column like the CSS breakpoint); farm recommendations stay **batched infinite scroll** (no full list in DOM at once).
 
 ---
 
@@ -109,16 +103,16 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 Promote into Phase D, G, or ops when ready. **Rough value order** (highest leverage first for a public launch):
 
 1. **Official addon listing URL** — drop into How To when CurseForge/Wago is live (quick win, builds trust). **Hosting / www:** see **`docs/deployment.md`** (Vercel + `www.mynextmount.com`).
-2. **G.2 — Virtualize “View your mounts”** — large collections already stress DOM; farm list is incremental load today.
-3. **Accessibility audit** — keyboard, contrast, screen readers (overlaps historical D.7; worth a focused pass).
-4. **Mobile-friendly layout** — phone next to keyboard while playing (partially overlaps D.8 responsive work).
-5. **How To** polish — short screen recording, locale-specific WoW paths.
-6. **Mount preview “picture”** beyond spell icon — e.g. journal 3D or official render if a legal API path exists (related: D.6 table).
-7. Transmog-adjacent filters — **out of scope** unless promoted.
-8. Weekly lockout planner / route optimizer across toons.
-9. **Classic / Mists / era** split datasets vs one mega app.
-10. i18n / non-English guide snippets.
-11. Backup export format if Blizzard adds **official** collection export.
+2. **Accessibility audit** — keyboard, contrast, screen readers (overlaps historical D.7; worth a focused pass).
+3. **Mobile-friendly layout** — phone next to keyboard while playing (partially overlaps D.8 responsive work).
+4. **How To** polish — short screen recording, locale-specific WoW paths.
+5. **Mount preview “picture”** beyond spell icon — e.g. journal 3D or official render if a legal API path exists (related: D.6 table).
+6. Transmog-adjacent filters — **out of scope** unless promoted.
+7. Weekly lockout planner / route optimizer across toons.
+8. **Classic / Mists / era** split datasets vs one mega app.
+9. i18n / non-English guide snippets.
+10. Backup export format if Blizzard adds **official** collection export.
+11. **Optional:** window-virtualize farm result cards if infinite scroll batches ever feel heavy (G.2 chose batching first).
 
 ---
 
@@ -135,13 +129,12 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 
 | Priority | Epic / item | Why |
 |----------|-------------|-----|
-| **1** | **G.2** — Perf / virtualization | Next likely pain point after **D.10** for players with **very large** collections (**View your mounts** first). |
-| **3** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
-| **4** | **F.1** — Business clarity | **Before** auth or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
-| **5** | **F.2** — Auth / tiers | Only after F.1 + **`docs/auth-strategy.md`**; still optional for a paste-only public site. |
+| **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
+| **2** | **F.1** — Business clarity | **Before** auth or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
+| **3** | **F.2** — Auth / tiers | Only after F.1 + **`docs/auth-strategy.md`**; still optional for a paste-only public site. |
 
-**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **G.2** is the main product-quality track after **G.1** (shipped).
+**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **Phase G** quality work is **G.1** + **G.2** (both shipped).
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**). Last updated: **G.1** regression tests shipped.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**). Last updated: **G.2** virtualization for owned mounts.*

@@ -251,7 +251,7 @@ export default function HomePage() {
           </p>
           <details className="disclosure-block owned-mounts-disclosure">
             <summary>View Your Mounts ({parsedIds.length})</summary>
-            <div className="disclosure-block__body disclosure-block__body--scroll">
+            <div className="disclosure-block__body">
               <OwnedMountsCollection
                 parsedIds={parsedIds}
                 catalog={mounts}
