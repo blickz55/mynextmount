@@ -219,6 +219,24 @@ html[data-theme="dark"] > body {
   margin-bottom: 0.25rem;
 }
 
+/* Epic H.2 — whole brand block is one control to home */
+.site-brand__home {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-md);
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold) 18%, transparent);
+}
+
+.site-brand__home:hover .site-title-accent {
+  color: var(--accent-gold);
+}
+
+.site-brand__home:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .site-brand__logo {
   display: block;
   max-height: 4.5rem;

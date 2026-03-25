@@ -13,6 +13,7 @@ import {
   MountRarestSecondaryDetails,
 } from "@/components/MountRowSecondaryDetails";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
+import { SiteBrand } from "@/components/SiteBrand";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
@@ -145,21 +146,7 @@ export default function HomePage() {
       <div className="shell-topbar">
         <ThemeToggle />
       </div>
-      <header className="site-brand" aria-label="MyNextMount">
-        {brandLogoUrl !== "" && (
-          <img
-            className="site-brand__logo"
-            src={brandLogoUrl}
-            alt="MyNextMount"
-            decoding="async"
-            loading="lazy"
-          />
-        )}
-        <h1 className="site-title">
-          My<span className="site-title-accent">Next</span>Mount
-        </h1>
-        <p className="site-tagline">What to farm next — mynextmount.com</p>
-      </header>
+      <SiteBrand brandLogoUrl={brandLogoUrl} />
 
       <section className="how-to-panel" aria-label="How to export your mounts">
         <h2 className="how-to-panel__title">How to get your export</h2>

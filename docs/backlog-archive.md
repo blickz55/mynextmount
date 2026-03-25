@@ -749,7 +749,23 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ### Requirement H.1.2 — Verification
 
-- **`docs/mobile-smoke-checklist.md`** — manual smoke steps for **`/`** and **`/tool`**.
+- **`docs/mobile-smoke-checklist.md`** — manual smoke steps for **`/`** and **`/tool`** (includes **H.2** brand checks).
+
+---
+
+## Epic H.2 — Primary navigation (brand → home) ✅ Complete
+
+### Requirement H.2.1 — Brand block as navigation
+
+**Implemented**
+
+- **`components/SiteBrand.tsx`** — single **`next/link`** to **`/`** wrapping optional logo (**`alt=""`**, decorative next to **`h1`**), optional eyebrow, **`h1.site-title`** (with **Next** accent span), **`p.site-tagline`**.
+- **`app/page.tsx`**, **`app/tool/page.tsx`** — use **`SiteBrand`**; coming soon passes **`eyebrow`**.
+- **`app/globals.css`** — **`.site-brand__home`**: block link, inherit color, focus ring, hover brightens **`.site-title-accent`**, tap highlight.
+
+### Requirement H.2.2 — Consistency
+
+- Same component on **`/`** and **`/tool`**; logo driven by **`NEXT_PUBLIC_BRAND_LOGO_URL`**; works with or without image.
 
 ---
 
@@ -764,6 +780,6 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **E** | E.1 |
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
-| **H** | H.1 |
+| **H** | H.1, H.2 |
 
-**Next work:** root **`backlog.md`** — **H.2** brand navigation, then future **auth Phase A** or payments only after **`docs/business-strategy.md`** §2 gates are cleared.
+**Next work:** root **`backlog.md`** — parking lot + future **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared.

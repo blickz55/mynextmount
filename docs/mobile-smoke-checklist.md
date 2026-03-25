@@ -2,6 +2,12 @@
 
 Use **Chrome DevTools** (or Safari Web Inspector) at **~390×844** (iPhone 12/13) and once on a **real device** if possible. Verify **`/`** (coming soon) and **`/tool`** (recommender).
 
+## Brand → home (H.2)
+
+- [ ] On **`/tool`**, tap **MyNextMount** (logo + title + tagline block) → lands on **`/`**.
+- [ ] On **`/`**, same block still works (stays home / soft navigation).
+- [ ] **Focus:** Tab to brand; **focus ring** visible on **`.site-brand__home`**.
+
 ## Layout & scroll
 
 - [ ] No **horizontal scroll** on main content (code blocks in How To may scroll inside their panel only).

@@ -53,28 +53,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE H — Responsive UX & navigation
 
-**Done (see archive):** **H.1** — Viewport + **`viewportFit: cover`**, safe-area padding on **`.app-main.app-shell`**, **`overflow-x: clip`**, **`100dvh`**, ~**44px** touch targets, stacked source filters on narrow screens, **16px** textarea on small viewports (iOS), **≤390px** type tweaks, **`docs/mobile-smoke-checklist.md`**.
-
----
-
-## Epic H.2 — Primary navigation (brand → home)
-
-**Goal:** Obvious way to “start over” or leave the tool without using the browser back button.
-
-### Requirement H.2.1 — Brand block as navigation
-
-- The **site title** (**MyNextMount** / logo + title region) on **`/`** and **`/tool`** is a single **clickable** control (e.g. `<a>` or `Link`) to **`/`** (canonical **home** / coming-soon landing).
-- **Accessible:** valid focus ring, `aria` only if needed (avoid redundant “link” noise); keyboard **Enter** activates.
-- **Optional:** subtle hover/focus affordance consistent with existing fantasy chrome (no new design system).
-
-### Requirement H.2.2 — Consistency
-
-- Same behavior in **light / dark** and with or without **brand logo** from env.
-- If the title is split for styling (e.g. **Next** accent span), the **whole** branded heading area remains one link unless a deliberate secondary action is documented.
-
-**Acceptance**
-
-- From **`/tool`**, one tap/click on the brand returns to **`/`**; from **`/`**, brand link may refresh home or no-op, but must not navigate away to a dead end.
+**Done (see archive):** **H.1** — Viewport + safe-area + touch targets + **`docs/mobile-smoke-checklist.md`**. **H.2** — **`components/SiteBrand.tsx`**: logo + title + tagline (and optional coming-soon eyebrow) as one **`Link`** to **`/`**; **`.site-brand__home`** hover/focus styles in **`app/globals.css`**.
 
 ---
 
@@ -109,12 +88,11 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 | Priority | Epic / item | Why |
 |----------|-------------|-----|
 | **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
-| **2** | **H.2** — Brand → **`/`** navigation | Fast “go home” / reset mental model; standard web pattern for public visitors. |
-| **3** | **F.1** — Business clarity | **Shipped (strategy):** **`docs/business-strategy.md`**. |
-| **4** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. |
+| **2** | **F.1** — Business clarity | **Shipped (strategy):** **`docs/business-strategy.md`**. |
+| **3** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. |
 
-**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2 and ship the corresponding build. **Phase G** + **H.1** are shipped; **H.2** is the remaining **H** epic in the active backlog.
+**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2 and ship the corresponding build. **Phase G** and **Phase H** are shipped.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**). Last updated: **H.1** — mobile CSS + **`docs/mobile-smoke-checklist.md`**.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**). Last updated: **H.2** — **`SiteBrand`** home link.*

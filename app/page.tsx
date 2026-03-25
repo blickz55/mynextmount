@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { SiteBrand } from "@/components/SiteBrand";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const brandLogoUrl =
@@ -25,24 +26,10 @@ export default function ComingSoonPage() {
       <div className="shell-topbar">
         <ThemeToggle />
       </div>
-      <header className="site-brand" aria-label="MyNextMount">
-        {brandLogoUrl !== "" && (
-          <img
-            className="site-brand__logo"
-            src={brandLogoUrl}
-            alt="MyNextMount"
-            decoding="async"
-            loading="lazy"
-          />
-        )}
-        <p className="coming-soon-eyebrow">Coming soon</p>
-        <h1 className="site-title">
-          My<span className="site-title-accent">Next</span>Mount
-        </h1>
-        <p className="site-tagline">
-          What to farm next — mynextmount.com
-        </p>
-      </header>
+      <SiteBrand
+        brandLogoUrl={brandLogoUrl}
+        eyebrow={<p className="coming-soon-eyebrow">Coming soon</p>}
+      />
 
       <section
         className="how-to-panel coming-soon-pitch"
