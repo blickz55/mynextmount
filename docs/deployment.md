@@ -39,4 +39,6 @@ You can disable or delete that workflow if you rely entirely on Vercel’s Git i
 
 ## CI without deploy
 
-**`.github/workflows/ci.yml`** runs `lint` + `build` on pushes and PRs to `main` / `staging` / `master` so broken builds are caught before you merge.
+**`.github/workflows/ci.yml`** runs **`npm run test`**, **`npm run lint`**, and **`npm run build`** on pushes and PRs to `main` / `staging` / `master`. **`eslint.config.mjs`** must exist so `next lint` does not try to open an interactive wizard (that fails on GitHub with exit code 1).
+
+**`.github/workflows/vercel-staging.yml`** only runs when **`VERCEL_TOKEN`**, **`VERCEL_ORG_ID`**, and **`VERCEL_PROJECT_ID`** repository secrets are all set. If you deploy only via the Vercel Git integration, leave those unset and the workflow is skipped (no failure spam).
