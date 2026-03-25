@@ -293,6 +293,11 @@ Each row already links **`commentsUrl`** on Wowhead for deep reading.
 - **Tiers:** fully manual bullets, or **LLM paraphrase** from up to **five** lawfully obtained comment excerpts per mount (**human review** before commit). No in-repo bulk Wowhead HTML scrape — see **`docs/wowhead-digests.md`** and **`npm run wowhead-digest:draft`**.
 - **`npm run data:wowhead-digest`** writes **`data/build/wowhead-digest-report.json`** and can enforce pilot coverage with **`--strict-pilots`**.
 
+### Full farm row coverage (all mounts)
+
+- **`docs/guide-experience-roadmap.md`** — batched path to **guide + digest + farm tip** for the whole catalog (governance unchanged).
+- **`npm run data:guide-experience`** — combined percentages vs **`data/mounts.json`** → **`data/build/guide-experience-coverage.json`**.
+
 ---
 
 ## Pre-commercial completeness (Epic D.6)

@@ -106,6 +106,25 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
+## Epic I.6 — Full farm guide experience (all mounts)
+
+**Goal:** Same rich expandable row (**guide + summarized tips + Why + links**) for **every mount in `data/mounts.json`**, using **governed** authoring — not bulk automated Wowhead scraping.
+
+### Requirement I.6.1
+
+- **Roadmap + metrics:** **`docs/guide-experience-roadmap.md`** defines layers (**`mount-guides.json`**, **`wowhead-comment-digests.json`**, **`farm-tips.json`**) and batch waves.
+- **Coverage command:** **`npm run data:guide-experience`** → **`data/build/guide-experience-coverage.json`** (percentages + sample gaps).
+
+### Requirement I.6.2
+
+- **Progress in PRs:** expand coverage in **reviewable batches**; record provenance per **`docs/wowhead-digests.md`** / **`docs/farm-tip-llm-workflow.md`** when using LLM assist.
+
+**Acceptance**
+
+- Maintainer sets a **target threshold** (e.g. 100% of mounts with **`wowheadUrl`**, or 100% of catalog); epic closes when that threshold is met and **`data:guide-experience`** reflects it. Until then, the roadmap + script are the source of truth for “how far along we are.”
+
+---
+
 # PHASE J — Explore / larger bets (promoted, not committed)
 
 *These are **in the backlog** for planning; do not start without re-scoping cost and product fit.*
@@ -173,9 +192,10 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 | Priority | Epic | Why |
 |----------|------|-----|
-| **1** | **I.3** — How To polish | Faster first successful paste. |
-| **2** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
-| **3** | **I.5** — Farm virtualization | Only if measured need. |
+| **1** | **I.6** — Guide experience for all mounts | Roadmap + **`data:guide-experience`**; batched content PRs (see **`docs/guide-experience-roadmap.md`**). |
+| **2** | **I.3** — How To polish | Faster first successful paste. |
+| **3** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
+| **4** | **I.5** — Farm virtualization | Only if measured need. |
 | **—** | **J.1–J.5** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. |
 | **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 

@@ -13,6 +13,7 @@ data/build/farm-tip-llm-last-prompt.txt
 data/build/farm-tip-llm-draft-output.json
 data/build/wowhead-digest-llm-prompts.txt
 data/build/wowhead-digest-llm-draft-output.json
+data/build/guide-experience-coverage.json
 
 # Copied from data/*logo* at build/dev (see next.config.ts)
 public/mynextmount-brand.png

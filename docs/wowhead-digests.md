@@ -4,6 +4,8 @@
 
 Expandable rows include **Community tips (summarized)** — up to **five** short bullets — plus **Open full comments on Wowhead** (same URL rules as [wowhead-links.md](./wowhead-links.md)).
 
+To drive **digest coverage for every mount** alongside written guides, use **`docs/guide-experience-roadmap.md`** and **`npm run data:guide-experience`**.
+
 ## Data source
 
 Committed text lives in **`data/wowhead-comment-digests.json`**, keyed by **summon spell id** (same as row **`id`** / export). Each entry has:

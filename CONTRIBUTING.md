@@ -13,6 +13,8 @@ Short **summarized** tips (not verbatim comments): **`data/wowhead-comment-diges
 
 Add or edit **`data/mount-guides.json`** using the **human-in-the-loop** workflow and quality bar in **`docs/guides.md`** (section **Harvesting workflow (Epic C.3)**).
 
+**Scaling guides + digests + tips to the full catalog:** **`docs/guide-experience-roadmap.md`**. Progress metric: **`npm run data:guide-experience`**.
+
 After JSON changes:
 
 - `npm run addon:sync-guides` — regenerates **`addons/MyNextMount/MyNextMountGuides.lua`** for the **MyNextMount** WoW addon (do not edit that file by hand).

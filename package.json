@@ -24,6 +24,7 @@
     "addon:sync-guides": "node scripts/generate-addon-guides.mjs",
     "farm-tip:draft": "node scripts/farm-tip-llm-draft.mjs",
     "data:wowhead-digest": "node scripts/report-wowhead-digests.mjs",
+    "data:guide-experience": "node scripts/report-guide-experience-coverage.mjs",
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs"
   },
   "dependencies": {

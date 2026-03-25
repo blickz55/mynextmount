@@ -4,6 +4,8 @@
 
 This is the **human-in-the-loop** process for adding or updating entries in **`data/mount-guides.json`**. It complements **Tier 1** facts from **`npm run data:build`** (`name`, `source`, `sourceCategory`, links) and the policy in **`docs/data-harvesting.md`**. It does **not** replace Phase B scripts or bulk-scrape Wowhead.
 
+For **catalog-wide** coverage goals (same UI block on every mount), see **`docs/guide-experience-roadmap.md`** and **`npm run data:guide-experience`**.
+
 ### Roles
 
 - **Research:** Open the primary page (usually [Wowhead](https://www.wowhead.com/) spell/item/quest/NPC or an official Blizzard article). Skim comments only for *hints*; do not paste comment text into the repo.

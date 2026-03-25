@@ -814,4 +814,4 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **H** | H.1, H.2 |
 | **I** | I.1, I.2 |
 
-**Next work:** root **`backlog.md`** — **Phase I** (I.3–I.5 near-term polish) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*
+**Next work:** root **`backlog.md`** — **Phase I** (I.3–I.6 near-term polish, including **I.6** guide coverage roadmap) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*
