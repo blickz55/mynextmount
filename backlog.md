@@ -61,22 +61,6 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 *Promoted from the former parking lot — safe to execute in small PRs.*
 
-## Epic I.2 — Accessibility audit
-
-**Goal:** Baseline a11y beyond historical D.7 polish.
-
-### Requirement I.2.1
-
-- **Keyboard:** full flow on **`/`** and **`/tool`** (paste, submit, filters, disclosures, external links, **SiteBrand** home).
-- **Contrast:** spot-check critical text / controls in light + dark (WCAG-oriented; document any known exceptions).
-- **Screen readers:** landmarks, headings, form labels, live regions where results update.
-
-**Acceptance**
-
-- Short **`docs/`** note or checklist with findings + tracked follow-ups (or “no sev issues” if clean).
-
----
-
 ## Epic I.3 — How To polish
 
 **Goal:** Lower friction for first-time paste users.
@@ -189,10 +173,9 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 | Priority | Epic | Why |
 |----------|------|-----|
-| **1** | **I.2** — Accessibility audit | Complements **H.*** touch targets + **SiteBrand**; reduces support friction. |
-| **2** | **I.3** — How To polish | Faster first successful paste. |
-| **3** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
-| **4** | **I.5** — Farm virtualization | Only if measured need. |
+| **1** | **I.3** — How To polish | Faster first successful paste. |
+| **2** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
+| **3** | **I.5** — Farm virtualization | Only if measured need. |
 | **—** | **J.1–J.5** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. |
 | **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 
@@ -204,4 +187,4 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**). Last updated: parking lot promoted to **Phase I** + **Phase J**.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**, **I.2**). Last updated: parking lot promoted to **Phase I** + **Phase J**.*

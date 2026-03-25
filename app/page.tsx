@@ -25,7 +25,11 @@ export const metadata: Metadata = {
 
 export default function ComingSoonPage() {
   return (
-    <main className="app-main app-shell">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="app-main app-shell"
+    >
       <div className="shell-topbar">
         <ThemeToggle />
       </div>

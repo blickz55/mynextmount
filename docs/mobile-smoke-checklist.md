@@ -30,8 +30,14 @@ Use **Chrome DevTools** (or Safari Web Inspector) at **~390×844** (iPhone 12/13
 ## Functional
 
 - [ ] **How to** (I.1): first step **public addon listing** and **manual install** open in a new tab; URLs match **`NEXT_PUBLIC_ADDON_LISTING_URL`** or default CurseForge search.
-- [ ] Paste export → submit → scroll through **farm list** load-more; cards wrap long names without overflow.
+- [ ] Paste export → submit → **farm list**: infinite scroll **or** **Load more mounts** button; cards wrap long names without overflow.
 - [ ] Open **View Your Mounts** with a **large** export (≥48 mounts): virtualized grid scrolls smoothly; **1 column** on narrow width.
+
+## Accessibility smoke (I.2)
+
+- [ ] **Skip to main content** (first keyboard focus) moves focus to **`<main>`**; outline visible.
+- [ ] **Load more mounts** is reachable without relying on scroll alone.
+- [ ] Full pass: **`docs/a11y-audit.md`** manual checklist.
 
 ## Regression
 

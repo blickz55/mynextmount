@@ -785,6 +785,21 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ---
 
+## Epic I.2 — Accessibility audit ✅ Complete
+
+### Requirement I.2.1
+
+**Implemented**
+
+- **`docs/a11y-audit.md`** — keyboard / contrast spot-check / screen-reader notes + manual checklist + follow-ups.
+- **`components/SkipToMainContent.tsx`** + **`app/layout.tsx`** — skip link to **`#main-content`**; **`/`** and **`/tool`** **`<main id="main-content" tabIndex={-1}>`**.
+- **`/tool`** — textarea **`aria-describedby`** / **`aria-invalid`**; parse error **`id="export-error"`**; **`aria-live`** on filter and empty-state copy; **Load more mounts** **`.btn-secondary`** (keyboard path alongside intersection observer).
+- **`MountRowSecondaryDetails`** — visually hidden mount name prefix on **`<summary>`** for SR disambiguation.
+- **`app/globals.css`** — **`.skip-to-main`**, **`.sr-only`**, **`#main-content:focus-visible`**, **`.btn-secondary`**, **`.load-more-actions`**.
+- **`docs/mobile-smoke-checklist.md`** — **I.2** smoke bullets + load-more wording.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -797,6 +812,6 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
 | **H** | H.1, H.2 |
-| **I** | I.1 |
+| **I** | I.1, I.2 |
 
-**Next work:** root **`backlog.md`** — **Phase I** (I.2–I.5 near-term polish) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*
+**Next work:** root **`backlog.md`** — **Phase I** (I.3–I.5 near-term polish) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*

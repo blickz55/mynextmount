@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Source_Sans_3 } from "next/font/google";
+import { SkipToMainContent } from "@/components/SkipToMainContent";
 
 const fontDisplay = Cinzel({
   subsets: ["latin"],
@@ -52,7 +53,10 @@ export default function RootLayout({
       className={`${fontDisplay.variable} ${fontBody.variable}`}
       suppressHydrationWarning
     >
-      <body className={fontBody.className}>{children}</body>
+      <body className={fontBody.className}>
+        <SkipToMainContent />
+        {children}
+      </body>
     </html>
   );
 }

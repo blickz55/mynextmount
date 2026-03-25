@@ -113,6 +113,59 @@ html {
   }
 }
 
+/* Epic I.2 — skip link + screen-reader-only text */
+.skip-to-main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  padding: 0.65rem 1.1rem;
+  background: var(--focus-ring);
+  color: #1c1914;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-130%);
+  transition: transform 0.12s ease;
+}
+
+.skip-to-main:focus {
+  outline: none;
+}
+
+.skip-to-main:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+html[data-theme="dark"] .skip-to-main {
+  color: #141210;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+#main-content:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -725,6 +778,43 @@ html[data-theme="dark"] .btn-primary {
   color: #141210;
   background: linear-gradient(180deg, #e0c46a 0%, #c9a44c 50%, #a8863a 100%);
   border-color: #8a7028;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 1.15rem;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold-bright) 25%, transparent);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-gold-bright);
+  filter: brightness(1.02);
+}
+
+.btn-secondary:active {
+  filter: brightness(0.98);
+}
+
+.load-more-actions {
+  margin: 1rem 0 0;
+  text-align: center;
+}
+
+.app-main .btn-secondary:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .alert-error {

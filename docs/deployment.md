@@ -39,6 +39,7 @@ You can delete **`.github/workflows/vercel-staging.yml`** if you will never use 
 - **`NEXT_PUBLIC_ADDON_LISTING_URL`** — optional; **`lib/addonListing.ts`** falls back to CurseForge search for `MyNextMount` when unset (Epic **I.1**).
 - **`npm run test`** — Vitest regression suite (parse, ownership filter, scoring, sort order); same command CI runs before lint/build.
 - **`docs/mobile-smoke-checklist.md`** — quick pass for **`/`** and **`/tool`** on a narrow viewport (Epic **H.1**).
+- **`docs/a11y-audit.md`** — accessibility baseline + manual checklist (Epic **I.2**).
 
 ## CI without deploy
 

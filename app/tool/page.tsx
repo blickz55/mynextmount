@@ -145,7 +145,11 @@ export default function HomePage() {
   const unownedEmpty = parsedIds !== null && unownedMounts.length === 0;
 
   return (
-    <main className="app-main app-shell">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="app-main app-shell"
+    >
       <div className="shell-topbar">
         <ThemeToggle />
       </div>
@@ -191,7 +195,7 @@ export default function HomePage() {
         </ol>
       </section>
 
-      <p className="lead">
+      <p className="lead" id="export-hint">
         Paste your export here (summon spell IDs — same format the addon copies).
       </p>
       <label htmlFor="export" className="field-label">
@@ -204,6 +208,12 @@ export default function HomePage() {
         onChange={(e) => setExportString(e.target.value)}
         rows={4}
         placeholder="M:65645,59961,41256"
+        autoComplete="off"
+        spellCheck={false}
+        aria-describedby={
+          inputError !== null ? "export-hint export-error" : "export-hint"
+        }
+        aria-invalid={inputError !== null}
       />
       <fieldset className="mode-fieldset">
         <legend>Mode</legend>
@@ -237,7 +247,7 @@ export default function HomePage() {
         Find My Mounts
       </button>
       {inputError !== null && (
-        <p className="alert-error" role="alert">
+        <p className="alert-error" id="export-error" role="alert">
           {inputError}
         </p>
       )}
@@ -248,7 +258,10 @@ export default function HomePage() {
             {parsedIds.length === 1 ? "mount" : "mounts"}.
           </p>
           <details className="disclosure-block owned-mounts-disclosure">
-            <summary>View Your Mounts ({parsedIds.length})</summary>
+            <summary>
+              <span className="sr-only">Owned collection: </span>
+              View Your Mounts ({parsedIds.length})
+            </summary>
             <div className="disclosure-block__body">
               <OwnedMountsCollection
                 parsedIds={parsedIds}
@@ -353,20 +366,24 @@ export default function HomePage() {
               </fieldset>
 
               {!filtersActive && (
-                <p className="source-filter-prompt" role="status">
+                <p
+                  className="source-filter-prompt"
+                  role="status"
+                  aria-live="polite"
+                >
                   Select at least one source filter above to see farm
                   recommendations.
                 </p>
               )}
 
               {filtersActive && unownedEmpty && (
-                <p className="status-block">
+                <p className="status-block" role="status" aria-live="polite">
                   No unowned mounts left in this dataset.
                 </p>
               )}
 
               {filtersActive && !unownedEmpty && sortedFarmList.length === 0 && (
-                <p className="status-block">
+                <p className="status-block" role="status" aria-live="polite">
                   No mounts match your selected filters. Try turning more
                   sources on.
                 </p>
@@ -402,15 +419,41 @@ export default function HomePage() {
                       ))}
                     </ol>
                     {visibleFarmCount < sortedFarmList.length && (
-                      <div
-                        ref={loadMoreSentinelRef}
-                        className="infinite-scroll-sentinel"
-                        aria-hidden
-                      />
+                      <>
+                        <p className="load-more-actions">
+                          <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={() =>
+                              setVisibleFarmCount((c) =>
+                                Math.min(
+                                  c + PAGE_SIZE,
+                                  sortedFarmList.length,
+                                ),
+                              )
+                            }
+                          >
+                            Load more mounts (
+                            {sortedFarmList.length - visibleFarmCount}{" "}
+                            remaining)
+                          </button>
+                        </p>
+                        <div
+                          ref={loadMoreSentinelRef}
+                          className="infinite-scroll-sentinel"
+                          aria-hidden
+                        />
+                      </>
                     )}
                     {visibleFarmCount >= sortedFarmList.length &&
                       sortedFarmList.length > PAGE_SIZE && (
-                        <p className="farm-end-hint">End of list</p>
+                        <p
+                          className="farm-end-hint"
+                          role="status"
+                          aria-live="polite"
+                        >
+                          End of list
+                        </p>
                       )}
                   </div>
                 </>

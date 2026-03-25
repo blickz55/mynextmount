@@ -20,7 +20,10 @@ export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
 
   return (
     <details className="expandable-row expandable-row--farm">
-      <summary>{farmSummary(hasGuide, hasWowhead || hasDigest)}</summary>
+      <summary>
+        <span className="sr-only">{mount.name}: </span>
+        {farmSummary(hasGuide, hasWowhead || hasDigest)}
+      </summary>
       <div className="expandable-row__panel">
         <MountGuideBlock mount={mount} />
         <WowheadCommentDigest mount={mount} />
@@ -39,7 +42,10 @@ export function MountRarestSecondaryDetails({ mount }: { mount: Mount }) {
 
   return (
     <details className="expandable-row expandable-row--rarest">
-      <summary>Community tips and Wowhead</summary>
+      <summary>
+        <span className="sr-only">{mount.name}: </span>
+        Community tips and Wowhead
+      </summary>
       <div className="expandable-row__panel">
         <WowheadCommentDigest mount={mount} />
       </div>
