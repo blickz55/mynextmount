@@ -23,13 +23,15 @@ const siteUrl = (
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "MyNextMount — what to farm next",
+  title: {
+    default: "MyNextMount",
+    template: "%s — MyNextMount",
+  },
   description:
-    "Paste your WoW mount export from the MyNextMount addon and see top mounts to farm at mynextmount.com.",
+    "World of Warcraft mount farming assistant: know what to farm next from the mounts you already own, with guides and an in-game export addon.",
   openGraph: {
     type: "website",
     siteName: "MyNextMount",
-    url: "/",
   },
 };
 

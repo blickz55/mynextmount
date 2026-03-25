@@ -1011,3 +1011,44 @@ code.inline-code {
     transition: none;
   }
 }
+
+/* --- Coming soon landing (/) --- */
+.coming-soon-eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+}
+
+.coming-soon-pitch .coming-soon-lead {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.coming-soon-pitch .coming-soon-lead--last {
+  margin-bottom: 0;
+}
+
+.coming-soon-actions {
+  margin-top: 1.5rem;
+}
+
+.coming-soon-cta-row {
+  margin: 1rem 0 0;
+}
+
+a.coming-soon-cta {
+  display: inline-block;
+  margin-top: 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+a.coming-soon-cta:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
