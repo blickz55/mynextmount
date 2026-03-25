@@ -41,25 +41,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE F — Monetization & commercial (later)
 
-**Done (see archive):** **F.2** — **`docs/auth-strategy.md`** (phased auth, Battle.net OAuth pointers to [develop.battle.net](https://develop.battle.net/), entitlements / addon rules, standard vs premium table) and **`types/entitlements.ts`** (`PlanId`, `ANONYMOUS_ENTITLEMENTS`). **No** login UI, sessions, or payments in this epic — implement **Phase A** only after F.1 + checklist in that doc.
-
----
-
-## Epic F.1 — Business clarity
-
-### Requirement F.1.1
-
-- Define **what is sold** (e.g. premium curated routes, sync, ad-free, nothing — donation only).
-- **Blizzard addon rules** + **Wowhead / data** usage re-checked before taking money.
-- **Prerequisite:** **Epic D.6** (pre-commercial harvest completeness gate) **green** for agreed thresholds; **Epic D.5** digest pipeline **ToU-reviewed** if live-scraping or bulk third-party text is involved.
-
-### Requirement F.1.2
-
-- **Privacy**: if any server-side exists later, document data retention; default stays **local-first** until intentional change.
-
-**Acceptance**
-
-- Monetization stories are **explicitly gated** behind “personal use stable” milestone **and** documented **data surface completeness** (D.6).
+**Done (see archive):** **F.1** — **`docs/business-strategy.md`** (what is sold today vs future, **§2 gates** before payments: stability checklist + **`npm run data:check-surface -- --strict`**, D.5/D.6 + Wowhead re-check, addon rules; **§3** privacy). **F.2** — **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. Implement **auth Phase A** or **payments** only after **`docs/business-strategy.md`** gates are intentionally cleared.
 
 ---
 
@@ -147,11 +129,11 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 | **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
 | **2** | **H.2** — Brand → **`/`** navigation | Fast “go home” / reset mental model; standard web pattern for public visitors. |
 | **3** | **H.1** — Mobile optimization | Many users run the site beside WoW on a phone; complements prior D.8 responsive work. |
-| **4** | **F.1** — Business clarity | **Before** implementing auth Phase A or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
-| **5** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. Building login is a **separate future epic** after **F.1**. |
+| **4** | **F.1** — Business clarity | **Shipped (strategy):** **`docs/business-strategy.md`**. |
+| **5** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. |
 
-**Do not implement auth Phase A or payments until** you are intentionally moving past “personal tool that others can use for free” **and** **F.1** is far enough along. **Phase G** is shipped; **H.1** / **H.2** remain the main **UX** track; **F.2** doc work is done.
+**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2 and ship the corresponding build. **Phase G** is shipped; **H.1** / **H.2** remain the main **UX** track.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.2** strategy). Last updated: **F.2** — **`docs/auth-strategy.md`** + entitlements types.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**). Last updated: **F.1** — **`docs/business-strategy.md`**.*

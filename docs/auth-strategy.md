@@ -4,6 +4,8 @@ This document satisfies **backlog.md — Epic F.2** acceptance: **technical + po
 
 **Status:** Strategy only. The live site remains **local-first** and **paste-only** until an explicit future epic implements Phase A.
 
+**Commercial posture (what is sold, when):** **`docs/business-strategy.md`** (Epic **F.1**).
+
 ---
 
 ## Principles
@@ -14,7 +16,7 @@ This document satisfies **backlog.md — Epic F.2** acceptance: **technical + po
 | **PII** | Collect the **minimum** needed for auth and billing; no “social graph” or friend lists. |
 | **Secrets** | **Never** embed API client secrets or session signing keys in client bundles. OAuth **client secret** and password hashes live **only** on the server (or managed auth provider). |
 | **Data pipeline** | Account-linked export retention, deletion, and logging must stay consistent with **`docs/data-harvesting.md`** and any future privacy policy. |
-| **SKUs / pricing** | **Epic F.1** owns *what* is sold; this doc defines *how* the stack can support tiers when F.1 is decided. |
+| **SKUs / pricing** | **`docs/business-strategy.md`** (F.1) owns *what* is sold and *when*; this doc defines *how* the stack can support tiers. |
 
 ---
 
@@ -82,7 +84,7 @@ Before shipping Battle.net login, re-verify **redirect URI limits**, **rate limi
 
 ## Standard vs. premium (options — F.2.3)
 
-Exact SKUs are a **business** decision under **Epic F.1**. Technical envelope:
+Exact SKUs and launch timing are **business** decisions under **`docs/business-strategy.md`** (F.1). Technical envelope:
 
 | Area | Standard (free) | Premium (examples) |
 |------|-----------------|---------------------|
@@ -96,7 +98,7 @@ Exact SKUs are a **business** decision under **Epic F.1**. Technical envelope:
 
 ## Checklist before implementing Phase A
 
-- [ ] **Epic F.1** direction clear enough to choose initial **`plan`** semantics (even if everything stays free at launch).
+- [ ] **`docs/business-strategy.md`** §2 gates cleared (or explicitly waived in writing) so initial **`plan`** semantics match what you ship (even if everything stays free at launch).
 - [ ] Privacy: data retention / deletion documented for **stored exports** and **session** metadata.
 - [ ] Threat model skim: session fixation, CSRF, rate limits, OAuth state/nonce, open redirects.
 - [ ] Re-read **`docs/data-harvesting.md`** for any new server logs or PII from auth.

@@ -650,6 +650,29 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 # PHASE F — Monetization & commercial (archive)
 
+## Epic F.1 — Business clarity ✅ Complete (strategy)
+
+**Scope delivered:** Documentation only — **no** payments, SKUs, or checkout.
+
+### Requirement F.1.1
+
+**Implemented in** **`docs/business-strategy.md`:** **§1** what is sold (**today: nothing**; optional donations; future premium **candidates** in **§5**); **§2.4** Blizzard addon + Wowhead / Tier 3 re-check before money; **§2.2–2.3** D.6 strict surface gate + D.5 digest / ToU posture.
+
+### Requirement F.1.2
+
+**Implemented:** **§3** privacy — local-first today; future server-side retention called out; alignment with **`docs/data-harvesting.md`** and **`docs/auth-strategy.md`**.
+
+### Acceptance
+
+Monetization explicitly gated on **§2.1** (personal-use stability checklist) **and** **§2.2** ( **`npm run data:check-surface -- --strict`** per **`docs/data-harvesting.md`**).
+
+**Artifacts**
+
+- **`docs/business-strategy.md`**
+- Cross-links: **`CONTRIBUTING.md`**, **`docs/auth-strategy.md`**
+
+---
+
 ## Epic F.2 — Identity, OAuth roadmap, subscription-ready tiers ✅ Complete (strategy)
 
 **Scope delivered:** Documentation + types only — **no** production auth, sessions, or billing.
@@ -664,7 +687,7 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 
 ### Requirement F.2.3 — Standard vs. premium
 
-**Implemented:** Table captured in **`docs/auth-strategy.md`**; SKUs remain under **F.1**.
+**Implemented:** Table in **`docs/auth-strategy.md`**; **SKUs / launch** decisions in **`docs/business-strategy.md`** (F.1).
 
 ### Acceptance
 
@@ -718,7 +741,7 @@ The repo already includes a **local Next.js** flow: paste `M:…` export string 
 | **C** | C.1–C.4 |
 | **D** | D.1–D.10 (through filters, infinite scroll & brand) |
 | **E** | E.1 |
-| **F** | F.2 (strategy) |
+| **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
 
-**Next work:** root **`backlog.md`** — **F.1** business clarity, then future **auth Phase A** implementation when ready (or **H.1** / **H.2** UX).
+**Next work:** root **`backlog.md`** — **H.1** / **H.2** UX, then future **auth Phase A** or payments only after **`docs/business-strategy.md`** §2 gates are cleared.

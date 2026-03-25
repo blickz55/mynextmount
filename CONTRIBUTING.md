@@ -26,7 +26,7 @@ Spell icons when the spell API **404s**: **`npm run data:sync-spell-icons`** (Ep
 
 ## Product rules
 
-High-level scoring and MVP behavior: **`.cursorrules`**. **Active backlog:** **`backlog.md`**. **Completed epics (archive):** **`docs/backlog-archive.md`**.
+High-level scoring and MVP behavior: **`.cursorrules`**. **Active backlog:** **`backlog.md`**. **Completed epics (archive):** **`docs/backlog-archive.md`**. **Commercial / monetization gates:** **`docs/business-strategy.md`** (Epic F.1).
 
 **Pre-commercial honesty (Epic D.6):** Do not market **“complete farm data”** or imply full icon/guide/digest coverage until **`npm run data:check-surface -- --strict`** passes with the thresholds you commit to (see **`docs/data-harvesting.md`** — *Pre-commercial completeness*). Until then, treat the dataset as **in progress** and point users at documented gaps (e.g. **`data/build/surface-check-report.json`**, overrides, pilot digests).
 
