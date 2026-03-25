@@ -98,21 +98,65 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
+# PHASE H — Responsive UX & navigation
+
+## Epic H.1 — Mobile-friendly optimization
+
+**Goal:** The site feels intentional on phones and small tablets (many players use a browser next to the game).
+
+### Requirement H.1.1 — Layout & interaction
+
+- **Viewport & scaling:** Confirm sensible `viewport` / default zoom behavior; no accidental “desktop shrink” reliance.
+- **Touch targets:** Primary controls (submit, mode radios, filter checkboxes, disclosure summaries, theme toggle) meet ~**44×44px** effective hit areas where feasible without breaking density.
+- **Readable type & spacing:** Comfortable line length, font sizes, and vertical rhythm on **≤390px** width; avoid cramped filter grids and mount rows.
+- **Scroll & overflow:** No horizontal scroll traps in main flows; long URLs / names wrap or truncate predictably.
+- **Safe areas:** Respect **notch / home-indicator** safe zones for fixed or full-bleed UI if introduced later.
+
+### Requirement H.1.2 — Verification
+
+- Smoke-test **`/`** (coming soon) and **`/tool`** on a real device or DevTools device mode; fix regressions found in forms, results, and virtualized owned grid.
+
+**Acceptance**
+
+- Documented quick **mobile smoke checklist** (bullet list in PR or **`docs/`** one-pager) satisfied for a representative small phone width.
+
+---
+
+## Epic H.2 — Primary navigation (brand → home)
+
+**Goal:** Obvious way to “start over” or leave the tool without using the browser back button.
+
+### Requirement H.2.1 — Brand block as navigation
+
+- The **site title** (**MyNextMount** / logo + title region) on **`/`** and **`/tool`** is a single **clickable** control (e.g. `<a>` or `Link`) to **`/`** (canonical **home** / coming-soon landing).
+- **Accessible:** valid focus ring, `aria` only if needed (avoid redundant “link” noise); keyboard **Enter** activates.
+- **Optional:** subtle hover/focus affordance consistent with existing fantasy chrome (no new design system).
+
+### Requirement H.2.2 — Consistency
+
+- Same behavior in **light / dark** and with or without **brand logo** from env.
+- If the title is split for styling (e.g. **Next** accent span), the **whole** branded heading area remains one link unless a deliberate secondary action is documented.
+
+**Acceptance**
+
+- From **`/tool`**, one tap/click on the brand returns to **`/`**; from **`/`**, brand link may refresh home or no-op, but must not navigate away to a dead end.
+
+---
+
 # Parking lot (intentionally incomplete)
 
 Promote into Phase D, G, or ops when ready. **Rough value order** (highest leverage first for a public launch):
 
 1. **Official addon listing URL** — drop into How To when CurseForge/Wago is live (quick win, builds trust). **Hosting / www:** see **`docs/deployment.md`** (Vercel + `www.mynextmount.com`).
-2. **Accessibility audit** — keyboard, contrast, screen readers (overlaps historical D.7; worth a focused pass).
-3. **Mobile-friendly layout** — phone next to keyboard while playing (partially overlaps D.8 responsive work).
-4. **How To** polish — short screen recording, locale-specific WoW paths.
-5. **Mount preview “picture”** beyond spell icon — e.g. journal 3D or official render if a legal API path exists (related: D.6 table).
-6. Transmog-adjacent filters — **out of scope** unless promoted.
-7. Weekly lockout planner / route optimizer across toons.
-8. **Classic / Mists / era** split datasets vs one mega app.
-9. i18n / non-English guide snippets.
-10. Backup export format if Blizzard adds **official** collection export.
-11. **Optional:** window-virtualize farm result cards if infinite scroll batches ever feel heavy (G.2 chose batching first).
+2. **Accessibility audit** — keyboard, contrast, screen readers (overlaps historical D.7 + **H.2** focus; worth a focused pass).
+3. **How To** polish — short screen recording, locale-specific WoW paths.
+4. **Mount preview “picture”** beyond spell icon — e.g. journal 3D or official render if a legal API path exists (related: D.6 table).
+5. Transmog-adjacent filters — **out of scope** unless promoted.
+6. Weekly lockout planner / route optimizer across toons.
+7. **Classic / Mists / era** split datasets vs one mega app.
+8. i18n / non-English guide snippets.
+9. Backup export format if Blizzard adds **official** collection export.
+10. **Optional:** window-virtualize farm result cards if infinite scroll batches ever feel heavy (G.2 chose batching first).
 
 ---
 
@@ -130,11 +174,13 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 | Priority | Epic / item | Why |
 |----------|-------------|-----|
 | **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
-| **2** | **F.1** — Business clarity | **Before** auth or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
-| **3** | **F.2** — Auth / tiers | Only after F.1 + **`docs/auth-strategy.md`**; still optional for a paste-only public site. |
+| **2** | **H.2** — Brand → **`/`** navigation | Fast “go home” / reset mental model; standard web pattern for public visitors. |
+| **3** | **H.1** — Mobile optimization | Many users run the site beside WoW on a phone; complements prior D.8 responsive work. |
+| **4** | **F.1** — Business clarity | **Before** auth or payments: decide what “premium” could mean and gate on D.6 / digest ToU. |
+| **5** | **F.2** — Auth / tiers | Only after F.1 + **`docs/auth-strategy.md`**; still optional for a paste-only public site. |
 
-**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **Phase G** quality work is **G.1** + **G.2** (both shipped).
+**Do not start F.* until** you are intentionally moving past “personal tool that others can use for free.” Until then, **Phase G** is shipped; **H.1** / **H.2** are the main **UX** track before deeper commercial work.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**). Last updated: **G.2** virtualization for owned mounts.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**). Last updated: **Phase H** — **H.1** mobile UX + **H.2** brand navigation added.*
