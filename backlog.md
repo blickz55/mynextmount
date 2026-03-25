@@ -57,20 +57,138 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
-# Parking lot (intentionally incomplete)
+# PHASE I — Near-term polish (active)
 
-Promote into Phase D, G, or ops when ready. **Rough value order** (highest leverage first for a public launch):
+*Promoted from the former parking lot — safe to execute in small PRs.*
 
-1. **Official addon listing URL** — drop into How To when CurseForge/Wago is live (quick win, builds trust). **Hosting / www:** see **`docs/deployment.md`** (Vercel + `www.mynextmount.com`).
-2. **Accessibility audit** — keyboard, contrast, screen readers (overlaps historical D.7 + **H.2** focus; worth a focused pass).
-3. **How To** polish — short screen recording, locale-specific WoW paths.
-4. **Mount preview “picture”** beyond spell icon — e.g. journal 3D or official render if a legal API path exists (related: D.6 table).
-5. Transmog-adjacent filters — **out of scope** unless promoted.
-6. Weekly lockout planner / route optimizer across toons.
-7. **Classic / Mists / era** split datasets vs one mega app.
-8. i18n / non-English guide snippets.
-9. Backup export format if Blizzard adds **official** collection export.
-10. **Optional:** window-virtualize farm result cards if infinite scroll batches ever feel heavy (G.2 chose batching first).
+## Epic I.1 — Official addon listing URL
+
+**Goal:** Trustworthy install path once the addon is on CurseForge / Wago / etc.
+
+### Requirement I.1.1
+
+- Add the **canonical public listing URL** to **How to** on **`/tool`** (and any other user-facing install copy).
+- Cross-check **`addons/MountFarmExport/*.toc`**, **`docs/addon-install.md`**, and **`docs/deployment.md`** so links stay consistent.
+- **Hosting / www:** unchanged — see **`docs/deployment.md`**.
+
+**Acceptance**
+
+- One primary outbound link players can rely on; no dead “coming soon” install wording once the listing is live.
+
+---
+
+## Epic I.2 — Accessibility audit
+
+**Goal:** Baseline a11y beyond historical D.7 polish.
+
+### Requirement I.2.1
+
+- **Keyboard:** full flow on **`/`** and **`/tool`** (paste, submit, filters, disclosures, external links, **SiteBrand** home).
+- **Contrast:** spot-check critical text / controls in light + dark (WCAG-oriented; document any known exceptions).
+- **Screen readers:** landmarks, headings, form labels, live regions where results update.
+
+**Acceptance**
+
+- Short **`docs/`** note or checklist with findings + tracked follow-ups (or “no sev issues” if clean).
+
+---
+
+## Epic I.3 — How To polish
+
+**Goal:** Lower friction for first-time paste users.
+
+### Requirement I.3.1
+
+- Optional **short screen recording** or GIF (hosted where ToS allows) linked from How To.
+- **Locale-aware hints** where install paths differ (e.g. Windows vs Mac shortcuts) — keep copy short.
+
+**Acceptance**
+
+- How To section updated with at least one clarity improvement you can measure (support questions, time-to-first-paste).
+
+---
+
+## Epic I.4 — Mount preview beyond spell icon
+
+**Goal:** Richer recognition than spell icon alone, **without** violating Blizzard / asset rules.
+
+### Requirement I.4.1
+
+- Research **legal** options: journal-style still, official media APIs, or self-hosted art with clear license.
+- If a path is green, spike UI (card thumbnail, lazy load, fallback to current **`MountIcon`**).
+
+**Acceptance**
+
+- ADR or **`docs/`** decision: chosen approach + why; optional thin implementation behind a flag.
+
+---
+
+## Epic I.5 — Farm list window virtualization (optional)
+
+**Goal:** Cap DOM cost if users load **very large** visible farm lists (beyond current batched infinite scroll).
+
+### Requirement I.5.1
+
+- Evaluate **`@tanstack/react-virtual`** (or similar) for **`/tool`** farm **`ol`** when **`visibleFarm.length`** crosses an agreed threshold.
+- Preserve infinite-scroll “load more” behavior and **variable-height** expandable rows.
+
+**Acceptance**
+
+- Only ship if profiling or UX justifies; otherwise document “not needed yet” in the same epic note.
+
+---
+
+# PHASE J — Explore / larger bets (promoted, not committed)
+
+*These are **in the backlog** for planning; do not start without re-scoping cost and product fit.*
+
+## Epic J.1 — Transmog-adjacent filters
+
+**Status:** **Out of scope** until explicitly promoted — product is mount-farming, not xmog sets.
+
+### Requirement J.1.1
+
+- If promoted: define user story + data model impact; otherwise leave as **won’t do** with one-line rationale in archive when closed.
+
+---
+
+## Epic J.2 — Weekly lockout / route planner
+
+**Goal:** Cross-character or weekly route optimization (large scope).
+
+### Requirement J.2.1
+
+- Problem statement + MVP slice (single toon? single lockout type?) before any build.
+
+---
+
+## Epic J.3 — Classic / Mists / era datasets
+
+**Goal:** Separate catalogs or modes vs one Retail-only app (**open question #1**).
+
+### Requirement J.3.1
+
+- Decision doc: one app vs split; drives **`docs/export-contract.md`** and **`data/`** layout.
+
+---
+
+## Epic J.4 — Internationalization (i18n)
+
+**Goal:** Non-English UI and/or guide snippets.
+
+### Requirement J.4.1
+
+- Choose stack (e.g. `next-intl`) vs minimal string files; scope v1 locales.
+
+---
+
+## Epic J.5 — Backup export format
+
+**Goal:** If Blizzard ships an **official** collection export, support it alongside or instead of **`M:…`**.
+
+### Requirement J.5.1
+
+- Track Blizzard announcements; extend **`docs/export-contract.md`** with **v2** when stable.
 
 ---
 
@@ -85,14 +203,22 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 
 # Suggested execution order (prioritized)
 
-| Priority | Epic / item | Why |
-|----------|-------------|-----|
-| **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
-| **2** | **F.1** — Business clarity | **Shipped (strategy):** **`docs/business-strategy.md`**. |
-| **3** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. |
+| Priority | Epic | Why |
+|----------|------|-----|
+| **1** | **I.1** — Addon listing URL | Highest trust / lowest effort once the listing exists. |
+| **2** | **I.2** — Accessibility audit | Complements **H.*** touch targets + **SiteBrand**; reduces support friction. |
+| **3** | **I.3** — How To polish | Faster first successful paste. |
+| **4** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
+| **5** | **I.5** — Farm virtualization | Only if measured need. |
+| **—** | **J.1–J.5** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. |
+| **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 
-**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2 and ship the corresponding build. **Phase G** and **Phase H** are shipped.
+**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2. **Phase G** and **Phase H** are shipped.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**). Last updated: **H.2** — **`SiteBrand`** home link.*
+*Scratch pad:* use GitHub issues or a one-line note here for **ad-hoc** ideas; **I.*** and **J.*** above are the promoted queue.
+
+---
+
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**). Last updated: parking lot promoted to **Phase I** + **Phase J**.*
