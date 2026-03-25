@@ -36,6 +36,7 @@ You can delete **`.github/workflows/vercel-staging.yml`** if you will never use 
 
 - **`NEXT_PUBLIC_SITE_URL`** — canonical site URL for `metadataBase` / Open Graph (defaults to `https://www.mynextmount.com` in code if unset).
 - **`npm run test`** — Vitest regression suite (parse, ownership filter, scoring, sort order); same command CI runs before lint/build.
+- **`docs/mobile-smoke-checklist.md`** — quick pass for **`/`** and **`/tool`** on a narrow viewport (Epic **H.1**).
 
 ## CI without deploy
 

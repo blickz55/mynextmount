@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cinzel, Source_Sans_3 } from "next/font/google";
 
 const fontDisplay = Cinzel({
@@ -20,6 +20,12 @@ const fontBody = Source_Sans_3({
 const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mynextmount.com"
 ).replace(/\/$/, "");
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

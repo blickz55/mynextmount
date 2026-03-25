@@ -104,6 +104,7 @@ html[data-theme="light"] {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,6 +116,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.55;
   color: var(--text);
   background-color: var(--bg-page);
@@ -153,8 +155,11 @@ html[data-theme="dark"] > body {
 .theme-toggle {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
-  padding: 0.35rem 0.65rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.4rem 0.75rem;
   font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
@@ -164,6 +169,7 @@ html[data-theme="dark"] > body {
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold) 25%, transparent);
 }
 
 .theme-toggle:hover {
@@ -184,7 +190,8 @@ html[data-theme="dark"] > body {
 
 .theme-toggle--placeholder {
   width: 5.5rem;
-  height: 2rem;
+  min-width: 44px;
+  min-height: 44px;
   visibility: hidden;
 }
 
@@ -192,14 +199,19 @@ html[data-theme="dark"] > body {
 .app-main.app-shell {
   width: 100%;
   max-width: min(100vw - 2rem, 880px);
+  max-width: min(100dvw - 2rem, 880px);
   margin: 2rem auto;
+  margin-top: max(2rem, env(safe-area-inset-top, 0px));
   padding: 0 1rem 3rem;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  padding-bottom: max(3rem, calc(1.5rem + env(safe-area-inset-bottom, 0px)));
 }
 
 @media (min-width: 640px) {
   .app-main.app-shell {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
   }
 }
 
@@ -304,10 +316,14 @@ html[data-theme="dark"] > body {
 .disclosure-block > summary {
   cursor: pointer;
   list-style: none;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--accent-gold);
   padding: 0.35rem 0;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold) 22%, transparent);
 }
 
 .disclosure-block > summary::-webkit-details-marker {
@@ -447,12 +463,14 @@ html[data-theme="dark"] > body {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
+  min-height: 44px;
   padding: 0.75rem 1rem;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   border-left: 3px solid var(--accent-gold-bright);
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold-bright) 20%, transparent);
 }
 
 .rarest-showcase-disclosure > summary::-webkit-details-marker {
@@ -557,6 +575,9 @@ html[data-theme="dark"] > body {
 }
 
 .mode-fieldset label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-right: 1.25rem;
   cursor: pointer;
   font-size: 0.9rem;
@@ -565,6 +586,9 @@ html[data-theme="dark"] > body {
 
 .mode-fieldset input[type="radio"] {
   margin-right: 0.35rem;
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
   accent-color: var(--accent-gold-bright);
 }
 
@@ -593,8 +617,9 @@ html[data-theme="dark"] > body {
 
 .source-filter-option {
   display: inline-flex;
-  align-items: flex-start;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
   cursor: pointer;
   font-size: 0.88rem;
   color: var(--text);
@@ -602,8 +627,9 @@ html[data-theme="dark"] > body {
 }
 
 .source-filter-option input[type="checkbox"] {
-  margin-top: 0.2rem;
   flex-shrink: 0;
+  width: 1.1em;
+  height: 1.1em;
   accent-color: var(--accent-gold-bright);
 }
 
@@ -642,8 +668,12 @@ html[data-theme="dark"] > body {
 }
 
 .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 0.85rem;
-  padding: 0.55rem 1.25rem;
+  min-height: 44px;
+  padding: 0.55rem 1.35rem;
   font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
@@ -654,6 +684,7 @@ html[data-theme="dark"] > body {
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold-bright) 35%, transparent);
 }
 
 .btn-primary:hover {
@@ -963,12 +994,14 @@ code.inline-code {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.2rem 0.3rem;
-  margin-left: -0.3rem;
+  min-height: 44px;
+  padding: 0.35rem 0.4rem;
+  margin-left: -0.4rem;
   border-radius: var(--radius-sm);
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold) 18%, transparent);
 }
 
 .expandable-row > summary::-webkit-details-marker {
@@ -1054,13 +1087,63 @@ code.inline-code {
 }
 
 a.coming-soon-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   margin-top: 0;
+  padding-inline: 1rem;
   text-align: center;
   text-decoration: none;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold-bright) 30%, transparent);
 }
 
 a.coming-soon-cta:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
+}
+
+/* --- Epic H.1 — mobile-friendly (narrow viewports, touch, iOS) --- */
+
+@media (max-width: 640px) {
+  /* Avoid iOS Safari zoom-on-focus for inputs (font size < 16px). */
+  .input-textarea {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .source-filter-grid {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+  }
+
+  .source-filter-option {
+    max-width: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .how-to-panel__list,
+  .how-to-panel__title {
+    font-size: 0.92rem;
+  }
+
+  .lead,
+  .coming-soon-pitch .coming-soon-lead {
+    font-size: 0.95rem;
+  }
+
+  .site-tagline {
+    font-size: 0.9rem;
+  }
+
+  .mount-result-card {
+    padding: 0.85rem 0.75rem 0.85rem 2.15rem;
+  }
+
+  .mount-result-card::before {
+    left: 0.55rem;
+  }
 }

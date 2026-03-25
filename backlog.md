@@ -53,25 +53,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE H — Responsive UX & navigation
 
-## Epic H.1 — Mobile-friendly optimization
-
-**Goal:** The site feels intentional on phones and small tablets (many players use a browser next to the game).
-
-### Requirement H.1.1 — Layout & interaction
-
-- **Viewport & scaling:** Confirm sensible `viewport` / default zoom behavior; no accidental “desktop shrink” reliance.
-- **Touch targets:** Primary controls (submit, mode radios, filter checkboxes, disclosure summaries, theme toggle) meet ~**44×44px** effective hit areas where feasible without breaking density.
-- **Readable type & spacing:** Comfortable line length, font sizes, and vertical rhythm on **≤390px** width; avoid cramped filter grids and mount rows.
-- **Scroll & overflow:** No horizontal scroll traps in main flows; long URLs / names wrap or truncate predictably.
-- **Safe areas:** Respect **notch / home-indicator** safe zones for fixed or full-bleed UI if introduced later.
-
-### Requirement H.1.2 — Verification
-
-- Smoke-test **`/`** (coming soon) and **`/tool`** on a real device or DevTools device mode; fix regressions found in forms, results, and virtualized owned grid.
-
-**Acceptance**
-
-- Documented quick **mobile smoke checklist** (bullet list in PR or **`docs/`** one-pager) satisfied for a representative small phone width.
+**Done (see archive):** **H.1** — Viewport + **`viewportFit: cover`**, safe-area padding on **`.app-main.app-shell`**, **`overflow-x: clip`**, **`100dvh`**, ~**44px** touch targets, stacked source filters on narrow screens, **16px** textarea on small viewports (iOS), **≤390px** type tweaks, **`docs/mobile-smoke-checklist.md`**.
 
 ---
 
@@ -128,12 +110,11 @@ Promote into Phase D, G, or ops when ready. **Rough value order** (highest lever
 |----------|-------------|-----|
 | **1** | **Parking: CurseForge URL** | No code epic — update How To + any hardcoded links when the listing exists. |
 | **2** | **H.2** — Brand → **`/`** navigation | Fast “go home” / reset mental model; standard web pattern for public visitors. |
-| **3** | **H.1** — Mobile optimization | Many users run the site beside WoW on a phone; complements prior D.8 responsive work. |
-| **4** | **F.1** — Business clarity | **Shipped (strategy):** **`docs/business-strategy.md`**. |
-| **5** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. |
+| **3** | **F.1** — Business clarity | **Shipped (strategy):** **`docs/business-strategy.md`**. |
+| **4** | **F.2** — Auth / tiers | **Shipped (strategy):** **`docs/auth-strategy.md`** + **`types/entitlements.ts`**. |
 
-**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2 and ship the corresponding build. **Phase G** is shipped; **H.1** / **H.2** remain the main **UX** track.
+**Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2 and ship the corresponding build. **Phase G** + **H.1** are shipped; **H.2** is the remaining **H** epic in the active backlog.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**). Last updated: **F.1** — **`docs/business-strategy.md`**.*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**). Last updated: **H.1** — mobile CSS + **`docs/mobile-smoke-checklist.md`**.*

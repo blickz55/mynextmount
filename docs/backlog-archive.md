@@ -732,6 +732,27 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ---
 
+# PHASE H — Responsive UX & navigation (archive)
+
+## Epic H.1 — Mobile-friendly optimization ✅ Complete
+
+### Requirement H.1.1 — Layout & interaction
+
+**Implemented**
+
+- **`app/layout.tsx`** — `export const viewport` (`width=device-width`, `initialScale=1`, **`viewportFit: cover`** for safe-area).
+- **`app/globals.css`** — `html { overflow-x: clip }`; **`body`** `min-height: 100dvh`; **`.app-main.app-shell`** uses **`max()`** with **`env(safe-area-inset-*)`** for notch / home indicator; **`max-width`** uses **`100dvw`** where supported.
+- **Touch targets ~44px** — **`.theme-toggle`**, **`.btn-primary`**, **`.disclosure-block > summary`**, **`.mode-fieldset label`**, **`.source-filter-option`**, **`.expandable-row > summary`**, **`.rarest-showcase-disclosure > summary`**, **`a.coming-soon-cta`**; slightly larger radio/checkbox hit area; **`-webkit-tap-highlight-color`** on key controls.
+- **≤390px** — Slightly larger copy for How To / lead / tagline; tighter **`.mount-result-card`** padding so the index badge fits.
+- **≤480px** — **`.source-filter-grid`** stacks in one column.
+- **≤640px** — **`.input-textarea`** `font-size: 1rem` to reduce iOS focus-zoom.
+
+### Requirement H.1.2 — Verification
+
+- **`docs/mobile-smoke-checklist.md`** — manual smoke steps for **`/`** and **`/tool`**.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -743,5 +764,6 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **E** | E.1 |
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
+| **H** | H.1 |
 
-**Next work:** root **`backlog.md`** — **H.1** / **H.2** UX, then future **auth Phase A** or payments only after **`docs/business-strategy.md`** §2 gates are cleared.
+**Next work:** root **`backlog.md`** — **H.2** brand navigation, then future **auth Phase A** or payments only after **`docs/business-strategy.md`** §2 gates are cleared.
