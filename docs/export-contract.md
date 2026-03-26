@@ -99,8 +99,6 @@ Paste → **Find My Mounts** → those three must **not** appear in the top reco
 
 Slash: **`/mountexport`** (alias **`/mynextmount`**) — emits the same **`v1`** `M:` string (mount summon spell IDs, sorted ascending, no spaces).
 
-**Era filter (optional):** the export window and **`/mnguides`** share a saved **Era** setting (`MyNextMountDB.expansionFocus`). It filters which collected spell IDs are included in `M:…` and which in-game farm guides appear, using the same expansion buckets as the website (`lib/mountExpansionFocus.ts`). Buckets are shipped in **`MyNextMountExpansionData.lua`** — regenerate with **`npm run addon:sync-expansion`** (also runs as part of **`npm run addon:sync-guides`**).
-
 To align your **full** export with the site dataset for testing, see **`docs/testing-with-your-collection.md`** (`npm run data:merge-stubs` → **`data/mounts.stubs.json`**, merged at app load with **`data/mounts.json`**).
 
 ---

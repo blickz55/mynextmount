@@ -38,7 +38,17 @@ export async function POST(req: Request) {
     const passwordHash = await bcrypt.hash(password, 12);
     await prisma.user.create({ data: { email, passwordHash } });
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: "Registration failed" }, { status: 500 });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    console.error("[api/register]", message, e);
+    const dev = process.env.NODE_ENV === "development";
+    return NextResponse.json(
+      {
+        error: dev
+          ? `Registration failed: ${message}`
+          : "Registration failed. If you are the operator, check hosting logs, DATABASE_URL, and that Prisma migrations ran.",
+      },
+      { status: 500 },
+    );
   }
 }

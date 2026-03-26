@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Source_Sans_3 } from "next/font/google";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Providers } from "@/components/Providers";
 import { SkipToMainContent } from "@/components/SkipToMainContent";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={fontBody.className}>
+        <GoogleAnalytics />
         <SkipToMainContent />
         <Providers>{children}</Providers>
       </body>

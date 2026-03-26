@@ -1,3 +1,8 @@
+/**
+ * PARKED for product UI (2025-03): dataset `expansion` is still "Unknown" for almost all mounts.
+ * Kept for future `/tool` + addon era filters once `data:build` or overrides populate real labels.
+ * Tests: tests/mount-expansion-focus.test.ts
+ */
 import type { Mount } from "@/types/mount";
 
 /** `all` = no era filter; `unknown` = mounts with missing/unrecognized expansion labels. */

@@ -24,12 +24,6 @@ import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
 import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
 import { mounts } from "@/lib/mounts";
 import {
-  EXPANSION_FOCUS_OPTIONS,
-  expansionFocusLabel,
-  mountMatchesExpansionFocus,
-  type ExpansionFocusId,
-} from "@/lib/mountExpansionFocus";
-import {
   anySourceFilterEnabled,
   getMountSourceBucket,
   initialSourceFiltersDefault,
@@ -61,8 +55,6 @@ export default function HomePage() {
     Mount[] | null
   >(null);
   const [sourceFilters, setSourceFilters] = useState(initialSourceFiltersDefault);
-  const [expansionFocus, setExpansionFocus] =
-    useState<ExpansionFocusId>("all");
   const [visibleFarmCount, setVisibleFarmCount] = useState(PAGE_SIZE);
   const [farmSearchInput, setFarmSearchInput] = useState("");
   const [debouncedFarmSearch, setDebouncedFarmSearch] = useState("");
@@ -88,19 +80,11 @@ export default function HomePage() {
     );
   }, [farmableUnownedMounts, sourceFilters]);
 
-  const expansionFilteredUnowned = useMemo(
-    () =>
-      filteredUnowned.filter((m) =>
-        mountMatchesExpansionFocus(m, expansionFocus),
-      ),
-    [filteredUnowned, expansionFocus],
-  );
-
   const scoreFn = useMemo(() => recommendationScorer(mode), [mode]);
 
   const sortedFarmList = useMemo(
-    () => sortMountsByScore(expansionFilteredUnowned, scoreFn),
-    [expansionFilteredUnowned, scoreFn],
+    () => sortMountsByScore(filteredUnowned, scoreFn),
+    [filteredUnowned, scoreFn],
   );
 
   const searchFilteredFarmList = useMemo(
@@ -120,13 +104,6 @@ export default function HomePage() {
     () => searchFilteredFarmList.slice(0, visibleFarmCount),
     [searchFilteredFarmList, visibleFarmCount],
   );
-
-  const expansionFocusEraToken = useMemo(() => {
-    return (
-      EXPANSION_FOCUS_OPTIONS.find((o) => o.id === expansionFocus)?.eraToken ??
-      "all"
-    );
-  }, [expansionFocus]);
 
   useEffect(() => {
     const t = window.setTimeout(() => {
@@ -148,7 +125,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setVisibleFarmCount(PAGE_SIZE);
-  }, [parsedIds, mode, sourceFilters, expansionFocus, debouncedFarmSearch]);
+  }, [parsedIds, mode, sourceFilters, debouncedFarmSearch]);
 
   useEffect(() => {
     if (parsedIds === null || sortedFarmList.length === 0) return;
@@ -161,7 +138,7 @@ export default function HomePage() {
         block: "start",
       });
     });
-  }, [parsedIds, expansionFocus, sortedFarmList.length]);
+  }, [parsedIds, sortedFarmList.length]);
 
   useEffect(() => {
     const el = loadMoreSentinelRef.current;
@@ -428,50 +405,6 @@ export default function HomePage() {
                 </div>
               </fieldset>
 
-              {filtersActive && (
-                <fieldset className="expansion-focus-fieldset">
-                  <legend className="expansion-focus-fieldset__legend">
-                    <span
-                      className="expansion-focus-fieldset__dial"
-                      aria-hidden="true"
-                    />
-                    <span className="expansion-focus-fieldset__legend-text">
-                      Era focus
-                    </span>
-                  </legend>
-                  <p className="expansion-focus-fieldset__hint">
-                    Turn the compass toward one expansion to rank farms from that
-                    era first. Labels come from mount metadata — pick{" "}
-                    <strong>Unknown era</strong> when the dataset still says
-                    &quot;Unknown&quot; (common until enrichment catches up).
-                  </p>
-                  <div className="expansion-compass-row">
-                    <label htmlFor="expansion-focus" className="sr-only">
-                      Filter farm list by World of Warcraft expansion
-                    </label>
-                    <div
-                      className="expansion-compass-select-wrap"
-                      data-era={expansionFocusEraToken}
-                    >
-                      <select
-                        id="expansion-focus"
-                        className="expansion-focus-select"
-                        value={expansionFocus}
-                        onChange={(e) =>
-                          setExpansionFocus(e.target.value as ExpansionFocusId)
-                        }
-                      >
-                        {EXPANSION_FOCUS_OPTIONS.map((o) => (
-                          <option key={o.id} value={o.id}>
-                            {o.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </fieldset>
-              )}
-
               {!filtersActive && (
                 <p
                   className="source-filter-prompt"
@@ -501,22 +434,10 @@ export default function HomePage() {
               {filtersActive &&
                 !unownedEmpty &&
                 !allUnownedMarkedUnobtainable &&
-                expansionFilteredUnowned.length === 0 && (
+                sortedFarmList.length === 0 && (
                   <p className="status-block" role="status" aria-live="polite">
-                    {filteredUnowned.length === 0 ? (
-                      <>
-                        No mounts match your selected source filters. Try
-                        turning more sources on.
-                      </>
-                    ) : (
-                      <>
-                        No mounts from{" "}
-                        <strong>{expansionFocusLabel(expansionFocus)}</strong>{" "}
-                        with your current source filters. Choose{" "}
-                        <strong>All eras — full hunt</strong> to see everything
-                        missing, or try another era.
-                      </>
-                    )}
+                    No mounts match your selected filters. Try turning more
+                    sources on.
                   </p>
                 )}
 
@@ -531,7 +452,7 @@ export default function HomePage() {
                       htmlFor="farm-list-search"
                       className="field-label farm-list-search__label"
                     >
-                      Narrows the sorted list below (same source + era filters).
+                      Narrows the sorted list below (same source filters).
                     </label>
                     <input
                       id="farm-list-search"
@@ -574,13 +495,6 @@ export default function HomePage() {
                       <>
                         {" "}
                         matching &quot;{debouncedFarmSearch}&quot;
-                      </>
-                    ) : null}
-                    {expansionFocus !== "all" ? (
-                      <>
-                        {" "}
-                        · Era:{" "}
-                        <strong>{expansionFocusLabel(expansionFocus)}</strong>
                       </>
                     ) : null}
                   </p>

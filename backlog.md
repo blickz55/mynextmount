@@ -224,6 +224,20 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
+## Parked — expansion era filter (website + addon)
+
+**Why parked:** Harvested **`mounts.json`** still has **`expansion: "Unknown"`** (almost) everywhere, so a web or in-game “farm by era” control does not deliver real value until the pipeline fills labels.
+
+**Keep in repo for pickup:**
+
+- **`lib/mountExpansionFocus.ts`** (+ **`tests/mount-expansion-focus.test.ts`**) — canonical era buckets and synonym matching.
+- **`scripts/generate-addon-expansion.mjs`** — **`npm run addon:sync-expansion`** (was used to emit addon expansion map; not loaded by the addon while parked).
+- Inspect Blizzard mount JSON keys anytime: **`npm run data:inspect-mount-sample`**.
+
+**When un-parking:** Wire **`/tool`** UI + styles again; re-add optional addon files + TOC lines; run **`addon:sync-expansion`** after **`data:build`** / overrides populate **`expansion`**.
+
+---
+
 # Open questions (need your answers when possible)
 
 1. **Target product**: Retail only, or Classic too? (Drives API and mount list.)

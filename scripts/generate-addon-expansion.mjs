@@ -1,6 +1,7 @@
 /**
- * Emit addons/MyNextMount/MyNextMountExpansionData.lua from data/mounts.json.
- * Bucket rules must stay aligned with lib/mountExpansionFocus.ts (run when expansion synonyms change).
+ * PARKED (2025-03) — not loaded by the addon until era filtering ships again.
+ * Emit MyNextMountExpansionData.lua from data/mounts.json when re-wiring the in-game filter.
+ * Bucket rules must stay aligned with lib/mountExpansionFocus.ts.
  *
  *   npm run addon:sync-expansion
  */
