@@ -18,6 +18,7 @@ data/build/mount-guides-batch.json
 data/build/mount-guides-refine-checklists-batch.json
 data/build/mount-flavor-batch.json
 data/build/wowhead-digest-from-web-batch.json
+data/build/scoring-model-compare.json
 
 # Copied from data/*logo* at build/dev (see next.config.ts)
 public/mynextmount-brand.png

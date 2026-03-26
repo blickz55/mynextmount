@@ -888,4 +888,24 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **H** | H.1, H.2 |
 | **I** | I.1, I.2, I.3, I.4, I.5, I.6, I.7 |
 
-**Next work:** root **`backlog.md`** — **Phase J** (explore); optional **farm-tip** expansion tracked via **`data:guide-experience`** stretch metric. **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under J.)*
+---
+
+## Epic J.1 — Transmog-adjacent filters — **Out of scope (post-launch)**
+
+**Decision (maintainer):** Transmog-adjacent filters are **not planned** until after a stable site/addon launch — scope and product fit are wrong for **now**; MyNextMount stays **mount-farming** only. Recorded in root **`backlog.md`** Phase **J** for visibility. Revisit only if strategy changes.
+
+---
+
+## Epic J.2 — Weekly lockout / route planner (J.2.1 planning) ✅
+
+### Requirement J.2.1
+
+**Implemented (2026-03-26)**
+
+- **`docs/adr-014-route-planner-mvp.md`** — problem statement (session planning vs ranked farm list), data constraints (**`Mount.lockout`**, no zone graph, no live lockout API on static site), MVP slice (**single character**, user-selected mounts, **`weekly`**-first focus, deterministic sort heuristic, checklist output), explicit non-goals.
+
+**Outstanding:** Implementation epic when prioritized (UI + tests); **ADR 014** is the scope contract until revised.
+
+---
+
+**Next work:** root **`backlog.md`** — **Phase J** (**J.2** build when chosen, **J.3–J.6**); **J.1** excluded post-launch. Optional **farm-tip** expansion tracked via **`data:guide-experience`** stretch metric. **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared.

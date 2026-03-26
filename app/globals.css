@@ -1087,6 +1087,22 @@ html[data-theme="dark"] .btn-primary {
   overflow-wrap: anywhere;
 }
 
+.mount-result-card__scoring {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-muted, var(--text));
+}
+
+.mount-result-card__scoring summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.mount-result-card__scoring-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+}
+
 code.inline-code {
   font-size: 0.85em;
   padding: 0.12em 0.35em;

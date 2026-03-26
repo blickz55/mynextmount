@@ -29,7 +29,9 @@
     "content:guides-batch": "node scripts/content-guides-batch.mjs",
     "content:guides-refine-checklists": "node scripts/content-guides-refine-checklists.mjs",
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs",
-    "content:mount-flavor-batch": "node scripts/mount-flavor-batch.mjs"
+    "content:mount-flavor-batch": "node scripts/mount-flavor-batch.mjs",
+    "data:ingest-wowhead-teach-item": "node scripts/ingest-wowhead-spell-teach-item.mjs",
+    "scoring:compare": "tsx scripts/scoring-model-compare.ts"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.23",

@@ -23,7 +23,7 @@ When you say *“Execute Story X.Y.Z”*, map to an epic below unless you overri
 
 ## Shipped baseline (reference)
 
-The app today: paste **`M:…`** → parse → filter owned → score (Easiest / Rarest) → **source filters** → sorted farm list with **infinite scroll** (batches of 10) + optional **name / spell-ID search** + rarest-owned showcase; **View your mounts** grid + rarity bars; **MyNextMount** addon (**`/mountexport`**, **`/mynextmount`**); **Phase B** pipeline and **Phase C** guides/farm tips. Epic-level history (**A–E**, **B.8**, **D.1–D.10**): **`docs/backlog-archive.md`**. Operational docs: **`docs/export-contract.md`**, **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/adr-012-addon-strategy.md`**, **`docs/adr-013-mount-preview-beyond-spell-icon.md`** (optional larger spell icon preview).
+The app today: paste **`M:…`** → parse → filter owned → score (Easiest / Rarest) → **source filters** → sorted farm list with **infinite scroll** (batches of 10) + optional **name / spell-ID search** + rarest-owned showcase; **View your mounts** grid + rarity bars; **MyNextMount** addon (**`/mountexport`**, **`/mynextmount`**); **Phase B** pipeline and **Phase C** guides/farm tips. Epic-level history (**A–E**, **B.8**, **D.1–D.10**): **`docs/backlog-archive.md`**. Operational docs: **`docs/export-contract.md`**, **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/adr-012-addon-strategy.md`**, **`docs/adr-013-mount-preview-beyond-spell-icon.md`** (optional larger spell icon preview), **`docs/adr-014-route-planner-mvp.md`** (J.2 route planner MVP — planning only).
 
 ---
 
@@ -65,15 +65,15 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE J — Explore / larger bets (promoted, not committed)
 
-*These are **in the backlog** for planning; do not start without re-scoping cost and product fit.*
+*These are **in the backlog** for planning; do not start without re-scoping cost and product fit. **J.1** (transmogs) is **out of scope post-launch** — see that epic below.*
 
 ## Epic J.1 — Transmog-adjacent filters
 
-**Status:** **Out of scope** until explicitly promoted — product is mount-farming, not xmog sets.
+**Status:** **Out of scope post-launch** — not on the roadmap until after a stable **MyNextMount** launch; transmog-adjacent work is too large and off-product (mount-farming only). See **`docs/backlog-archive.md`** for the recorded decision.
 
 ### Requirement J.1.1
 
-- If promoted: define user story + data model impact; otherwise leave as **won’t do** with one-line rationale in archive when closed.
+- **Won’t do (for now).** Reopen only if product strategy explicitly expands beyond mount farming.
 
 ---
 
@@ -81,9 +81,13 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 **Goal:** Cross-character or weekly route optimization (large scope).
 
-### Requirement J.2.1
+### Requirement J.2.1 ✅ (planning)
 
-- Problem statement + MVP slice (single toon? single lockout type?) before any build.
+- **Done:** **`docs/adr-014-route-planner-mvp.md`** — problem statement, constraints, MVP slice (**single character**, user-selected mounts, **`weekly`** focus first, deterministic ordering heuristic, checklist output; **no** build in that ADR).
+
+### Next (implementation — not started)
+
+- Ship a **session checklist** UX + **`lockout` / `timeToComplete`** sort when this epic is prioritized; follow **ADR 014** scope until explicitly expanded.
 
 ---
 
@@ -137,6 +141,89 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
+## Epic J.7 — Authenticated accounts & persistent collection (“platform” layer)
+
+**Status:** **Planned / not started** — product and engineering runway only until **`docs/business-strategy.md`** §2 **gates** are intentionally cleared (same rule as **F.2** Phase A). **Strategy anchors:** **`docs/auth-strategy.md`**, **`docs/business-strategy.md`**, **`types/entitlements.ts`**.
+
+**Goal:** Move from **“paste → analyze → leave”** to **“track → optimize → return”**: authenticated users keep a **living mount vault**, optional **weekly plans**, and (later) **multi-character** and **lockout-aware** depth — without paywalling the existence of the core anonymous tool.
+
+### Why it matters (benefits)
+
+| Benefit | What changes for the user |
+|--------|---------------------------|
+| **Stickiness** | Collection and preferences survive sessions; the site becomes a default place to check progress. |
+| **Lower friction** | After first save, **optional** “no paste every visit” if we store last-known collection server-side and offer **re-import** from addon (`M:…` or future format). |
+| **Personalization** | Rankings and “top N to farm” can weight **their** missing set, time budget, and (eventually) lockouts — not one-size-fits-all. |
+| **Addon loop** | Sets up **J.6**-class and **export-contract** evolution: site holds truth or snapshots; addon **export/import** strings tighten the game ↔ site loop. |
+| **Monetization alignment** | **Free authenticated** = vault + basics; **premium** = depth (optimization, routing, richer automation) — **don’t paywall the tool; paywall the power** (per **F.1**). |
+
+### Requirement J.7.1 — Persistent mount repository (core)
+
+- **Save collection to account** after paste (or explicit “Save to my profile”); store **normalized spell IDs** + **updated-at** metadata; support **replace** on re-import.
+- **Views:** collected vs missing, **% completion**, breakdowns by **expansion** / **sourceCategory** (reuse existing catalog fields where possible).
+- **Invariant:** Owned mounts from saved data **never** appear in farm-next lists (same as today’s paste model).
+
+### Requirement J.7.2 — Weekly engagement loop
+
+- **“Weekly mount plan”** (authenticated): surface a small set of **top targets** (e.g. 10) with rotation / freshness so users have a reason to return weekly.
+- **Enhancements (later):** lockout-aware copy (“you can hit X of these this week”), reset-aware hints — overlaps **J.2** / **ADR 014**; avoid duplicating route-planner scope in v1.
+
+### Requirement J.7.3 — Multi-character & account intelligence (later tranche)
+
+- Multiple **characters** (or tags) per account; optional assignment of **which alt farms which** mount or instance.
+- **Output examples** (product direction): “spread ICC across alts this week for more Invincible pulls” — **implementation** waits until weekly planner and auth data models are stable.
+
+### Requirement J.7.4 — Progress dashboard & motivation
+
+- **Dashboard:** completion %, **recently acquired** (if we track history or import diffs), “mounts left in **expansion**,” rough **time-to-farm** signals from existing heuristics.
+- **Light gamification (optional):** streaks, milestones (50% / 75%), “closest to done” — must stay tasteful and skippable.
+
+### Requirement J.7.5 — Personalized recommendations (authenticated delta)
+
+- **Anonymous:** current behavior (global scores + filters).
+- **Signed-in:** “Top N **for your account**” using saved missing set + same scoring inputs; premium can add **deeper** optimization (see **F.1** / **`Entitlements`**).
+
+### Requirement J.7.6 — Addon sync (critical integration)
+
+- **Today:** manual paste of **`M:…`**.
+- **Target:** documented **import/export** loop — e.g. addon generates payload → site ingests → site emits **plan or checklist blob** → addon displays/highlights (align with **J.6** and **`docs/export-contract.md`**).
+- **Principle:** Blizzard addon rules stay respected (no paywalled gameplay in-addon per **`docs/auth-strategy.md`**).
+
+### Implementation plan (phased — groomed)
+
+| Phase | Scope | Notes |
+|-------|-------|-------|
+| **J.7-a** | **Identity MVP** | **Phase A** from **`docs/auth-strategy.md`** (email/password or managed auth); sessions, CSRF, rate limits; minimal profile. |
+| **J.7-b** | **Collection API** | CRUD for “my mounts” snapshot; versioning; GDPR-style delete path sketched in privacy posture (**F.1** §3). |
+| **J.7-c** | **Product UX** | “Save collection,” last-used account state, dashboard + completion views; **anonymous path unchanged** with soft CTA (“Save for next time”). |
+| **J.7-d** | **Weekly plan v1** | Server-side cron or on-demand generation from saved missing + catalog; email later optional. |
+| **J.7-e** | **OAuth** | **Phase B** providers (**Google**, later **Battle.net** per **`docs/auth-strategy.md`**). |
+| **J.7-f** | **Premium gates** | Wire **`types/entitlements.ts`**; server enforcement for optimization / multi-character depth (**F.1** owns SKUs). |
+| **J.7-g** | **Addon binary loop** | Coordinate with **J.6** + export contract v2 if needed. |
+
+### Risks & mitigations (summary)
+
+| Risk | Mitigation |
+|------|------------|
+| Users resist signup | **Anonymous-first** forever for core paste flow; auth is **opt-in** value (save, sync, weekly plan). |
+| Friction | **OAuth** when ready; **auto-offer save** after successful paste. |
+| Weak perceived value | After save, show **immediate** completion % + personalized top picks. |
+| Scope creep | Ship **J.7-b + J.7-c** before **J.7-d**; treat **J.7.3** as a separate milestone. |
+
+### Success metrics (when instrumented)
+
+- % of sessions that **authenticate** (of those eligible)
+- **Weekly** active authenticated users
+- Sessions per user (anonymous vs authed)
+- Premium **conversion** (if/when billing exists)
+- Time on site / return rate
+
+**Acceptance (epic-level)**
+
+- Documented **user stories** for J.7-a → J.7-c in a short **`docs/`** note or ADR when work starts; **no** auth in production until **F.1** gates cleared.
+
+---
+
 # Open questions (need your answers when possible)
 
 1. **Target product**: Retail only, or Classic too? (Drives API and mount list.)
@@ -150,8 +237,9 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 | Priority | Epic | Why |
 |----------|------|-----|
-| **1** | **J.* (pick one)** | **Phase I** clear; next bets are **J.1–J.6** or maintenance — see rows below. |
-| **—** | **J.1–J.6** | Larger or **out-of-scope-until-promoted**; pick after **`docs/business-strategy.md`** gates if needed. (**J.6** = website → addon guide import / feedback loop.) |
+| **1** | **J.* (pick one)** | **Phase I** clear; next bets are **J.2–J.7** or maintenance (**J.1** transmogs = post-launch / out of scope). |
+| **—** | **J.2–J.6** | **J.2.1** planning → **`docs/adr-014-route-planner-mvp.md`**; implementation still open. **J.3–J.6** — larger bets; pick after **`docs/business-strategy.md`** gates if needed. (**J.6** = website → addon guide import / feedback loop.) |
+| **—** | **J.7** | **Accounts + persistent collection + weekly loop** — large bet; **gated** on **F.1** §2 + aligns with **F.2**; see epic for phased plan (identity → collection API → UX → weekly plan → OAuth → premium → addon loop). |
 | **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 
 **Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2. **Phase G** and **Phase H** are shipped.
@@ -162,4 +250,4 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **Phase I** including **I.7** mount search). **Next:** **Phase J** when you pick a bet.*
+*Completed epics: **`docs/backlog-archive.md`** (through **Phase I** + **J.2.1** route-planner planning in **ADR 014**). **Next:** **Phase J** implementation picks (**J.2** build or **J.3–J.7**); **J.1** transmogs deferred post-launch.*

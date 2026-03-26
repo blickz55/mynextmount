@@ -5,6 +5,7 @@ import { MountIcon } from "@/components/MountIcon";
 import { MountFarmSecondaryDetails } from "@/components/MountRowSecondaryDetails";
 import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
+import { scoreForRecommendationMode } from "@/lib/scoring";
 import { LIST_VIRTUALIZE_MIN } from "@/lib/virtualizeThresholds";
 import type { Mount } from "@/types/mount";
 import type { RecommendationMode } from "@/types/recommendationMode";
@@ -19,6 +20,7 @@ function FarmResultCardBody({
   mount: Mount;
   mode: RecommendationMode;
 }) {
+  const scored = scoreForRecommendationMode(mount, mode);
   return (
     <>
       <div className="mount-result-card__head">
@@ -34,6 +36,14 @@ function FarmResultCardBody({
       <div className="mount-result-card__line">
         Why: {buildRecommendationReason(mount, mode)}
       </div>
+      <details className="mount-result-card__scoring">
+        <summary>Score ({scored.score.toFixed(4)})</summary>
+        <ul className="mount-result-card__scoring-list">
+          {scored.reasons.map((line, i) => (
+            <li key={i}>{line}</li>
+          ))}
+        </ul>
+      </details>
       <MountFarmSecondaryDetails mount={mount} />
     </>
   );

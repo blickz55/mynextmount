@@ -30,8 +30,7 @@ import {
   type SourceBucketId,
 } from "@/lib/mountSourceBucket";
 import { parseMountExport } from "@/lib/parseMountExport";
-import { scoreEasiest } from "@/lib/scoreEasiest";
-import { scoreRarest } from "@/lib/scoreRarest";
+import { recommendationScorer } from "@/lib/scoring";
 import { selectTopOwnedByRarest } from "@/lib/selectTopOwnedByRarest";
 import { sortMountsByScore } from "@/lib/selectTopMountsByScore";
 import type { Mount } from "@/types/mount";
@@ -48,7 +47,7 @@ const brandLogoUrl =
 
 export default function HomePage() {
   const [exportString, setExportString] = useState("");
-  const [mode, setMode] = useState<RecommendationMode>("easiest");
+  const [mode, setMode] = useState<RecommendationMode>("efficient");
   const [parsedIds, setParsedIds] = useState<number[] | null>(null);
   const [inputError, setInputError] = useState<string | null>(null);
   const [ownedRarestShowcase, setOwnedRarestShowcase] = useState<
@@ -80,11 +79,11 @@ export default function HomePage() {
     );
   }, [farmableUnownedMounts, sourceFilters]);
 
-  const scoreFn = mode === "easiest" ? scoreEasiest : scoreRarest;
+  const scoreFn = useMemo(() => recommendationScorer(mode), [mode]);
 
   const sortedFarmList = useMemo(
     () => sortMountsByScore(filteredUnowned, scoreFn),
-    [filteredUnowned, mode],
+    [filteredUnowned, scoreFn],
   );
 
   const searchFilteredFarmList = useMemo(
@@ -231,11 +230,21 @@ export default function HomePage() {
           <input
             type="radio"
             name="recommendation-mode"
-            value="easiest"
-            checked={mode === "easiest"}
-            onChange={() => setMode("easiest")}
+            value="efficient"
+            checked={mode === "efficient"}
+            onChange={() => setMode("efficient")}
           />
-          Easiest
+          Efficient (EV-style)
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="recommendation-mode"
+            value="balanced"
+            checked={mode === "balanced"}
+            onChange={() => setMode("balanced")}
+          />
+          Balanced
         </label>
         <label>
           <input
@@ -245,12 +254,18 @@ export default function HomePage() {
             checked={mode === "rarest"}
             onChange={() => setMode("rarest")}
           />
-          Rarest
+          Rarest prestige
         </label>
       </fieldset>
       <p className="mode-hint" aria-live="polite">
         Using:{" "}
-        <strong>{mode === "easiest" ? "Easiest" : "Rarest"}</strong>{" "}
+        <strong>
+          {mode === "efficient"
+            ? "Efficient (EV-style)"
+            : mode === "balanced"
+              ? "Balanced"
+              : "Rarest prestige"}
+        </strong>{" "}
         recommendations
       </p>
       <button type="button" className="btn-primary" onClick={handleSubmit}>

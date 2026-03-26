@@ -24,7 +24,7 @@ using any combination of **`data/mounts.json`** fields, HTTP fetches, APIs, and 
 
 **Cursor / AI agents** are **authorized** to implement and run these pipelines when the maintainer requests.
 
-**Shipped commands:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**). **`npm run content:mount-flavor-batch`** — OpenAI **flavor** + **how to obtain** bullets from **`mounts.json`** metadata only (no Wowhead scraping) into **`wowhead-comment-digests.json`** with **`--apply`** (see **`docs/wowhead-digests.md`**).
+**Shipped commands:** **`npm run content:guides-batch`** — LLM-generated entries from **`mounts.json`** metadata into **`data/build/mount-guides-batch.json`** or **`--apply`** into **`mount-guides.json`** (see **`docs/guide-experience-roadmap.md`**). **`npm run content:mount-flavor-batch`** — OpenAI **flavor** + **how to obtain** bullets from **`mounts.json`** metadata only (no Wowhead scraping) into **`wowhead-comment-digests.json`** with **`--apply`** (see **`docs/wowhead-digests.md`**). **`npm run data:ingest-wowhead-teach-item`** — parses Wowhead spell HTML for the “Taught by” item list and fills **`data/overrides/wowhead-item-by-spell.json`** (spell → item for comments links); **`--apply`** required to write; respect Wowhead ToU, rate limits, and possible **403** blocks (resume with **`--only-missing`**, higher **`--delay-ms`**, smaller batches — see **`docs/wowhead-item-comments.md`**).
 
 ---
 

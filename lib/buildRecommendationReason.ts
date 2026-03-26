@@ -22,7 +22,7 @@ export function buildRecommendationReason(
   const id = mount.id;
   const cat = (mount.sourceCategory || "").toLowerCase().trim();
 
-  if (mode === "easiest") {
+  if (mode === "efficient" || mode === "balanced") {
     if (cat === "petstore") {
       return pickVariant(id, [
         "Shop mount — no raid lockout; buy when it’s on sale or in a bundle.",
@@ -115,13 +115,19 @@ export function buildRecommendationReason(
     }
     if (mount.lockout === "weekly") {
       return pickVariant(id, [
-        "Weekly lockout but still scores well on ease — add it to a fixed rotation.",
-        "Once per week pin on your calendar; modeled as less painful than harsher grinds.",
+        "Weekly lockout — still worth a calendar slot when the model likes your odds and time cost.",
+        "Once per week pin; efficient/balanced modes factor attempts-per-week into the ranking.",
+      ]);
+    }
+    if (mode === "efficient") {
+      return pickVariant(id, [
+        "High EV-style throughput in the current model — good odds and time/lockout tradeoff.",
+        "Favors mounts where modeled drop rate, run length, and weekly tries line up well.",
       ]);
     }
     return pickVariant(id, [
-      "Solid balance of difficulty, drop chance, and time in the easiest formula.",
-      "Middle-of-road farm that still beats the mean on your “easiest” ranking.",
+      "Balanced composite — mixes odds, time, lockouts, source friction, and a touch of prestige.",
+      "Middle-of-road pick when you want neither pure speed-farming nor pure trophy chasing.",
     ]);
   }
 
