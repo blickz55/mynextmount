@@ -13,6 +13,8 @@ The app is a **static Next.js** site (`next build` → prerendered pages). No da
 4. **Environment variables** (Project → Settings → Environment Variables), for **Production** (and Preview if you want):
    - `NEXT_PUBLIC_SITE_URL` = `https://www.mynextmount.com`  
    - **`NEXT_PUBLIC_ADDON_LISTING_URL`** (optional) — canonical **MyNextMount** page on CurseForge, Wago, etc. When the addon is published, set this so **How to** and **`/`** point at the real project instead of the default CurseForge search. See **`docs/addon-install.md`** § *Public listing*.
+   - **`NEXT_PUBLIC_HOWTO_DEMO_URL`** (optional) — short screen recording or hosted GIF page (YouTube, Loom, etc.) linked from **`/tool`** How To (**Epic I.3**).
+   - **`NEXT_PUBLIC_MOUNT_PREVIEW_LARGE=1`** (optional) — sharper **spell icon** in **`MountIcon`** rows (larger CDN path with fallback on failure; **Epic I.4**, **`docs/adr-013-mount-preview-beyond-spell-icon.md`**).
    - Add any keys you use locally from **`.env.example`** (e.g. Blizzard API) only if a future server/edge feature needs them; the current home page does not call Blizzard at runtime.
 5. **Pre-prod on `www`:**  
    - Git → **Production Branch** = `staging` (or your pre-prod branch name).  
@@ -40,7 +42,7 @@ You can delete **`.github/workflows/vercel-staging.yml`** if you will never use 
 - **`npm run test`** — Vitest regression suite (parse, ownership filter, scoring, sort order); same command CI runs before lint/build.
 - **`docs/mobile-smoke-checklist.md`** — quick pass for **`/`** and **`/tool`** on a narrow viewport (Epic **H.1**).
 - **`docs/a11y-audit.md`** — accessibility baseline + manual checklist (Epic **I.2**).
-- **`npm run data:guide-experience`** — guide + digest + farm-tip coverage vs **`mounts.json`** (Epic **I.6**); see **`docs/guide-experience-roadmap.md`**.
+- **`npm run data:guide-experience`** — guide + digest + farm-tip coverage vs **`mounts.json`** (Epic **I.6**; **`percentOfWowheadUrl`** in output); see **`docs/guide-experience-roadmap.md`**.
 - **`npm run content:guides-batch`** — LLM batch for **`mount-guides.json`** (OpenAI key in **`.env.local`**); see same doc.
 
 ## CI without deploy

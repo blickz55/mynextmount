@@ -22,6 +22,7 @@ Icons match the mount’s **summon spell** (same numeric **`id`** as the export)
 ## UI behavior
 
 - **`components/MountIcon.tsx`**: **`<img loading="lazy" decoding="async">`**, fixed width/height, **`alt=""`** (mount name is beside the icon).
+- **Optional larger texture (Epic I.4):** set **`NEXT_PUBLIC_MOUNT_PREVIEW_LARGE=1`** to request a higher-res **same** spell icon URL when the path is upgradable; **`onError`** falls back to the original **`iconUrl`**. See **`docs/adr-013-mount-preview-beyond-spell-icon.md`**.
 - Rows **without** `iconUrl` after merges show **no** icon (no broken image).
 
 ## Refreshing icons

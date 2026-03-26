@@ -23,7 +23,7 @@ When you say *“Execute Story X.Y.Z”*, map to an epic below unless you overri
 
 ## Shipped baseline (reference)
 
-The app today: paste **`M:…`** → parse → filter owned → score (Easiest / Rarest) → **source filters** → sorted farm list with **infinite scroll** (batches of 10) + rarest-owned showcase; **View your mounts** grid + rarity bars; **MyNextMount** addon (**`/mountexport`**, **`/mynextmount`**); **Phase B** pipeline and **Phase C** guides/farm tips. Epic-level history (**A–E**, **B.8**, **D.1–D.10**): **`docs/backlog-archive.md`**. Operational docs: **`docs/export-contract.md`**, **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/adr-012-addon-strategy.md`**.
+The app today: paste **`M:…`** → parse → filter owned → score (Easiest / Rarest) → **source filters** → sorted farm list with **infinite scroll** (batches of 10) + rarest-owned showcase; **View your mounts** grid + rarity bars; **MyNextMount** addon (**`/mountexport`**, **`/mynextmount`**); **Phase B** pipeline and **Phase C** guides/farm tips. Epic-level history (**A–E**, **B.8**, **D.1–D.10**): **`docs/backlog-archive.md`**. Operational docs: **`docs/export-contract.md`**, **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/adr-012-addon-strategy.md`**, **`docs/adr-013-mount-preview-beyond-spell-icon.md`** (optional larger spell icon preview).
 
 ---
 
@@ -47,7 +47,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE G — Quality, ops, and testing
 
-**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build. **G.2** — **View your mounts** uses **`@tanstack/react-virtual`** when the export has **≥48** mounts (windowed rows, 1- or 2-column like the CSS breakpoint); farm recommendations stay **batched infinite scroll** (no full list in DOM at once).
+**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build. **G.2** — **View your mounts** uses **`@tanstack/react-virtual`** when the export has **≥48** mounts (windowed rows, 1- or 2-column like the CSS breakpoint). **I.5** — **Top mounts to farm** uses the same **≥48** threshold: **`useWindowVirtualizer`** + **`measureElement`** while keeping **batched load-more** (no full catalog in DOM at once).
 
 ---
 
@@ -61,67 +61,44 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 *Promoted from the former parking lot — safe to execute in small PRs.*
 
-## Epic I.3 — How To polish
-
-**Goal:** Lower friction for first-time paste users.
-
-### Requirement I.3.1
-
-- Optional **short screen recording** or GIF (hosted where ToS allows) linked from How To.
-- **Locale-aware hints** where install paths differ (e.g. Windows vs Mac shortcuts) — keep copy short.
-
-**Acceptance**
-
-- How To section updated with at least one clarity improvement you can measure (support questions, time-to-first-paste).
-
----
-
-## Epic I.4 — Mount preview beyond spell icon
-
-**Goal:** Richer recognition than spell icon alone, **without** violating Blizzard / asset rules.
-
-### Requirement I.4.1
-
-- Research **legal** options: journal-style still, official media APIs, or self-hosted art with clear license.
-- If a path is green, spike UI (card thumbnail, lazy load, fallback to current **`MountIcon`**).
-
-**Acceptance**
-
-- ADR or **`docs/`** decision: chosen approach + why; optional thin implementation behind a flag.
-
----
-
-## Epic I.5 — Farm list window virtualization (optional)
-
-**Goal:** Cap DOM cost if users load **very large** visible farm lists (beyond current batched infinite scroll).
-
-### Requirement I.5.1
-
-- Evaluate **`@tanstack/react-virtual`** (or similar) for **`/tool`** farm **`ol`** when **`visibleFarm.length`** crosses an agreed threshold.
-- Preserve infinite-scroll “load more” behavior and **variable-height** expandable rows.
-
-**Acceptance**
-
-- Only ship if profiling or UX justifies; otherwise document “not needed yet” in the same epic note.
-
----
-
 ## Epic I.6 — Full farm guide experience (all mounts)
 
 **Goal:** Same rich expandable row (**guide + summarized tips + Why + links**) for **every mount in `data/mounts.json`**, using **governed** authoring — not bulk automated Wowhead scraping.
 
-### Requirement I.6.1
+### Requirement I.6.1 ✅ (infrastructure)
 
-- **Roadmap + metrics:** **`docs/guide-experience-roadmap.md`** defines layers (**`mount-guides.json`**, **`wowhead-comment-digests.json`**, **`farm-tips.json`**) and batch waves.
-- **Coverage command:** **`npm run data:guide-experience`** → **`data/build/guide-experience-coverage.json`** (percentages + sample gaps).
+- **Roadmap + metrics:** **`docs/guide-experience-roadmap.md`** — layers, waves, **§ Maintainer target (I.6 acceptance)**, LLM commands.
+- **Coverage command:** **`npm run data:guide-experience`** → **`data/build/guide-experience-coverage.json`** (**schema 2**): catalog %, **`percentOfWowheadUrl`**, **`fullExperienceGuideDigestFarmTip`**, sample gap IDs. Logic: **`lib/guideExperienceCoverage.ts`**.
 
-### Requirement I.6.2
+### Requirement I.6.2 (ongoing — data)
 
-- **Progress in PRs:** expand coverage in **reviewable batches**; record provenance per **`docs/wowhead-digests.md`** / **`docs/farm-tip-llm-workflow.md`** when using LLM assist.
+- **Progress in PRs:** expand coverage in **reviewable batches**; record provenance per **`docs/wowhead-digests.md`** / **`docs/farm-tip-llm-workflow.md`** when using LLM assist (e.g. **`content:mount-flavor-batch`**, **`content:guides-batch`**).
 
 **Acceptance**
 
-- Maintainer sets a **target threshold** (e.g. 100% of mounts with **`wowheadUrl`**, or 100% of catalog); epic closes when that threshold is met and **`data:guide-experience`** reflects it. Until then, the roadmap + script are the source of truth for “how far along we are.”
+- **Target** is documented in the roadmap (**default:** **`percentOfWowheadUrl.richPanelGuideAndDigest` = 100**). Epic **closes** when that metric is met (or your documented override) and **`npm run data:guide-experience`** reflects it. Until then, roadmap + JSON report are the source of truth.
+
+---
+
+## Epic I.7 — Lightweight mount search (unowned list)
+
+**Goal:** Let users **find one specific mount they do not own** (and spot-check new guide/digest content) without changing the primary “paste → ranked farm list” flow. **Rarely used** but important when someone knows the name; keep the UI **minimal and non-invasive**.
+
+### Requirement I.7.1
+
+- **Scope:** Client-side filter over the **same merged mount list** the tool already loads (`lib/mounts.ts`), applied to mounts that are **unowned** after paste and **eligible for farm recommendations** (respect **`retailObtainable`** and existing source filters — search narrows what’s already in view, or document if search bypasses source filters for discoverability only).
+- **Matching:** Substring on **`name`** (case-insensitive); optional **spell ID** token if the user pastes a number (align with **`docs/export-contract.md`**).
+- **UX:** Single **compact** control (e.g. small search field in **`/tool`** near results, **collapsed by default** or visually quiet — not a second hero). Debounced input; clear empty state when no matches.
+- **Performance:** No new network calls; filter in memory only (catalog size is static JSON).
+
+### Requirement I.7.2 (optional, QA / power use)
+
+- **“Search full catalog”** (owned + unowned) behind a disclosure, **off** by default, so maintainers can locate a mount row when testing partial guide coverage without faking an export.
+
+**Acceptance**
+
+- With a valid export, typing a mount name **narrows** the farm list to matching unowned rows; clearing search restores the normal sorted list + infinite scroll behavior.
+- Vitest (or Playwright smoke, if you add it) covers at least **one** filter case on a small fixture list.
 
 ---
 
@@ -212,10 +189,8 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 | Priority | Epic | Why |
 |----------|------|-----|
-| **1** | **I.6** — Guide experience for all mounts | Roadmap + **`data:guide-experience`**; batched content PRs (see **`docs/guide-experience-roadmap.md`**). |
-| **2** | **I.3** — How To polish | Faster first successful paste. |
-| **3** | **I.4** — Mount preview | Differentiation; blocked on legal/technical spike. |
-| **4** | **I.5** — Farm virtualization | Only if measured need. |
+| **1** | **I.6** — Guide experience (data waves) | **I.6.1** shipped; raise **`percentOfWowheadUrl.richPanelGuideAndDigest`** via batches (**`docs/guide-experience-roadmap.md`**). |
+| **2** | **I.7** — Mount search | Small UX; helps “find this one mount” + QA on partial guide batches. |
 | **—** | **J.1–J.6** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. (**J.6** = website → addon guide import / feedback loop.) |
 | **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 
@@ -227,4 +202,4 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**, **I.2**). Last updated: **J.6** added (in-game guide import / website → addon loop).*
+*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**–**I.5**, plus **I.6.1** metrics infra). **I.6** remains **active** until digest coverage hits the roadmap target. **I.7** mount search on **`/tool`**.*

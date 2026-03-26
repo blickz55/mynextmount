@@ -9,10 +9,11 @@ import {
 } from "react";
 import { MountIcon } from "@/components/MountIcon";
 import { scoreRarest } from "@/lib/scoreRarest";
+import { LIST_VIRTUALIZE_MIN } from "@/lib/virtualizeThresholds";
 import type { Mount } from "@/types/mount";
 
-/** Below this count, render a flat grid (virtualizer overhead not worth it). */
-export const OWNED_MOUNTS_VIRTUALIZE_MIN = 48;
+/** Re-export for docs/tests; prefer `LIST_VIRTUALIZE_MIN` from `lib/virtualizeThresholds`. */
+export const OWNED_MOUNTS_VIRTUALIZE_MIN = LIST_VIRTUALIZE_MIN;
 
 const ROW_ESTIMATE_PX = 44;
 
@@ -180,7 +181,7 @@ export function OwnedMountsCollection({ parsedIds, catalog }: Props) {
 
   const known = rows.filter((r) => r.mount).length;
   const unknown = rows.length - known;
-  const useVirtual = rows.length >= OWNED_MOUNTS_VIRTUALIZE_MIN;
+  const useVirtual = rows.length >= LIST_VIRTUALIZE_MIN;
 
   return (
     <div className="owned-collection">

@@ -354,6 +354,53 @@ html[data-theme="dark"] > body {
   color: var(--text);
 }
 
+.how-to-panel__demo {
+  margin: 0 0 0.55rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.how-to-panel__demo-link {
+  font-weight: 600;
+}
+
+.how-to-panel__paths {
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.how-to-panel__paths summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.how-to-panel__paths summary:hover {
+  color: var(--text);
+}
+
+.how-to-panel__paths-list {
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+  line-height: 1.45;
+}
+
+.how-to-panel__paths-list li {
+  margin-bottom: 0.35rem;
+}
+
+.how-to-panel__kbd {
+  font-family: ui-monospace, monospace;
+  font-size: 0.78em;
+  padding: 0.08em 0.28em;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  color: var(--text);
+}
+
 .how-to-panel__list {
   margin: 0;
   padding-left: 1.2rem;
@@ -876,6 +923,19 @@ html[data-theme="dark"] .btn-primary {
   padding: 0;
   list-style: none;
   counter-reset: mount-result;
+}
+
+/* Epic I.5 — windowed farm rows: rank is global index, not DOM order */
+.mount-results-list--virtual {
+  counter-reset: none;
+}
+
+.mount-results-list--virtual .mount-result-card {
+  counter-increment: none;
+}
+
+.mount-results-list--virtual .mount-result-card::before {
+  content: attr(data-farm-rank);
 }
 
 .mount-result-card {

@@ -7,15 +7,13 @@ import {
   useRef,
   useState,
 } from "react";
+import { FarmRecommendationsList } from "@/components/FarmRecommendationsList";
 import { MountIcon } from "@/components/MountIcon";
-import {
-  MountFarmSecondaryDetails,
-  MountRarestSecondaryDetails,
-} from "@/components/MountRowSecondaryDetails";
+import { MountRarestSecondaryDetails } from "@/components/MountRowSecondaryDetails";
+import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
 import { SiteBrand } from "@/components/SiteBrand";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
 import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
@@ -32,7 +30,6 @@ import { scoreEasiest } from "@/lib/scoreEasiest";
 import { scoreRarest } from "@/lib/scoreRarest";
 import { selectTopOwnedByRarest } from "@/lib/selectTopOwnedByRarest";
 import { sortMountsByScore } from "@/lib/selectTopMountsByScore";
-import { ADDON_INSTALL_DOCS_URL, getAddonListingUrl } from "@/lib/addonListing";
 import type { Mount } from "@/types/mount";
 import type { RecommendationMode } from "@/types/recommendationMode";
 
@@ -42,8 +39,6 @@ const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
     : "";
-
-const addonListingUrl = getAddonListingUrl();
 
 export default function HomePage() {
   const [exportString, setExportString] = useState("");
@@ -167,45 +162,7 @@ export default function HomePage() {
       </div>
       <SiteBrand brandLogoUrl={brandLogoUrl} />
 
-      <section className="how-to-panel" aria-label="How to export your mounts">
-        <h2 className="how-to-panel__title">How to get your export</h2>
-        <ol className="how-to-panel__list">
-          <li>
-            Install <strong>MyNextMount</strong> from the{" "}
-            <a
-              href={addonListingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              public addon listing
-            </a>{" "}
-            (CurseForge / Wago / your installer). For a folder copy from this
-            repo, see{" "}
-            <a
-              href={ADDON_INSTALL_DOCS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              manual install
-            </a>
-            .
-          </li>
-          <li>
-            Launch WoW and enable <strong>MyNextMount</strong> on the AddOns
-            list.
-          </li>
-          <li>
-            Type <code className="how-to-panel__cmd">/mountexport</code> or{" "}
-            <code className="how-to-panel__cmd">/mynextmount</code> into your
-            chat bar.
-          </li>
-          <li>
-            Copy and paste results from the in-game pop-up into the box below.
-            The string looks like{" "}
-            <code className="how-to-panel__cmd">M:65645,59961,41256</code>.
-          </li>
-        </ol>
-      </section>
+      <HowToExportPanel />
 
       <p className="lead" id="export-hint">
         Paste your export here (summon spell IDs — same format the addon copies).
@@ -425,28 +382,7 @@ export default function HomePage() {
                     mount{sortedFarmList.length === 1 ? "" : "s"}
                   </p>
                   <div className="results-stack">
-                    <ol className="mount-results-list">
-                      {visibleFarm.map((mount) => (
-                        <li key={mount.id} className="mount-result-card">
-                          <div className="mount-result-card__head">
-                            <MountIcon mount={mount} />
-                            <strong>{mount.name}</strong>
-                          </div>
-                          <div className="mount-result-card__line">
-                            Location: {getMountLocationLabel(mount)}
-                          </div>
-                          {mount.boss !== undefined && mount.boss !== "" && (
-                            <div className="mount-result-card__line">
-                              Boss: {mount.boss}
-                            </div>
-                          )}
-                          <div className="mount-result-card__line">
-                            Why: {buildRecommendationReason(mount, mode)}
-                          </div>
-                          <MountFarmSecondaryDetails mount={mount} />
-                        </li>
-                      ))}
-                    </ol>
+                    <FarmRecommendationsList mounts={visibleFarm} mode={mode} />
                     {visibleFarmCount < sortedFarmList.length && (
                       <>
                         <p className="load-more-actions">

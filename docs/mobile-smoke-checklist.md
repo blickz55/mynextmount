@@ -30,7 +30,9 @@ Use **Chrome DevTools** (or Safari Web Inspector) at **~390×844** (iPhone 12/13
 ## Functional
 
 - [ ] **How to** (I.1): first step **public addon listing** and **manual install** open in a new tab; URLs match **`NEXT_PUBLIC_ADDON_LISTING_URL`** or default CurseForge search.
+- [ ] **How to** (I.3): optional **Watch a quick walkthrough** appears when **`NEXT_PUBLIC_HOWTO_DEMO_URL`** is set; **AddOns folder** `<details>` expands; keyboard hints readable on narrow width.
 - [ ] Paste export → submit → **farm list**: infinite scroll **or** **Load more mounts** button; cards wrap long names without overflow.
+- [ ] After loading **≥48** farm rows (**I.5**), page scroll still feels smooth; opening a row’s **farm guide / spotlight** **`<details>`** does not trap scroll or break numbering.
 - [ ] Open **View Your Mounts** with a **large** export (≥48 mounts): virtualized grid scrolls smoothly; **1 column** on narrow width.
 
 ## Accessibility smoke (I.2)

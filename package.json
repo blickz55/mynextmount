@@ -25,7 +25,7 @@
     "addon:sync-guides": "node scripts/generate-addon-guides.mjs",
     "farm-tip:draft": "node scripts/farm-tip-llm-draft.mjs",
     "data:wowhead-digest": "node scripts/report-wowhead-digests.mjs",
-    "data:guide-experience": "node scripts/report-guide-experience-coverage.mjs",
+    "data:guide-experience": "tsx scripts/report-guide-experience-coverage.ts",
     "content:guides-batch": "node scripts/content-guides-batch.mjs",
     "content:guides-refine-checklists": "node scripts/content-guides-refine-checklists.mjs",
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs",
@@ -44,6 +44,7 @@
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^15.5.14",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.0",
     "vitest": "^3.2.4"
   }

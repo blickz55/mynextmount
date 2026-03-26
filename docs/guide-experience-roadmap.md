@@ -20,6 +20,18 @@ The UI already renders the card when data exists (`lib/mounts.ts` merges these a
 
 ---
 
+## Maintainer target (Epic I.6 acceptance)
+
+**Default closure goal:** every mount that has a **`wowheadUrl`** in **`data/mounts.json`** also has a **complete guide** (per merge rules) **and** a **non-empty digest** (**`flavor`** and/or **`lines`** in **`wowhead-comment-digests.json`**).
+
+- **Primary metric:** **`percentOfWowheadUrl.richPanelGuideAndDigest`** in **`data/build/guide-experience-coverage.json`** → **100** (or document a lower **v1** percentage here if you intentionally ship short).
+- **Stretch:** **`percentOfWowheadUrl.fullExperienceGuideDigestFarmTip`** (adds **`farm-tips.json`**).
+- **Catalog-wide %** (denominator = all mount rows) is still printed for context; **I.6** is defined against the **`wowheadUrl`** subset so unobtainable / linkless rows do not block closure if you later drop URLs.
+
+**Epic I.6** stays **open** in **`backlog.md`** until **you** set or accept the target above and the report reflects it. **I.6.1** (roadmap + command) is **done**; **I.6.2** is **ongoing data work** in reviewable PRs / batches.
+
+---
+
 ## Governance (repo policy)
 
 1. **Operator responsibility** — You choose how to obtain inputs (manual, API, fetch). **Compliance** with [Wowhead ToU](https://www.wowhead.com/terms-of-use) and similar is **your** call; the repo **authorizes** automation when you want it.
@@ -36,13 +48,15 @@ Run:
 npm run data:guide-experience
 ```
 
-Writes **`data/build/guide-experience-coverage.json`** and prints counts / percentages:
+Writes **`data/build/guide-experience-coverage.json`** (**`schemaVersion`: 2**) and prints counts / percentages:
 
 - mounts with **guide** (complete per merge rules),
 - mounts with **non-empty digest**,
 - mounts with **farmTip**,
 - **`richPanelGuideAndDigest`** (both guide and digest),
-- sample spell IDs still missing a guide (truncated).
+- **`fullExperienceGuideDigestFarmTip`** (all three),
+- the same metrics as **% of mounts with `wowheadUrl`** (`percentOfWowheadUrl`) — **primary I.6 progress signal**,
+- sample spell IDs: missing guide, missing digest (among `wowheadUrl`), missing farm tip, missing rich panel (among `wowheadUrl`) — each truncated.
 
 Existing reports still apply:
 

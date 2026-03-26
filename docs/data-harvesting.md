@@ -320,7 +320,7 @@ Each row already links **`commentsUrl`** on Wowhead for deep reading.
 ### Full farm row coverage (all mounts)
 
 - **`docs/guide-experience-roadmap.md`** — batched path to **guide + digest + farm tip** for the whole catalog (**Maintainer override** allows automation).
-- **`npm run data:guide-experience`** — combined percentages vs **`data/mounts.json`** → **`data/build/guide-experience-coverage.json`**.
+- **`npm run data:guide-experience`** — combined percentages vs **`data/mounts.json`** → **`data/build/guide-experience-coverage.json`** (**`schemaVersion` 2**: **`percentOfWowheadUrl`** for I.6 target tracking — see **`docs/guide-experience-roadmap.md`**).
 
 ---
 

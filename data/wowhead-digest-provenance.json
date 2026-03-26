@@ -1,4 +1,97 @@
 {
   "schemaVersion": 1,
-  "batches": []
+  "batches": [
+    {
+      "generatedAt": "2026-03-25T17:45:49.390Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    },
+    {
+      "generatedAt": "2026-03-25T17:46:40.561Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [
+        {
+          "spellId": 6648,
+          "phase": "fetch",
+          "error": "Could not load Wowhead comments for type=3 id=5655. JSON API failed; HTML fallback also failed. Set WOWHEAD_COMMENTS_URL_TEMPLATE if you have a JSON endpoint, WOWHEAD_COOKIE if CloudFront blocks you, or see docs/wowhead-item-comments.md.\n  - https://www.wowhead.com/data/comments?type=3&id=5655 → HTTP 403\n  - https://www.wowhead.com/data/comments?id=5655&type=3 → HTTP 403\n  - https://www.wowhead.com/data/comments?objectType=3&objectId=5655 → HTTP 403\n  - https://www.wowhead.com/item=5655 → HTML HTTP 403"
+        }
+      ],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    },
+    {
+      "generatedAt": "2026-03-25T17:54:26.270Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [
+        {
+          "spellId": 6648,
+          "phase": "fetch",
+          "error": "Could not load Wowhead comments for type=3 id=5655. JSON API failed; HTML fallback also failed. Set WOWHEAD_COMMENTS_URL_TEMPLATE if you have a JSON endpoint, WOWHEAD_COOKIE if CloudFront blocks you, or see docs/wowhead-item-comments.md.\n  - https://www.wowhead.com/data/comments?type=3&id=5655 → HTTP 403\n  - https://www.wowhead.com/data/comments?id=5655&type=3 → HTTP 403\n  - https://www.wowhead.com/data/comments?objectType=3&objectId=5655 → HTTP 403\n  - https://www.wowhead.com/item=5655 → HTML OK (54776 bytes) but 0 comment cells matched; comments may be client-only. Try WOWHEAD_COOKIE, or WOWHEAD_HTML_URL_SUFFIX=/slug#comments matching your browser URL."
+        }
+      ],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    },
+    {
+      "generatedAt": "2026-03-25T17:56:49.072Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [
+        {
+          "spellId": 6648,
+          "phase": "fetch",
+          "error": "Could not load Wowhead comments for type=3 id=5655. JSON API failed; HTML fallback also failed. Set WOWHEAD_COMMENTS_URL_TEMPLATE if you have a JSON endpoint, WOWHEAD_COOKIE if CloudFront blocks you, or see docs/wowhead-item-comments.md.\n  - https://www.wowhead.com/data/comments?type=3&id=5655 → HTTP 403\n  - https://www.wowhead.com/data/comments?id=5655&type=3 → HTTP 403\n  - https://www.wowhead.com/data/comments?objectType=3&objectId=5655 → HTTP 403\n  - https://nether.wowhead.com/item=5655 → HTML HTTP 404 (<!DOCTYPE html> <html lang=\"en\"> <head> <title>404 - The Twisting Nether - Wowhead</title> <…)"
+        }
+      ],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    },
+    {
+      "generatedAt": "2026-03-25T17:57:16.237Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [
+        {
+          "spellId": 6648,
+          "phase": "fetch",
+          "error": "Could not load Wowhead comments for type=3 id=5655. JSON API failed; HTML fallback also failed. Set WOWHEAD_COMMENTS_URL_TEMPLATE if you have a JSON endpoint, WOWHEAD_COOKIE if CloudFront blocks you, or see docs/wowhead-item-comments.md.\n  - https://www.wowhead.com/data/comments?type=3&id=5655 → HTTP 403\n  - https://www.wowhead.com/data/comments?id=5655&type=3 → HTTP 403\n  - https://www.wowhead.com/data/comments?objectType=3&objectId=5655 → HTTP 403\n  - https://nether.wowhead.com/item=5655 → HTML HTTP 404 (<!DOCTYPE html> <html lang=\"en\"> <head> <title>404 - The Twisting Nether - Wowhead</title> <…)"
+        }
+      ],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    },
+    {
+      "generatedAt": "2026-03-25T17:57:35.496Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [
+        {
+          "spellId": 6648,
+          "phase": "fetch",
+          "error": "Could not load Wowhead comments for type=3 id=5655. JSON API failed; HTML fallback also failed. Set WOWHEAD_COMMENTS_URL_TEMPLATE if you have a JSON endpoint, WOWHEAD_COOKIE if CloudFront blocks you, or see docs/wowhead-item-comments.md.\n  - https://www.wowhead.com/data/comments?type=3&id=5655 → HTTP 403\n  - https://www.wowhead.com/data/comments?id=5655&type=3 → HTTP 403\n  - https://www.wowhead.com/data/comments?objectType=3&objectId=5655 → HTTP 403\n  - https://nether.wowhead.com/item=5655 → HTML HTTP 404 (<!DOCTYPE html> <html lang=\"en\"> <head> <title>404 - The Twisting Nether - Wowhead</title> <…)"
+        }
+      ],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    },
+    {
+      "generatedAt": "2026-03-25T18:03:19.078Z",
+      "model": "gpt-5.4-mini",
+      "spellIds": [],
+      "errors": [
+        {
+          "spellId": 6648,
+          "phase": "fetch",
+          "error": "Could not load Wowhead comments for type=3 id=5655. JSON API failed; HTML fallback also failed. Set WOWHEAD_COMMENTS_URL_TEMPLATE if you have a JSON endpoint, WOWHEAD_COOKIE if CloudFront blocks you, or see docs/wowhead-item-comments.md.\n  - https://www.wowhead.com/data/comments?type=3&id=5655 → HTTP 403\n  - https://www.wowhead.com/data/comments?id=5655&type=3 → HTTP 403\n  - https://www.wowhead.com/data/comments?objectType=3&objectId=5655 → HTTP 403\n  - https://www.wowhead.com/item=5655 → HTML OK (59454 bytes) but 0 comment cells matched; comments may be client-only. Try WOWHEAD_HTML_URL_SUFFIX with the slug path from your browser (e.g. /chestnut-mare-bridle), or capture WOWHEAD_COMMENTS_URL_TEMPLATE from DevTools.\n  - https://www.wowhead.com/spell=6648 → HTML OK (43384 bytes) but 0 comment cells matched; comments may be client-only. Try WOWHEAD_HTML_URL_SUFFIX with the slug path from your browser (e.g. /chestnut-mare-bridle), or capture WOWHEAD_COMMENTS_URL_TEMPLATE from DevTools."
+        }
+      ],
+      "sourceNote": "HTTP JSON fetch of Wowhead comment thread for mount page (objectType/objectId from wowheadUrl); maintainer asserts rights to automate; OpenAI paraphrase for site display only.",
+      "apply": true
+    }
+  ]
 }

@@ -24,3 +24,14 @@ export function hasCustomAddonListingUrl(): boolean {
   const raw = process.env.NEXT_PUBLIC_ADDON_LISTING_URL;
   return typeof raw === "string" && raw.trim() !== "";
 }
+
+/**
+ * Epic I.3 — optional short screen recording (YouTube, Loom, self-hosted, etc.).
+ * Set at build time; when unset, the How To panel omits the demo link.
+ */
+export function getHowToDemoUrl(): string | null {
+  const raw = process.env.NEXT_PUBLIC_HOWTO_DEMO_URL;
+  if (typeof raw !== "string") return null;
+  const t = raw.trim();
+  return t !== "" ? t : null;
+}

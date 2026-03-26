@@ -726,9 +726,9 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 **Implemented**
 
-- **`@tanstack/react-virtual`** — **`components/OwnedMountsCollection.tsx`** window-mounts rows when export size ≥ **`OWNED_MOUNTS_VIRTUALIZE_MIN` (48)**; each virtual row is one or two mounts matching the **600px** 1-column vs 2-column layout (`ResizeObserver` on the scroll viewport).
+- **`@tanstack/react-virtual`** — **`components/OwnedMountsCollection.tsx`** window-mounts rows when export size ≥ **`LIST_VIRTUALIZE_MIN` (48)** from **`lib/virtualizeThresholds.ts`** (formerly **`OWNED_MOUNTS_VIRTUALIZE_MIN`**); each virtual row is one or two mounts matching the **600px** 1-column vs 2-column layout (`ResizeObserver` on the scroll viewport).
 - Scroll + **`max-height: min(70vh, 28rem)`** moved to **`.owned-collection__viewport`**; **View your mounts** disclosure body no longer uses **`.disclosure-block__body--scroll`** (avoids nested scroll).
-- **Farm list:** still **incremental DOM** via intersection observer + **`PAGE_SIZE`** batches (not thousands of cards at once); optional future **window** virtualization noted in parking lot if UX changes.
+- **Farm list (Epic I.5):** **`components/FarmRecommendationsList.tsx`** — same **48** threshold; **`useWindowVirtualizer`** + **`measureElement`** for variable-height **`details`** rows; **batched load-more** unchanged in **`app/tool/page.tsx`**.
 
 ---
 
@@ -800,6 +800,58 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ---
 
+## Epic I.3 — How To polish ✅ Complete
+
+### Requirement I.3.1
+
+**Implemented**
+
+- **`components/HowToExportPanel.tsx`** — **`/tool`** How To: optional **Watch a quick walkthrough** when **`NEXT_PUBLIC_HOWTO_DEMO_URL`** is set (**`getHowToDemoUrl()`** in **`lib/addonListing.ts`**).
+- **Windows vs Mac** — AddOns paths in a **`<details>`** summary; **Esc → Options → AddOns** called out; copy/paste step uses **Ctrl** vs **⌘** for select all / copy / paste.
+- **`.env.example`**, **`docs/deployment.md`**, **`docs/addon-install.md`**, **`docs/mobile-smoke-checklist.md`** — env + operator notes.
+
+---
+
+## Epic I.4 — Mount preview beyond spell icon ✅ Complete
+
+### Requirement I.4.1
+
+**Implemented**
+
+- **`docs/adr-013-mount-preview-beyond-spell-icon.md`** — options (larger spell texture vs journal / scrapes / self-hosted); **decision:** optional **higher-res same-asset** URLs with **`img` `onError`** fallback; no digest or Wowhead preview scraping.
+- **`lib/mountPreviewLargeSrc.ts`** — **`largerSpellIconCandidate()`** (Blizzard **`/icons/56/`** → **`/icons/128/`**; ZAM **`small`/`medium`** → **`large`**).
+- **`components/MountIcon.tsx`** — client component; when **`NEXT_PUBLIC_MOUNT_PREVIEW_LARGE=1`**, tries candidate URL then falls back to baseline **`iconUrl`**.
+- **`.env.example`**, **`docs/deployment.md`**, **`docs/mount-icons.md`** — env + cross-links.
+
+---
+
+## Epic I.5 — Farm list window virtualization ✅ Complete
+
+### Requirement I.5.1
+
+**Implemented**
+
+- **`lib/virtualizeThresholds.ts`** — shared **`LIST_VIRTUALIZE_MIN` (48)** with **Epic G.2** owned grid.
+- **`components/FarmRecommendationsList.tsx`** — plain **`ol`** below threshold; **`useWindowVirtualizer`** at or above; **`measureElement`** on each row for expandable **`<details>`** height.
+- **`app/globals.css`** — **`.mount-results-list--virtual`** uses **`data-farm-rank`** for row index (counters only reflect DOM order when windowed).
+- **`app/tool/page.tsx`** — infinite scroll + **Load more** unchanged.
+
+---
+
+## Epic I.6 — Full farm guide experience (I.6.1 infrastructure) ✅
+
+### Requirement I.6.1
+
+**Implemented (2026-03-25)**
+
+- **`docs/guide-experience-roadmap.md`** — **§ Maintainer target (I.6 acceptance)**; default metric **`percentOfWowheadUrl.richPanelGuideAndDigest`**; stretch **`fullExperienceGuideDigestFarmTip`**.
+- **`lib/guideExperienceCoverage.ts`** + **`scripts/report-guide-experience-coverage.ts`** — **`npm run data:guide-experience`** (via **`tsx`**) writes **`data/build/guide-experience-coverage.json`** **`schemaVersion` 2** with wowhead-relative % and extra gap samples.
+- **`tests/guide-experience-coverage.test.ts`** — Vitest on merge-rule helpers + report math.
+
+**Outstanding:** **I.6.2** catalog fill (batches + provenance) until roadmap target is met — epic remains **active** in **`backlog.md`**.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -812,6 +864,6 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
 | **H** | H.1, H.2 |
-| **I** | I.1, I.2 |
+| **I** | I.1, I.2, I.3, I.4, I.5 |
 
-**Next work:** root **`backlog.md`** — **Phase I** (I.3–I.6 near-term polish, including **I.6** guide coverage roadmap) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*
+**Next work:** root **`backlog.md`** — **Phase I** (**I.6** catalog digest/tip batches until roadmap target; **I.7** mount search) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*

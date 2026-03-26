@@ -30,6 +30,8 @@ The site’s **How to** panel (**`/tool`**) and the **`/`** pitch link to one ou
 
 **Manual install** from git is always documented here (folder **`addons/MyNextMount`**) and linked from the same panels as **`ADDON_INSTALL_DOCS_URL`**.
 
+**Optional demo video (Epic I.3):** set **`NEXT_PUBLIC_HOWTO_DEMO_URL`** at build time to a short walkthrough (YouTube, Loom, or any URL you control that allows embedding / outbound links per their ToS). The **`/tool`** How To panel shows **Watch a quick walkthrough** when this is set.
+
 When you publish on CurseForge, add a CurseForge project ID line to **`MyNextMount.toc`** (e.g. `## X-Curse-Project-ID: 123456`) per [CurseForge’s packaging docs](https://docs.curseforge.com/docs/getting-started/adding-a-project/project-details) if you use their release flow.
 
 ## Upgrade from `MountFarmExport` (old folder name)
@@ -43,7 +45,7 @@ When you publish on CurseForge, add a CurseForge project ID line to **`MyNextMou
 ## Notes
 
 - **Spell IDs** match `docs/export-contract.md` and `mounts.json` `id` after Epic A.1.
-- **Clipboard:** WoW does not reliably expose a secure “copy for me” API for arbitrary text; select-all + **Ctrl+C** from the in-game edit box is the portable approach.
+- **Clipboard:** WoW does not reliably expose a secure “copy for me” API for arbitrary text; select-all + copy from the in-game edit box is the portable approach (**Ctrl+A** / **Ctrl+C** on Windows; **⌘A** / **⌘C** on Mac). The website How To panel spells this out for first-time players.
 - **Very large collections:** The text lives in a **scrollable** area; if a future client truncates buffer length, we will need **export v2** (chunking) — see backlog.
 - **Testing many overlaps with the website:** `docs/testing-with-your-collection.md` + `npm run data:merge-stubs` (stubs → `data/mounts.stubs.json`).
 
