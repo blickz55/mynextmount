@@ -838,17 +838,39 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ---
 
-## Epic I.6 — Full farm guide experience (I.6.1 infrastructure) ✅
+## Epic I.6 — Full farm guide experience ✅ Complete
 
 ### Requirement I.6.1
 
-**Implemented (2026-03-25)**
+**Implemented**
 
-- **`docs/guide-experience-roadmap.md`** — **§ Maintainer target (I.6 acceptance)**; default metric **`percentOfWowheadUrl.richPanelGuideAndDigest`**; stretch **`fullExperienceGuideDigestFarmTip`**.
+- **`docs/guide-experience-roadmap.md`** — **§ Maintainer target (I.6 acceptance)**; primary **`percentOfWowheadUrl.richPanelGuideAndDigest`**; stretch **`fullExperienceGuideDigestFarmTip`**.
 - **`lib/guideExperienceCoverage.ts`** + **`scripts/report-guide-experience-coverage.ts`** — **`npm run data:guide-experience`** (via **`tsx`**) writes **`data/build/guide-experience-coverage.json`** **`schemaVersion` 2** with wowhead-relative % and extra gap samples.
 - **`tests/guide-experience-coverage.test.ts`** — Vitest on merge-rule helpers + report math.
 
-**Outstanding:** **I.6.2** catalog fill (batches + provenance) until roadmap target is met — epic remains **active** in **`backlog.md`**.
+### Requirement I.6.2
+
+**Implemented**
+
+- **Catalog data:** **`mount-guides.json`** + **`wowhead-comment-digests.json`** (flavor / **`lines`**) for **all** mounts with **`wowheadUrl`** — **`npm run data:guide-experience`** reports **`richPanelGuideAndDigest`** at **100%** (closed after full **`content:mount-flavor-batch`** run + provenance updates). **Farm tips** (**`farm-tips.json`**) remain a **stretch**, not required for I.6 closure.
+
+---
+
+## Epic I.7 — Lightweight mount search ✅ Complete
+
+### Requirement I.7.1
+
+**Implemented**
+
+- **`lib/farmListSearch.ts`** — **`mountMatchesFarmSearchQuery`** / **`filterMountsByFarmSearchQuery`**: case-insensitive **name** substring; all-digit query → exact **summon spell ID** (**`docs/export-contract.md`**).
+- **`app/tool/page.tsx`** — **`details`** **Filter by name or spell ID** (collapsed by default) narrows the **sorted farm list** after source filters; **250ms** debounce; empty-state copy when no matches; **Load more** + virtualized list use the filtered list; clears when a **new export** is submitted.
+- **`tests/farm-list-search.test.ts`** — Vitest on matching rules.
+
+### Requirement I.7.2
+
+**Implemented**
+
+- **`Search full catalog (QA)`** **`details`** at bottom of **`/tool`**: debounced search over full **`lib/mounts`** catalog (no export), up to **100** rows with optional **Wowhead** link.
 
 ---
 
@@ -864,6 +886,6 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
 | **H** | H.1, H.2 |
-| **I** | I.1, I.2, I.3, I.4, I.5 |
+| **I** | I.1, I.2, I.3, I.4, I.5, I.6, I.7 |
 
-**Next work:** root **`backlog.md`** — **Phase I** (**I.6** catalog digest/tip batches until roadmap target; **I.7** mount search) and **Phase J** (explore); **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under I/J.)*
+**Next work:** root **`backlog.md`** — **Phase J** (explore); optional **farm-tip** expansion tracked via **`data:guide-experience`** stretch metric. **auth Phase A** / payments only after **`docs/business-strategy.md`** §2 gates are cleared. *(Former parking lot items live under J.)*

@@ -23,7 +23,7 @@ When you say *“Execute Story X.Y.Z”*, map to an epic below unless you overri
 
 ## Shipped baseline (reference)
 
-The app today: paste **`M:…`** → parse → filter owned → score (Easiest / Rarest) → **source filters** → sorted farm list with **infinite scroll** (batches of 10) + rarest-owned showcase; **View your mounts** grid + rarity bars; **MyNextMount** addon (**`/mountexport`**, **`/mynextmount`**); **Phase B** pipeline and **Phase C** guides/farm tips. Epic-level history (**A–E**, **B.8**, **D.1–D.10**): **`docs/backlog-archive.md`**. Operational docs: **`docs/export-contract.md`**, **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/adr-012-addon-strategy.md`**, **`docs/adr-013-mount-preview-beyond-spell-icon.md`** (optional larger spell icon preview).
+The app today: paste **`M:…`** → parse → filter owned → score (Easiest / Rarest) → **source filters** → sorted farm list with **infinite scroll** (batches of 10) + optional **name / spell-ID search** + rarest-owned showcase; **View your mounts** grid + rarity bars; **MyNextMount** addon (**`/mountexport`**, **`/mynextmount`**); **Phase B** pipeline and **Phase C** guides/farm tips. Epic-level history (**A–E**, **B.8**, **D.1–D.10**): **`docs/backlog-archive.md`**. Operational docs: **`docs/export-contract.md`**, **`docs/data-harvesting.md`**, **`docs/guides.md`**, **`docs/adr-012-addon-strategy.md`**, **`docs/adr-013-mount-preview-beyond-spell-icon.md`** (optional larger spell icon preview).
 
 ---
 
@@ -47,7 +47,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 # PHASE G — Quality, ops, and testing
 
-**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build. **G.2** — **View your mounts** uses **`@tanstack/react-virtual`** when the export has **≥48** mounts (windowed rows, 1- or 2-column like the CSS breakpoint). **I.5** — **Top mounts to farm** uses the same **≥48** threshold: **`useWindowVirtualizer`** + **`measureElement`** while keeping **batched load-more** (no full catalog in DOM at once).
+**Done (see archive):** **G.1** — Vitest regression tests (`npm run test`): parse, filter-owned invariant, scoring determinism, full sorted-list order + expected head; fixture **`fixtures/g1-mount-catalog.json`** + export **`M:100001,100002`**. CI runs tests before lint/build. **G.2** — **View your mounts** uses **`@tanstack/react-virtual`** when the export has **≥48** mounts (windowed rows, 1- or 2-column like the CSS breakpoint). **I.5** — **Top mounts to farm** uses the same **≥48** threshold: **`useWindowVirtualizer`** + **`measureElement`** while keeping **batched load-more** (no full catalog in DOM at once). **I.6** — **guide + digest** (rich panel) for **100%** of mounts with **`wowheadUrl`**; **`npm run data:guide-experience`** (**`docs/guide-experience-roadmap.md`**).
 
 ---
 
@@ -57,48 +57,9 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ---
 
-# PHASE I — Near-term polish (active)
+# PHASE I — Near-term polish
 
-*Promoted from the former parking lot — safe to execute in small PRs.*
-
-## Epic I.6 — Full farm guide experience (all mounts)
-
-**Goal:** Same rich expandable row (**guide + summarized tips + Why + links**) for **every mount in `data/mounts.json`**, using **governed** authoring — not bulk automated Wowhead scraping.
-
-### Requirement I.6.1 ✅ (infrastructure)
-
-- **Roadmap + metrics:** **`docs/guide-experience-roadmap.md`** — layers, waves, **§ Maintainer target (I.6 acceptance)**, LLM commands.
-- **Coverage command:** **`npm run data:guide-experience`** → **`data/build/guide-experience-coverage.json`** (**schema 2**): catalog %, **`percentOfWowheadUrl`**, **`fullExperienceGuideDigestFarmTip`**, sample gap IDs. Logic: **`lib/guideExperienceCoverage.ts`**.
-
-### Requirement I.6.2 (ongoing — data)
-
-- **Progress in PRs:** expand coverage in **reviewable batches**; record provenance per **`docs/wowhead-digests.md`** / **`docs/farm-tip-llm-workflow.md`** when using LLM assist (e.g. **`content:mount-flavor-batch`**, **`content:guides-batch`**).
-
-**Acceptance**
-
-- **Target** is documented in the roadmap (**default:** **`percentOfWowheadUrl.richPanelGuideAndDigest` = 100**). Epic **closes** when that metric is met (or your documented override) and **`npm run data:guide-experience`** reflects it. Until then, roadmap + JSON report are the source of truth.
-
----
-
-## Epic I.7 — Lightweight mount search (unowned list)
-
-**Goal:** Let users **find one specific mount they do not own** (and spot-check new guide/digest content) without changing the primary “paste → ranked farm list” flow. **Rarely used** but important when someone knows the name; keep the UI **minimal and non-invasive**.
-
-### Requirement I.7.1
-
-- **Scope:** Client-side filter over the **same merged mount list** the tool already loads (`lib/mounts.ts`), applied to mounts that are **unowned** after paste and **eligible for farm recommendations** (respect **`retailObtainable`** and existing source filters — search narrows what’s already in view, or document if search bypasses source filters for discoverability only).
-- **Matching:** Substring on **`name`** (case-insensitive); optional **spell ID** token if the user pastes a number (align with **`docs/export-contract.md`**).
-- **UX:** Single **compact** control (e.g. small search field in **`/tool`** near results, **collapsed by default** or visually quiet — not a second hero). Debounced input; clear empty state when no matches.
-- **Performance:** No new network calls; filter in memory only (catalog size is static JSON).
-
-### Requirement I.7.2 (optional, QA / power use)
-
-- **“Search full catalog”** (owned + unowned) behind a disclosure, **off** by default, so maintainers can locate a mount row when testing partial guide coverage without faking an export.
-
-**Acceptance**
-
-- With a valid export, typing a mount name **narrows** the farm list to matching unowned rows; clearing search restores the normal sorted list + infinite scroll behavior.
-- Vitest (or Playwright smoke, if you add it) covers at least **one** filter case on a small fixture list.
+**Done (see archive):** **I.1**–**I.7** — listing URL, a11y, How To, mount preview ADR, farm list virtualization, full guide + digest coverage, **lightweight farm list + catalog search** on **`/tool`** (**`lib/farmListSearch.ts`**, **`docs/export-contract.md`** spell ID matching).
 
 ---
 
@@ -189,17 +150,16 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 | Priority | Epic | Why |
 |----------|------|-----|
-| **1** | **I.6** — Guide experience (data waves) | **I.6.1** shipped; raise **`percentOfWowheadUrl.richPanelGuideAndDigest`** via batches (**`docs/guide-experience-roadmap.md`**). |
-| **2** | **I.7** — Mount search | Small UX; helps “find this one mount” + QA on partial guide batches. |
-| **—** | **J.1–J.6** | Larger or **out-of-scope-until-promoted**; pick one after **I.*** or **`docs/business-strategy.md`** gates. (**J.6** = website → addon guide import / feedback loop.) |
+| **1** | **J.* (pick one)** | **Phase I** clear; next bets are **J.1–J.6** or maintenance — see rows below. |
+| **—** | **J.1–J.6** | Larger or **out-of-scope-until-promoted**; pick after **`docs/business-strategy.md`** gates if needed. (**J.6** = website → addon guide import / feedback loop.) |
 | **✓** | **F.1** / **F.2** | **Shipped (strategy):** **`docs/business-strategy.md`**, **`docs/auth-strategy.md`**, **`types/entitlements.ts`**. |
 
 **Do not implement auth Phase A or payments until** you intentionally clear the gates in **`docs/business-strategy.md`** §2. **Phase G** and **Phase H** are shipped.
 
 ---
 
-*Scratch pad:* use GitHub issues or a one-line note here for **ad-hoc** ideas; **I.*** and **J.*** above are the promoted queue.
+*Scratch pad:* use GitHub issues or a one-line note here for **ad-hoc** ideas; **J.*** above is the promoted exploration queue.
 
 ---
 
-*Completed epics: **`docs/backlog-archive.md`** (through **D.10**, **G.1**, **G.2**, **F.1**, **F.2**, **H.1**, **H.2**, **I.1**–**I.5**, plus **I.6.1** metrics infra). **I.6** remains **active** until digest coverage hits the roadmap target. **I.7** mount search on **`/tool`**.*
+*Completed epics: **`docs/backlog-archive.md`** (through **Phase I** including **I.7** mount search). **Next:** **Phase J** when you pick a bet.*

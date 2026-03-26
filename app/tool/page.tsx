@@ -15,6 +15,10 @@ import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
 import { SiteBrand } from "@/components/SiteBrand";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
+import {
+  filterMountsByFarmSearchQuery,
+  mountMatchesFarmSearchQuery,
+} from "@/lib/farmListSearch";
 import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
 import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
 import { mounts } from "@/lib/mounts";
@@ -34,6 +38,8 @@ import type { Mount } from "@/types/mount";
 import type { RecommendationMode } from "@/types/recommendationMode";
 
 const PAGE_SIZE = 10;
+const FARM_SEARCH_DEBOUNCE_MS = 250;
+const CATALOG_QA_MAX_RESULTS = 100;
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
@@ -50,6 +56,10 @@ export default function HomePage() {
   >(null);
   const [sourceFilters, setSourceFilters] = useState(initialSourceFiltersAllOn);
   const [visibleFarmCount, setVisibleFarmCount] = useState(PAGE_SIZE);
+  const [farmSearchInput, setFarmSearchInput] = useState("");
+  const [debouncedFarmSearch, setDebouncedFarmSearch] = useState("");
+  const [catalogSearchInput, setCatalogSearchInput] = useState("");
+  const [debouncedCatalogSearch, setDebouncedCatalogSearch] = useState("");
   const resultsRef = useRef<HTMLElement>(null);
   const loadMoreSentinelRef = useRef<HTMLDivElement>(null);
 
@@ -77,14 +87,45 @@ export default function HomePage() {
     [filteredUnowned, mode],
   );
 
+  const searchFilteredFarmList = useMemo(
+    () => filterMountsByFarmSearchQuery(sortedFarmList, debouncedFarmSearch),
+    [sortedFarmList, debouncedFarmSearch],
+  );
+
+  const catalogQaMatches = useMemo(() => {
+    const q = debouncedCatalogSearch.trim();
+    if (!q) return [];
+    return mounts
+      .filter((m) => mountMatchesFarmSearchQuery(m, q))
+      .slice(0, CATALOG_QA_MAX_RESULTS);
+  }, [debouncedCatalogSearch]);
+
   const visibleFarm = useMemo(
-    () => sortedFarmList.slice(0, visibleFarmCount),
-    [sortedFarmList, visibleFarmCount],
+    () => searchFilteredFarmList.slice(0, visibleFarmCount),
+    [searchFilteredFarmList, visibleFarmCount],
   );
 
   useEffect(() => {
+    const t = window.setTimeout(() => {
+      setDebouncedFarmSearch(farmSearchInput.trim());
+    }, FARM_SEARCH_DEBOUNCE_MS);
+    return () => window.clearTimeout(t);
+  }, [farmSearchInput]);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      setDebouncedCatalogSearch(catalogSearchInput.trim());
+    }, FARM_SEARCH_DEBOUNCE_MS);
+    return () => window.clearTimeout(t);
+  }, [catalogSearchInput]);
+
+  useEffect(() => {
+    setFarmSearchInput("");
+  }, [parsedIds]);
+
+  useEffect(() => {
     setVisibleFarmCount(PAGE_SIZE);
-  }, [parsedIds, mode, sourceFilters]);
+  }, [parsedIds, mode, sourceFilters, debouncedFarmSearch]);
 
   useEffect(() => {
     if (parsedIds === null || sortedFarmList.length === 0) return;
@@ -101,12 +142,12 @@ export default function HomePage() {
 
   useEffect(() => {
     const el = loadMoreSentinelRef.current;
-    if (!el || visibleFarmCount >= sortedFarmList.length) return;
+    if (!el || visibleFarmCount >= searchFilteredFarmList.length) return;
     const io = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
           setVisibleFarmCount((c) =>
-            Math.min(c + PAGE_SIZE, sortedFarmList.length),
+            Math.min(c + PAGE_SIZE, searchFilteredFarmList.length),
           );
         }
       },
@@ -114,7 +155,7 @@ export default function HomePage() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [visibleFarmCount, sortedFarmList.length]);
+  }, [visibleFarmCount, searchFilteredFarmList.length]);
 
   const toggleSourceFilter = useCallback((id: SourceBucketId) => {
     setSourceFilters((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -375,15 +416,66 @@ export default function HomePage() {
                 </p>
               )}
 
-              {filtersActive && visibleFarm.length > 0 && (
+              {filtersActive && sortedFarmList.length > 0 && (
+                <details className="disclosure-block farm-list-search-disclosure">
+                  <summary>
+                    <span className="sr-only">Farm list: </span>
+                    Filter by name or spell ID
+                  </summary>
+                  <div className="disclosure-block__body">
+                    <label
+                      htmlFor="farm-list-search"
+                      className="field-label farm-list-search__label"
+                    >
+                      Narrows the sorted list below (same source filters).
+                    </label>
+                    <input
+                      id="farm-list-search"
+                      type="search"
+                      enterKeyHint="search"
+                      className="farm-list-search__input"
+                      value={farmSearchInput}
+                      onChange={(e) => setFarmSearchInput(e.target.value)}
+                      placeholder="Mount name or spell ID…"
+                      autoComplete="off"
+                      spellCheck={false}
+                    />
+                  </div>
+                </details>
+              )}
+
+              {filtersActive &&
+                sortedFarmList.length > 0 &&
+                debouncedFarmSearch &&
+                searchFilteredFarmList.length === 0 && (
+                  <p
+                    className="status-block"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    No mounts match &quot;{debouncedFarmSearch}&quot;. Clear the
+                    filter above to see all {sortedFarmList.length} mounts in
+                    this view.
+                  </p>
+                )}
+
+              {filtersActive && searchFilteredFarmList.length > 0 && (
                 <>
                   <p className="farm-count-hint" aria-live="polite">
-                    Showing {visibleFarm.length} of {sortedFarmList.length}{" "}
-                    mount{sortedFarmList.length === 1 ? "" : "s"}
+                    Showing {visibleFarm.length} of{" "}
+                    {searchFilteredFarmList.length}
+                    {" "}
+                    mount{searchFilteredFarmList.length === 1 ? "" : "s"}
+                    {debouncedFarmSearch ? (
+                      <>
+                        {" "}
+                        matching &quot;{debouncedFarmSearch}&quot;
+                      </>
+                    ) : null}
                   </p>
                   <div className="results-stack">
                     <FarmRecommendationsList mounts={visibleFarm} mode={mode} />
-                    {visibleFarmCount < sortedFarmList.length && (
+                    {visibleFarmCount < searchFilteredFarmList.length && (
                       <>
                         <p className="load-more-actions">
                           <button
@@ -393,13 +485,13 @@ export default function HomePage() {
                               setVisibleFarmCount((c) =>
                                 Math.min(
                                   c + PAGE_SIZE,
-                                  sortedFarmList.length,
+                                  searchFilteredFarmList.length,
                                 ),
                               )
                             }
                           >
                             Load more mounts (
-                            {sortedFarmList.length - visibleFarmCount}{" "}
+                            {searchFilteredFarmList.length - visibleFarmCount}{" "}
                             remaining)
                           </button>
                         </p>
@@ -410,8 +502,8 @@ export default function HomePage() {
                         />
                       </>
                     )}
-                    {visibleFarmCount >= sortedFarmList.length &&
-                      sortedFarmList.length > PAGE_SIZE && (
+                    {visibleFarmCount >= searchFilteredFarmList.length &&
+                      searchFilteredFarmList.length > PAGE_SIZE && (
                         <p
                           className="farm-end-hint"
                           role="status"
@@ -427,6 +519,68 @@ export default function HomePage() {
           )}
         </>
       )}
+
+      <details className="disclosure-block catalog-qa-search-disclosure">
+        <summary>
+          <span className="sr-only">Maintainer: </span>
+          Search full catalog (QA)
+        </summary>
+        <div className="disclosure-block__body">
+          <p className="catalog-qa-search__hint">
+            Find any mount by name or summon spell ID without pasting an export.
+            Up to {CATALOG_QA_MAX_RESULTS} results.
+          </p>
+          <label
+            htmlFor="catalog-qa-search"
+            className="field-label catalog-qa-search__label"
+          >
+            Catalog search
+          </label>
+          <input
+            id="catalog-qa-search"
+            type="search"
+            enterKeyHint="search"
+            className="farm-list-search__input catalog-qa-search__input"
+            value={catalogSearchInput}
+            onChange={(e) => setCatalogSearchInput(e.target.value)}
+            placeholder="Mount name or spell ID…"
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {debouncedCatalogSearch && catalogQaMatches.length === 0 && (
+            <p className="status-block" role="status" aria-live="polite">
+              No catalog matches for &quot;{debouncedCatalogSearch}&quot;.
+            </p>
+          )}
+          {catalogQaMatches.length > 0 && (
+            <ul
+              className="catalog-qa-search__results"
+              role="list"
+              aria-label="Catalog search results"
+            >
+              {catalogQaMatches.map((m) => (
+                <li key={m.id} className="catalog-qa-search__row">
+                  <span className="catalog-qa-search__name">{m.name}</span>
+                  <span className="catalog-qa-search__spell">
+                    {" "}
+                    (spell {m.id})
+                  </span>
+                  {m.wowheadUrl?.trim() ? (
+                    <a
+                      className="catalog-qa-search__link"
+                      href={m.wowheadUrl.trim()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Wowhead
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </details>
     </main>
   );
 }

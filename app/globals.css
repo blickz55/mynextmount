@@ -497,6 +497,89 @@ html[data-theme="dark"] > body {
   overflow-x: hidden;
 }
 
+/* Epic I.7 — farm list + catalog QA search */
+.farm-list-search-disclosure {
+  margin-top: 0.75rem;
+}
+
+.farm-list-search__label {
+  margin-top: 0;
+}
+
+.farm-list-search__input {
+  width: 100%;
+  max-width: 22rem;
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--text);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.farm-list-search__input::placeholder {
+  color: var(--text-soft);
+}
+
+.catalog-qa-search-disclosure {
+  margin-top: 2rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.catalog-qa-search__hint {
+  margin: 0 0 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.catalog-qa-search__label {
+  margin-top: 0;
+}
+
+.catalog-qa-search__input {
+  max-width: min(100%, 24rem);
+}
+
+.catalog-qa-search__results {
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: min(50vh, 18rem);
+  overflow-y: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+}
+
+.catalog-qa-search__row {
+  padding: 0.45rem 0.65rem;
+  font-size: 0.84rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.catalog-qa-search__row:last-child {
+  border-bottom: none;
+}
+
+.catalog-qa-search__name {
+  font-weight: 600;
+}
+
+.catalog-qa-search__spell {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.catalog-qa-search__link {
+  margin-left: 0.5rem;
+  font-size: 0.82rem;
+}
+
 /* --- Owned mounts grid (export disclosure) --- */
 .owned-collection__meta {
   margin: 0 0 0.55rem;

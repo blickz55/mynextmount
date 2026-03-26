@@ -77,6 +77,8 @@ M:12,,45          -- empty token
 
 Any spell ID present in the export is **owned**. The website MUST NOT recommend that mount. Parsed IDs are a **set** for filtering.
 
+**Website farm list search (Epic I.7):** On **`/tool`**, an all-digit query matches **`mounts.json`** **`id`** (the same summon spell ID as in **`M:`**).
+
 ---
 
 ## Sample line for manual QA (curated dataset)

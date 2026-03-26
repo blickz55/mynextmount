@@ -28,7 +28,7 @@ The UI already renders the card when data exists (`lib/mounts.ts` merges these a
 - **Stretch:** **`percentOfWowheadUrl.fullExperienceGuideDigestFarmTip`** (adds **`farm-tips.json`**).
 - **Catalog-wide %** (denominator = all mount rows) is still printed for context; **I.6** is defined against the **`wowheadUrl`** subset so unobtainable / linkless rows do not block closure if you later drop URLs.
 
-**Epic I.6** stays **open** in **`backlog.md`** until **you** set or accept the target above and the report reflects it. **I.6.1** (roadmap + command) is **done**; **I.6.2** is **ongoing data work** in reviewable PRs / batches.
+**Epic I.6** — **closed** when **`percentOfWowheadUrl.richPanelGuideAndDigest`** is **100** (achieved after full-catalog **`content:mount-flavor-batch`** + existing guides). **Stretch** farm tips remain optional (**`farm-tips.json`**); track with **`fullExperienceGuideDigestFarmTip`** if you want a second wave.
 
 ---
 
@@ -113,4 +113,4 @@ npm run addon:sync-guides
 
 ## Backlog
 
-Track macro progress under **Epic I.6** in **`backlog.md`**. Close the epic when **your** chosen target is met (e.g. 100% of mounts with **`wowheadUrl`** have digest + guide, or a published “v1 coverage” percentage).
+**Epic I.6** is **closed** in **`backlog.md`** (primary target met). Use **`npm run data:guide-experience`** to watch the **stretch** farm-tip metric or to validate after future batch edits.
