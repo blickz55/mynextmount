@@ -37,6 +37,7 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: npm run lint
+      - run: npm run db:migrate
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://www.mynextmount.com

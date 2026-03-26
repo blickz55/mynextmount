@@ -9,7 +9,7 @@ Shipping **auth to production** still follows **`docs/business-strategy.md`** §
 ## Stack
 
 - **NextAuth v5** (beta) — Credentials (email + password), JWT sessions, `trustHost: true`.
-- **Prisma 6** + **PostgreSQL** (`prisma/schema.prisma`, migrations under `prisma/migrations/`). Runtime uses `DATABASE_URL`; migrations use `DIRECT_URL` (same as `DATABASE_URL` when you are not behind PgBouncer).
+- **Prisma 6** + **PostgreSQL** (`prisma/schema.prisma`, migrations under `prisma/migrations/`). Runtime uses `DATABASE_URL`; migrations use `DIRECT_URL`. **`npm run build` is `next build` only** — run **`npm run db:migrate`** separately when the schema changes (Vercel’s build VMs often hit **P1001** to Supabase **:5432** pooler even when production **:6543** works).
 
 ## Environment
 
@@ -19,10 +19,16 @@ Copy **`.env.example`** into **`.env.local`** (Next.js loads it automatically fo
 |----------|----------|---------|
 | **`AUTH_SECRET`** | Yes | Signs session cookies. Generate: `openssl rand -base64 32` (Mac/Linux/Git Bash) or any long random string. |
 | **`DATABASE_URL`** | Yes | Postgres URI. **Supabase:** use the **transaction pooler** (port **6543**, often with `pgbouncer=true`) for runtime queries. |
-| **`DIRECT_URL`** | Yes | Used for `prisma migrate`. **Supabase:** on your laptop, **`db.<ref>.supabase.co:5432`** (dashboard “Direct connection”) usually works. **Vercel / GitHub Actions** often cannot reach that host (**IPv6**); use **Session mode** on the **pooler** instead — host like **`aws-0-<region>.pooler.supabase.com:5432`**, user **`postgres.<ref>`** (see Supabase **Connect**). Or enable Supabase’s **IPv4 add-on** and keep the direct host. **Neon / plain Postgres:** same as `DATABASE_URL` if there is no pooler. |
+| **`DIRECT_URL`** | Yes (for `db:migrate`) | Used only when you run **`npm run db:migrate`** (not during Vercel **`npm run build`**). **Supabase:** **`db.<ref>.supabase.co:5432`** or **session pooler** **`*.pooler.supabase.com:5432`** — whichever your network can reach. **Neon / plain Postgres:** same as `DATABASE_URL` if there is no pooler. |
 | **`AUTH_URL`** | Recommended | Public site URL, e.g. `http://localhost:3000` locally, `https://yourdomain.com` in production. NextAuth uses it for callbacks. Also try **`NEXTAUTH_URL`** if your host documents that name. |
 
 `npm install` runs **`prisma generate`** via `postinstall`.
+
+### Vercel / Supabase deploy
+
+1. Set **`DATABASE_URL`** (transaction pooler **6543**) and **`AUTH_*`** on Vercel; **`DIRECT_URL`** is optional for deploys that only run **`next build`**.
+2. After any new migration, run **`npm run db:migrate`** from a machine that can reach **`DIRECT_URL`** (your PC is fine if `Test-NetConnection` to the pooler **:5432** succeeds), then push — or migrate first, then trigger deploy.
+3. Local full build including migrate: **`npm run build:with-migrate`**.
 
 ## Registering an account (walkthrough)
 
@@ -68,7 +74,7 @@ npm run dev
 
 1. **Missing `AUTH_SECRET` or `DATABASE_URL`** in the environment where the server runs (local: `.env.local`; Vercel: Project → Settings → Environment Variables). Restart dev server after editing `.env.local`.
 
-2. **Migrations never applied** — Run `npx prisma migrate deploy` with valid `DATABASE_URL` and `DIRECT_URL`. On **Supabase**, if migrate fails through the pooler, confirm `DIRECT_URL` is the **direct** host (not port 6543 / not `pgbouncer=true`).
+2. **Migrations never applied** — Run **`npm run db:migrate`** (uses `DATABASE_URL` + `DIRECT_URL` from `.env.local`). Production **Vercel** builds do **not** run migrate; apply migrations before deploy when you change the schema.
 
 3. **Wrong or missing `DATABASE_URL`** — Must be a **PostgreSQL** URL matching `provider = "postgresql"` in `schema.prisma`. Serverless hosts need a cloud Postgres, not a file on disk.
 
