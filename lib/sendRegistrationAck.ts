@@ -1,5 +1,6 @@
 /**
  * Optional post-registration email via Resend. No-op if RESEND_API_KEY is unset.
+ * Free tier: use RESEND_FROM `MyNextMount <onboarding@resend.dev>` — no custom domain or DNS.
  * https://resend.com/docs/api-reference/emails/send-email
  */
 const RESEND_API = "https://api.resend.com/emails";

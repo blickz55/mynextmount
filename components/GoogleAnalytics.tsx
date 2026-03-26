@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
 /** Default production GA4 property; override with NEXT_PUBLIC_GA_MEASUREMENT_ID. */
-const DEFAULT_MEASUREMENT_ID = "G-MNMRJ1JS5C";
+const DEFAULT_MEASUREMENT_ID = "G-W7BYTKR21X";
 
 function measurementId(): string | null {
   const fromEnv = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
