@@ -19,7 +19,7 @@ Copy **`.env.example`** into **`.env.local`** (Next.js loads it automatically fo
 |----------|----------|---------|
 | **`AUTH_SECRET`** | Yes | Signs session cookies. Generate: `openssl rand -base64 32` (Mac/Linux/Git Bash) or any long random string. |
 | **`DATABASE_URL`** | Yes | Postgres URI. **Supabase:** use the **transaction pooler** (port **6543**, often with `pgbouncer=true`) for runtime queries. |
-| **`DIRECT_URL`** | Yes | Used for `prisma migrate`. **Supabase pooler:** use **Direct connection** from the dashboard (host like `db.<ref>.supabase.co:5432`). **Neon / local / no pooler:** set to the **same** string as `DATABASE_URL`. |
+| **`DIRECT_URL`** | Yes | Used for `prisma migrate`. **Supabase:** on your laptop, **`db.<ref>.supabase.co:5432`** (dashboard “Direct connection”) usually works. **Vercel / GitHub Actions** often cannot reach that host (**IPv6**); use **Session mode** on the **pooler** instead — host like **`aws-0-<region>.pooler.supabase.com:5432`**, user **`postgres.<ref>`** (see Supabase **Connect**). Or enable Supabase’s **IPv4 add-on** and keep the direct host. **Neon / plain Postgres:** same as `DATABASE_URL` if there is no pooler. |
 | **`AUTH_URL`** | Recommended | Public site URL, e.g. `http://localhost:3000` locally, `https://yourdomain.com` in production. NextAuth uses it for callbacks. Also try **`NEXTAUTH_URL`** if your host documents that name. |
 
 `npm install` runs **`prisma generate`** via `postinstall`.

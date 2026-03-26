@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
+import { authConfig } from "./auth.config";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  trustHost: true,
-  session: { strategy: "jwt", maxAge: 30 * 24 * 60 * 60 },
+  ...authConfig,
   providers: [
     Credentials({
       id: "credentials",
@@ -38,22 +39,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id;
-        if (user.email) token.email = user.email;
-      }
-      return token;
-    },
-    session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub ?? "";
-        if (token.email && typeof token.email === "string") {
-          session.user.email = token.email;
-        }
-      }
-      return session;
-    },
-  },
 });
