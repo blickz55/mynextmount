@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Source_Sans_3 } from "next/font/google";
+import { Providers } from "@/components/Providers";
 import { SkipToMainContent } from "@/components/SkipToMainContent";
 
 const fontDisplay = Cinzel({
@@ -55,7 +56,7 @@ export default function RootLayout({
     >
       <body className={fontBody.className}>
         <SkipToMainContent />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

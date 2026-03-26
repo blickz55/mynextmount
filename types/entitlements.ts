@@ -13,3 +13,8 @@ export type Entitlements = Readonly<{
 export const ANONYMOUS_ENTITLEMENTS: Entitlements = Object.freeze({
   plan: "free",
 });
+
+/** Signed-in users without billing — same capabilities as anonymous until premium SKUs ship (F.1). */
+export const AUTHENTICATED_FREE_ENTITLEMENTS: Entitlements = Object.freeze({
+  plan: "free",
+});

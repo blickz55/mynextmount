@@ -82,6 +82,16 @@ export function initialSourceFiltersAllOn(): Record<SourceBucketId, boolean> {
   return o;
 }
 
+/**
+ * Farm list default: all acquisition buckets on except **in-game shop** (`petstore`),
+ * which is opt-in (high EV-style score but real-money cost).
+ */
+export function initialSourceFiltersDefault(): Record<SourceBucketId, boolean> {
+  const o = initialSourceFiltersAllOn();
+  o.petstore = false;
+  return o;
+}
+
 export function anySourceFilterEnabled(
   filters: Record<SourceBucketId, boolean>,
 ): boolean {

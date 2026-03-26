@@ -143,7 +143,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 ## Epic J.7 — Authenticated accounts & persistent collection (“platform” layer)
 
-**Status:** **Planned / not started** — product and engineering runway only until **`docs/business-strategy.md`** §2 **gates** are intentionally cleared (same rule as **F.2** Phase A). **Strategy anchors:** **`docs/auth-strategy.md`**, **`docs/business-strategy.md`**, **`types/entitlements.ts`**.
+**Status:** **MVP implemented** — email/password auth, saved spell-ID collection, `/account` dashboard + weekly farm slice, GDPR-style delete; **anonymous `/tool` unchanged**. Details and env: **`docs/j7-accounts.md`**. **Production** exposure of auth remains **gated** on **`docs/business-strategy.md`** §2 (**F.1**) — same rule as **F.2** Phase A. **Strategy anchors:** **`docs/auth-strategy.md`**, **`docs/business-strategy.md`**, **`types/entitlements.ts`**.
 
 **Goal:** Move from **“paste → analyze → leave”** to **“track → optimize → return”**: authenticated users keep a **living mount vault**, optional **weekly plans**, and (later) **multi-character** and **lockout-aware** depth — without paywalling the existence of the core anonymous tool.
 
@@ -220,7 +220,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 **Acceptance (epic-level)**
 
-- Documented **user stories** for J.7-a → J.7-c in a short **`docs/`** note or ADR when work starts; **no** auth in production until **F.1** gates cleared.
+- **Done (MVP):** **`docs/j7-accounts.md`** documents flows for **J.7-a → J.7-c** + weekly slice (**J.7-d** on-demand, no email). **No** auth in **production** until **F.1** gates cleared intentionally.
 
 ---
 

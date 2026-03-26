@@ -1,0 +1,20 @@
+// Epic J.7 — accounts & saved mount collection (see docs/j7-accounts.md)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  passwordHash        String
+  /// Comma-separated summon spell IDs (same as export body after `M:`)
+  collectionSpellIds  String    @default("")
+  collectionUpdatedAt DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+}

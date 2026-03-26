@@ -10,10 +10,11 @@ import {
 import { FarmRecommendationsList } from "@/components/FarmRecommendationsList";
 import { MountIcon } from "@/components/MountIcon";
 import { MountRarestSecondaryDetails } from "@/components/MountRowSecondaryDetails";
+import { CollectionToolbar } from "@/components/CollectionToolbar";
 import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
+import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import {
   filterMountsByFarmSearchQuery,
@@ -23,9 +24,15 @@ import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
 import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
 import { mounts } from "@/lib/mounts";
 import {
+  EXPANSION_FOCUS_OPTIONS,
+  expansionFocusLabel,
+  mountMatchesExpansionFocus,
+  type ExpansionFocusId,
+} from "@/lib/mountExpansionFocus";
+import {
   anySourceFilterEnabled,
   getMountSourceBucket,
-  initialSourceFiltersAllOn,
+  initialSourceFiltersDefault,
   SOURCE_FILTER_OPTIONS,
   type SourceBucketId,
 } from "@/lib/mountSourceBucket";
@@ -53,7 +60,9 @@ export default function HomePage() {
   const [ownedRarestShowcase, setOwnedRarestShowcase] = useState<
     Mount[] | null
   >(null);
-  const [sourceFilters, setSourceFilters] = useState(initialSourceFiltersAllOn);
+  const [sourceFilters, setSourceFilters] = useState(initialSourceFiltersDefault);
+  const [expansionFocus, setExpansionFocus] =
+    useState<ExpansionFocusId>("all");
   const [visibleFarmCount, setVisibleFarmCount] = useState(PAGE_SIZE);
   const [farmSearchInput, setFarmSearchInput] = useState("");
   const [debouncedFarmSearch, setDebouncedFarmSearch] = useState("");
@@ -79,11 +88,19 @@ export default function HomePage() {
     );
   }, [farmableUnownedMounts, sourceFilters]);
 
+  const expansionFilteredUnowned = useMemo(
+    () =>
+      filteredUnowned.filter((m) =>
+        mountMatchesExpansionFocus(m, expansionFocus),
+      ),
+    [filteredUnowned, expansionFocus],
+  );
+
   const scoreFn = useMemo(() => recommendationScorer(mode), [mode]);
 
   const sortedFarmList = useMemo(
-    () => sortMountsByScore(filteredUnowned, scoreFn),
-    [filteredUnowned, scoreFn],
+    () => sortMountsByScore(expansionFilteredUnowned, scoreFn),
+    [expansionFilteredUnowned, scoreFn],
   );
 
   const searchFilteredFarmList = useMemo(
@@ -103,6 +120,13 @@ export default function HomePage() {
     () => searchFilteredFarmList.slice(0, visibleFarmCount),
     [searchFilteredFarmList, visibleFarmCount],
   );
+
+  const expansionFocusEraToken = useMemo(() => {
+    return (
+      EXPANSION_FOCUS_OPTIONS.find((o) => o.id === expansionFocus)?.eraToken ??
+      "all"
+    );
+  }, [expansionFocus]);
 
   useEffect(() => {
     const t = window.setTimeout(() => {
@@ -124,7 +148,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setVisibleFarmCount(PAGE_SIZE);
-  }, [parsedIds, mode, sourceFilters, debouncedFarmSearch]);
+  }, [parsedIds, mode, sourceFilters, expansionFocus, debouncedFarmSearch]);
 
   useEffect(() => {
     if (parsedIds === null || sortedFarmList.length === 0) return;
@@ -137,7 +161,7 @@ export default function HomePage() {
         block: "start",
       });
     });
-  }, [parsedIds]);
+  }, [parsedIds, expansionFocus, sortedFarmList.length]);
 
   useEffect(() => {
     const el = loadMoreSentinelRef.current;
@@ -160,15 +184,18 @@ export default function HomePage() {
     setSourceFilters((prev) => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
+  const applyParsedIds = useCallback((ids: number[]) => {
+    setExportString(`M:${ids.join(",")}`);
+    setInputError(null);
+    setParsedIds(ids);
+    setOwnedRarestShowcase(selectTopOwnedByRarest(mounts, ids, 10));
+  }, []);
+
   const handleSubmit = useCallback(() => {
     try {
       const result = parseMountExport(exportString);
       if (result.ok) {
-        setInputError(null);
-        setParsedIds(result.ids);
-        setOwnedRarestShowcase(
-          selectTopOwnedByRarest(mounts, result.ids, 10),
-        );
+        applyParsedIds(result.ids);
       } else {
         setInputError(result.error);
         setParsedIds(null);
@@ -181,7 +208,7 @@ export default function HomePage() {
       setParsedIds(null);
       setOwnedRarestShowcase(null);
     }
-  }, [exportString]);
+  }, [exportString, applyParsedIds]);
 
   const filtersActive = anySourceFilterEnabled(sourceFilters);
   const showFarmSection = parsedIds !== null;
@@ -197,9 +224,7 @@ export default function HomePage() {
       tabIndex={-1}
       className="app-main app-shell"
     >
-      <div className="shell-topbar">
-        <ThemeToggle />
-      </div>
+      <ShellTopbar />
       <SiteBrand brandLogoUrl={brandLogoUrl} />
 
       <HowToExportPanel />
@@ -276,6 +301,10 @@ export default function HomePage() {
           {inputError}
         </p>
       )}
+      <CollectionToolbar
+        parsedIds={parsedIds}
+        onApplyParsedIds={applyParsedIds}
+      />
       {parsedIds !== null && (
         <>
           <p className="status-block" role="status" aria-live="polite">
@@ -381,6 +410,10 @@ export default function HomePage() {
                 <legend className="source-filter-fieldset__legend">
                   Filter by how mounts are obtained
                 </legend>
+                <p className="source-filter-fieldset__hint">
+                  In-Game Shop starts <strong>unchecked</strong> (opt-in); turn
+                  it on if you want shop mounts in the list.
+                </p>
                 <div className="source-filter-grid">
                   {SOURCE_FILTER_OPTIONS.map(({ id, label }) => (
                     <label key={id} className="source-filter-option">
@@ -394,6 +427,50 @@ export default function HomePage() {
                   ))}
                 </div>
               </fieldset>
+
+              {filtersActive && (
+                <fieldset className="expansion-focus-fieldset">
+                  <legend className="expansion-focus-fieldset__legend">
+                    <span
+                      className="expansion-focus-fieldset__dial"
+                      aria-hidden="true"
+                    />
+                    <span className="expansion-focus-fieldset__legend-text">
+                      Era focus
+                    </span>
+                  </legend>
+                  <p className="expansion-focus-fieldset__hint">
+                    Turn the compass toward one expansion to rank farms from that
+                    era first. Labels come from mount metadata — pick{" "}
+                    <strong>Unknown era</strong> when the dataset still says
+                    &quot;Unknown&quot; (common until enrichment catches up).
+                  </p>
+                  <div className="expansion-compass-row">
+                    <label htmlFor="expansion-focus" className="sr-only">
+                      Filter farm list by World of Warcraft expansion
+                    </label>
+                    <div
+                      className="expansion-compass-select-wrap"
+                      data-era={expansionFocusEraToken}
+                    >
+                      <select
+                        id="expansion-focus"
+                        className="expansion-focus-select"
+                        value={expansionFocus}
+                        onChange={(e) =>
+                          setExpansionFocus(e.target.value as ExpansionFocusId)
+                        }
+                      >
+                        {EXPANSION_FOCUS_OPTIONS.map((o) => (
+                          <option key={o.id} value={o.id}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+              )}
 
               {!filtersActive && (
                 <p
@@ -424,12 +501,24 @@ export default function HomePage() {
               {filtersActive &&
                 !unownedEmpty &&
                 !allUnownedMarkedUnobtainable &&
-                sortedFarmList.length === 0 && (
-                <p className="status-block" role="status" aria-live="polite">
-                  No mounts match your selected filters. Try turning more
-                  sources on.
-                </p>
-              )}
+                expansionFilteredUnowned.length === 0 && (
+                  <p className="status-block" role="status" aria-live="polite">
+                    {filteredUnowned.length === 0 ? (
+                      <>
+                        No mounts match your selected source filters. Try
+                        turning more sources on.
+                      </>
+                    ) : (
+                      <>
+                        No mounts from{" "}
+                        <strong>{expansionFocusLabel(expansionFocus)}</strong>{" "}
+                        with your current source filters. Choose{" "}
+                        <strong>All eras — full hunt</strong> to see everything
+                        missing, or try another era.
+                      </>
+                    )}
+                  </p>
+                )}
 
               {filtersActive && sortedFarmList.length > 0 && (
                 <details className="disclosure-block farm-list-search-disclosure">
@@ -442,7 +531,7 @@ export default function HomePage() {
                       htmlFor="farm-list-search"
                       className="field-label farm-list-search__label"
                     >
-                      Narrows the sorted list below (same source filters).
+                      Narrows the sorted list below (same source + era filters).
                     </label>
                     <input
                       id="farm-list-search"
@@ -485,6 +574,13 @@ export default function HomePage() {
                       <>
                         {" "}
                         matching &quot;{debouncedFarmSearch}&quot;
+                      </>
+                    ) : null}
+                    {expansionFocus !== "all" ? (
+                      <>
+                        {" "}
+                        · Era:{" "}
+                        <strong>{expansionFocusLabel(expansionFocus)}</strong>
                       </>
                     ) : null}
                   </p>

@@ -15,9 +15,27 @@ local guideScroll
 local guideScrollChild
 local checkPool = {}
 local pendingSourceUrl = ""
+--- Filtered guide spell order for current era (matches export filter).
+local filteredGuideOrder = {}
+local guideEraLabel
+
+local function HookEditBoxCloseOnCtrlC(edit, hideFn)
+  if edit._MyNextMount_copyCloseHooked then
+    return
+  end
+  edit._MyNextMount_copyCloseHooked = true
+  edit:HookScript("OnKeyDown", function(_, key)
+    if not key or not IsControlKeyDown() then
+      return
+    end
+    if string.upper(key) == "C" then
+      C_Timer.After(0, hideFn)
+    end
+  end)
+end
 
 StaticPopupDialogs["MYNEXTMOUNT_GUIDE_SOURCE_COPY"] = {
-  text = "Source URL (|cffaaaaaaCtrl+C|r to copy):",
+  text = "Source URL (|cffaaaaaaCtrl+C|r to copy; closes after copy):",
   button1 = OKAY,
   timeout = 0,
   whileDead = true,
@@ -30,6 +48,9 @@ StaticPopupDialogs["MYNEXTMOUNT_GUIDE_SOURCE_COPY"] = {
     eb:SetText(pendingSourceUrl)
     eb:SetFocus()
     eb:HighlightText()
+    HookEditBoxCloseOnCtrlC(eb, function()
+      StaticPopup_Hide("MYNEXTMOUNT_GUIDE_SOURCE_COPY")
+    end)
   end,
 }
 
@@ -58,11 +79,36 @@ end
 
 local currentGuideListIndex = 1
 
+local function RebuildFilteredGuideOrder()
+  wipe(filteredGuideOrder)
+  if not GuideDataReady() then
+    return
+  end
+  local focus = MyNextMountExpansion_GetFocus()
+  for _, sid in ipairs(MyNextMountGuideData.order) do
+    if MyNextMountExpansion_SpellMatches(sid, focus) then
+      filteredGuideOrder[#filteredGuideOrder + 1] = sid
+    end
+  end
+end
+
+local function RefreshGuideEraLabel()
+  if guideEraLabel then
+    local id = MyNextMountExpansion_GetFocus()
+    guideEraLabel:SetText(
+      "|cffffcc00" .. MyNextMountExpansion_LabelForId(id) .. "|r"
+    )
+  end
+end
+
 local function GetCurrentSpellId()
   if not GuideDataReady() then
     return nil
   end
-  local order = MyNextMountGuideData.order
+  local order = filteredGuideOrder
+  if #order == 0 then
+    return nil
+  end
   if currentGuideListIndex < 1 then
     currentGuideListIndex = 1
   end
@@ -112,6 +158,22 @@ local function RefreshGuideContent()
   end
 
   local spellId = GetCurrentSpellId()
+  if not spellId then
+    guideNameStr:SetText("No guides for this era")
+    guideSpellStr:SetText("")
+    guideOverviewStr:SetText(
+      "Press |cffdddddd< >|r next to the era name (or open |cffdddddd/mountexport|r) to choose |cffddddddAll eras|r or |cffddddddUnknown era|r."
+    )
+    for _, cb in ipairs(checkPool) do
+      cb:Hide()
+      if cb.labelFs then
+        cb.labelFs:Hide()
+      end
+    end
+    guideScrollChild:SetHeight(40)
+    return
+  end
+
   local data = MyNextMountGuideData.byId[spellId]
   if not data then
     guideNameStr:SetText("Missing guide data")
@@ -177,13 +239,16 @@ function MyNextMountGuideUI_Open()
   if not guideFrame then
     MyNextMountGuideUI_CreateFrame()
   end
+  RebuildFilteredGuideOrder()
+  currentGuideListIndex = 1
+  RefreshGuideEraLabel()
   RefreshGuideContent()
   guideFrame:Show()
 end
 
 function MyNextMountGuideUI_CreateFrame()
   local f = CreateFrame("Frame", "MyNextMountGuideFrame", UIParent, "BackdropTemplate")
-  f:SetSize(520, 420)
+  f:SetSize(520, 460)
   f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
   f:SetFrameStrata("DIALOG")
   f:SetFrameLevel(199)
@@ -204,8 +269,38 @@ function MyNextMountGuideUI_CreateFrame()
   title:SetPoint("TOP", f, "TOP", 0, -18)
   title:SetText("Farm guide")
 
+  local eraHint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  eraHint:SetPoint("TOP", title, "BOTTOM", 0, -8)
+  eraHint:SetWidth(480)
+  eraHint:SetJustifyH("CENTER")
+  eraHint:SetText("Era filter |cffaaaaaa(|r|cffdddddd< >|r|cffaaaaaa)|r — same setting as export")
+
+  guideEraLabel = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  guideEraLabel:SetPoint("TOP", eraHint, "BOTTOM", 0, -4)
+  guideEraLabel:SetWidth(300)
+  guideEraLabel:SetJustifyH("CENTER")
+  RefreshGuideEraLabel()
+
+  local gEraPrev = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+  gEraPrev:SetSize(34, 22)
+  gEraPrev:SetPoint("RIGHT", guideEraLabel, "LEFT", -8, 0)
+  gEraPrev:SetText("<")
+  gEraPrev:SetScript("OnClick", function()
+    MyNextMountExpansion_CycleFocus(-1)
+    MyNextMountGuideUI_OnExpansionFocusChanged()
+  end)
+
+  local gEraNext = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+  gEraNext:SetSize(34, 22)
+  gEraNext:SetPoint("LEFT", guideEraLabel, "RIGHT", 8, 0)
+  gEraNext:SetText(">")
+  gEraNext:SetScript("OnClick", function()
+    MyNextMountExpansion_CycleFocus(1)
+    MyNextMountGuideUI_OnExpansionFocusChanged()
+  end)
+
   guideNameStr = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  guideNameStr:SetPoint("TOP", title, "BOTTOM", 0, -12)
+  guideNameStr:SetPoint("TOP", guideEraLabel, "BOTTOM", 0, -12)
   guideNameStr:SetWidth(480)
   guideNameStr:SetJustifyH("CENTER")
 
@@ -216,29 +311,29 @@ function MyNextMountGuideUI_CreateFrame()
 
   local prevBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
   prevBtn:SetSize(70, 22)
-  prevBtn:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -88)
+  prevBtn:SetPoint("TOPLEFT", guideSpellStr, "BOTTOMLEFT", -4, -12)
   prevBtn:SetText("< Prev")
   prevBtn:SetScript("OnClick", function()
-    if not GuideDataReady() then
+    if not GuideDataReady() or #filteredGuideOrder == 0 then
       return
     end
     currentGuideListIndex = currentGuideListIndex - 1
     if currentGuideListIndex < 1 then
-      currentGuideListIndex = #MyNextMountGuideData.order
+      currentGuideListIndex = #filteredGuideOrder
     end
     RefreshGuideContent()
   end)
 
   local nextBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
   nextBtn:SetSize(70, 22)
-  nextBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -20, -88)
+  nextBtn:SetPoint("TOPRIGHT", guideSpellStr, "BOTTOMRIGHT", 4, -12)
   nextBtn:SetText("Next >")
   nextBtn:SetScript("OnClick", function()
-    if not GuideDataReady() then
+    if not GuideDataReady() or #filteredGuideOrder == 0 then
       return
     end
     currentGuideListIndex = currentGuideListIndex + 1
-    if currentGuideListIndex > #MyNextMountGuideData.order then
+    if currentGuideListIndex > #filteredGuideOrder then
       currentGuideListIndex = 1
     end
     RefreshGuideContent()
@@ -317,6 +412,23 @@ function MyNextMountGuideUI_OnOptionsCanvasReady(canvas, anchorBelow)
   gbtn:SetScript("OnClick", function()
     MyNextMountGuideUI_Open()
   end)
+end
+
+function MyNextMountGuideUI_OnExpansionFocusChanged()
+  RebuildFilteredGuideOrder()
+  if currentGuideListIndex > #filteredGuideOrder then
+    currentGuideListIndex = math.max(1, #filteredGuideOrder)
+  end
+  if currentGuideListIndex < 1 then
+    currentGuideListIndex = 1
+  end
+  RefreshGuideEraLabel()
+  if MyNextMountExport_RefreshExpansionLabel then
+    MyNextMountExport_RefreshExpansionLabel()
+  end
+  if guideFrame and guideFrame:IsShown() then
+    RefreshGuideContent()
+  end
 end
 
 SLASH_MYNEXTMOUNTGUIDE1 = "/mnguides"

@@ -6,6 +6,10 @@ out
 *.log
 .env*.local
 
+# Epic J.7 — local SQLite (use Postgres URL in production)
+prisma/dev.db
+prisma/dev.db-journal
+
 # Harvest pipeline (Epic B.0): keep manifests in git; ignore volatile cache/logs
 data/build/cache/
 data/build/harvest.log

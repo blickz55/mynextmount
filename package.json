@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true}); console.log('Removed .next')\"",
     "dev:clean": "npm run clean && next dev",
@@ -16,13 +17,15 @@
     "data:check-surface": "node scripts/check-mount-surface.mjs",
     "data:check-drift": "node scripts/check-mount-drift.mjs",
     "data:build": "node scripts/build-mounts.mjs",
+    "data:inspect-mount-sample": "node scripts/inspect-mount-api-sample.mjs",
     "data:apply-overrides": "node scripts/apply-mount-overrides.mjs",
     "data:apply-scores": "node scripts/apply-scoring-heuristics.mjs",
     "data:spell-baseline": "node scripts/spell-baseline.mjs",
     "data:enrich-metadata": "node scripts/enrich-mount-metadata.mjs",
     "data:sync-spell-icons": "node scripts/sync-spell-icons.mjs",
     "data:ingest-mount-map": "node scripts/ingest-mount-spell-map.mjs",
-    "addon:sync-guides": "node scripts/generate-addon-guides.mjs",
+    "addon:sync-expansion": "node scripts/generate-addon-expansion.mjs",
+    "addon:sync-guides": "npm run addon:sync-expansion && node scripts/generate-addon-guides.mjs",
     "farm-tip:draft": "node scripts/farm-tip-llm-draft.mjs",
     "data:wowhead-digest": "node scripts/report-wowhead-digests.mjs",
     "data:guide-experience": "tsx scripts/report-guide-experience-coverage.ts",
@@ -34,8 +37,11 @@
     "scoring:compare": "tsx scripts/scoring-model-compare.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.0",
     "@tanstack/react-virtual": "^3.13.23",
+    "bcryptjs": "^3.0.3",
     "next": "^15.1.0",
+    "next-auth": "^5.0.0-beta.30",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -46,6 +52,7 @@
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^15.5.14",
+    "prisma": "^6.19.0",
     "tsx": "^4.21.0",
     "typescript": "^5.7.0",
     "vitest": "^3.2.4"

@@ -205,6 +205,40 @@ html[data-theme="dark"] > body {
   min-height: 2.25rem;
 }
 
+.shell-topbar--split {
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.auth-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+
+.auth-nav__link {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  border-radius: var(--radius-sm);
+}
+
+.auth-nav__link:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.auth-nav__link:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -823,6 +857,13 @@ html[data-theme="dark"] > body {
   padding: 0 0.35rem;
 }
 
+.source-filter-fieldset__hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted, var(--text));
+  line-height: 1.35;
+}
+
 .source-filter-grid {
   display: flex;
   flex-wrap: wrap;
@@ -856,6 +897,170 @@ html[data-theme="dark"] > body {
   background: var(--bg-card);
   font-size: 0.9rem;
   color: var(--text-muted);
+}
+
+/* Era “compass” — narrows farm list by expansion metadata */
+.expansion-focus-fieldset {
+  margin-top: 0.85rem;
+  padding: 0.75rem 1rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-arcane) 6%, var(--bg-elevated)) 0%,
+    var(--bg-elevated) 48%,
+    color-mix(in srgb, var(--accent-gold) 8%, var(--bg-elevated)) 100%
+  );
+  box-shadow: var(--shadow-sm);
+}
+
+.expansion-focus-fieldset__legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  padding: 0 0.35rem;
+}
+
+.expansion-focus-fieldset__dial {
+  display: inline-block;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold-bright);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--bg-card) 40%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent-arcane) 25%, transparent);
+  background: conic-gradient(
+    from 0deg,
+    color-mix(in srgb, var(--accent-gold) 35%, transparent),
+    color-mix(in srgb, var(--accent-fel) 30%, transparent),
+    color-mix(in srgb, var(--accent-arcane) 35%, transparent),
+    color-mix(in srgb, var(--accent-gold) 35%, transparent)
+  );
+  flex-shrink: 0;
+}
+
+.expansion-focus-fieldset__legend-text {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.expansion-focus-fieldset__hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-width: 42rem;
+}
+
+.expansion-compass-row {
+  margin-top: 0.65rem;
+  display: flex;
+  align-items: stretch;
+}
+
+.expansion-compass-select-wrap {
+  flex: 1;
+  min-width: 0;
+  max-width: min(100%, 26rem);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-left-color: var(--border-subtle);
+  background: var(--bg-input);
+  box-shadow: var(--shadow-sm);
+  transition: border-left-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.expansion-compass-select-wrap[data-era="all"] {
+  border-left-color: var(--border-subtle);
+}
+
+.expansion-compass-select-wrap[data-era="unknown"] {
+  border-left-color: var(--text-soft);
+}
+
+.expansion-compass-select-wrap[data-era="classic"] {
+  border-left-color: #a67c52;
+}
+
+.expansion-compass-select-wrap[data-era="tbc"] {
+  border-left-color: #58a858;
+}
+
+.expansion-compass-select-wrap[data-era="wrath"] {
+  border-left-color: #69ccf0;
+}
+
+.expansion-compass-select-wrap[data-era="cata"] {
+  border-left-color: #e85d04;
+}
+
+.expansion-compass-select-wrap[data-era="mop"] {
+  border-left-color: #00ff96;
+}
+
+.expansion-compass-select-wrap[data-era="wod"] {
+  border-left-color: #c41e3a;
+}
+
+.expansion-compass-select-wrap[data-era="legion"] {
+  border-left-color: #8788ee;
+}
+
+.expansion-compass-select-wrap[data-era="bfa"] {
+  border-left-color: #d4af37;
+}
+
+.expansion-compass-select-wrap[data-era="shadowlands"] {
+  border-left-color: #66d9ef;
+}
+
+.expansion-compass-select-wrap[data-era="dragonflight"] {
+  border-left-color: #3399ff;
+}
+
+.expansion-compass-select-wrap[data-era="the_war_within"] {
+  border-left-color: #b8a9c9;
+}
+
+.expansion-focus-select {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.expansion-focus-select:focus {
+  outline: none;
+}
+
+.expansion-compass-select-wrap:focus-within {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .expansion-compass-select-wrap[data-era="mop"] {
+    border-left-color: #2ee6a0;
+  }
+}
+
+html[data-theme="dark"] .expansion-compass-select-wrap[data-era="mop"] {
+  border-left-color: #2ee6a0;
 }
 
 .farm-count-hint,
@@ -993,6 +1198,202 @@ html[data-theme="dark"] .btn-primary {
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+/* Epic J.7 — accounts, saved collection, account dashboard */
+.account-section-heading {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  margin-top: 0.25rem;
+}
+
+.account-stats {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.account-stats strong {
+  color: var(--text);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 22rem;
+  margin-top: 0.75rem;
+}
+
+.field-hint {
+  margin: -0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.collection-toolbar {
+  margin: 0.75rem 0 0;
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+}
+
+.collection-toolbar--muted {
+  color: var(--text-soft);
+}
+
+.collection-toolbar--guest {
+  color: var(--text-muted);
+}
+
+.collection-toolbar--guest a {
+  font-weight: 600;
+}
+
+.collection-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.collection-toolbar__msg {
+  margin: 0.65rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.status-block--success {
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.5rem;
+  background: color-mix(in srgb, var(--accent-fel) 12%, var(--bg-elevated));
+  border: 1px solid color-mix(in srgb, var(--accent-fel) 35%, var(--border));
+  border-radius: var(--radius-sm);
+  color: var(--text);
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent-danger);
+  border: 1px solid color-mix(in srgb, var(--accent-danger) 80%, #000);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  filter: brightness(1.05);
+}
+
+.btn-danger:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-danger-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-danger);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--accent-danger) 55%, var(--border));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.btn-danger-outline:hover {
+  background: color-mix(in srgb, var(--accent-danger) 10%, transparent);
+}
+
+.btn-danger-outline:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.weekly-plan-list {
+  margin: 0;
+  padding-left: 1.35rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.weekly-plan-list__name {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.weekly-plan-list__meta {
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+.account-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+
+.account-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.account-table th,
+.account-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.account-table th {
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+}
+
+.account-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.account-danger-zone {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.delete-account-confirm {
+  margin-top: 0.5rem;
+}
+
+.delete-account-confirm__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 /* Keep copy aligned to the same column as mount cards */

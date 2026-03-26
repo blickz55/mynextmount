@@ -2,6 +2,7 @@
   MyNextMount — paste string into mynextmount.com (or your dev URL).
   Format v1: docs/export-contract.md
   Slash: /mountexport or /mynextmount
+  Era filter: MyNextMountExpansion.lua + MyNextMountExpansionData.lua (npm run addon:sync-expansion)
   Options: Esc → Options → AddOns → MyNextMount
 ]]
 
@@ -12,8 +13,24 @@ MyNextMountDB.websiteUrl = MyNextMountDB.websiteUrl or ""
 
 local pendingDocsUrl = ""
 
+-- After Ctrl+C, hide on the next tick so the client handles Copy first (Raidbots-style).
+local function HookEditBoxCloseOnCtrlC(edit, hideFn)
+  if edit._MyNextMount_copyCloseHooked then
+    return
+  end
+  edit._MyNextMount_copyCloseHooked = true
+  edit:HookScript("OnKeyDown", function(_, key)
+    if not key or not IsControlKeyDown() then
+      return
+    end
+    if string.upper(key) == "C" then
+      C_Timer.After(0, hideFn)
+    end
+  end)
+end
+
 StaticPopupDialogs["MYNEXTMOUNT_URL_COPY"] = {
-  text = "Website URL (|cffaaaaaaCtrl+C|r to copy):",
+  text = "Website URL (|cffaaaaaaCtrl+C|r to copy; closes after copy):",
   button1 = OKAY,
   timeout = 0,
   whileDead = true,
@@ -26,12 +43,27 @@ StaticPopupDialogs["MYNEXTMOUNT_URL_COPY"] = {
     eb:SetText(pendingDocsUrl)
     eb:SetFocus()
     eb:HighlightText()
+    HookEditBoxCloseOnCtrlC(eb, function()
+      StaticPopup_Hide("MYNEXTMOUNT_URL_COPY")
+    end)
   end,
 }
 
 local exportFrame
 local exportEdit
 local exportScroll
+local exportEraLabel
+
+function MyNextMountExport_RefreshExpansionLabel()
+  if exportEraLabel then
+    local id = MyNextMountExpansion_GetFocus()
+    exportEraLabel:SetText(
+      "Era: |cffffcc00"
+        .. MyNextMountExpansion_LabelForId(id)
+        .. "|r  (|cffaaaaaa< >|r cycles; applies to |cffdddddd/mountexport|r + guides)"
+    )
+  end
+end
 
 local function BuildExportString()
   if not C_MountJournal or type(C_MountJournal.GetMountIDs) ~= "function" then
@@ -63,6 +95,24 @@ local function BuildExportString()
   table.sort(sorted, function(a, b)
     return a < b
   end)
+
+  local focus = MyNextMountExpansion_GetFocus()
+  if focus ~= "all" then
+    local filtered = {}
+    for _, sid in ipairs(sorted) do
+      if MyNextMountExpansion_SpellMatches(sid, focus) then
+        filtered[#filtered + 1] = sid
+      end
+    end
+    sorted = filtered
+  end
+
+  if #sorted == 0 and focus ~= "all" then
+    return nil,
+      "No collected mounts match era \""
+        .. MyNextMountExpansion_LabelForId(focus)
+        .. "\". Open the export window and press < > next to Era until you pick All eras (or Unknown era if mounts are unlabeled in data)."
+  end
 
   local body = table.concat(sorted, ",")
   return "M:" .. body, nil, #sorted
@@ -98,7 +148,7 @@ local function CreateExportUI()
   end
 
   local f = CreateFrame("Frame", "MyNextMountExportFrame", UIParent, "BackdropTemplate")
-  f:SetSize(540, 320)
+  f:SetSize(540, 368)
   f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
   f:SetFrameStrata("DIALOG")
   f:SetFrameLevel(200)
@@ -126,9 +176,42 @@ local function CreateExportUI()
   help:SetJustifyH("CENTER")
   help:SetWordWrap(true)
   help:SetText(
-    "Select all (|cffaaaaaaCtrl+A|r), copy (|cffaaaaaaCtrl+C|r), paste on the website. "
-      .. "|cffaaaaaaEsc|r or Close to dismiss."
+    "Select all (|cffaaaaaaCtrl+A|r), copy (|cffaaaaaaCtrl+C|r) — window closes after copy — then paste on the website. "
+      .. "|cffaaaaaaEsc|r or Close also dismisses."
   )
+
+  local eraAnchor = CreateFrame("Frame", nil, f)
+  eraAnchor:SetPoint("TOP", help, "BOTTOM", 0, -4)
+  eraAnchor:SetSize(4, 4)
+
+  exportEraLabel = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  exportEraLabel:SetPoint("TOP", eraAnchor, "BOTTOM", 0, -4)
+  exportEraLabel:SetWidth(380)
+  exportEraLabel:SetJustifyH("CENTER")
+  exportEraLabel:SetWordWrap(true)
+  MyNextMountExport_RefreshExpansionLabel()
+
+  local eraPrev = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+  eraPrev:SetSize(34, 22)
+  eraPrev:SetPoint("RIGHT", exportEraLabel, "LEFT", -8, 0)
+  eraPrev:SetText("<")
+  eraPrev:SetScript("OnClick", function()
+    MyNextMountExpansion_CycleFocus(-1)
+    if MyNextMountGuideUI_OnExpansionFocusChanged then
+      MyNextMountGuideUI_OnExpansionFocusChanged()
+    end
+  end)
+
+  local eraNext = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+  eraNext:SetSize(34, 22)
+  eraNext:SetPoint("LEFT", exportEraLabel, "RIGHT", 8, 0)
+  eraNext:SetText(">")
+  eraNext:SetScript("OnClick", function()
+    MyNextMountExpansion_CycleFocus(1)
+    if MyNextMountGuideUI_OnExpansionFocusChanged then
+      MyNextMountGuideUI_OnExpansionFocusChanged()
+    end
+  end)
 
   local drag = CreateFrame("Button", nil, f)
   drag:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
@@ -144,7 +227,7 @@ local function CreateExportUI()
   end)
 
   local scroll = CreateFrame("ScrollFrame", "MyNextMountExportScroll", f, "UIPanelScrollFrameTemplate")
-  scroll:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -72)
+  scroll:SetPoint("TOPLEFT", exportEraLabel, "BOTTOMLEFT", -8, -12)
   scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -44, 48)
 
   local edit = CreateFrame("EditBox", "MyNextMountExportEdit", scroll)
@@ -155,6 +238,7 @@ local function CreateExportUI()
   edit:SetMaxLetters(999999)
   edit:SetTextInsets(6, 6, 6, 6)
   edit:SetScript("OnEscapePressed", HideExportUI)
+  HookEditBoxCloseOnCtrlC(edit, HideExportUI)
   edit:SetScript("OnTextChanged", function(self, userInput)
     if userInput then
       return
@@ -264,7 +348,8 @@ local function RegisterOptionsPanel()
   help:SetText(
     "|cffccccccHow to use|r\n"
       .. "• Click the button above or type |cffdddddd/mountexport|r (|cffdddddd/mynextmount|r).\n"
-      .. "• In the export window: |cffddddddCtrl+A|r, then |cffddddddCtrl+C|r.\n"
+      .. "• In the export window: use |cffdddddd< >|r next to |cffccccccEra|r to filter which collected mounts go into |cffddddddM:...|r (same buckets as the website).\n"
+      .. "• |cffddddddCtrl+A|r, then |cffddddddCtrl+C|r (window closes after copy).\n"
       .. "• Paste the line into |cffddddddmynextmount.com|r (or your dev URL).\n\n"
       .. "|cffccccccFormat|r: |cffddddddM:spellId,spellId,...|r (mount summon spell IDs). "
       .. "See |cffdddddddocs/export-contract.md|r in your project folder."

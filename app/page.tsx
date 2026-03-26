@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { ADDON_INSTALL_DOCS_URL, getAddonListingUrl } from "@/lib/addonListing";
 
 const brandLogoUrl =
@@ -30,9 +30,7 @@ export default function ComingSoonPage() {
       tabIndex={-1}
       className="app-main app-shell"
     >
-      <div className="shell-topbar">
-        <ThemeToggle />
-      </div>
+      <ShellTopbar />
       <SiteBrand
         brandLogoUrl={brandLogoUrl}
         eyebrow={<p className="coming-soon-eyebrow">Coming soon</p>}

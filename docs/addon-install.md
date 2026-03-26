@@ -2,7 +2,7 @@
 
 ## What it does
 
-Collects **every mount you have learned** on this account (as shown in the Mount Journal), builds the **`v1`** string `M:<spellId>,<spellId>,…` with **no spaces**, and opens a **fixed-size window** with a **scroll bar** so you can **Ctrl+A**, **Ctrl+C**, and paste into **mynextmount.com**. **Esc** or **Close** dismisses the window (drag the top strip to move it).
+Collects **every mount you have learned** on this account (as shown in the Mount Journal), builds the **`v1`** string `M:<spellId>,<spellId>,…` with **no spaces**, and opens a **fixed-size window** with a **scroll bar** so you can **Ctrl+A**, **Ctrl+C**, and paste into **mynextmount.com**. **Ctrl+C** also **closes** the window after copy (same idea as Raidbots). **Esc** or **Close** dismisses without copying (drag the top strip to move it).
 
 Slash commands:
 
