@@ -45,7 +45,10 @@ const VALID_CATEGORY = new Set<string>([
 ]);
 
 export function getMountSourceBucket(mount: Mount): SourceBucketId {
-  if (mount.sourceCategory) {
+  if (
+    typeof mount.sourceCategory === "string" &&
+    mount.sourceCategory.length > 0
+  ) {
     const k = mount.sourceCategory.toLowerCase();
     if (VALID_CATEGORY.has(k)) {
       return k as SourceBucketId;

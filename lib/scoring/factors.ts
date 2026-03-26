@@ -93,7 +93,8 @@ export function computeFactorVector(
   const lockoutFlex = clamp(apw / 42, 0, 1);
 
   const dlp = dropLogProspect(mount.dropRate);
-  const rareTag = mount.tags.includes("rare") ? 1 : 0;
+  const tags = Array.isArray(mount.tags) ? mount.tags : [];
+  const rareTag = tags.includes("rare") ? 1 : 0;
   const difficultyIntensity = clamp(mount.difficulty / 5, 0, 1);
   const prestige = clamp(
     0.55 * (1 - dlp) + 0.25 * difficultyIntensity + 0.2 * rareTag,

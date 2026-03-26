@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth-session";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
@@ -12,6 +12,7 @@ import { deserializeSpellIds } from "@/lib/savedCollection";
 import { computeWeeklyPlanMounts } from "@/lib/weeklyPlan";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export const metadata: Metadata = {
   title: "My collection",
@@ -45,6 +46,15 @@ function expansionRows(
   return rows;
 }
 
+function formatUpdatedAt(d: Date | null): string {
+  if (!d || Number.isNaN(d.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC",
+  }).format(d);
+}
+
 export default async function AccountPage() {
   const session = await auth();
   if (!session?.user?.id) {
@@ -63,14 +73,21 @@ export default async function AccountPage() {
     redirect("/login");
   }
 
-  const owned = deserializeSpellIds(user.collectionSpellIds);
+  const owned = deserializeSpellIds(
+    typeof user.collectionSpellIds === "string" ? user.collectionSpellIds : "",
+  );
   const ownedSet = new Set(owned);
   const catalogRetail = mounts.filter((m) => m.retailObtainable !== false);
   const matched = catalogRetail.filter((m) => ownedSet.has(m.id)).length;
   const total = catalogRetail.length;
   const pct = total > 0 ? Math.round((matched / total) * 1000) / 10 : 0;
 
-  const plan = computeWeeklyPlanMounts(mounts, owned, 10);
+  let plan: ReturnType<typeof computeWeeklyPlanMounts> = [];
+  try {
+    plan = computeWeeklyPlanMounts(mounts, owned, 10);
+  } catch (e) {
+    console.error("[account] weekly plan", e);
+  }
   const expansions = expansionRows(mounts, ownedSet).slice(0, 12);
 
   return (
@@ -93,10 +110,7 @@ export default async function AccountPage() {
             <strong>{owned.length}</strong> spell IDs stored
           </li>
           <li>
-            Last updated:{" "}
-            {user.collectionUpdatedAt
-              ? user.collectionUpdatedAt.toLocaleString()
-              : "—"}
+            Last updated: {formatUpdatedAt(user.collectionUpdatedAt)}
           </li>
           <li>
             <strong>{matched}</strong> of <strong>{total}</strong> Retail mounts

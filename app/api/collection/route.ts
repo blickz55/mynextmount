@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth-session";
 import { prisma } from "@/lib/prisma";
 import {
   deserializeSpellIds,
@@ -22,7 +22,9 @@ export async function GET() {
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const spellIds = deserializeSpellIds(user.collectionSpellIds);
+  const spellIds = deserializeSpellIds(
+    typeof user.collectionSpellIds === "string" ? user.collectionSpellIds : "",
+  );
   return NextResponse.json({
     spellIds,
     updatedAt: user.collectionUpdatedAt?.toISOString() ?? null,

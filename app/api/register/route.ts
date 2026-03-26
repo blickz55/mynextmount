@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
+import { sendRegistrationAckEmail } from "@/lib/sendRegistrationAck";
 
 export const runtime = "nodejs";
 
@@ -37,6 +38,9 @@ export async function POST(req: Request) {
 
     const passwordHash = await bcrypt.hash(password, 12);
     await prisma.user.create({ data: { email, passwordHash } });
+    void sendRegistrationAckEmail(email).catch((err) => {
+      console.error("[api/register] ack email", err);
+    });
     return NextResponse.json({ ok: true });
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
