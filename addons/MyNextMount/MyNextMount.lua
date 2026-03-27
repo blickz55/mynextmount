@@ -1,7 +1,7 @@
 --[[
   MyNextMount — paste string into mynextmount.com (or your dev URL).
   Format v1: docs/export-contract.md
-  Slash: /mountexport or /mynextmount
+  Slash: /mountexport, /mynextmount, or /mnm
   Options: Esc → Options → AddOns → MyNextMount
 ]]
 
@@ -283,7 +283,7 @@ local function RegisterOptionsPanel()
   help:SetWordWrap(true)
   help:SetText(
     "|cffccccccHow to use|r\n"
-      .. "• Click the button above or type |cffdddddd/mountexport|r (|cffdddddd/mynextmount|r).\n"
+      .. "• Click the button above or type |cffdddddd/mnm|r (|cffdddddd/mynextmount|r / |cffdddddd/mountexport|r).\n"
       .. "• In the export window: |cffddddddCtrl+A|r, then |cffddddddCtrl+C|r (window closes after copy).\n"
       .. "• Paste the line into |cffddddddmynextmount.com|r (or your dev URL).\n\n"
       .. "|cffccccccFormat|r: |cffddddddM:spellId,spellId,...|r (mount summon spell IDs). "
@@ -375,6 +375,7 @@ end)
 
 SLASH_MYNEXTMOUNT1 = "/mountexport"
 SLASH_MYNEXTMOUNT2 = "/mynextmount"
+SLASH_MYNEXTMOUNT3 = "/mnm"
 SlashCmdList["MYNEXTMOUNT"] = function()
   RunExport()
 end

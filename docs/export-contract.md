@@ -97,7 +97,7 @@ Paste → **Find My Mounts** → those three must **not** appear in the top reco
 
 **MyNextMount** — retail add-on source in-repo: **`addons/MyNextMount/`**. Install: **`docs/addon-install.md`**.
 
-Slash: **`/mountexport`** (alias **`/mynextmount`**) — emits the same **`v1`** `M:` string (mount summon spell IDs, sorted ascending, no spaces).
+Slash: **`/mountexport`**, **`/mynextmount`**, or **`/mnm`** — same **`v1`** `M:` string (mount summon spell IDs, sorted ascending, no spaces).
 
 To align your **full** export with the site dataset for testing, see **`docs/testing-with-your-collection.md`** (`npm run data:merge-stubs` → **`data/mounts.stubs.json`**, merged at app load with **`data/mounts.json`**).
 

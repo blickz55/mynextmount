@@ -8,6 +8,7 @@ Slash commands:
 
 - `/mountexport`
 - `/mynextmount`
+- `/mnm` (short alias)
 
 **Options panel (Epic A.3 + C.2):** **Esc** → **Options** → **AddOns** → **MyNextMount** — **Open export for website**, optional **website URL**, and **Open farm guide window** (see **Epic C.2** in `docs/guides.md`). Slash **`/mnguides`** (alias **`/mfguides`**) opens the same guide UI.
 
@@ -19,7 +20,7 @@ Slash commands:
 
 2. Restart WoW or `/reload`.
 3. Enable **MyNextMount** on the AddOns list (check **Load out of date AddOns** if your patch is newer than the `## Interface` line in the `.toc`).
-4. Log in, run `/mountexport`, copy the string from the popup, paste into the site.
+4. Log in, run `/mnm`, `/mynextmount`, or `/mountexport`, copy the string from the popup, paste into the site.
 
 ## Public listing (website)
 

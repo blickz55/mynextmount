@@ -9,11 +9,23 @@ import {
 const addonListingUrl = getAddonListingUrl();
 const howToDemoUrl = getHowToDemoUrl();
 
+function listingLinkLabel(url: string): string {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    if (host.includes("curseforge")) return "CurseForge";
+    if (host.includes("wago")) return "Wago";
+  } catch {
+    /* ignore */
+  }
+  return "Addon listing";
+}
+
 /**
- * Epic I.3 — How To: install → slash command → copy/paste, with OS-aware shortcuts
- * and optional demo video link.
+ * Three-step export path: install → slash command → paste below.
  */
 export function HowToExportPanel() {
+  const listingLabel = listingLinkLabel(addonListingUrl);
+
   return (
     <section className="how-to-panel" aria-label="How to export your mounts">
       <h2 className="how-to-panel__title">How to get your export</h2>
@@ -31,75 +43,54 @@ export function HowToExportPanel() {
           (about a minute — from install through pasting below).
         </p>
       ) : null}
-      <ol className="how-to-panel__list">
-        <li>
-          Install <strong>MyNextMount</strong> from the{" "}
-          <a
-            href={addonListingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            public addon listing
-          </a>{" "}
-          (CurseForge / Wago / your installer). For a folder copy from this
-          repo, see{" "}
-          <a
-            href={ADDON_INSTALL_DOCS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            manual install
-          </a>
-          .
-          <details className="how-to-panel__paths">
-            <summary>Where is my AddOns folder?</summary>
-            <ul className="how-to-panel__paths-list">
-              <li>
-                <strong>Windows:</strong> inside your WoW install,{" "}
-                <code className="how-to-panel__cmd">
-                  _retail_\Interface\AddOns\
-                </code>{" "}
-                (put the <code className="how-to-panel__cmd">MyNextMount</code>{" "}
-                folder there).
-              </li>
-              <li>
-                <strong>Mac:</strong>{" "}
-                <code className="how-to-panel__cmd">
-                  ~/Library/Application Support/Blizzard/World of Warcraft/_retail_/Interface/AddOns/
-                </code>
-              </li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          Launch WoW and enable <strong>MyNextMount</strong> on the AddOns list
-          (<strong>Esc</strong> → <strong>Options</strong> →{" "}
-          <strong>AddOns</strong> on both Windows and Mac).
-        </li>
-        <li>
-          Type <code className="how-to-panel__cmd">/mountexport</code> or{" "}
-          <code className="how-to-panel__cmd">/mynextmount</code> into your
-          chat bar, then press <strong>Enter</strong>.
-        </li>
-        <li>
-          In the in-game pop-up, select all (
-          <kbd className="how-to-panel__kbd">Ctrl</kbd>+
-          <kbd className="how-to-panel__kbd">A</kbd> on Windows,{" "}
-          <kbd className="how-to-panel__kbd">⌘</kbd>+
-          <kbd className="how-to-panel__kbd">A</kbd> on Mac), copy (
-          <kbd className="how-to-panel__kbd">Ctrl</kbd>+
-          <kbd className="how-to-panel__kbd">C</kbd> or{" "}
-          <kbd className="how-to-panel__kbd">⌘</kbd>+
-          <kbd className="how-to-panel__kbd">C</kbd>), then paste into the box
-          below (
-          <kbd className="how-to-panel__kbd">Ctrl</kbd>+
-          <kbd className="how-to-panel__kbd">V</kbd> or{" "}
-          <kbd className="how-to-panel__kbd">⌘</kbd>+
-          <kbd className="how-to-panel__kbd">V</kbd>
-          ). The string looks like{" "}
-          <code className="how-to-panel__cmd">M:65645,59961,41256</code>.
-        </li>
-      </ol>
+      <div className="how-to-panel__grid">
+        <div className="how-to-step">
+          <h3 className="how-to-step__heading">Install MyNextMount</h3>
+          <p className="how-to-step__text">
+            Add it from{" "}
+            <a
+              href={addonListingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="how-to-step__link"
+            >
+              {listingLabel}
+            </a>
+            .{" "}
+            <a
+              href={ADDON_INSTALL_DOCS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="how-to-step__link how-to-step__link--muted"
+            >
+              Manual install
+            </a>
+          </p>
+        </div>
+        <div className="how-to-step">
+          <h3 className="how-to-step__heading">Type in chat</h3>
+          <p className="how-to-step__text">
+            <code className="how-to-panel__cmd">/mynextmount</code> or the
+            short alias{" "}
+            <code className="how-to-panel__cmd">/mnm</code>
+            <span className="how-to-step__fine">
+              {" "}
+              (also <code className="how-to-panel__cmd">/mountexport</code>)
+            </span>
+            , then press <strong>Enter</strong>.
+          </p>
+        </div>
+        <div className="how-to-step how-to-step--paste">
+          <h3 className="how-to-step__heading">Paste output below</h3>
+          <p className="how-to-step__text">
+            Copy the <code className="how-to-panel__cmd">M:…</code> line from
+            the in-game window into the export field.
+          </p>
+          <span className="how-to-step__arrow" aria-hidden>
+            ↓
+          </span>
+        </div>
+      </div>
     </section>
   );
 }
