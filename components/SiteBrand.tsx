@@ -35,11 +35,14 @@ export function SiteBrand({
         ? "site-brand site-brand--with-mission"
         : "site-brand";
 
-  const titleBlock = (
+  const titleHeading = (
+    <h1 className="site-title">
+      My<span className="site-title-accent">Next</span>Mount
+    </h1>
+  );
+  const titleBlockDefault = (
     <>
-      <h1 className="site-title">
-        My<span className="site-title-accent">Next</span>Mount
-      </h1>
+      {titleHeading}
       <p className="site-tagline">What to farm next — mynextmount.com</p>
     </>
   );
@@ -61,7 +64,7 @@ export function SiteBrand({
       {hasBanner ? (
         <div className="site-brand__hero-stack">
           <Link href="/" className="site-brand__home site-brand__home--hero">
-            {titleBlock}
+            {titleHeading}
           </Link>
           {hasMission ? (
             <div className="site-brand__mission-wrap site-brand__mission-wrap--hero">
@@ -82,7 +85,7 @@ export function SiteBrand({
               />
             ) : null}
             {eyebrow}
-            {titleBlock}
+            {titleBlockDefault}
           </Link>
           {hasMission ? (
             <div className="site-brand__mission-wrap">

@@ -216,27 +216,80 @@ html[data-theme="dark"] > body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.35rem 0.75rem;
+  gap: 0.4rem 0.5rem;
   font-family: var(--font-source-sans), system-ui, sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
-.auth-nav__link {
-  color: var(--link);
-  text-decoration: none;
+.auth-nav__muted {
+  color: var(--text-muted);
+}
+
+/* Match .btn-primary / coming-soon CTA gold */
+.auth-nav__link,
+.auth-nav__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.38rem 0.8rem;
+  font-family: inherit;
+  font-size: inherit;
   font-weight: 600;
-  padding: 0.25rem 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #1c1914;
+  text-decoration: none;
+  background: linear-gradient(180deg, #d4b85a 0%, #b8922e 45%, #9a7b2d 100%);
+  border: 1px solid color-mix(in srgb, var(--accent-gold-bright) 70%, #000);
   border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-gold-bright) 35%, transparent);
 }
 
-.auth-nav__link:hover {
-  color: var(--link-hover);
-  text-decoration: underline;
+.auth-nav__link:hover,
+.auth-nav__btn:hover {
+  filter: brightness(1.06);
+  text-decoration: none;
 }
 
-.auth-nav__link:focus-visible {
+.auth-nav__link:active,
+.auth-nav__btn:active {
+  filter: brightness(0.97);
+}
+
+.auth-nav__link:focus-visible,
+.auth-nav__btn:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
+}
+
+.auth-nav__link--secondary {
+  color: var(--accent-gold-bright);
+  background: transparent;
+  border-color: color-mix(in srgb, var(--accent-gold-bright) 55%, var(--border));
+}
+
+.auth-nav__link--secondary:hover {
+  filter: none;
+  background: color-mix(in srgb, var(--accent-gold-bright) 12%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .auth-nav__link:not(.auth-nav__link--secondary),
+  html:not([data-theme="light"]) .auth-nav__btn {
+    color: #141210;
+    background: linear-gradient(180deg, #e0c46a 0%, #c9a44c 50%, #a8863a 100%);
+    border-color: #8a7028;
+  }
+}
+
+html[data-theme="dark"] .auth-nav__link:not(.auth-nav__link--secondary),
+html[data-theme="dark"] .auth-nav__btn {
+  color: #141210;
+  background: linear-gradient(180deg, #e0c46a 0%, #c9a44c 50%, #a8863a 100%);
+  border-color: #8a7028;
 }
 
 .theme-toggle {
@@ -306,6 +359,10 @@ html[data-theme="dark"] > body {
   margin-bottom: 0.25rem;
 }
 
+.site-brand--hero {
+  margin-bottom: 0;
+}
+
 /* Hero from data/images/highlight image text.* (or highlight image.*) → public at build */
 .site-brand__banner-wrap {
   margin: 0 0 1rem;
@@ -320,27 +377,27 @@ html[data-theme="dark"] > body {
 .site-brand__banner {
   display: block;
   width: 100%;
-  height: clamp(132px, 38vw, 220px);
+  height: clamp(200px, 52vw, 300px);
   object-fit: cover;
-  /* Anchor crop on baked-in “Every collection…” headline (tweak % if art changes) */
-  object-position: center 18%;
+  /* Show full baked-in headline (“Every collection tells a story”); raise % if lower line clips */
+  object-position: center 42%;
 }
 
 @media (min-width: 480px) {
   .site-brand__banner {
-    height: clamp(160px, 34vw, 280px);
+    height: clamp(220px, 44vw, 340px);
   }
 }
 
 @media (min-width: 768px) {
   .site-brand__banner {
-    height: clamp(200px, 26vw, 360px);
+    height: clamp(260px, 34vw, 400px);
   }
 }
 
 /* Banner + centered title + mission (home + tool) */
 .site-brand--hero .site-brand__banner-wrap {
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.55rem;
 }
 
 .site-brand__hero-stack {
@@ -348,8 +405,9 @@ html[data-theme="dark"] > body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1rem;
+  gap: 0.35rem;
   width: 100%;
+  margin-bottom: 0.15rem;
 }
 
 .site-brand__home--hero {
@@ -359,11 +417,7 @@ html[data-theme="dark"] > body {
 
 .site-brand__home--hero .site-title {
   font-size: clamp(1.45rem, 3.8vw, 2.05rem);
-  margin-bottom: 0.3rem;
-}
-
-.site-brand__home--hero .site-tagline {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0;
 }
 
 .site-brand__mission-wrap--hero {
@@ -376,11 +430,17 @@ html[data-theme="dark"] > body {
 
 .site-brand--hero .site-mission {
   align-items: center;
+  gap: 0;
 }
 
-.site-brand--hero .site-mission__mid,
-.site-brand--hero .site-mission__kicker {
+.site-brand--hero .site-mission__mid {
   text-align: center;
+  margin: 0;
+}
+
+/* Pull next panel closer after hero (home /tool) */
+.site-brand--hero + .how-to-panel {
+  margin-top: 0;
 }
 
 .site-brand__row {
@@ -415,7 +475,7 @@ html[data-theme="dark"] > body {
 .site-mission {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .site-mission__mid {
@@ -434,31 +494,6 @@ html[data-theme="dark"] > body {
   font-weight: 700;
   color: var(--accent-gold-bright);
   letter-spacing: 0.06em;
-}
-
-.site-mission__kicker {
-  margin: 0.15rem 0 0;
-  font-size: clamp(0.76rem, 1.65vw, 0.88rem);
-  line-height: 1.5;
-  text-wrap: balance;
-}
-
-.site-mission__brand {
-  font-family: var(--font-cinzel), "Palatino Linotype", Palatino, serif;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--text);
-}
-
-.site-mission__brand-accent {
-  color: var(--accent-gold-bright);
-}
-
-.site-mission__kicker-rest {
-  font-family: var(--font-source-sans), system-ui, sans-serif;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
 }
 
 /* Epic H.2 — whole brand block is one control to home */
