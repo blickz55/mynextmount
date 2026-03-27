@@ -212,34 +212,6 @@ html[data-theme="dark"] > body {
   gap: 0.5rem;
 }
 
-.shell-topbar--with-mission {
-  align-items: flex-start;
-}
-
-.shell-topbar__mission {
-  flex: 1 1 12rem;
-  min-width: 0;
-  margin: 0;
-  padding: 0 0.35rem;
-  text-align: right;
-  font-family: var(--font-source-sans), system-ui, sans-serif;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-  max-width: 26rem;
-}
-
-@media (max-width: 640px) {
-  .shell-topbar__mission {
-    order: 3;
-    flex-basis: 100%;
-    text-align: left;
-    padding: 0;
-    padding-top: 0.15rem;
-    max-width: none;
-  }
-}
-
 .auth-nav {
   display: flex;
   flex-wrap: wrap;
@@ -332,6 +304,39 @@ html[data-theme="dark"] > body {
 
 .site-brand {
   margin-bottom: 0.25rem;
+}
+
+.site-brand__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem 1.75rem;
+}
+
+.site-brand--with-mission .site-brand__home {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.site-brand__mission {
+  flex: 1 1 14rem;
+  min-width: 0;
+  max-width: 28rem;
+  margin: 0;
+  padding: 0.15rem 0 0;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+
+@media (max-width: 640px) {
+  .site-brand__mission {
+    flex-basis: 100%;
+    max-width: none;
+    padding-top: 0;
+  }
 }
 
 /* Epic H.2 — whole brand block is one control to home */

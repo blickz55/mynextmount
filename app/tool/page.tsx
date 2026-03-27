@@ -15,6 +15,7 @@ import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
+import { SITE_MISSION_TEXT } from "@/lib/siteMission";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import {
   filterMountsByFarmSearchQuery,
@@ -201,16 +202,8 @@ export default function HomePage() {
       tabIndex={-1}
       className="app-main app-shell"
     >
-      <ShellTopbar
-        mission={
-          <>
-            Every collection tells a story. Find the mounts that bring you
-            closer to completing yours. MyNextMount was created to help mount
-            lovers farm more mounts.
-          </>
-        }
-      />
-      <SiteBrand brandLogoUrl={brandLogoUrl} />
+      <ShellTopbar />
+      <SiteBrand brandLogoUrl={brandLogoUrl} mission={SITE_MISSION_TEXT} />
 
       <HowToExportPanel />
 
