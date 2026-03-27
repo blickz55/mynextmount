@@ -6,7 +6,6 @@
 export function SiteMissionStatement() {
   return (
     <div className="site-mission" role="region" aria-label="About MyNextMount">
-      <p className="site-mission__lead">Every collection tells a story.</p>
       <p className="site-mission__mid">
         Find the mounts that bring you{" "}
         <span className="site-mission__emph">closer</span> to completing yours.

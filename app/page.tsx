@@ -38,7 +38,6 @@ export default function ComingSoonPage() {
       <ShellTopbar />
       <SiteBrand
         brandLogoUrl={brandLogoUrl}
-        eyebrow={<p className="coming-soon-eyebrow">Coming soon</p>}
         showMission
         highlightBannerUrl={highlightBannerUrl}
       />

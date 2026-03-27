@@ -306,7 +306,7 @@ html[data-theme="dark"] > body {
   margin-bottom: 0.25rem;
 }
 
-/* Hero from data/images/highlight image.* → public at build */
+/* Hero from data/images/highlight image text.* (or highlight image.*) → public at build */
 .site-brand__banner-wrap {
   margin: 0 0 1rem;
   border-radius: var(--radius-lg);
@@ -322,7 +322,8 @@ html[data-theme="dark"] > body {
   width: 100%;
   height: clamp(132px, 38vw, 220px);
   object-fit: cover;
-  object-position: center 22%;
+  /* Anchor crop on baked-in “Every collection…” headline (tweak % if art changes) */
+  object-position: center 18%;
 }
 
 @media (min-width: 480px) {
@@ -335,6 +336,51 @@ html[data-theme="dark"] > body {
   .site-brand__banner {
     height: clamp(200px, 26vw, 360px);
   }
+}
+
+/* Banner + centered title + mission (home + tool) */
+.site-brand--hero .site-brand__banner-wrap {
+  margin-bottom: 1.15rem;
+}
+
+.site-brand__hero-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.site-brand__home--hero {
+  text-align: center;
+  max-width: 100%;
+}
+
+.site-brand__home--hero .site-title {
+  font-size: clamp(1.45rem, 3.8vw, 2.05rem);
+  margin-bottom: 0.3rem;
+}
+
+.site-brand__home--hero .site-tagline {
+  margin-bottom: 0.25rem;
+}
+
+.site-brand__mission-wrap--hero {
+  flex: none;
+  width: 100%;
+  max-width: 38rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-brand--hero .site-mission {
+  align-items: center;
+}
+
+.site-brand--hero .site-mission__mid,
+.site-brand--hero .site-mission__kicker {
+  text-align: center;
 }
 
 .site-brand__row {
@@ -370,18 +416,6 @@ html[data-theme="dark"] > body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.site-mission__lead {
-  font-family: var(--font-cinzel), "Palatino Linotype", Palatino, serif;
-  font-size: clamp(0.92rem, 2.4vw, 1.12rem);
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  line-height: 1.35;
-  color: var(--accent-gold-bright);
-  margin: 0;
-  text-wrap: balance;
-  text-shadow: 0 0 24px color-mix(in srgb, var(--accent-gold-bright) 22%, transparent);
 }
 
 .site-mission__mid {

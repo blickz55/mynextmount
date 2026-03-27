@@ -28,10 +28,15 @@ function pickLogoBasename(files: string[]): string | null {
   return anyLogo ?? null;
 }
 
-/** `highlight image.png` or any `highlight*.{png,...}` except logo. */
+/**
+ * Prefer `highlight image text.*` (hero includes headline copy), then
+ * `highlight image.*`, then any `highlight*.{png,...}` except logo.
+ */
 function pickHighlightBasename(files: string[]): string | null {
-  const byHighlight = files.find((f) => /^highlight\s*image\./i.test(f));
-  if (byHighlight) return byHighlight;
+  const withText = files.find((f) => /^highlight\s*image\s*text\./i.test(f));
+  if (withText) return withText;
+  const plain = files.find((f) => /^highlight\s*image\./i.test(f));
+  if (plain) return plain;
   return (
     files.find(
       (f) =>

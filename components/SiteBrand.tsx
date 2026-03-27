@@ -11,9 +11,7 @@ type Props = {
   eyebrow?: ReactNode;
   /** Stylized mission to the right of the logo block (home + tool). */
   showMission?: boolean;
-  /**
-   * Hero banner from `data/images/highlight image.*` (copied to public at build).
-   */
+  /** Hero banner from `highlight image text.*` or `highlight image.*` at build. */
   highlightBannerUrl?: string;
 };
 
@@ -28,13 +26,26 @@ export function SiteBrand({
 }: Props) {
   const hasMission = showMission;
   const hasBanner = highlightBannerUrl.trim() !== "";
+  const showLogo = brandLogoUrl !== "" && !hasBanner;
+
+  const headerClass =
+    hasBanner && hasMission
+      ? "site-brand site-brand--hero site-brand--with-mission"
+      : hasMission
+        ? "site-brand site-brand--with-mission"
+        : "site-brand";
+
+  const titleBlock = (
+    <>
+      <h1 className="site-title">
+        My<span className="site-title-accent">Next</span>Mount
+      </h1>
+      <p className="site-tagline">What to farm next — mynextmount.com</p>
+    </>
+  );
+
   return (
-    <header
-      className={
-        hasMission ? "site-brand site-brand--with-mission" : "site-brand"
-      }
-      aria-label="MyNextMount"
-    >
+    <header className={headerClass} aria-label="MyNextMount">
       {hasBanner ? (
         <div className="site-brand__banner-wrap">
           <img
@@ -46,29 +57,40 @@ export function SiteBrand({
           />
         </div>
       ) : null}
-      <div className="site-brand__row">
-        <Link href="/" className="site-brand__home">
-          {brandLogoUrl !== "" && (
-            <img
-              className="site-brand__logo"
-              src={brandLogoUrl}
-              alt=""
-              decoding="async"
-              loading="lazy"
-            />
-          )}
-          {eyebrow}
-          <h1 className="site-title">
-            My<span className="site-title-accent">Next</span>Mount
-          </h1>
-          <p className="site-tagline">What to farm next — mynextmount.com</p>
-        </Link>
-        {hasMission ? (
-          <div className="site-brand__mission-wrap">
-            <SiteMissionStatement />
-          </div>
-        ) : null}
-      </div>
+
+      {hasBanner ? (
+        <div className="site-brand__hero-stack">
+          <Link href="/" className="site-brand__home site-brand__home--hero">
+            {titleBlock}
+          </Link>
+          {hasMission ? (
+            <div className="site-brand__mission-wrap site-brand__mission-wrap--hero">
+              <SiteMissionStatement />
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <div className="site-brand__row">
+          <Link href="/" className="site-brand__home">
+            {showLogo ? (
+              <img
+                className="site-brand__logo"
+                src={brandLogoUrl}
+                alt=""
+                decoding="async"
+                loading="lazy"
+              />
+            ) : null}
+            {eyebrow}
+            {titleBlock}
+          </Link>
+          {hasMission ? (
+            <div className="site-brand__mission-wrap">
+              <SiteMissionStatement />
+            </div>
+          ) : null}
+        </div>
+      )}
     </header>
   );
 }
