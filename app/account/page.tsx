@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth-session";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
+import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
 import { mounts } from "@/lib/mounts";
@@ -23,6 +24,11 @@ export const metadata: Metadata = {
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
+    : "";
+
+const highlightBannerUrl =
+  typeof process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL === "string"
+    ? process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL.trim()
     : "";
 
 function expansionRows(
@@ -93,8 +99,13 @@ export default async function AccountPage() {
   return (
     <main id="main-content" tabIndex={-1} className="app-main app-shell">
       <ShellTopbar />
-      <SiteBrand brandLogoUrl={brandLogoUrl} />
-      <h1 className="section-title">My collection</h1>
+      <SiteBrand
+        brandLogoUrl={brandLogoUrl}
+        showMission
+        highlightBannerUrl={highlightBannerUrl}
+      />
+      <HowToExportPanel />
+      <h2 className="section-title">My collection</h2>
       <p className="lead">
         Signed in as <strong>{user.email}</strong>. Your saved export is used for
         completion stats and the weekly suggestions below — same rules as the

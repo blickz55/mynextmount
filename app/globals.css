@@ -461,7 +461,7 @@ html[data-theme="dark"] .auth-nav__btn {
 .site-brand--hero .site-mission__mid {
   text-align: center;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0.5rem;
   line-height: 1.32;
 }
 
@@ -645,6 +645,14 @@ html[data-theme="dark"] .auth-nav__btn {
   text-align: center;
 }
 
+.how-to-step--slash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .how-to-step__heading {
   font-family: var(--font-cinzel), "Palatino Linotype", Palatino, serif;
   font-size: 0.68rem;
@@ -653,6 +661,31 @@ html[data-theme="dark"] .auth-nav__btn {
   text-transform: uppercase;
   margin: 0 0 0.4rem;
   color: var(--accent-gold-bright);
+}
+
+.how-to-step__heading--install {
+  font-size: clamp(0.7rem, 2.6vw, 0.98rem);
+  letter-spacing: 0.07em;
+  margin-bottom: 0.45rem;
+  white-space: nowrap;
+}
+
+.how-to-step__heading--slash {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: clamp(0.72rem, 2.4vw, 0.88rem);
+  margin-bottom: 0.25rem;
+}
+
+.how-to-step--paste .how-to-step__heading {
+  margin-bottom: 0.3rem;
+}
+
+.how-to-step__sub {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-soft);
 }
 
 .how-to-step__text {
@@ -1975,6 +2008,14 @@ a.coming-soon-cta:focus-visible {
 
   .how-to-step__text {
     font-size: 0.82rem;
+  }
+
+  .how-to-step__heading--install {
+    font-size: 0.66rem;
+  }
+
+  .how-to-step__heading--slash {
+    font-size: 0.72rem;
   }
 
   .lead,

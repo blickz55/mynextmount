@@ -27,8 +27,8 @@ export function HowToExportPanel() {
   const listingLabel = listingLinkLabel(addonListingUrl);
 
   return (
-    <section className="how-to-panel" aria-label="How to export your mounts">
-      <h2 className="how-to-panel__title">How to get your export</h2>
+    <section className="how-to-panel" aria-label="Getting started">
+      <h2 className="how-to-panel__title">Getting Started</h2>
       {howToDemoUrl ? (
         <p className="how-to-panel__demo">
           <strong>New here?</strong>{" "}
@@ -45,9 +45,11 @@ export function HowToExportPanel() {
       ) : null}
       <div className="how-to-panel__grid">
         <div className="how-to-step">
-          <h3 className="how-to-step__heading">Install MyNextMount</h3>
+          <h3 className="how-to-step__heading how-to-step__heading--install">
+            Install MyNextMount
+          </h3>
           <p className="how-to-step__text">
-            Add it from{" "}
+            Install using{" "}
             <a
               href={addonListingUrl}
               target="_blank"
@@ -56,7 +58,8 @@ export function HowToExportPanel() {
             >
               {listingLabel}
             </a>
-            .{" "}
+            <br />
+            <br />
             <a
               href={ADDON_INSTALL_DOCS_URL}
               target="_blank"
@@ -67,25 +70,14 @@ export function HowToExportPanel() {
             </a>
           </p>
         </div>
-        <div className="how-to-step">
-          <h3 className="how-to-step__heading">Type in chat</h3>
-          <p className="how-to-step__text">
-            <code className="how-to-panel__cmd">/mynextmount</code> or the
-            short alias{" "}
-            <code className="how-to-panel__cmd">/mnm</code>
-            <span className="how-to-step__fine">
-              {" "}
-              (also <code className="how-to-panel__cmd">/mountexport</code>)
-            </span>
-            , then press <strong>Enter</strong>.
-          </p>
+        <div className="how-to-step how-to-step--slash">
+          <h3 className="how-to-step__heading how-to-step__heading--slash">
+            Type /mnm in game
+          </h3>
+          <p className="how-to-step__sub">or /mynextmount</p>
         </div>
         <div className="how-to-step how-to-step--paste">
-          <h3 className="how-to-step__heading">Paste output below</h3>
-          <p className="how-to-step__text">
-            Copy the <code className="how-to-panel__cmd">M:…</code> line from
-            the in-game window into the export field.
-          </p>
+          <h3 className="how-to-step__heading">Paste Output Below</h3>
           <span className="how-to-step__arrow" aria-hidden>
             ↓
           </span>
