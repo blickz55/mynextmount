@@ -87,7 +87,7 @@ npm run dev
 
 ## User flows
 
-1. **Register** (`/register`) → **Sign in** (`/login`) → **`/account`** (collection stats, weekly suggestions, expansion table, delete account).
+1. **Register** (`/register`) → **Sign in** (`/login`) → **`/account`** (collection stats, weekly suggestions, delete account).
 2. **`/tool`** — paste **`M:…`** as today. If signed in, **Save to my account** / **Load saved collection** sync spell IDs with the server (`PUT` / `GET` `/api/collection`).
 3. **Delete account** — `DELETE` `/api/account` removes the user row (and session ends via sign-out).
 

@@ -30,27 +30,6 @@ const highlightBannerUrl =
     ? process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL.trim()
     : "";
 
-function expansionRows(
-  catalog: typeof mounts,
-  ownedSet: Set<number>,
-): { expansion: string; owned: number; total: number }[] {
-  const map = new Map<string, { owned: number; total: number }>();
-  for (const m of catalog) {
-    if (m.retailObtainable === false) continue;
-    const ex = (m.expansion || "Unknown").trim() || "Unknown";
-    const row = map.get(ex) ?? { owned: 0, total: 0 };
-    row.total += 1;
-    if (ownedSet.has(m.id)) row.owned += 1;
-    map.set(ex, row);
-  }
-  const rows = [...map.entries()].map(([expansion, v]) => ({
-    expansion,
-    ...v,
-  }));
-  rows.sort((a, b) => b.total - a.total);
-  return rows;
-}
-
 function formatUpdatedAt(d: Date | null): string {
   if (!d || Number.isNaN(d.getTime())) return "—";
   return new Intl.DateTimeFormat("en-US", {
@@ -119,9 +98,9 @@ export default async function AccountPage() {
     redirect("/login");
   }
 
-  const owned = deserializeSpellIds(
-    typeof user.collectionSpellIds === "string" ? user.collectionSpellIds : "",
-  );
+  const rawSpellBlob =
+    user.collectionSpellIds == null ? "" : String(user.collectionSpellIds);
+  const owned = deserializeSpellIds(rawSpellBlob);
   const ownedSet = new Set(owned);
   const catalogRetail = mounts.filter((m) => m.retailObtainable !== false);
   const matched = catalogRetail.filter((m) => ownedSet.has(m.id)).length;
@@ -134,8 +113,6 @@ export default async function AccountPage() {
   } catch (e) {
     console.error("[account] weekly plan", e);
   }
-  const expansions = expansionRows(mounts, ownedSet).slice(0, 12);
-
   return (
     <main id="main-content" tabIndex={-1} className="app-main app-shell">
       <ShellTopbar />
@@ -167,10 +144,20 @@ export default async function AccountPage() {
             in this site&apos;s data match your export ({pct}% of catalog).
           </li>
         </ul>
-        <p className="status-block">
-          <Link href="/tool">Open the tool</Link> — use{" "}
-          <strong>Load saved collection</strong> after signing in.
-        </p>
+        {owned.length === 0 ? (
+          <p className="status-block">
+            Nothing saved for this account yet. On{" "}
+            <Link href="/tool">the tool</Link>, paste your <code>M:…</code> line
+            and click <strong>Save to my account</strong>; after it succeeds,
+            refresh this page. Spell IDs are stored on your user row in Postgres
+            (e.g. via Supabase) — same flow as login, no separate upload service.
+          </p>
+        ) : (
+          <p className="status-block">
+            <Link href="/tool">Open the tool</Link> — use{" "}
+            <strong>Load saved collection</strong> after signing in.
+          </p>
+        )}
       </section>
 
       <section className="content-section" aria-labelledby="weekly-heading">
@@ -199,32 +186,6 @@ export default async function AccountPage() {
             ))}
           </ol>
         )}
-      </section>
-
-      <section className="content-section" aria-labelledby="exp-heading">
-        <h2 id="exp-heading" className="section-title account-section-heading">
-          By expansion (Retail catalog)
-        </h2>
-        <div className="account-table-wrap">
-          <table className="account-table">
-            <thead>
-              <tr>
-                <th scope="col">Expansion</th>
-                <th scope="col">Collected</th>
-                <th scope="col">In catalog</th>
-              </tr>
-            </thead>
-            <tbody>
-              {expansions.map((row) => (
-                <tr key={row.expansion}>
-                  <td>{row.expansion}</td>
-                  <td>{row.owned}</td>
-                  <td>{row.total}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </section>
 
       <section className="content-section account-danger-zone" aria-labelledby="danger-heading">
