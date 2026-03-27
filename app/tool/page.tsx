@@ -201,7 +201,15 @@ export default function HomePage() {
       tabIndex={-1}
       className="app-main app-shell"
     >
-      <ShellTopbar />
+      <ShellTopbar
+        mission={
+          <>
+            Every collection tells a story. Find the mounts that bring you
+            closer to completing yours. MyNextMount was created to help mount
+            lovers farm more mounts.
+          </>
+        }
+      />
       <SiteBrand brandLogoUrl={brandLogoUrl} />
 
       <HowToExportPanel />

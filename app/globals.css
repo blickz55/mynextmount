@@ -212,6 +212,34 @@ html[data-theme="dark"] > body {
   gap: 0.5rem;
 }
 
+.shell-topbar--with-mission {
+  align-items: flex-start;
+}
+
+.shell-topbar__mission {
+  flex: 1 1 12rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0.35rem;
+  text-align: right;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 26rem;
+}
+
+@media (max-width: 640px) {
+  .shell-topbar__mission {
+    order: 3;
+    flex-basis: 100%;
+    text-align: left;
+    padding: 0;
+    padding-top: 0.15rem;
+    max-width: none;
+  }
+}
+
 .auth-nav {
   display: flex;
   flex-wrap: wrap;
