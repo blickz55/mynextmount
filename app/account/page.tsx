@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { auth } from "@/lib/auth-session";
+import { auth } from "@/auth";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
@@ -66,14 +66,55 @@ export default async function AccountPage() {
     redirect("/login?callbackUrl=/account");
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      email: true,
-      collectionSpellIds: true,
-      collectionUpdatedAt: true,
-    },
-  });
+  let user: {
+    email: string;
+    collectionSpellIds: string;
+    collectionUpdatedAt: Date | null;
+  } | null = null;
+  let dbLoadFailed = false;
+  try {
+    user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        email: true,
+        collectionSpellIds: true,
+        collectionUpdatedAt: true,
+      },
+    });
+  } catch (e) {
+    console.error("[account/page] prisma.user.findUnique", e);
+    dbLoadFailed = true;
+  }
+
+  if (dbLoadFailed) {
+    return (
+      <main id="main-content" tabIndex={-1} className="app-main app-shell">
+        <ShellTopbar />
+        <SiteBrand
+          brandLogoUrl={brandLogoUrl}
+          showMission
+          highlightBannerUrl={highlightBannerUrl}
+        />
+        <h2 className="section-title">My Mounts</h2>
+        <p className="lead">
+          We couldn&apos;t load your saved data from the database. This is
+          usually a temporary connection issue on the server.
+        </p>
+        <p className="status-block">
+          <Link href="/account">Try again</Link>
+          {" · "}
+          <Link href="/tool">Open the tool</Link>
+          {" · "}
+          <Link href="/login">Sign in again</Link>
+        </p>
+        <p className="field-hint">
+          If this keeps happening, check host logs for{" "}
+          <code>[account/page] prisma.user.findUnique</code>.
+        </p>
+      </main>
+    );
+  }
+
   if (!user) {
     redirect("/login");
   }
