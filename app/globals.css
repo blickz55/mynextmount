@@ -306,6 +306,37 @@ html[data-theme="dark"] > body {
   margin-bottom: 0.25rem;
 }
 
+/* Hero from data/images/highlight image.* → public at build */
+.site-brand__banner-wrap {
+  margin: 0 0 1rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, var(--border));
+  box-shadow:
+    0 4px 20px color-mix(in srgb, #000 45%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent-gold-bright) 15%, transparent);
+}
+
+.site-brand__banner {
+  display: block;
+  width: 100%;
+  height: clamp(132px, 38vw, 220px);
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+@media (min-width: 480px) {
+  .site-brand__banner {
+    height: clamp(160px, 34vw, 280px);
+  }
+}
+
+@media (min-width: 768px) {
+  .site-brand__banner {
+    height: clamp(200px, 26vw, 360px);
+  }
+}
+
 .site-brand__row {
   display: flex;
   flex-wrap: wrap;
@@ -318,25 +349,82 @@ html[data-theme="dark"] > body {
   min-width: 0;
 }
 
-.site-brand__mission {
-  flex: 1 1 14rem;
+.site-brand__mission-wrap {
+  flex: 1 1 15rem;
   min-width: 0;
-  max-width: 28rem;
+  max-width: 32rem;
   margin: 0;
-  padding: 0.15rem 0 0;
-  font-family: var(--font-source-sans), system-ui, sans-serif;
-  font-size: 0.8rem;
-  line-height: 1.55;
-  color: var(--text-muted);
-  text-wrap: balance;
+  padding: 0.1rem 0 0;
 }
 
 @media (max-width: 640px) {
-  .site-brand__mission {
+  .site-brand__mission-wrap {
     flex-basis: 100%;
     max-width: none;
     padding-top: 0;
   }
+}
+
+/* Mission statement — Cinzel + gold, aligned with .site-title */
+.site-mission {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.site-mission__lead {
+  font-family: var(--font-cinzel), "Palatino Linotype", Palatino, serif;
+  font-size: clamp(0.92rem, 2.4vw, 1.12rem);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.35;
+  color: var(--accent-gold-bright);
+  margin: 0;
+  text-wrap: balance;
+  text-shadow: 0 0 24px color-mix(in srgb, var(--accent-gold-bright) 22%, transparent);
+}
+
+.site-mission__mid {
+  font-family: var(--font-cinzel), "Palatino Linotype", Palatino, serif;
+  font-size: clamp(0.8rem, 2vw, 0.98rem);
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  line-height: 1.45;
+  color: var(--text);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.site-mission__emph {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--accent-gold-bright);
+  letter-spacing: 0.06em;
+}
+
+.site-mission__kicker {
+  margin: 0.15rem 0 0;
+  font-size: clamp(0.76rem, 1.65vw, 0.88rem);
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.site-mission__brand {
+  font-family: var(--font-cinzel), "Palatino Linotype", Palatino, serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+
+.site-mission__brand-accent {
+  color: var(--accent-gold-bright);
+}
+
+.site-mission__kicker-rest {
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
 }
 
 /* Epic H.2 — whole brand block is one control to home */

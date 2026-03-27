@@ -15,7 +15,6 @@ import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
-import { SITE_MISSION_TEXT } from "@/lib/siteMission";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import {
   filterMountsByFarmSearchQuery,
@@ -45,6 +44,11 @@ const CATALOG_QA_MAX_RESULTS = 100;
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
+    : "";
+
+const highlightBannerUrl =
+  typeof process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL === "string"
+    ? process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL.trim()
     : "";
 
 export default function HomePage() {
@@ -203,7 +207,11 @@ export default function HomePage() {
       className="app-main app-shell"
     >
       <ShellTopbar />
-      <SiteBrand brandLogoUrl={brandLogoUrl} mission={SITE_MISSION_TEXT} />
+      <SiteBrand
+        brandLogoUrl={brandLogoUrl}
+        showMission
+        highlightBannerUrl={highlightBannerUrl}
+      />
 
       <HowToExportPanel />
 

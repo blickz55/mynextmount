@@ -3,11 +3,15 @@ import type { Metadata } from "next";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
 import { ADDON_INSTALL_DOCS_URL, getAddonListingUrl } from "@/lib/addonListing";
-import { SITE_MISSION_TEXT } from "@/lib/siteMission";
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
+    : "";
+
+const highlightBannerUrl =
+  typeof process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL === "string"
+    ? process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL.trim()
     : "";
 
 const addonListingUrl = getAddonListingUrl();
@@ -35,7 +39,8 @@ export default function ComingSoonPage() {
       <SiteBrand
         brandLogoUrl={brandLogoUrl}
         eyebrow={<p className="coming-soon-eyebrow">Coming soon</p>}
-        mission={SITE_MISSION_TEXT}
+        showMission
+        highlightBannerUrl={highlightBannerUrl}
       />
 
       <section

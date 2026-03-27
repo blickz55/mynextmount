@@ -28,6 +28,20 @@ function pickLogoBasename(files: string[]): string | null {
   return anyLogo ?? null;
 }
 
+/** `highlight image.png` or any `highlight*.{png,...}` except logo. */
+function pickHighlightBasename(files: string[]): string | null {
+  const byHighlight = files.find((f) => /^highlight\s*image\./i.test(f));
+  if (byHighlight) return byHighlight;
+  return (
+    files.find(
+      (f) =>
+        /^highlight/i.test(f) &&
+        !/logo/i.test(f) &&
+        /\.(png|svg|webp|jpe?g)$/i.test(f),
+    ) ?? null
+  );
+}
+
 /**
  * Copies one file from `data/images/` (preferred) or `data/` into `public/`
  * as `mynextmount-brand.<ext>` and returns its URL for SiteBrand.
@@ -54,11 +68,29 @@ function syncBrandLogoFromData(): string | null {
   return `/${destName}`;
 }
 
+function syncHighlightBannerFromData(): string | null {
+  if (!existsSync(dataDir)) return null;
+  const imagesDir = join(dataDir, "images");
+  if (!existsSync(imagesDir)) return null;
+  const files = listImageBasenames(imagesDir);
+  const name = pickHighlightBasename(files);
+  if (name == null) return null;
+  const src = join(imagesDir, name);
+  const ext = extname(name).toLowerCase();
+  const outExt = ext === ".jpeg" ? ".jpg" : ext;
+  const destName = `mynextmount-highlight${outExt}`;
+  mkdirSync(publicDir, { recursive: true });
+  copyFileSync(src, join(publicDir, destName));
+  return `/${destName}`;
+}
+
 const brandLogoPublicUrl = syncBrandLogoFromData();
+const highlightBannerPublicUrl = syncHighlightBannerFromData();
 
 const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_BRAND_LOGO_URL: brandLogoPublicUrl ?? "",
+    NEXT_PUBLIC_HIGHLIGHT_BANNER_URL: highlightBannerPublicUrl ?? "",
   },
 };
 
