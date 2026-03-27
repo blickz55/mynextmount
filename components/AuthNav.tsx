@@ -21,7 +21,7 @@ export function AuthNav() {
           Tool
         </Link>
         <Link href="/account" className="auth-nav__link">
-          My collection
+          My Mounts
         </Link>
         <button
           type="button"

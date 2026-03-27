@@ -61,6 +61,10 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 **Done (see archive):** **I.1**–**I.7** — listing URL, a11y, How To, mount preview ADR, farm list virtualization, full guide + digest coverage, **lightweight farm list + catalog search** on **`/tool`** (**`lib/farmListSearch.ts`**, **`docs/export-contract.md`** spell ID matching).
 
+### Backlog (not started)
+
+- **I.8 — Recommendation mode tooltips** — Add **“What’s this?”** (or similar) hover affordances next to **Mode** on **`/tool`**. Use the existing **OpenAI** integration with a **detailed, structured prompt** to draft accurate, concise explanations for **Efficient (EV-style)**, **Balanced**, and **Rarest prestige**; human-review, then wire copy into tooltips. *Do not implement until prioritized.*
+
 ---
 
 # PHASE J — Explore / larger bets (promoted, not committed)

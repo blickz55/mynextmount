@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth-session";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
-import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
 import { mounts } from "@/lib/mounts";
@@ -16,7 +15,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export const metadata: Metadata = {
-  title: "My collection",
+  title: "My Mounts",
   description:
     "Saved mount export, completion stats, and weekly farm suggestions for MyNextMount.",
 };
@@ -104,8 +103,7 @@ export default async function AccountPage() {
         showMission
         highlightBannerUrl={highlightBannerUrl}
       />
-      <HowToExportPanel />
-      <h2 className="section-title">My collection</h2>
+      <h2 className="section-title">My Mounts</h2>
       <p className="lead">
         Signed in as <strong>{user.email}</strong>. Your saved export is used for
         completion stats and the weekly suggestions below — same rules as the

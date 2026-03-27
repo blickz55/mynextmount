@@ -642,7 +642,10 @@ html[data-theme="dark"] .auth-nav__btn {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  align-self: stretch;
   text-align: center;
+  gap: 0.4rem;
 }
 
 .how-to-step--slash {
@@ -650,6 +653,7 @@ html[data-theme="dark"] .auth-nav__btn {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-self: stretch;
   text-align: center;
 }
 
@@ -673,12 +677,15 @@ html[data-theme="dark"] .auth-nav__btn {
 .how-to-step__heading--slash {
   text-transform: none;
   letter-spacing: 0.04em;
-  font-size: clamp(0.72rem, 2.4vw, 0.88rem);
-  margin-bottom: 0.25rem;
+  font-size: clamp(0.8rem, 2.85vw, 1.02rem);
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
 }
 
 .how-to-step--paste .how-to-step__heading {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0;
+  font-size: clamp(0.76rem, 2.75vw, 0.95rem);
+  white-space: nowrap;
 }
 
 .how-to-step__sub {
@@ -730,7 +737,7 @@ html[data-theme="dark"] .auth-nav__btn {
 
 .how-to-step__arrow {
   display: block;
-  margin-top: 0.35rem;
+  margin-top: 0;
   font-size: 1.5rem;
   line-height: 1;
   color: var(--accent-gold-bright);
@@ -2015,7 +2022,11 @@ a.coming-soon-cta:focus-visible {
   }
 
   .how-to-step__heading--slash {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
+  }
+
+  .how-to-step--paste .how-to-step__heading {
+    font-size: 0.7rem;
   }
 
   .lead,
