@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/lib/auth-session";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import {
   deserializeSpellIds,
@@ -15,20 +15,28 @@ export async function GET() {
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { collectionSpellIds: true, collectionUpdatedAt: true },
-  });
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { collectionSpellIds: true, collectionUpdatedAt: true },
+    });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const spellIds = deserializeSpellIds(
+      typeof user.collectionSpellIds === "string" ? user.collectionSpellIds : "",
+    );
+    return NextResponse.json({
+      spellIds,
+      updatedAt: user.collectionUpdatedAt?.toISOString() ?? null,
+    });
+  } catch (e) {
+    console.error("[api/collection GET]", e);
+    return NextResponse.json(
+      { error: "Could not load saved collection." },
+      { status: 500 },
+    );
   }
-  const spellIds = deserializeSpellIds(
-    typeof user.collectionSpellIds === "string" ? user.collectionSpellIds : "",
-  );
-  return NextResponse.json({
-    spellIds,
-    updatedAt: user.collectionUpdatedAt?.toISOString() ?? null,
-  });
 }
 
 export async function PUT(req: Request) {
@@ -61,18 +69,37 @@ export async function PUT(req: Request) {
   );
   const serialized = serializeSpellIds(nums);
 
-  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const user = await prisma.user.findUnique({ where: { id: session.user.id } });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: {
+        collectionSpellIds: serialized,
+        collectionUpdatedAt: new Date(),
+      },
+    });
+
+    return NextResponse.json({
+      ok: true,
+      count: deserializeSpellIds(serialized).length,
+    });
+  } catch (e) {
+    console.error("[api/collection PUT]", e);
+    const hint =
+      process.env.NODE_ENV === "development" && e instanceof Error
+        ? e.message
+        : undefined;
+    return NextResponse.json(
+      {
+        error: hint
+          ? `Save failed: ${hint}`
+          : "Save failed — server could not update your collection. If this persists, check database connectivity (e.g. DATABASE_URL on the host).",
+      },
+      { status: 500 },
+    );
   }
-
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: {
-      collectionSpellIds: serialized,
-      collectionUpdatedAt: new Date(),
-    },
-  });
-
-  return NextResponse.json({ ok: true, count: deserializeSpellIds(serialized).length });
 }

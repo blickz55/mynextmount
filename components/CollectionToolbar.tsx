@@ -24,12 +24,18 @@ export function CollectionToolbar({ parsedIds, onApplyParsedIds }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ spellIds: parsedIds }),
       });
-      const data = (await res.json().catch(() => ({}))) as {
-        error?: string;
-        count?: number;
-      };
+      const raw = await res.text();
+      let data: { error?: string; count?: number } = {};
+      try {
+        data = raw ? (JSON.parse(raw) as typeof data) : {};
+      } catch {
+        /* non-JSON error body */
+      }
       if (!res.ok) {
-        setMessage(data.error || "Save failed.");
+        setMessage(
+          data.error?.trim() ||
+            `Save failed (HTTP ${res.status}). Try again or sign out and back in.`,
+        );
         return;
       }
       setMessage(`Saved ${data.count ?? parsedIds.length} spell IDs to your account.`);

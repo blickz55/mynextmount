@@ -100,6 +100,11 @@ npm run dev
 | `GET/PUT /api/collection` | Read/write `collectionSpellIds` (authenticated). |
 | `DELETE /api/account` | Wipe account (authenticated). |
 
+## Troubleshooting save / load (production)
+
+- **Save fails in the UI:** The API returns JSON errors when possible. Check host logs for **`[api/collection PUT]`** or **`[api/collection GET]`** — common causes are **Prisma / Postgres** errors (pooler, `DATABASE_URL`, or cold start). Ensure **`DATABASE_URL`** on the server allows **writes** (e.g. Supabase **transaction pooler :6543** with **`pgbouncer=true`** in the query string, per Prisma + Supabase docs).
+- **Session alignment:** **`GET` / `PUT` `/api/collection`** and **`DELETE` `/api/account`** use **`auth` from `@/auth`**, the same NextAuth instance as **`[...nextauth]`**, so route handlers decode the same JWT as the browser session.
+
 ## Entitlements
 
 Signed-in users without billing use **`AUTHENTICATED_FREE_ENTITLEMENTS`** in **`types/entitlements.ts`** (same `plan: "free"` as anonymous until premium SKUs exist).
