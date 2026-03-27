@@ -89,13 +89,39 @@ function syncHighlightBannerFromData(): string | null {
   return `/${destName}`;
 }
 
+/** Site + addon icon: `data/images/faviconaddon.png` → `public/favicon.png`. */
+function syncFaviconFromData(): string | null {
+  if (!existsSync(dataDir)) return null;
+  const imagesDir = join(dataDir, "images");
+  if (!existsSync(imagesDir)) return null;
+  const candidates = [
+    "faviconaddon.png",
+    "faviconaddon.webp",
+    "faviconaddon.jpg",
+    "faviconaddon.jpeg",
+  ];
+  for (const base of candidates) {
+    const src = join(imagesDir, base);
+    if (!existsSync(src)) continue;
+    const ext = extname(base).toLowerCase();
+    const outExt = ext === ".jpeg" ? ".jpg" : ext;
+    const destName = `favicon${outExt}`;
+    mkdirSync(publicDir, { recursive: true });
+    copyFileSync(src, join(publicDir, destName));
+    return `/${destName}`;
+  }
+  return null;
+}
+
 const brandLogoPublicUrl = syncBrandLogoFromData();
 const highlightBannerPublicUrl = syncHighlightBannerFromData();
+const faviconPublicUrl = syncFaviconFromData();
 
 const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_BRAND_LOGO_URL: brandLogoPublicUrl ?? "",
     NEXT_PUBLIC_HIGHLIGHT_BANNER_URL: highlightBannerPublicUrl ?? "",
+    NEXT_PUBLIC_FAVICON_URL: faviconPublicUrl ?? "",
   },
 };
 

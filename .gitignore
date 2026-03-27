@@ -33,3 +33,8 @@ public/mynextmount-highlight.png
 public/mynextmount-highlight.jpg
 public/mynextmount-highlight.webp
 public/mynextmount-highlight.jpeg
+
+# Copied from data/images/faviconaddon.* (see next.config.ts)
+public/favicon.png
+public/favicon.webp
+public/favicon.jpg

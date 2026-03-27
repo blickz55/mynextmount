@@ -24,6 +24,11 @@ const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mynextmount.com"
 ).replace(/\/$/, "");
 
+const faviconUrl =
+  typeof process.env.NEXT_PUBLIC_FAVICON_URL === "string"
+    ? process.env.NEXT_PUBLIC_FAVICON_URL.trim()
+    : "";
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -42,6 +47,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "MyNextMount",
   },
+  ...(faviconUrl !== ""
+    ? {
+        icons: {
+          icon: [{ url: faviconUrl }],
+          apple: [{ url: faviconUrl }],
+        },
+      }
+    : {}),
 };
 
 export default function RootLayout({

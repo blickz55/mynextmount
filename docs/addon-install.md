@@ -14,7 +14,7 @@ Slash commands:
 
 ## Install (Retail)
 
-1. Copy the folder **`addons/MyNextMount`** from this repo into your WoW **Retail** add-ons directory, so you have:
+1. Copy the folder **`addons/MyNextMount`** from this repo into your WoW **Retail** add-ons directory (include the **`Media/`** folder — it holds **`mynextmount-icon.png`** for the AddOns list icon), so you have:
 
    `World of Warcraft\_retail_\Interface\AddOns\MyNextMount\MyNextMount.toc`
 

@@ -11,6 +11,11 @@ const brandLogoUrl =
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
     : "";
 
+const highlightBannerUrl =
+  typeof process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL === "string"
+    ? process.env.NEXT_PUBLIC_HIGHLIGHT_BANNER_URL.trim()
+    : "";
+
 export default function AccountError({
   error,
   reset,
@@ -25,7 +30,11 @@ export default function AccountError({
   return (
     <main id="main-content" tabIndex={-1} className="app-main app-shell">
       <ShellTopbar />
-      <SiteBrand brandLogoUrl={brandLogoUrl} />
+      <SiteBrand
+        brandLogoUrl={brandLogoUrl}
+        showMission
+        highlightBannerUrl={highlightBannerUrl}
+      />
       <h1 className="section-title">Couldn&apos;t load your collection</h1>
       <p className="lead">
         Something went wrong on the server. You can try again, or go back to the

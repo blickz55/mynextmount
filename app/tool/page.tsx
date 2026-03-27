@@ -219,7 +219,7 @@ export default function HomePage() {
         Paste your export here (summon spell IDs — same format the addon copies).
       </p>
       <label htmlFor="export" className="field-label">
-        Export string
+        Paste addon output here - type /mnm in game to generate
       </label>
       <textarea
         id="export"
