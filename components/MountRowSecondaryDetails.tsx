@@ -1,13 +1,6 @@
-import { MountGuideBlock } from "@/components/MountGuideBlock";
 import { WowheadCommentDigest } from "@/components/WowheadCommentDigest";
 import { resolveWowheadCommentsLink } from "@/lib/wowheadCommentsUrl";
 import type { Mount } from "@/types/mount";
-
-function farmSummary(hasGuide: boolean, hasSpotlightPanel: boolean): string {
-  if (hasGuide && hasSpotlightPanel) return "Farm guide & quick steps";
-  if (hasGuide) return "Farm guide & source";
-  return "Quick steps";
-}
 
 function mountHasSpotlightCopy(m: Mount): boolean {
   const lines = m.wowheadCommentDigest?.length ?? 0;
@@ -15,22 +8,20 @@ function mountHasSpotlightCopy(m: Mount): boolean {
 }
 
 /**
- * Epic D.3 — Collapsible secondary detail (guide + Wowhead) so the main line stays scannable.
+ * Epic D.3 — Collapsible quick steps + Wowhead (farm list); mount-guides.json is unused here.
  */
 export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
   const hasWowhead = resolveWowheadCommentsLink(mount) !== null;
   const hasDigest = mountHasSpotlightCopy(mount);
-  const hasGuide = Boolean(mount.guide);
-  if (!hasWowhead && !hasGuide && !hasDigest) return null;
+  if (!hasWowhead && !hasDigest) return null;
 
   return (
     <details className="expandable-row expandable-row--farm">
       <summary>
         <span className="sr-only">{mount.name}: </span>
-        {farmSummary(hasGuide, hasWowhead || hasDigest)}
+        Quick steps & Wowhead
       </summary>
       <div className="expandable-row__panel">
-        <MountGuideBlock mount={mount} />
         <WowheadCommentDigest mount={mount} />
       </div>
     </details>
