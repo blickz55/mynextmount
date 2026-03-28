@@ -8,16 +8,6 @@
       "Costs gold from the vendor; no lockout or RNG."
     ]
   },
-  "459": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Buy from Ogunaro Wolfrunner in Orgrimmar's Valley of Honor.",
-      "Requires Apprentice Riding.",
-      "Non-orcs need Exalted with Orgrimmar.",
-      "No lockout; vendor purchase, no RNG."
-    ]
-  },
   "468": {
     "asOf": "2026-03-28",
     "flavor": "",
@@ -73,16 +63,6 @@
       "Buy Timber Wolf for gold.",
       "Requires Orc character or Exalted with Orgrimmar.",
       "No lockout; vendor mount."
-    ]
-  },
-  "581": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Ogunaro Wolfrunner, Valley of Honor, Orgrimmar.",
-      "Buy Winter Wolf for gold.",
-      "Requires Exalted with Orgrimmar or Orc character.",
-      "No lockout; vendor purchase."
     ]
   },
   "3363": {
@@ -208,16 +188,6 @@
     "lines": [
       "Unobtainable in Retail; removed legacy night elf mount.",
       "Not sold by any current vendor or BMAH."
-    ]
-  },
-  "10790": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to old Darnassus via Zidormi in Darkshore.",
-      "Buy the tiger from Lelanai near the city entrance.",
-      "Need Exalted with Darnassus, or be a Night Elf.",
-      "No lockout, no RNG; costs gold."
     ]
   },
   "10793": {
@@ -487,15 +457,6 @@
       "Kill Baron Rivendare in Undead Stratholme.",
       "Repeat farmable runs; limited to 10 instances hourly.",
       "Deathcharger drops with a low chance."
-    ]
-  },
-  "18363": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Buy a kodo from Harb Clawhoof, Bloodhoof Village, Mulgore.",
-      "Tauren buy immediately; others need Exalted with Thunder Bluff.",
-      "No lockout; costs gold from the mount vendor."
     ]
   },
   "18989": {
@@ -1861,14 +1822,6 @@
       "One chance per character each weekly reset"
     ]
   },
-  "59572": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Mei Francis in old Dalaran, Northrend.",
-      "Buy Black Polar Bear; no lockout or RNG."
-    ]
-  },
   "59650": {
     "asOf": "2026-03-28",
     "flavor": "",
@@ -2048,24 +2001,6 @@
       "No lockout; coordinate a raid for city assaults"
     ]
   },
-  "60136": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to old Dalaran, Northrend.",
-      "Buy from Mei Francis for gold.",
-      "No lockout; purchase anytime if available."
-    ]
-  },
-  "60140": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Mei Francis in old Dalaran, Northrend.",
-      "Buy it for 20,000 gold before reputation discounts.",
-      "No lockout, no RNG."
-    ]
-  },
   "60424": {
     "asOf": "2026-03-28",
     "flavor": "",
@@ -2200,17 +2135,6 @@
       "Earn A Horde of Hoofbeats achievement",
       "Claim Red Dragonhawk from the achievement reward",
       "No lockout; progress anytime as your collection grows"
-    ]
-  },
-  "62048": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Queue Black Temple during Burning Crusade Timewalking week",
-      "Kill Illidan Stormrage for the mount drop",
-      "Set raid to Timewalking; no normal or mythic option",
-      "One chance per character each Timewalking event",
-      "Low chance drop"
     ]
   },
   "63232": {
@@ -3534,16 +3458,6 @@
       "Buy Grand Expedition Yak for 120,000 gold."
     ]
   },
-  "123182": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Uncle Bigpocket in Kun-Lai Summit.",
-      "Buy Kafa Yak from the vendor.",
-      "No lockout; buy anytime if available.",
-      "Requires gold; no RNG."
-    ]
-  },
   "123886": {
     "asOf": "2026-03-28",
     "flavor": "",
@@ -3746,24 +3660,6 @@
       "Earn Exalted with Golden Lotus in Pandaria.",
       "Buy from Jaluu the Generous, Vale of Eternal Blossoms.",
       "Costs gold; no lockout or RNG."
-    ]
-  },
-  "127209": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Uncle Bigpocket in Kun-Lai Summit, One Keg.",
-      "Buy Black Riding Yak for 12000 gold.",
-      "No lockout; guaranteed vendor purchase."
-    ]
-  },
-  "127213": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Uncle Bigpocket in Kun-Lai Summit.",
-      "Buy the mount for gold from his vendor list.",
-      "No lockout; purchase once and learn immediately."
     ]
   },
   "127216": {
@@ -5216,16 +5112,6 @@
       "No lockout; grind until the achievement completes."
     ]
   },
-  "194046": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Complete the Draenor dungeon achievement criteria for this reward",
-      "Earn the achievement reward: Swift Spectral Rylak",
-      "Run Warlords of Draenor dungeons; difficulty varies by criterion",
-      "No RNG drop; no weekly lockout beyond achievement requirements"
-    ]
-  },
   "194464": {
     "asOf": "2026-03-28",
     "flavor": "",
@@ -6033,38 +5919,6 @@
       "Open Mount Journal and read the Source line",
       "Complete the listed achievement criteria",
       "Mount unlocks automatically when achievement completes"
-    ]
-  },
-  "239363": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Complete Glory of the Legion Hero achievement.",
-      "Finish all listed Legion dungeon achievement criteria.",
-      "Earn the mount automatically upon achievement completion.",
-      "No lockout; farm achievements anytime on any difficulty."
-    ]
-  },
-  "239766": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Enter Temple of Ahn'Qiraj in Silithus.",
-      "Farm trash mobs for Blue Qiraji Resonating Crystal.",
-      "Use it to learn Blue Qiraji War Tank.",
-      "Only usable inside Ahn'Qiraj raids.",
-      "No lockout on trash resets; low-chance drop."
-    ]
-  },
-  "239767": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Temple of Ahn'Qiraj, Silithus.",
-      "Farm bosses and trash for Red Qiraji Resonating Crystal.",
-      "Use it to learn Red Qiraji War Tank.",
-      "Mount works only inside Ahn'Qiraj raids.",
-      "No weekly lockout; low RNG from AQ40 drops."
     ]
   },
   "239770": {
@@ -7767,47 +7621,6 @@
       "Buy Alabaster Thunderwing with Trader's Tender when available",
       "Stock rotates monthly; wait for it to return",
       "No lockout; not a drop"
-    ]
-  },
-  "302794": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Go to Nazjatar and complete A Fathomless Gift.",
-      "Loot hidden treasures and scry treasure chests there.",
-      "Finish all achievement criteria for the mount reward.",
-      "Account-wide achievement reward; no lockout or RNG."
-    ]
-  },
-  "302795": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Complete Glory of the Ny'alotha Raider achievement meta.",
-      "Raid Ny'alotha on any difficulty for required achievements.",
-      "Receive Swift Spectral Magnetocraft from the completed meta.",
-      "No RNG; one-time achievement reward, no weekly lockout."
-    ]
-  },
-  "302796": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Complete Glory of the Ny'alotha Raider achievement meta",
-      "Earn all Ny'alotha raid achievement criteria",
-      "Mount is awarded immediately when meta completes",
-      "Can be done across multiple runs; no RNG",
-      "Ny'alotha is in Uldum and Vale assaults"
-    ]
-  },
-  "302797": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Complete the Shadowlands Glory of the Dragonflight Hero achievement.",
-      "Finish all listed Dragonflight dungeon glory achievements.",
-      "Mount is awarded immediately upon completing the meta-achievement.",
-      "No lockout; progress achievements whenever dungeon requirements allow."
     ]
   },
   "303767": {

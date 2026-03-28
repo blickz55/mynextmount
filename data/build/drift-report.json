@@ -1,26 +1,19 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-03-24T13:45:57.701Z",
+  "generatedAt": "2026-03-28T23:54:56.760Z",
   "current": {
     "apiMountIndexEntries": 1578,
-    "mountsJsonRows": 1578,
-    "apiUniqueSummonSpells": 1578,
+    "mountsJsonRows": 1559,
+    "apiUniqueSummonSpells": null,
     "namespace": "static-us",
     "region": "us",
-    "spellDiffRan": true,
+    "spellDiffRan": false,
     "spellDiffIncomplete": false
   },
   "deltaFromPrevious": {
     "apiMountIndexEntries": 0,
-    "mountsJsonRows": 0,
+    "mountsJsonRows": -19,
     "apiUniqueSummonSpells": null
   },
-  "spellDiff": {
-    "missingFromDataset": [],
-    "extraInDataset": [],
-    "missingCount": 0,
-    "extraCount": 0,
-    "detailFailures": 0,
-    "cacheHits": 1578
-  }
+  "spellDiff": null
 }

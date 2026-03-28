@@ -12,18 +12,6 @@
       "sourceUrl": "https://www.wowhead.com/spell=458",
       "sourceLabel": "Wowhead — Brown Horse (spell 458)"
     },
-    "459": {
-      "overview": "Gray Wolf is a vendor mount, so there is no farming or drop chance involved. You just need to find the correct vendor for your faction and make sure you meet any purchase requirements such as gold, reputation, or riding skill. Because vendor availability can vary by patch and character progress, verify the exact source details on the linked page before you travel.",
-      "checklist": [
-        "Open Collections → Mounts, select Gray Wolf, and read its Source entry to identify the vendor and any requirements.",
-        "Check your faction, reputation, and riding skill in the character panel before traveling.",
-        "Travel to the listed zone or hub, find the vendor NPC, and open their shop window.",
-        "Buy Gray Wolf from the vendor and learn it from your mount journal.",
-        "If the vendor is phased or missing, use the map and nearby hub NPCs to locate the correct version of the vendor."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=459",
-      "sourceLabel": "Wowhead — Gray Wolf (spell 459)"
-    },
     "468": {
       "overview": "White Stallion is a vendor mount, so there is no farm or drop chance involved. Buy it from the appropriate vendor once you have the required gold and any reputation or other unlocks that may apply on the current Retail version. Because vendor availability can change by patch or faction, verify the exact requirements on the linked page before you travel.",
       "checklist": [
@@ -90,17 +78,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=580",
       "sourceLabel": "Wowhead — Timber Wolf (spell 580)"
-    },
-    "581": {
-      "overview": "Winter Wolf is a straightforward vendor mount, so there is no farm or drop chance involved. Buy it from the appropriate vendor once you meet the required reputation, currency, or other unlock conditions for your faction and character. Because vendor availability and requirements can change over time, verify the current details on the linked Wowhead page before you travel.",
-      "checklist": [
-        "Open Collections → Mounts, select Winter Wolf, and read the Source line to identify the vendor and any requirements.",
-        "Travel to the listed zone or faction hub and reach the correct vendor NPC.",
-        "Earn or gather the required currency, gold, or reputation before you buy.",
-        "Purchase Winter Wolf from the vendor once it appears in the shop window."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=581",
-      "sourceLabel": "Wowhead — Winter Wolf (spell 581)"
     },
     "3363": {
       "overview": "Nether-Warped Drake is a crafted profession mount, so there is no boss to farm and no weekly lockout to worry about. Your main task is to check the current recipe, required profession, and material list on the linked page, since crafted mount requirements can change with patches and economy updates. If you already have the profession setup, this is usually a gold-and-materials project rather than a grind.",
@@ -246,17 +223,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=10789",
       "sourceLabel": "Wowhead — Spotted Frostsaber (spell 10789)"
-    },
-    "10790": {
-      "overview": "Tiger is an achievement reward mount, so there is no traditional drop farm or weekly lockout to grind. The exact requirements can vary by achievement and may have changed over time, so check the linked page for the current criteria and any patch-specific notes before you start.",
-      "checklist": [
-        "Open the Achievements panel in the Collections journal and search for the Tiger-related achievement reward.",
-        "Track the achievement criteria, then complete each listed objective in Retail content.",
-        "Return to the achievement entry and claim the Tiger mount reward when the achievement completes.",
-        "If the achievement is account-wide or faction-specific, switch to the matching character and finish any remaining criteria."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=10790",
-      "sourceLabel": "Wowhead — Tiger (spell 10790)"
     },
     "10793": {
       "overview": "Striped Nightsaber is a vendor mount, so there is no farm or RNG involved. You just need to find the correct vendor for your faction and buy it if your character meets the requirements. Because vendor availability and requirements can change over time, verify the current details on the linked Wowhead page before you travel.",
@@ -572,17 +538,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=17481",
       "sourceLabel": "Wowhead — Rivendare's Deathcharger (spell 17481)"
-    },
-    "18363": {
-      "overview": "Riding Kodo is a vendor mount, so there is no drop or farm involved. You just need to find the correct vendor for your faction and pay the required gold, but the exact NPC and location can vary by version and patch. Check the linked page to confirm the current vendor details before you travel.",
-      "checklist": [
-        "Open Collections → Mounts, select Riding Kodo, and read the Source line for the vendor NPC and zone.",
-        "Travel to the listed vendor on the correct faction character and open the vendor window.",
-        "Buy Riding Kodo if you meet any required reputation, level, or currency requirement.",
-        "Learn the mount from your Mounts journal after purchase and add it to your favorites if desired."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=18363",
-      "sourceLabel": "Wowhead — Riding Kodo (spell 18363)"
     },
     "18989": {
       "overview": "Gray Kodo is a vendor mount, so there is no farm or lockout to grind. Buy it from the appropriate vendor once you have the required currency or reputation, and double-check the linked page for the current vendor and any patch-specific requirements. If the vendor location has changed over time, the Wowhead page should have the latest details.",
@@ -2150,17 +2105,6 @@
       "sourceUrl": "https://www.wowhead.com/spell=59571",
       "sourceLabel": "Wowhead — Twilight Drake (spell 59571)"
     },
-    "59572": {
-      "overview": "The Black Polar Bear is a vendor mount, so there is no RNG farm or dungeon lockout to worry about. The only real task is finding the correct vendor and paying the required currency or gold, which can vary by version and location. Check the linked page for the current vendor details before you travel.",
-      "checklist": [
-        "Open Collections → Mounts, select Black Polar Bear, and read the Source entry to identify the vendor and currency.",
-        "Travel to the vendor NPC in the listed zone or hub and open their shop window.",
-        "Buy Black Polar Bear if you have the required gold or currency.",
-        "If the vendor is faction-locked or seasonal, switch to the correct character and return when the vendor is available."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=59572",
-      "sourceLabel": "Wowhead — Black Polar Bear (spell 59572)"
-    },
     "59650": {
       "overview": "Black Drake is a rare drop mount, so expect a long farm rather than a guaranteed clear. Because drop rules and lockouts can change across patches, check the linked Wowhead page for the current source and any instance-specific notes before you start.",
       "checklist": [
@@ -2366,29 +2310,6 @@
       "sourceUrl": "https://www.wowhead.com/spell=60119",
       "sourceLabel": "Wowhead — Black War Bear (spell 60119)"
     },
-    "60136": {
-      "overview": "This mount is a vendor purchase, not a farm drop, so the main task is finding the correct vendor and meeting the required cost or reputation. The exact NPC and zone can vary by mount entry, so verify the current details on the linked Wowhead page before you travel. Once you have the requirements, you can buy it directly with no lockout or RNG involved.",
-      "checklist": [
-        "Open Collections → Mounts, select Grand Caravan Mammoth, and read the Source line to identify the vendor NPC and zone.",
-        "Check your gold, reputation, and any required currency or unlocks before traveling.",
-        "Use the map or nearest flight path to reach the vendor NPC in the listed zone.",
-        "Buy Grand Caravan Mammoth from the vendor and learn it from your mount journal.",
-        "If the vendor is phased or missing, swap to the correct faction or quest state and try again."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=60136",
-      "sourceLabel": "Wowhead — Grand Caravan Mammoth (spell 60136)"
-    },
-    "60140": {
-      "overview": "Grand Caravan Mammoth is a vendor mount, so there is no farm or drop chance involved. You just need to find the correct vendor and pay the required currency or gold, which can vary by source and patch. Check the linked page to confirm the current vendor and requirements before you travel.",
-      "checklist": [
-        "Open Collections > Mounts, search Grand Caravan Mammoth, and read the Source line for the vendor name and zone.",
-        "Travel to that vendor NPC in the listed zone using your map or flight points.",
-        "Check your gold and any required currency before interacting with the vendor.",
-        "Buy Grand Caravan Mammoth from the vendor and learn it from your bags."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=60140",
-      "sourceLabel": "Wowhead — Grand Caravan Mammoth (spell 60140)"
-    },
     "60424": {
       "overview": "Mekgineer's Chopper is a crafted profession mount, so there is no boss to farm and no drop chance to chase. You need the right profession setup, the recipe, and the required materials, which can vary by patch and server economy, so verify the current details on the linked Wowhead page before you start. Once everything is assembled, it is simply crafted or bought from a crafter.",
       "checklist": [
@@ -2549,17 +2470,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=61997",
       "sourceLabel": "Wowhead — Red Dragonhawk (spell 61997)"
-    },
-    "62048": {
-      "overview": "Illidari Doomhawk is a rare drop mount, so expect a long farm rather than a guaranteed reward. The exact source and any special rules can shift with game updates, so check the linked Wowhead page before you start and confirm the current drop location and lockout details.",
-      "checklist": [
-        "Open Collections → Mounts, search Illidari Doomhawk, and note the source entry and weekly lockout.",
-        "Travel to the listed dungeon or raid and set the correct difficulty before entering.",
-        "Clear to the source boss or eligible drop point, then loot it on every character each weekly reset.",
-        "Repeat the weekly farm across alts until Illidari Doomhawk drops; the rate is extremely low."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=62048",
-      "sourceLabel": "Wowhead — Illidari Doomhawk (spell 62048)"
     },
     "63232": {
       "overview": "Stormwind Steed is a vendor mount, so there is no farm or RNG involved. You just need to buy it from the appropriate vendor once you meet the required reputation, currency, or character restrictions; check the linked page for the current retail requirements and exact vendor location, since these can change over time.",
@@ -4063,17 +3973,6 @@
       "sourceUrl": "https://www.wowhead.com/spell=122708",
       "sourceLabel": "Wowhead — Grand Expedition Yak (spell 122708)"
     },
-    "123182": {
-      "overview": "Kafa Yak is a vendor mount, so there is no drop farm or weekly lockout to worry about. Check the linked page for the exact vendor and any current requirements, since vendor locations and purchase conditions can change with updates.",
-      "checklist": [
-        "Open Collections → Mounts, select Kafa Yak, and read the Source line for the vendor name and zone.",
-        "Travel to the listed vendor NPC and open the merchant window.",
-        "Check the purchase cost, reputation, or other requirements, then buy Kafa Yak if you qualify.",
-        "If the vendor is phased or missing, swap to the correct faction/hub or return after any required quest unlock."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=123182",
-      "sourceLabel": "Wowhead — Kafa Yak (spell 123182)"
-    },
     "123886": {
       "overview": "Amber Scorpion is a vendor mount, so there is no dungeon, raid, or RNG farm involved. The only real work is finding the correct vendor and meeting whatever currency, reputation, or achievement requirement that vendor asks for. Because vendor availability and requirements can change over time, verify the current details on the linked page before you travel.",
       "checklist": [
@@ -4303,28 +4202,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=127178",
       "sourceLabel": "Wowhead — Jungle Riding Crane (spell 127178)"
-    },
-    "127209": {
-      "overview": "Black Riding Yak is a vendor mount, so there is no farming or lockout involved. You just need to find the correct vendor and buy it once you have the required gold and any reputation or unlock requirements that may apply. Because vendor details and requirements can change over time, verify the current source page before heading out.",
-      "checklist": [
-        "Open Collections → Mounts, search Black Riding Yak, and read the Source entry for the vendor name and any unlock requirement.",
-        "Travel to the listed vendor NPC in the correct zone and faction hub.",
-        "Check the vendor’s mount tab or general goods list, then buy Black Riding Yak if you have the gold and meet any requirement.",
-        "If it is locked behind reputation or a faction condition, finish that requirement first and return to the vendor."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=127209",
-      "sourceLabel": "Wowhead — Black Riding Yak (spell 127209)"
-    },
-    "127213": {
-      "overview": "This is a vendor mount, not a random drop, so there is no farm or lockout to worry about. Buy the Modest Expedition Yak from the appropriate vendor once you have the required gold and any reputation or access conditions listed on the mount page. Because vendor location and requirements can change or be clarified over time, verify the current details on the linked Wowhead page before you travel.",
-      "checklist": [
-        "Open the Mounts journal, select Modest Expedition Yak, and read the Source entry to identify the vendor and any requirements.",
-        "Travel to the vendor NPC in the listed zone or hub.",
-        "Check the vendor window for the mount and any needed currency, reputation, or unlock condition.",
-        "Purchase the mount, then open Collections to learn it and add it to your mount list."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=127213",
-      "sourceLabel": "Wowhead — Modest Expedition Yak (spell 127213)"
     },
     "127216": {
       "overview": "Grey Riding Yak is a vendor mount, so there is no farming or drop chance involved. You just need to find the correct vendor and pay the required gold, but the exact NPC and zone can vary by version and availability, so verify the current details on the linked page before traveling. If the vendor is present, this is one of the quickest mounts to add to your collection.",
@@ -6004,18 +5881,6 @@
       "sourceUrl": "https://www.wowhead.com/spell=193695",
       "sourceLabel": "Wowhead — Prestigious War Steed (spell 193695)"
     },
-    "194046": {
-      "overview": "Swift Spectral Rylak is an achievement reward, so there is no traditional drop farm or boss lockout to repeat. The exact criteria can vary by patch or achievement version, so verify the current requirements on the linked Wowhead page before you start. Once you finish the achievement, the mount is awarded automatically.",
-      "checklist": [
-        "Open Collections → Mounts, select Swift Spectral Rylak, and read the Achievement source in the journal.",
-        "Open Achievements and track the mount’s achievement criteria so you can follow progress in-game.",
-        "Complete each listed objective on the required character, account, or faction setup if the criteria specify one.",
-        "Finish the achievement, then open the completed achievement reward to learn the mount.",
-        "Summon Swift Spectral Rylak from your Mount Journal to confirm it was added to your collection."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=194046",
-      "sourceLabel": "Wowhead — Swift Spectral Rylak (spell 194046)"
-    },
     "194464": {
       "overview": "Eclipse Dragonhawk is a vendor mount, so there is no farm or drop chance involved. The only real work is finding the correct vendor and making sure you have enough gold or the required currency; vendor locations can vary, so verify the current details on the linked page before you travel.",
       "checklist": [
@@ -6921,42 +6786,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=239049",
       "sourceLabel": "Wowhead — Obsidian Krolusk (spell 239049)"
-    },
-    "239363": {
-      "overview": "Swift Spectral Hippogryph is an achievement reward, so there is no boss to farm and no weekly lockout to worry about. The exact requirements can change with game updates or account progress, so check the linked page to confirm the current criteria before you start. Once you meet the achievement conditions, the mount is awarded automatically.",
-      "checklist": [
-        "Open the Mounts journal, find Swift Spectral Hippogryph, and read its Achievement source entry.",
-        "Open your Achievements panel and track the listed criteria for the mount reward.",
-        "Travel to the required zones or instances and complete each objective on your Retail character.",
-        "Finish the achievement, then claim the mount reward from the achievement pane or notification.",
-        "If any criteria are missing, use the in-game achievement tracker to pinpoint the remaining objectives."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=239363",
-      "sourceLabel": "Wowhead — Swift Spectral Hippogryph (spell 239363)"
-    },
-    "239766": {
-      "overview": "Blue Qiraji War Tank is tied to a seasonal world event, so it is only available when that event is active. Because event rewards and availability can change between patches, check the linked page and the in-game calendar before you plan a farm. If the event is live, focus on the event activities that award the mount rather than expecting a normal dungeon or raid drop.",
-      "checklist": [
-        "Open the in-game Calendar and note when the seasonal world event is active.",
-        "Open Collections → Mounts, select Blue Qiraji War Tank, and read its Source entry.",
-        "During the event, complete the event activities or currency turn-ins that can award the mount.",
-        "Keep farming while the event is live; there is no raid lockout, so you can repeat attempts as needed.",
-        "If the event is not active, wait for the next yearly return and check the Calendar again."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=239766",
-      "sourceLabel": "Wowhead — Blue Qiraji War Tank (spell 239766)"
-    },
-    "239767": {
-      "overview": "Red Qiraji War Tank is tied to a seasonal world event rather than a normal dungeon or raid farm. Check the in-game calendar and the linked page for the current event window, since availability and acquisition details can change with patches or event updates.",
-      "checklist": [
-        "Open the in-game Calendar and check the seasonal world event window for Red Qiraji War Tank.",
-        "Use the Mounts journal to select Red Qiraji War Tank and read its Source entry before traveling.",
-        "When the event is active, go to the event hub and complete the required world-event objectives or vendor steps.",
-        "Repeat the event content as needed during the active window until the mount drops or is purchased.",
-        "If the event is not live, note the next calendar date and return when the seasonal event starts again."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=239767",
-      "sourceLabel": "Wowhead — Red Qiraji War Tank (spell 239767)"
     },
     "239770": {
       "overview": "Black Qiraji War Tank is a quest reward mount, so there is no farmable drop or vendor route here. The exact quest chain and zone can vary, so check the linked page for the current acquisition details before you start. If the reward is still available on Retail, you’ll need to complete the required quest line rather than run a repeatable instance.",
@@ -8887,51 +8716,6 @@
       ],
       "sourceUrl": "https://www.wowhead.com/spell=302362",
       "sourceLabel": "Wowhead — Alabaster Thunderwing (spell 302362)"
-    },
-    "302794": {
-      "overview": "Swift Spectral Fathom Ray is an achievement reward, so there is no traditional drop farm for this mount. Your main task is to complete the achievement criteria tied to it, which can change with patches or achievement updates, so verify the current requirements on the linked page before you start. Once the achievement is finished, the mount is awarded automatically.",
-      "checklist": [
-        "Open the Achievements tab and search for Swift Spectral Fathom Ray or its parent achievement",
-        "Track the achievement and read each criterion so you can see the required zone, activity, or boss",
-        "Complete the listed objectives in-game, using the map and quest tracker to route each step",
-        "Return to the Achievements window and claim the reward once every criterion is marked complete"
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=302794",
-      "sourceLabel": "Wowhead — Swift Spectral Fathom Ray (spell 302794)"
-    },
-    "302795": {
-      "overview": "Swift Spectral Magnetocraft is an achievement reward, so there is no boss or mob to farm directly. The real work is completing the achievement criteria tied to it, which can vary by patch and account progress, so check the linked page for the current requirements before you start. Once the achievement is finished, the mount is awarded automatically.",
-      "checklist": [
-        "Open the Achievements tab and search for Swift Spectral Magnetocraft to read its criteria.",
-        "Track each required objective and complete the listed tasks in the relevant zones or activities.",
-        "Finish the achievement on the same character or account that meets the criteria.",
-        "Open Collections → Mounts and claim Swift Spectral Magnetocraft if it does not auto-unlock."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=302795",
-      "sourceLabel": "Wowhead — Swift Spectral Magnetocraft (spell 302795)"
-    },
-    "302796": {
-      "overview": "Swift Spectral Armored Gryphon is an achievement reward, so there is no boss or vendor to farm directly. Your job is to complete the achievement criteria tied to this mount, which can change depending on the game version and any future tuning. Check the linked Wowhead page for the current requirements and any patch-specific notes before you start.",
-      "checklist": [
-        "Open the Mounts journal, select Swift Spectral Armored Gryphon, and read the achievement criteria in the Source panel.",
-        "Track the achievement in your UI, then complete each listed objective in the most efficient order for your account.",
-        "Use the achievement tracker and map to finish any zone, dungeon, or event requirements; swap characters if a criterion is character-specific.",
-        "When every criterion is complete, open Achievements and claim the reward from the completed achievement.",
-        "Learn the mount from your collection and add it to your favorites or mount bar if desired."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=302796",
-      "sourceLabel": "Wowhead — Swift Spectral Armored Gryphon (spell 302796)"
-    },
-    "302797": {
-      "overview": "Swift Spectral Pterrordax is an achievement reward, so there is no boss or mob to farm directly. Your job is to complete the listed achievement criteria on the mount’s Wowhead page, then claim the reward once the achievement is finished. Because achievement requirements can change with patches or account progress, verify the current criteria on the linked page before you start.",
-      "checklist": [
-        "Open Collections → Mounts, select Swift Spectral Pterrordax, and read the achievement source text.",
-        "Open the Achievements panel and track the listed criteria for the mount reward.",
-        "Complete every required objective on the same character or account, following the achievement requirements.",
-        "When the achievement completes, claim the mount reward from the achievement window or reward popup."
-      ],
-      "sourceUrl": "https://www.wowhead.com/spell=302797",
-      "sourceLabel": "Wowhead — Swift Spectral Pterrordax (spell 302797)"
     },
     "303767": {
       "overview": "Honeyback Hivemother is a Retail mount tied to the Honeyback hive content, so this is not a random world drop. Check the linked Wowhead page for the current unlock method and any patch-specific requirements before you start, since mount acquisition details can change over time. If the page shows a questline, reputation, or achievement gate, complete that first and then return to claim the mount.",

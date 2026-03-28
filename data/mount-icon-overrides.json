@@ -2,9 +2,6 @@
   "458": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_ridinghorse.jpg"
   },
-  "459": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_whitedirewolf.jpg"
-  },
   "468": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_ridinghorse.jpg"
   },
@@ -22,9 +19,6 @@
   },
   "580": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_blackdirewolf.jpg"
-  },
-  "581": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_whitedirewolf.jpg"
   },
   "3363": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_netherdrakepurple.jpg"
@@ -61,9 +55,6 @@
   },
   "10789": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_whitetiger.jpg"
-  },
-  "10790": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_jungletiger.jpg"
   },
   "10793": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_blackpanther.jpg"
@@ -145,9 +136,6 @@
   },
   "17481": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_undeadhorse.jpg"
-  },
-  "18363": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_misc_head_tauren_02.jpg"
   },
   "18989": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_kodo_01.jpg"
@@ -548,9 +536,6 @@
   "59571": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_drake_twilight.jpg"
   },
-  "59572": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_polarbear_black.jpg"
-  },
   "59650": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_drake_twilight.jpg"
   },
@@ -605,12 +590,6 @@
   "60119": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_polarbear_black.jpg"
   },
-  "60136": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_mammoth_brown.jpg"
-  },
-  "60140": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_mammoth_brown.jpg"
-  },
   "60424": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_misc_key_14.jpg"
   },
@@ -651,9 +630,6 @@
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_hunter_pet_dragonhawk.jpg"
   },
   "61997": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_hunter_pet_dragonhawk.jpg"
-  },
-  "62048": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_hunter_pet_dragonhawk.jpg"
   },
   "63232": {
@@ -1043,9 +1019,6 @@
   "122708": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_travellersyakmount.jpg"
   },
-  "123182": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_yakmount.jpg"
-  },
   "123886": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_hordescorpionamber.jpg"
   },
@@ -1105,12 +1078,6 @@
   },
   "127178": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_cranemount.jpg"
-  },
-  "127209": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_yakmountblack.jpg"
-  },
-  "127213": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_yakmountwhite.jpg"
   },
   "127216": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_mount_yakmountgrey.jpg"
@@ -1553,9 +1520,6 @@
   "193695": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_alliancepvpmount.jpg"
   },
-  "194046": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/spell_beastmaster_rylak.jpg"
-  },
   "194464": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/ability_hunter_pet_dragonhawk.jpg"
   },
@@ -1795,15 +1759,6 @@
   },
   "239049": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_trilobitemount_black.jpg"
-  },
-  "239363": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_mount_hippogryph_arcane.jpg"
-  },
-  "239766": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_misc_qirajicrystal_04.jpg"
-  },
-  "239767": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_misc_qirajicrystal_02.jpg"
   },
   "239770": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_ridingsilithid2.jpg"
@@ -2302,18 +2257,6 @@
   },
   "302362": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_encrypted22.jpg"
-  },
-  "302794": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_sharkraymount_1.jpg"
-  },
-  "302795": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_hunterkillershipblue.jpg"
-  },
-  "302796": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_misc_elitegryphonarmored.jpg"
-  },
-  "302797": {
-    "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_pterrordax2mount_white.jpg"
   },
   "303767": {
     "iconUrl": "https://render.worldofwarcraft.com/us/icons/56/inv_bee_black.jpg"
