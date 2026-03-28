@@ -38,5 +38,5 @@ After updating overrides, run **`npm run addon:sync-guides`** so the addon guide
 
 ## Related docs
 
-- **`docs/wowhead-digests.md`** — flavor + how-to copy in **`data/wowhead-comment-digests.json`** (OpenAI from metadata; no Wowhead scraping).
+- **`docs/wowhead-digests.md`** — optional flavor + short how-to lines in **`data/wowhead-comment-digests.json`** (OpenAI from metadata; no Wowhead scraping).
 - **`docs/wowhead-links.md`** — link behavior summary.

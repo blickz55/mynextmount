@@ -1,14 +1,14 @@
 import { resolveWowheadCommentsLink } from "@/lib/wowheadCommentsUrl";
 import type { Mount } from "@/types/mount";
 
-const MAX_LINES = 10;
+const MAX_LINES = 5;
 
 type Props = {
   mount: Mount;
 };
 
 /**
- * Mount spotlight (flavor + how-to bullets from JSON) + Wowhead link to comments tab.
+ * Quick acquisition bullets (and optional flavor) from JSON + Wowhead comments link.
  */
 export function WowheadCommentDigest({ mount }: Props) {
   const target = resolveWowheadCommentsLink(mount);
@@ -35,23 +35,22 @@ export function WowheadCommentDigest({ mount }: Props) {
     <div className="comment-digest">
       {hasCopy ? (
         <>
-          <p className="comment-digest__heading">Mount spotlight</p>
+          <p className="comment-digest__heading">
+            {flavor ? "Mount spotlight" : "Quick steps"}
+          </p>
           {flavor ? (
             <p className="comment-digest__flavor">{flavor}</p>
           ) : null}
           {lines.length > 0 ? (
-            <>
-              <p className="comment-digest__subheading">How to obtain</p>
-              <ul className="comment-digest__list">
-                {lines.map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ul>
-            </>
+            <ul className="comment-digest__list">
+              {lines.map((line, i) => (
+                <li key={i}>{line}</li>
+              ))}
+            </ul>
           ) : null}
           <p className="comment-digest__fineprint">
-            Spotlight copy is produced with OpenAI from our mount metadata (or edited by hand in
-            data). Treat as orientation only; confirm drops, vendors, and patch changes in-game.
+            Steps are generated with OpenAI from our mount metadata (or edited by hand). Verify
+            in-game; drops and vendors change with patches.
             {mount.wowheadCommentDigestAsOf
               ? ` Updated ${mount.wowheadCommentDigestAsOf}.`
               : ""}

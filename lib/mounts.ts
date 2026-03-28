@@ -108,11 +108,11 @@ function mergeIconOverride(mount: Mount): Mount {
   return { ...mount, iconUrl: url };
 }
 
-const DIGEST_MAX_LINES = 10;
+const DIGEST_MAX_LINES = 5;
 
 type DigestRow = { asOf?: string; lines?: unknown; flavor?: unknown };
 
-/** Epic D.5 — Flavor + acquisition bullets from `data/wowhead-comment-digests.json` (LLM or editorial). */
+/** Epic D.5 — Optional flavor + up to five acquisition bullets from `data/wowhead-comment-digests.json`. */
 function mergeWowheadCommentDigest(mount: Mount): Mount {
   const row = (wowheadCommentDigests as Record<string, DigestRow>)[String(mount.id)];
   if (!row) return mount;

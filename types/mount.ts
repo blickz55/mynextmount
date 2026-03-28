@@ -33,7 +33,7 @@ export type Mount = {
   farmTip?: string;
   /** Epic C.1 — optional checklist guide from `data/mount-guides.json`. */
   guide?: MountGuide;
-  /** Epic D.5 — acquisition / how-to bullets from `data/wowhead-comment-digests.json` (merged at load). */
+  /** Epic D.5 — short acquisition bullets from `data/wowhead-comment-digests.json` (merged at load; up to 5). */
   wowheadCommentDigest?: string[];
   /** Optional short flavor paragraph (same file; LLM or editorial). */
   wowheadMountFlavor?: string;

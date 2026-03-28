@@ -1,6 +1,6 @@
 # Roadmap: full farm guide experience for every mount
 
-This document is the **execution path** to replicate the rich expandable row (written **farm guide**, **“Why”** line, **mount spotlight** flavor + how-to bullets, **Wowhead** link to comments + disclaimer) for **all mounts in `data/mounts.json`**.
+This document is the **execution path** to replicate the rich expandable row (written **farm guide**, **“Why”** line, **quick steps** bullets and optional **flavor**, **Wowhead** link to comments + disclaimer) for **all mounts in `data/mounts.json`**.
 
 **Policy:** The maintainer may use **automated batch commands** (scripts + terminal) to fill **`mount-guides.json`**, **`wowhead-comment-digests.json`**, and **`farm-tips.json`**. **Human review is optional**; **third-party ToS and law** remain the **operator’s** responsibility. See **`docs/data-harvesting.md`** (*Maintainer override*), **`.cursorrules`** (*Content automation*), **`docs/guides.md`**, **`docs/wowhead-digests.md`**, **`docs/farm-tip-llm-workflow.md`**.
 
@@ -13,7 +13,7 @@ The UI already renders the card when data exists (`lib/mounts.ts` merges these a
 | Layer | File | Purpose |
 |--------|------|---------|
 | **Guide** | **`data/mount-guides.json`** | Overview + checklist + **sourceUrl** / **sourceLabel** (Epic C.1 / C.3 workflow). |
-| **Mount spotlight** | **`data/wowhead-comment-digests.json`** | Optional **`flavor`** + up to **10** **`lines`** (how to obtain) + **`asOf`** (Epic D.5); prefer **`npm run content:mount-flavor-batch`** from metadata. |
+| **Quick steps / spotlight** | **`data/wowhead-comment-digests.json`** | Optional **`flavor`** + up to **5** short **`lines`** + **`asOf`** (Epic D.5); prefer **`npm run content:mount-flavor-batch`** from metadata. |
 | **Why line** | **`data/farm-tips.json`** | Short one-liner merged into recommendation copy (optional LLM assist + review — Epic C.4). |
 
 **“Rich panel” (matches the flagship screenshot):** at least **guide + digest** on the same mount. **Farm tip** improves the headline **Why** but is tracked separately.

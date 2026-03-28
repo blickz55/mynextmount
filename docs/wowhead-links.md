@@ -13,7 +13,7 @@ If no item id is mapped, we fall back to the spell URL from **`wowheadUrl`** / *
 ## Behavior
 
 - Links open in a **new tab** (`target="_blank"`, `rel="noopener noreferrer"`).
-- **Epic D.5:** expandable rows show **Mount spotlight** (flavor + how-to bullets) and a separate Wowhead link — see **`docs/wowhead-digests.md`**.
+- **Epic D.5:** expandable rows show **Quick steps** (and optional flavor) plus a separate Wowhead link — see **`docs/wowhead-digests.md`**.
 
 ## If Wowhead changes URLs
 

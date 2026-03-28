@@ -4,9 +4,9 @@ import { resolveWowheadCommentsLink } from "@/lib/wowheadCommentsUrl";
 import type { Mount } from "@/types/mount";
 
 function farmSummary(hasGuide: boolean, hasSpotlightPanel: boolean): string {
-  if (hasGuide && hasSpotlightPanel) return "Farm guide & mount spotlight";
+  if (hasGuide && hasSpotlightPanel) return "Farm guide & quick steps";
   if (hasGuide) return "Farm guide & source";
-  return "Mount spotlight";
+  return "Quick steps";
 }
 
 function mountHasSpotlightCopy(m: Mount): boolean {
@@ -49,7 +49,7 @@ export function MountRarestSecondaryDetails({ mount }: { mount: Mount }) {
     <details className="expandable-row expandable-row--rarest">
       <summary>
         <span className="sr-only">{mount.name}: </span>
-        Mount spotlight & Wowhead
+        Quick steps & Wowhead
       </summary>
       <div className="expandable-row__panel">
         <WowheadCommentDigest mount={mount} />
