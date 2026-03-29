@@ -8,7 +8,10 @@ import { DeleteAccountButton } from "@/components/DeleteAccountButton";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
 import { mounts } from "@/lib/mounts";
-import { prisma } from "@/lib/prisma";
+import {
+  findAppUserFromSession,
+  sessionHasDbIdentity,
+} from "@/lib/prismaUserFromSession";
 import { retryAsync } from "@/lib/retryAsync";
 import { deserializeSpellIds } from "@/lib/savedCollection";
 import { computeWeeklyPlanMounts } from "@/lib/weeklyPlan";
@@ -43,7 +46,7 @@ function formatUpdatedAt(d: Date | null): string {
 
 export default async function AccountPage() {
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user || !sessionHasDbIdentity(session.user)) {
     redirect("/login?callbackUrl=/account");
   }
 
@@ -55,15 +58,7 @@ export default async function AccountPage() {
   let dbLoadFailed = false;
   try {
     user = await retryAsync(
-      () =>
-        prisma.user.findUnique({
-          where: { id: session.user.id },
-          select: {
-            email: true,
-            collectionSpellIds: true,
-            collectionUpdatedAt: true,
-          },
-        }),
+      () => findAppUserFromSession(session.user),
       { retries: 2, delayMs: 400 },
     );
   } catch (e) {

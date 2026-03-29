@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import {
+  findAppUserFromSession,
+  sessionHasDbIdentity,
+} from "@/lib/prismaUserFromSession";
 import { retryAsync } from "@/lib/retryAsync";
 import {
   deserializeSpellIds,
@@ -13,16 +17,12 @@ export const runtime = "nodejs";
 
 export async function GET() {
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user || !sessionHasDbIdentity(session.user)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     const user = await retryAsync(
-      () =>
-        prisma.user.findUnique({
-          where: { id: session.user.id },
-          select: { collectionSpellIds: true, collectionUpdatedAt: true },
-        }),
+      () => findAppUserFromSession(session.user),
       { retries: 2, delayMs: 350 },
     );
     if (!user) {
@@ -46,7 +46,7 @@ export async function GET() {
 
 export async function PUT(req: Request) {
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user || !sessionHasDbIdentity(session.user)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -75,13 +75,13 @@ export async function PUT(req: Request) {
   const serialized = serializeSpellIds(nums);
 
   try {
-    const user = await prisma.user.findUnique({ where: { id: session.user.id } });
+    const user = await findAppUserFromSession(session.user);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     await prisma.user.update({
-      where: { id: session.user.id },
+      where: { id: user.id },
       data: {
         collectionSpellIds: serialized,
         collectionUpdatedAt: new Date(),

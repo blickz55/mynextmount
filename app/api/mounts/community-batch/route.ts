@@ -4,6 +4,10 @@ import { auth } from "@/auth";
 import {
   MOUNT_COMMUNITY_BATCH_MAX,
 } from "@/lib/mountCommunityConstants";
+import {
+  findAppUserFromSession,
+  sessionHasDbIdentity,
+} from "@/lib/prismaUserFromSession";
 import { loadMountCommunitySummaries } from "@/lib/mountCommunityBatch";
 
 export const runtime = "nodejs";
@@ -38,7 +42,11 @@ export async function POST(req: Request) {
     (body as { spellIds?: unknown }).spellIds,
   );
   const session = await auth();
-  const userId = session?.user?.id;
+  let userId: string | undefined;
+  if (session?.user && sessionHasDbIdentity(session.user)) {
+    const u = await findAppUserFromSession(session.user);
+    userId = u?.id;
+  }
 
   try {
     const summaries = await loadMountCommunitySummaries(spellIds, userId);

@@ -5,6 +5,10 @@ import { mounts } from "@/lib/mounts";
 import { maybeNotifyAdminNegativeListingFeedback } from "@/lib/mountCommunityAlert";
 import { loadMountCommunitySummaries } from "@/lib/mountCommunityBatch";
 import { prisma } from "@/lib/prisma";
+import {
+  findAppUserFromSession,
+  sessionHasDbIdentity,
+} from "@/lib/prismaUserFromSession";
 
 export const runtime = "nodejs";
 
@@ -25,7 +29,11 @@ export async function POST(
   }
 
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user || !sessionHasDbIdentity(session.user)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const dbUser = await findAppUserFromSession(session.user);
+  if (!dbUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -52,7 +60,7 @@ export async function POST(
     );
   }
 
-  const userId = session.user.id;
+  const userId = dbUser.id;
 
   try {
     if (value === 0) {

@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import {
+  findAppUserFromSession,
+  sessionHasDbIdentity,
+} from "@/lib/prismaUserFromSession";
 import { loadMountCommunitySummaries } from "@/lib/mountCommunityBatch";
 import {
   MOUNT_COMMENT_MAX_LENGTH,
@@ -27,7 +31,11 @@ export async function GET(
   }
 
   const session = await auth();
-  const userId = session?.user?.id ?? null;
+  let userId: string | null = null;
+  if (session?.user && sessionHasDbIdentity(session.user)) {
+    const u = await findAppUserFromSession(session.user);
+    userId = u?.id ?? null;
+  }
 
   const defaultSummary = {
     commentCount: 0,
@@ -96,7 +104,11 @@ export async function POST(
   }
 
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user || !sessionHasDbIdentity(session.user)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const dbUser = await findAppUserFromSession(session.user);
+  if (!dbUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -123,7 +135,7 @@ export async function POST(
   try {
     const row = await prisma.mountComment.create({
       data: {
-        userId: session.user.id,
+        userId: dbUser.id,
         spellId,
         body: text,
       },
@@ -137,7 +149,7 @@ export async function POST(
 
     const summaryMap = await loadMountCommunitySummaries(
       [spellId],
-      session.user.id,
+      dbUser.id,
     );
     const summary = summaryMap[spellId];
 
