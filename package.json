@@ -35,6 +35,7 @@
     "content:guides-refine-checklists": "node scripts/content-guides-refine-checklists.mjs",
     "wowhead-digest:draft": "node scripts/wowhead-digest-llm-draft.mjs",
     "content:mount-flavor-batch": "node scripts/mount-flavor-batch.mjs",
+    "content:mount-hover-lore-batch": "node scripts/mount-hover-lore-batch.mjs",
     "content:mount-flavor-parse-fails": "node scripts/parse-flavor-batch-log.mjs",
     "data:ingest-wowhead-teach-item": "node scripts/ingest-wowhead-spell-teach-item.mjs",
     "scoring:compare": "tsx scripts/scoring-model-compare.ts"

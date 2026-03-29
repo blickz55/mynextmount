@@ -8,6 +8,8 @@ This file preserves **completed** epics and baseline notes for history. For **wh
 
 The repo already includes a **local Next.js** flow: paste `M:…` export string → validate → filter owned → score (Easiest / Rarest) → top 10 → basic “why” copy, plus a **“rarest you own”** showcase. Dataset uses **mount summon spell IDs** (see `docs/export-contract.md`). **`npm run data:merge-stubs`** writes **`data/mounts.stubs.json`** for export IDs missing from canonical **`mounts.json`** (Epic B.7 — dev staging; app merges at load). **Phase B** + **`docs/data-harvesting.md`** define building a **full harvested baseline** (Blizzard API + controlled Wowhead/wiki enrichment) and replacing stub-first workflows.
 
+**2026-03 (product):** **`/tool`** is behind **email/password beta enrollment** (**Epic I.11**). **Archivist** text on **View your mounts** hovers ships from committed **`data/mount-hover-lore.json`** (batch LLM), not a request-time API (**Epic I.9**). The **/** landing page signals **early alpha** (**Epic I.12**).
+
 **Do not remove** this flow while extending; evolve it.
 
 ---
@@ -742,7 +744,7 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 - **`app/layout.tsx`** — `export const viewport` (`width=device-width`, `initialScale=1`, **`viewportFit: cover`** for safe-area).
 - **`app/globals.css`** — `html { overflow-x: clip }`; **`body`** `min-height: 100dvh`; **`.app-main.app-shell`** uses **`max()`** with **`env(safe-area-inset-*)`** for notch / home indicator; **`max-width`** uses **`100dvw`** where supported.
-- **Touch targets ~44px** — **`.theme-toggle`**, **`.btn-primary`**, **`.disclosure-block > summary`**, **`.mode-fieldset label`**, **`.source-filter-option`**, **`.expandable-row > summary`**, **`.rarest-showcase-disclosure > summary`**, **`a.coming-soon-cta`**; slightly larger radio/checkbox hit area; **`-webkit-tap-highlight-color`** on key controls.
+- **Touch targets ~44px** — **`.theme-toggle`**, **`.btn-primary`**, **`.disclosure-block > summary`**, **`.mode-fieldset label`**, **`.source-filter-option`**, **`.mount-result-card__fold > summary`** (farm / rarest **Score** + **Quick steps**), **`.rarest-showcase-disclosure > summary`**, **`a.coming-soon-cta`**; slightly larger radio/checkbox hit area; **`-webkit-tap-highlight-color`** on key controls.
 - **≤390px** — Slightly larger copy for How To / lead / tagline; tighter **`.mount-result-card`** padding so the index badge fits.
 - **≤480px** — **`.source-filter-grid`** stacks in one column.
 - **≤640px** — **`.input-textarea`** `font-size: 1rem` to reduce iOS focus-zoom.
@@ -874,6 +876,81 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 
 ---
 
+## Epic I.8 — “View your mounts” disclosure polish + row links ✅ Complete
+
+### Requirement I.8.1
+
+**Implemented (2026-03)**
+
+- **`app/tool/page.tsx`** — **View Your Mounts** **`<summary>`** wraps **`owned-mounts-disclosure__bg`** (decorative layer) + **`owned-mounts-disclosure__label`** so the chevron and title sit above art.
+- **`app/globals.css`** — **`.owned-mounts-disclosure`** stronger CTA (border, gradient, shadow); **`.owned-mounts-disclosure__bg`** uses **`public/ui/owned-mounts-cta-bg.svg`** at ~40% opacity.
+- **`.owned-collection__viewport`** — **`scrollbar-width: none`**, **`-ms-overflow-style: none`**, **`::-webkit-scrollbar { display: none }`** — scroll preserved for wheel / touch / trackpad.
+- **`components/OwnedMountsCollection.tsx`** — rows link to **Wowhead** (**`wowheadUrl`** or **`/spell={id}`** fallback) via **`owned-collection__row--link`**; **`OwnedMountsLoreProvider`** wraps the grid (see **I.9**).
+- **`lib/tryParsePastedMountExport.ts`** — returns **ok-only** **`OkMountExport | null`** so the **`/tool`** paste handler’s **`parsed.ids`** type-checks under production **`tsc`** (Vercel build).
+
+---
+
+## Epic I.9 — Archivist hover lore (batched static JSON) ✅ Complete
+
+### Requirement I.9.1
+
+**Implemented (2026-03)**
+
+- **No live OpenAI on hover** — removed **`app/api/generate-lore`** and **`lib/openaiMountLore.ts`**; production cost is **batch-only**.
+- **`data/mount-hover-lore.json`** — keyed by summon spell id: **`lore`** (Markdown), **`asOf`**, **`model`**. Shipped empty **`{}`** until maintainers run the batch.
+- **`lib/mounts.ts`** — **`mergeMountHoverLore`** merges into **`Mount.mountHoverLore`** (**`types/mount.ts`**).
+- **`npm run content:mount-hover-lore-batch`** — **`scripts/mount-hover-lore-batch.mjs`**; helpers **`scripts/lib/mount-hover-lore-llm.mjs`**, **`scripts/lib/mount-lore-theme.mjs`** (theme heuristics aligned with **`lib/mountLoreTheme.ts`**). Loads **`mounts.json`** + **`mounts.stubs.json`** + Wowhead item overrides; default model **`gpt-5.4-mini`** (**`MOUNT_HOVER_LORE_LLM_MODEL`**). Flags: **`--apply`**, **`--only-missing`**, **`--lore-force`**, **`--limit`**, **`--spell-id`**, **`--spell-ids`**, **`--delay-ms`**, etc. Artifact **`data/build/mount-hover-lore-batch.json`** (gitignored); provenance **`data/mount-hover-lore-provenance.json`**.
+- **`components/MountLoreRelicTooltip.tsx`** — cursor-follow relic UI; resolves **prebaked** **`mountHoverLore`**, else **`wowheadMountFlavor`**, else maintainer hint (no fetch).
+- **`.env.example`**, **`.gitignore`**, **`package.json`**, **`docs/wowhead-digests.md`** — documented.
+
+**Workflow after new mounts:** refresh catalog (**`data:build`** / merge stubs), then **`npm run content:mount-hover-lore-batch -- --only-missing --apply`**, commit **`mount-hover-lore.json`**.
+
+---
+
+## Epic I.10 — Farm / rarest card disclosure chrome unified ✅ Complete
+
+### Requirement I.10.1
+
+**Implemented (2026-03)**
+
+- **`app/globals.css`** — **`.mount-result-card__fold`** provides one **chevron** treatment (no native triangle on **Score**) and **open-state** background (**`details[open]`** + summary tint).
+- **`components/FarmRecommendationsList.tsx`** — **Score** **`<details>`** adds **`mount-result-card__fold`**.
+- **`components/MountRowSecondaryDetails.tsx`** — **Quick steps & Wowhead** uses **`mount-result-card__fold`** + **`expandable-row--farm` / `--rarest`** (margins only); legacy **`.expandable-row > summary`** chevron rules removed in favor of the shared fold.
+
+---
+
+## Epic I.11 — `/tool` closed beta (auth gate) ✅ Complete
+
+### Requirement I.11.1
+
+**Implemented (2026-03)**
+
+- **`middleware.ts`** — unauthenticated **`/tool`** and **`/tool/*`** → **`/beta?callbackUrl=…`** (internal paths only).
+- **`app/beta/page.tsx`** + **`layout.tsx`** — **Sign up for Beta**; **`<Suspense>`** for **`useSearchParams`**; signed-in users **`replace`** to callback (default **`/tool`**).
+- **`lib/safeCallbackUrl.ts`** — open-redirect safe **`callbackUrl`** handling.
+- **`app/register/page.tsx`** + **`layout.tsx`** — preserves **`callbackUrl`** through **`/login?registered=1&…`**.
+- **`app/login/LoginForm.tsx`** — default post-login **`/tool`**; links to register / beta / home.
+- **`app/page.tsx`** — primary CTA **Sign up for Beta** → **`/beta`**; closed-beta copy in the actions section.
+- **`components/AuthNav.tsx`** — guest **Sign in** / **Register** with **`?callbackUrl=/tool`**; **Sign out** → **`/`**.
+- **`components/SmartSiteBrand.tsx`** — unauthenticated first visit → **`/beta`** (was **`/tool`**).
+- **`components/DeleteAccountButton.tsx`** — **Sign out** after delete → **`/`**.
+
+**Note:** Hover lore no longer uses an authenticated API route (**I.9**).
+
+---
+
+## Epic I.12 — Homepage “early alpha” positioning ✅ Complete
+
+### Requirement I.12.1
+
+**Implemented (2026-03)**
+
+- **`app/page.tsx`** — **`aside.home-alpha-callout`** under the brand: **Early alpha** eyebrow + body copy (rough edges, building for every collector, thanks for early use).
+- **`app/globals.css`** — **`.home-alpha-callout`**, **`__eyebrow`**, **`__body`** (gold-accent panel).
+- **Site metadata / Open Graph** on **`/`** — title and description reference **early alpha** and ongoing development.
+
+---
+
 ## Quick index (completed epics)
 
 | Phase | Epics |
@@ -886,7 +963,7 @@ Monetization explicitly gated on **§2.1** (personal-use stability checklist) **
 | **F** | F.1, F.2 (strategy) |
 | **G** | G.1, G.2 |
 | **H** | H.1, H.2 |
-| **I** | I.1, I.2, I.3, I.4, I.5, I.6, I.7 |
+| **I** | I.1–I.12 |
 
 ---
 

@@ -23,11 +23,13 @@ export type OwnedMountLoreHoverPayload = {
   location?: string;
   tags?: string[];
   theme: MountLoreTheme;
-  /** Shown if API missing or request fails */
+  /** From `data/mount-hover-lore.json` (batch); preferred. */
+  prebakedLore?: string;
+  /** Plain spotlight when no prebaked Archivist entry. */
   flavorFallback?: string;
 };
 
-type TooltipPhase = "hidden" | "loading" | "ready" | "error";
+type TooltipPhase = "hidden" | "ready" | "error";
 
 type LoreContextValue = {
   onRowEnter: (payload: OwnedMountLoreHoverPayload) => void;
@@ -41,9 +43,10 @@ export function useOwnedMountLoreRow(): LoreContextValue | null {
   return useContext(LoreRowContext);
 }
 
-const ENTER_MS = 160;
 const LEAVE_MS = 320;
-const CACHE_MAX = 80;
+
+const NO_ENTRY_MSG =
+  "No Archivist entry for this mount yet. Maintainer: run npm run content:mount-hover-lore-batch — see .env.example (batch uses OpenAI once; the site does not call the API on hover).";
 
 function clampTooltipTarget(
   clientX: number,
@@ -88,6 +91,22 @@ function LoreMarkdown({ text }: { text: string }) {
   );
 }
 
+function resolveHoverBody(payload: OwnedMountLoreHoverPayload): {
+  phase: "ready" | "error";
+  lore: string;
+  errorMsg: string | null;
+} {
+  const archivist = payload.prebakedLore?.trim();
+  if (archivist) {
+    return { phase: "ready", lore: archivist, errorMsg: null };
+  }
+  const fb = payload.flavorFallback?.trim();
+  if (fb) {
+    return { phase: "ready", lore: fb, errorMsg: null };
+  }
+  return { phase: "error", lore: "", errorMsg: NO_ENTRY_MSG };
+}
+
 export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
@@ -102,23 +121,10 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
   const [title, setTitle] = useState("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const activePayloadRef = useRef<OwnedMountLoreHoverPayload | null>(null);
-  const enterTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const abortRef = useRef<AbortController | null>(null);
-  const cacheRef = useRef(
-    new Map<number, { lore: string; theme: MountLoreTheme }>(),
-  );
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  const clearEnterTimer = useCallback(() => {
-    if (enterTimerRef.current) {
-      clearTimeout(enterTimerRef.current);
-      enterTimerRef.current = null;
-    }
   }, []);
 
   const clearLeaveTimer = useCallback(() => {
@@ -129,147 +135,41 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const hideNow = useCallback(() => {
-    clearEnterTimer();
     clearLeaveTimer();
-    abortRef.current?.abort();
-    abortRef.current = null;
-    activePayloadRef.current = null;
     visibleRef.current = false;
     setPhase("hidden");
     setLore("");
     setErrorMsg(null);
     setTitle("");
-  }, [clearEnterTimer, clearLeaveTimer]);
+  }, [clearLeaveTimer]);
 
   const scheduleHide = useCallback(() => {
-    clearEnterTimer();
     clearLeaveTimer();
     leaveTimerRef.current = setTimeout(() => {
       hideNow();
     }, LEAVE_MS);
-  }, [clearEnterTimer, clearLeaveTimer, hideNow]);
-
-  const runFetch = useCallback(
-    async (payload: OwnedMountLoreHoverPayload) => {
-      abortRef.current?.abort();
-      const ac = new AbortController();
-      abortRef.current = ac;
-
-      const cached = cacheRef.current.get(payload.spellId);
-      if (cached) {
-        if (activePayloadRef.current?.spellId !== payload.spellId) return;
-        setLore(cached.lore);
-        setTheme(cached.theme);
-        setPhase("ready");
-        return;
-      }
-
-      setPhase("loading");
-      setErrorMsg(null);
-      setLore("");
-      setTheme(payload.theme);
-      setTitle(payload.mountName);
-
-      try {
-        const res = await fetch("/api/generate-lore", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          signal: ac.signal,
-          body: JSON.stringify({
-            spellId: payload.spellId,
-            mountName: payload.mountName,
-            expansion: payload.expansion,
-            source: payload.source,
-            location: payload.location,
-            tags: payload.tags,
-            theme: payload.theme,
-          }),
-        });
-
-        const data = (await res.json().catch(() => ({}))) as {
-          ok?: boolean;
-          lore?: string;
-          theme?: MountLoreTheme;
-          code?: string;
-          message?: string;
-          error?: string;
-        };
-
-        if (activePayloadRef.current?.spellId !== payload.spellId) return;
-
-        if (res.status === 503 && data.code === "NO_API_KEY") {
-          const fb = payload.flavorFallback?.trim();
-          if (fb) {
-            setLore(fb);
-            setPhase("ready");
-            return;
-          }
-          setErrorMsg(
-            data.message ||
-              "Add OPENAI_API_KEY on the server to summon Archivist lore.",
-          );
-          setPhase("error");
-          return;
-        }
-
-        if (!res.ok || !data.ok || !data.lore?.trim()) {
-          const fb = payload.flavorFallback?.trim();
-          if (fb) {
-            setLore(fb);
-            setPhase("ready");
-            return;
-          }
-          setErrorMsg(
-            typeof data.error === "string"
-              ? data.error
-              : "The timeways shuddered; no tale returned.",
-          );
-          setPhase("error");
-          return;
-        }
-
-        const text = data.lore.trim();
-        const th = data.theme ?? payload.theme;
-        cacheRef.current.set(payload.spellId, { lore: text, theme: th });
-        if (cacheRef.current.size > CACHE_MAX) {
-          const first = cacheRef.current.keys().next().value;
-          if (first !== undefined) cacheRef.current.delete(first);
-        }
-        setLore(text);
-        setTheme(th);
-        setPhase("ready");
-      } catch (e) {
-        if (e instanceof DOMException && e.name === "AbortError") return;
-        if (activePayloadRef.current?.spellId !== payload.spellId) return;
-        const fb = payload.flavorFallback?.trim();
-        if (fb) {
-          setLore(fb);
-          setPhase("ready");
-          return;
-        }
-        setErrorMsg("The chronicle frayed before it could be read.");
-        setPhase("error");
-      }
-    },
-    [],
-  );
+  }, [clearLeaveTimer, hideNow]);
 
   const onRowEnter = useCallback(
     (payload: OwnedMountLoreHoverPayload) => {
       clearLeaveTimer();
-      activePayloadRef.current = payload;
       visibleRef.current = true;
       snapNextRef.current = true;
       setTitle(payload.mountName);
       setTheme(payload.theme);
 
-      clearEnterTimer();
-      enterTimerRef.current = setTimeout(() => {
-        if (activePayloadRef.current?.spellId !== payload.spellId) return;
-        void runFetch(payload);
-      }, ENTER_MS);
+      const r = resolveHoverBody(payload);
+      if (r.phase === "ready") {
+        setLore(r.lore);
+        setErrorMsg(null);
+        setPhase("ready");
+      } else {
+        setLore("");
+        setErrorMsg(r.errorMsg);
+        setPhase("error");
+      }
     },
-    [clearEnterTimer, clearLeaveTimer, runFetch],
+    [clearLeaveTimer],
   );
 
   const onRowMove = useCallback(
@@ -323,11 +223,9 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     return () => {
-      clearEnterTimer();
       clearLeaveTimer();
-      abortRef.current?.abort();
     };
-  }, [clearEnterTimer, clearLeaveTimer]);
+  }, [clearLeaveTimer]);
 
   const portal =
     mounted && phase !== "hidden"
@@ -341,17 +239,6 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
             <div className="mount-lore-relic__rim" aria-hidden />
             <div className="mount-lore-relic__inner">
               <p className="mount-lore-relic__title">{title}</p>
-              {phase === "loading" ? (
-                <div
-                  className="mount-lore-relic__loading"
-                  aria-label="Summoning lore"
-                >
-                  <span className="mount-lore-relic__shimmer" />
-                  <span className="mount-lore-relic__loading-text">
-                    The Archivist turns a page…
-                  </span>
-                </div>
-              ) : null}
               {phase === "ready" && lore ? (
                 <div
                   className="mount-lore-relic__body mount-lore-relic__body--ink"
@@ -360,7 +247,7 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
                   <LoreMarkdown text={lore} />
                 </div>
               ) : null}
-              {phase === "error" ? (
+              {phase === "error" && errorMsg ? (
                 <p className="mount-lore-relic__error">{errorMsg}</p>
               ) : null}
             </div>

@@ -5,6 +5,7 @@ import mountGuidesData from "@/data/mount-guides.json";
 import mountIconOverrides from "@/data/mount-icon-overrides.json";
 import wowheadItemBySpell from "@/data/overrides/wowhead-item-by-spell.json";
 import wowheadCommentDigests from "@/data/wowhead-comment-digests.json";
+import mountHoverLoreBySpell from "@/data/mount-hover-lore.json";
 import type { Mount } from "@/types/mount";
 import type { MountGuide } from "@/types/mountGuide";
 
@@ -134,12 +135,26 @@ function mergeWowheadCommentDigest(mount: Mount): Mount {
   };
 }
 
+type HoverLoreRow = { lore?: unknown };
+
+/** Pre-batched Archivist prose from `data/mount-hover-lore.json` (by spell id). */
+function mergeMountHoverLore(mount: Mount): Mount {
+  const row = (mountHoverLoreBySpell as Record<string, HoverLoreRow>)[
+    String(mount.id)
+  ];
+  const lore =
+    typeof row?.lore === "string" ? row.lore.trim() : "";
+  if (!lore) return mount;
+  return { ...mount, mountHoverLore: lore };
+}
+
 /** All mounts from static data; use this from recommendation / filter logic. */
 export const mounts: Mount[] = mergeCanonicalAndStubs()
   .map(mergeWowheadItemPage)
   .map(mergeFarmTips)
   .map(mergeGuide)
   .map(mergeIconOverride)
-  .map(mergeWowheadCommentDigest);
+  .map(mergeWowheadCommentDigest)
+  .map(mergeMountHoverLore);
 
 export type { Mount } from "@/types/mount";

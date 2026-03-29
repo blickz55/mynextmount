@@ -37,6 +37,8 @@ export type Mount = {
   wowheadCommentDigest?: string[];
   /** Optional short flavor paragraph (same file; LLM or editorial). */
   wowheadMountFlavor?: string;
+  /** Batch-generated Archivist hover lore (`data/mount-hover-lore.json`); Markdown. */
+  mountHoverLore?: string;
   /** ISO date string; editorial refresh of digest lines. */
   wowheadCommentDigestAsOf?: string;
 };

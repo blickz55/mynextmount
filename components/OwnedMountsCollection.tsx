@@ -91,6 +91,7 @@ function OwnedMountRow({ row: r }: { row: Row }) {
       location: r.mount.location,
       tags: r.mount.tags,
       theme: loreThemeWithRotation(r.mount, r.spellId),
+      prebakedLore: r.mount.mountHoverLore?.trim(),
       flavorFallback: r.mount.wowheadMountFlavor?.trim(),
     };
   }, [r]);
@@ -285,8 +286,9 @@ function OwnedMountsCollectionInner({ parsedIds, catalog }: Props) {
             Large list: scrollable window for {rows.length} mounts (faster UI).
           </>
         ) : null}{" "}
-        Hover a row for Archivist lore (set{" "}
-        <code className="inline-code">OPENAI_API_KEY</code> on the server).
+        Hover for Archivist lore from{" "}
+        <code className="inline-code">data/mount-hover-lore.json</code> (batch:
+        npm run content:mount-hover-lore-batch).
       </p>
       {useVirtual ? (
         <OwnedMountsGridVirtual rows={rows} />

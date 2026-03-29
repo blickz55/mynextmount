@@ -6,6 +6,8 @@ Expandable rows include **Quick steps** (or **Mount spotlight** when a **flavor*
 
 To drive **coverage for every mount** alongside written guides, use **`docs/guide-experience-roadmap.md`** and **`npm run data:guide-experience`**.
 
+**Archivist hover lore (owned collection):** Longer Markdown “timeways” prose for **View Your Mounts** hovers is **not** generated at request time. Run **`npm run content:mount-hover-lore-batch`** (see **`.env.example`**) to fill **`data/mount-hover-lore.json`**; **`lib/mounts.ts`** merges it into **`Mount.mountHoverLore`**. Re-run with **`--only-missing --apply`** after **`data:build`** adds new spell ids.
+
 ## How this ties to `mounts.json` (no manual merge)
 
 Digest copy is **not** copied into **`data/mounts.json`**. The app loads **`mounts.json`** and **`wowhead-comment-digests.json`** together and merges by spell id at runtime (**`lib/mounts.ts`** → **`mergeWowheadCommentDigest`**). If you ran **`content:mount-flavor-batch`** with **`--apply`**, **`data/wowhead-comment-digests.json`** is already updated; commit that file (and redeploy if needed). The optional build artifact **`data/build/mount-flavor-batch.json`** is only a batch snapshot — the live site uses the committed digest file.

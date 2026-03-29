@@ -21,6 +21,7 @@ data/build/guide-experience-coverage.json
 data/build/mount-guides-batch.json
 data/build/mount-guides-refine-checklists-batch.json
 data/build/mount-flavor-batch.json
+data/build/mount-hover-lore-batch.json
 data/build/mount-flavor-failed-spell-ids.txt
 data/build/wowhead-digest-from-web-batch.json
 data/build/scoring-model-compare.json
