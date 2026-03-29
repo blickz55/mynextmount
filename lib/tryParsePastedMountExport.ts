@@ -1,13 +1,15 @@
 import type { ParseMountExportResult } from "@/lib/parseMountExport";
 import { parseMountExport } from "@/lib/parseMountExport";
 
+export type OkMountExport = Extract<ParseMountExportResult, { ok: true }>;
+
 /**
  * Parse clipboard text that may include newlines or noise around an `M:…` export.
  * Returns null if nothing in the paste validates as a mount export.
  */
-export function tryParsePastedMountExport(raw: string): ParseMountExportResult | null {
+export function tryParsePastedMountExport(raw: string): OkMountExport | null {
   const strippedBom = raw.replace(/^\uFEFF/, "");
-  const tryOne = (s: string): ParseMountExportResult | null => {
+  const tryOne = (s: string): OkMountExport | null => {
     const r = parseMountExport(s.trim());
     return r.ok ? r : null;
   };
