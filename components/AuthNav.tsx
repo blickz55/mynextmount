@@ -15,12 +15,21 @@ export function AuthNav() {
   }
 
   if (session?.user) {
+    const email = session.user.email?.trim() ?? "";
+    const short =
+      email.length > 28 ? `${email.slice(0, 26)}…` : email || "Signed in";
     return (
       <nav className="auth-nav" aria-label="Account">
+        <span className="auth-nav__account" title={email || undefined}>
+          <span className="auth-nav__account-label">{short}</span>
+          <span className="auth-nav__badge" aria-hidden>
+            Account
+          </span>
+        </span>
         <Link href="/tool" className="auth-nav__link">
           Tool
         </Link>
-        <Link href="/account" className="auth-nav__link">
+        <Link href="/account" className="auth-nav__link" prefetch>
           My Mounts
         </Link>
         <button

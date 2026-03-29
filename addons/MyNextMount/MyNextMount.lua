@@ -7,6 +7,9 @@
 
 local ADDON_NAME = "MyNextMount"
 
+--- Registered canvas category for Settings API (also used by minimap right-click).
+local MNM_SettingsCategory = nil
+
 MyNextMountDB = MyNextMountDB or {}
 MyNextMountDB.websiteUrl = MyNextMountDB.websiteUrl or ""
 
@@ -327,11 +330,77 @@ local function RegisterOptionsPanel()
   end
 
   local category = Settings.RegisterCanvasLayoutCategory(canvas, displayTitle)
+  MNM_SettingsCategory = category
   category:SetOrder(500)
   if category.SetID then
     category:SetID(ADDON_NAME)
   end
   Settings.RegisterAddOnCategory(category)
+end
+
+local minimapButton
+
+local function OpenAddonSettings()
+  if MNM_SettingsCategory and Settings and Settings.OpenToCategory then
+    Settings.OpenToCategory(MNM_SettingsCategory)
+    return
+  end
+  print(
+    "|cff00ccff"
+      .. ADDON_NAME
+      .. ":|r Press Esc → Options → AddOns → "
+      .. ADDON_NAME
+      .. "."
+  )
+end
+
+local function EnsureMinimapButton()
+  if minimapButton then
+    return
+  end
+  if not Minimap then
+    return
+  end
+  minimapButton = CreateFrame("Button", "MyNextMountMinimapButton", Minimap)
+  minimapButton:SetSize(32, 32)
+  minimapButton:SetFrameStrata("MEDIUM")
+  minimapButton:SetFrameLevel(Minimap:GetFrameLevel() + 5)
+  minimapButton:SetPoint("CENTER", Minimap, "CENTER", -70, -12)
+  minimapButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+  local tex = minimapButton:CreateTexture(nil, "BACKGROUND")
+  tex:SetAllPoints()
+  tex:SetTexture("Interface\\AddOns\\MyNextMount\\Media\\mynextmount-icon.png")
+  minimapButton:SetHighlightTexture(
+    "Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight",
+    "ADD"
+  )
+  minimapButton:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:SetText(ADDON_NAME, 1, 1, 1)
+    GameTooltip:AddLine(
+      "Left-click: export for mynextmount.com (same as /mnm)",
+      0.85,
+      0.85,
+      1,
+      true
+    )
+    GameTooltip:AddLine(
+      "Right-click: addon options",
+      0.85,
+      0.85,
+      1,
+      true
+    )
+    GameTooltip:Show()
+  end)
+  minimapButton:SetScript("OnLeave", GameTooltip_Hide)
+  minimapButton:SetScript("OnClick", function(_, btn)
+    if btn == "RightButton" then
+      OpenAddonSettings()
+    else
+      RunExport()
+    end
+  end)
 end
 
 local function MigrateLegacySavedVariables()
@@ -370,6 +439,7 @@ loadFrame:SetScript("OnEvent", function(_, _, name)
   if name == ADDON_NAME then
     MigrateLegacySavedVariables()
     RegisterOptionsPanel()
+    EnsureMinimapButton()
   end
 end)
 

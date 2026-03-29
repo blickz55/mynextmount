@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ShellTopbar } from "@/components/ShellTopbar";
-import { SiteBrand } from "@/components/SiteBrand";
+import { SmartSiteBrand } from "@/components/SmartSiteBrand";
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
@@ -49,7 +49,7 @@ export default function RegisterPage() {
   return (
     <main id="main-content" tabIndex={-1} className="app-main app-shell">
       <ShellTopbar />
-      <SiteBrand brandLogoUrl={brandLogoUrl} />
+      <SmartSiteBrand brandLogoUrl={brandLogoUrl} />
       <h1 className="section-title">Create account</h1>
       <p className="lead">
         Store your <strong>M:…</strong> export on the server so you can reload it

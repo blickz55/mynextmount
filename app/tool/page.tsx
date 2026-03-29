@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import {
   useCallback,
   useEffect,
@@ -14,7 +15,10 @@ import { CollectionToolbar } from "@/components/CollectionToolbar";
 import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
 import { ShellTopbar } from "@/components/ShellTopbar";
-import { SiteBrand } from "@/components/SiteBrand";
+import {
+  SmartSiteBrand,
+  TOOL_ENGAGED_KEY,
+} from "@/components/SmartSiteBrand";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import {
   filterMountsByFarmSearchQuery,
@@ -52,6 +56,7 @@ const highlightBannerUrl =
     : "";
 
 export default function HomePage() {
+  const { status: sessionStatus } = useSession();
   const [exportString, setExportString] = useState("");
   const [mode, setMode] = useState<RecommendationMode>("efficient");
   const [parsedIds, setParsedIds] = useState<number[] | null>(null);
@@ -67,6 +72,13 @@ export default function HomePage() {
   const [debouncedCatalogSearch, setDebouncedCatalogSearch] = useState("");
   const resultsRef = useRef<HTMLElement>(null);
   const loadMoreSentinelRef = useRef<HTMLDivElement>(null);
+  const exportStringRef = useRef(exportString);
+  const [remoteSavedCount, setRemoteSavedCount] = useState<number | null>(null);
+  const [accountFetchSettled, setAccountFetchSettled] = useState(false);
+
+  useEffect(() => {
+    exportStringRef.current = exportString;
+  }, [exportString]);
 
   const unownedMounts = useMemo(() => {
     if (parsedIds === null) return [];
@@ -133,6 +145,13 @@ export default function HomePage() {
   }, [parsedIds, mode, sourceFilters, debouncedFarmSearch]);
 
   useEffect(() => {
+    if (sessionStatus !== "authenticated") {
+      setRemoteSavedCount(null);
+      setAccountFetchSettled(false);
+    }
+  }, [sessionStatus]);
+
+  useEffect(() => {
     if (parsedIds === null || sortedFarmList.length === 0) return;
     const reduceMotion =
       typeof window !== "undefined" &&
@@ -167,11 +186,68 @@ export default function HomePage() {
   }, []);
 
   const applyParsedIds = useCallback((ids: number[]) => {
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(TOOL_ENGAGED_KEY, "1");
+      }
+    } catch {
+      /* ignore */
+    }
     setExportString(`M:${ids.join(",")}`);
     setInputError(null);
     setParsedIds(ids);
     setOwnedRarestShowcase(selectTopOwnedByRarest(mounts, ids, 10));
   }, []);
+
+  useEffect(() => {
+    if (sessionStatus !== "authenticated") {
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/collection");
+        const data = (await res.json().catch(() => ({}))) as {
+          spellIds?: number[];
+        };
+        if (cancelled) {
+          return;
+        }
+        if (!res.ok) {
+          setRemoteSavedCount(0);
+          return;
+        }
+        const ids = Array.isArray(data.spellIds) ? data.spellIds : [];
+        setRemoteSavedCount(ids.length);
+        if (ids.length === 0) {
+          return;
+        }
+        const trimmed = exportStringRef.current.trim();
+        if (trimmed !== "") {
+          try {
+            const probe = parseMountExport(trimmed);
+            if (probe.ok && probe.ids.length > 0) {
+              return;
+            }
+          } catch {
+            /* fall through to hydrate */
+          }
+        }
+        applyParsedIds(ids);
+      } catch {
+        if (!cancelled) {
+          setRemoteSavedCount(0);
+        }
+      } finally {
+        if (!cancelled) {
+          setAccountFetchSettled(true);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionStatus, applyParsedIds]);
 
   const handleSubmit = useCallback(() => {
     try {
@@ -207,7 +283,7 @@ export default function HomePage() {
       className="app-main app-shell"
     >
       <ShellTopbar />
-      <SiteBrand
+      <SmartSiteBrand
         brandLogoUrl={brandLogoUrl}
         showMission
         highlightBannerUrl={highlightBannerUrl}
@@ -290,10 +366,17 @@ export default function HomePage() {
       <CollectionToolbar
         parsedIds={parsedIds}
         onApplyParsedIds={applyParsedIds}
+        remoteSavedCount={remoteSavedCount}
+        accountFetchSettled={accountFetchSettled}
       />
       {parsedIds !== null && (
         <>
-          <p className="status-block" role="status" aria-live="polite">
+          <p
+            id="mnm-collection-anchor"
+            className="status-block"
+            role="status"
+            aria-live="polite"
+          >
             Submitted {parsedIds.length}{" "}
             {parsedIds.length === 1 ? "mount" : "mounts"}.
           </p>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ShellTopbar } from "@/components/ShellTopbar";
-import { SiteBrand } from "@/components/SiteBrand";
+import { SmartSiteBrand } from "@/components/SmartSiteBrand";
 import { ADDON_INSTALL_DOCS_URL, getAddonListingUrl } from "@/lib/addonListing";
 
 const brandLogoUrl =
@@ -36,7 +36,7 @@ export default function ComingSoonPage() {
       className="app-main app-shell"
     >
       <ShellTopbar />
-      <SiteBrand
+      <SmartSiteBrand
         brandLogoUrl={brandLogoUrl}
         showMission
         highlightBannerUrl={highlightBannerUrl}

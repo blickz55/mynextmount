@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { retryAsync } from "@/lib/retryAsync";
 import {
   deserializeSpellIds,
   MAX_SAVED_SPELL_IDS,
@@ -16,10 +17,14 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { collectionSpellIds: true, collectionUpdatedAt: true },
-    });
+    const user = await retryAsync(
+      () =>
+        prisma.user.findUnique({
+          where: { id: session.user.id },
+          select: { collectionSpellIds: true, collectionUpdatedAt: true },
+        }),
+      { retries: 2, delayMs: 350 },
+    );
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

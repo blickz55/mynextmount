@@ -225,6 +225,34 @@ html[data-theme="dark"] > body {
   color: var(--text-muted);
 }
 
+.auth-nav__account {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: min(220px, 42vw);
+}
+
+.auth-nav__account-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.auth-nav__badge {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.32rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent-fel) 22%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--accent-fel) 40%, var(--border));
+}
+
 /* Match .btn-primary / coming-soon CTA gold */
 .auth-nav__link,
 .auth-nav__btn {
@@ -1420,6 +1448,20 @@ html[data-theme="dark"] .btn-primary {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   font-size: 0.88rem;
+}
+
+.collection-toolbar__signed-in-hint {
+  margin: 0 0 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.collection-toolbar__account-link {
+  font-weight: 600;
+  color: var(--accent-gold-bright);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .collection-toolbar--muted {

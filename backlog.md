@@ -65,6 +65,10 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 - **I.8 — Recommendation mode tooltips** — Add **“What’s this?”** (or similar) hover affordances next to **Mode** on **`/tool`**. Use the existing **OpenAI** integration with a **detailed, structured prompt** to draft accurate, concise explanations for **Efficient (EV-style)**, **Balanced**, and **Rarest prestige**; human-review, then wire copy into tooltips. *Do not implement until prioritized.*
 
+- **I.9 — Spike: faction-aware filtering (Horde / Alliance)** — Investigate whether Retail mount data + player context support **reliable faction-based filtering** (e.g. vendor/quest mounts that are Horde- or Alliance-only) without breaking the **ownership invariant**. Deliverable: short doc with **data sources** (journal APIs, `mounts.json` fields, Wowhead), **edge cases** (neutral, allied races, legacy), and a **go / no-go** for product scope.
+
+- **I.10 — Brand icon parity (site favicon + addon)** — Replace the **generic dragon** favicon with **MNM-branded** artwork; ensure the **in-game addon** uses the **same** asset (TOC **`IconTexture`**, minimap button, any future UI) so recognition matches the site. Coordinate with **`NEXT_PUBLIC_FAVICON_URL`** / build-time favicon pipeline.
+
 ---
 
 # PHASE J — Explore / larger bets (promoted, not committed)

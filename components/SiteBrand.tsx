@@ -13,6 +13,11 @@ type Props = {
   showMission?: boolean;
   /** Hero banner from `highlight image text.*` or `highlight image.*` at build. */
   highlightBannerUrl?: string;
+  /**
+   * Where the logo / hero title navigates (default `/`). Use `/tool` or `/` from
+   * SmartSiteBrand or server props when auth + saved collection should change home.
+   */
+  homeHref?: string;
 };
 
 /**
@@ -23,7 +28,9 @@ export function SiteBrand({
   eyebrow,
   showMission = false,
   highlightBannerUrl = "",
+  homeHref = "/",
 }: Props) {
+  const home = homeHref.trim() || "/";
   const hasMission = showMission;
   const hasBanner = highlightBannerUrl.trim() !== "";
   const showLogo = brandLogoUrl !== "" && !hasBanner;
@@ -63,7 +70,7 @@ export function SiteBrand({
 
       {hasBanner ? (
         <div className="site-brand__hero-stack">
-          <Link href="/" className="site-brand__home site-brand__home--hero">
+          <Link href={home} className="site-brand__home site-brand__home--hero">
             {titleHeading}
           </Link>
           {hasMission ? (
@@ -74,7 +81,7 @@ export function SiteBrand({
         </div>
       ) : (
         <div className="site-brand__row">
-          <Link href="/" className="site-brand__home">
+          <Link href={home} className="site-brand__home">
             {showLogo ? (
               <img
                 className="site-brand__logo"

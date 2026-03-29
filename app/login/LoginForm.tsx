@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { ShellTopbar } from "@/components/ShellTopbar";
-import { SiteBrand } from "@/components/SiteBrand";
+import { SmartSiteBrand } from "@/components/SmartSiteBrand";
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
@@ -51,7 +51,7 @@ export default function LoginForm() {
   return (
     <main id="main-content" tabIndex={-1} className="app-main app-shell">
       <ShellTopbar />
-      <SiteBrand brandLogoUrl={brandLogoUrl} />
+      <SmartSiteBrand brandLogoUrl={brandLogoUrl} />
       <h1 className="section-title">Sign in</h1>
       {registered && (
         <p className="status-block status-block--success" role="status">

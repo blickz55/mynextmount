@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { AccountStaleSessionActions } from "@/components/AccountStaleSessionActions";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
 import { mounts } from "@/lib/mounts";
 import { prisma } from "@/lib/prisma";
+import { retryAsync } from "@/lib/retryAsync";
 import { deserializeSpellIds } from "@/lib/savedCollection";
 import { computeWeeklyPlanMounts } from "@/lib/weeklyPlan";
 
@@ -52,14 +54,18 @@ export default async function AccountPage() {
   } | null = null;
   let dbLoadFailed = false;
   try {
-    user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: {
-        email: true,
-        collectionSpellIds: true,
-        collectionUpdatedAt: true,
-      },
-    });
+    user = await retryAsync(
+      () =>
+        prisma.user.findUnique({
+          where: { id: session.user.id },
+          select: {
+            email: true,
+            collectionSpellIds: true,
+            collectionUpdatedAt: true,
+          },
+        }),
+      { retries: 2, delayMs: 400 },
+    );
   } catch (e) {
     console.error("[account/page] prisma.user.findUnique", e);
     dbLoadFailed = true;
@@ -73,6 +79,7 @@ export default async function AccountPage() {
           brandLogoUrl={brandLogoUrl}
           showMission
           highlightBannerUrl={highlightBannerUrl}
+          homeHref="/tool"
         />
         <h2 className="section-title">My Mounts</h2>
         <p className="lead">
@@ -95,12 +102,40 @@ export default async function AccountPage() {
   }
 
   if (!user) {
-    redirect("/login");
+    return (
+      <main id="main-content" tabIndex={-1} className="app-main app-shell">
+        <ShellTopbar />
+        <SiteBrand
+          brandLogoUrl={brandLogoUrl}
+          showMission
+          highlightBannerUrl={highlightBannerUrl}
+          homeHref="/tool"
+        />
+        <h2 className="section-title">My Mounts</h2>
+        <p className="lead">
+          Your browser session is active, but we could not find a matching account
+          in the database (for example after a reset or provider change).
+        </p>
+        <AccountStaleSessionActions />
+        <p className="status-block">
+          <Link href="/tool">Open the tool</Link>
+          {" · "}
+          <Link href="/register">Create a new account</Link>
+        </p>
+      </main>
+    );
   }
 
   const rawSpellBlob =
     user.collectionSpellIds == null ? "" : String(user.collectionSpellIds);
-  const owned = deserializeSpellIds(rawSpellBlob);
+  let owned: number[] = [];
+  try {
+    owned = deserializeSpellIds(rawSpellBlob);
+  } catch (e) {
+    console.error("[account/page] deserializeSpellIds", e);
+  }
+
+  const brandHomeHref = owned.length > 0 ? "/" : "/tool";
   const ownedSet = new Set(owned);
   const catalogRetail = mounts.filter((m) => m.retailObtainable !== false);
   const matched = catalogRetail.filter((m) => ownedSet.has(m.id)).length;
@@ -120,6 +155,7 @@ export default async function AccountPage() {
         brandLogoUrl={brandLogoUrl}
         showMission
         highlightBannerUrl={highlightBannerUrl}
+        homeHref={brandHomeHref}
       />
       <h2 className="section-title">My Mounts</h2>
       <p className="lead">
@@ -154,8 +190,10 @@ export default async function AccountPage() {
           </p>
         ) : (
           <p className="status-block">
-            <Link href="/tool">Open the tool</Link> — use{" "}
-            <strong>Load saved collection</strong> after signing in.
+            <Link href="/tool">View my collection on the tool</Link> — when
+            you&apos;re signed in, your saved spell list loads automatically on
+            the recommender page (or use <strong>Sync from account</strong> if you
+            pasted a different export).
           </p>
         )}
       </section>
