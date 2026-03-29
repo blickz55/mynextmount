@@ -88,9 +88,9 @@ npm run dev
 
 ## User flows
 
-1. **Register** (`/register`) → **Sign in** (`/login`) → **`/account`** (collection stats, weekly suggestions, delete account).
-2. **`/tool`** — paste **`M:…`** as today. If signed in, **Save to my account** / **Load saved collection** sync spell IDs with the server (`PUT` / `GET` `/api/collection`).
-3. **Delete account** — `DELETE` `/api/account` removes the user row (and session ends via sign-out).
+1. **Register** (`/register`) → **Sign in** (`/login`) → **`/account`** (collection stats, weekly suggestions) and **`/account/settings`** (farm lockout timing, delete account).
+2. **`/tool`** — paste **`M:…`** as today. If signed in, **Save to my account** / **Load saved collection** sync spell IDs with the server (`PUT` / `GET` `/api/collection`). From **My Mounts**, **View my collection on the tool** uses **`/tool?loadSaved=1`** so the saved list is applied even if the textarea still holds an older export.
+3. **Delete account** — **`/account/settings`** → **Account data**; `DELETE` `/api/account` removes the user row (and session ends via sign-out).
 
 ## API surface
 
@@ -121,7 +121,7 @@ npm run dev
 
 ## Epic K.3 — lockout completion & weekly calendar
 
-- **`User.weeklyResetCalendar`:** **`AMERICAS_OCEANIA`** (default) or **`EUROPE`**. Boundaries (UTC): **Tuesday 15:00** vs **Wednesday 04:00** — see **`lib/mountLockoutAvailability.ts`**. **`/account`** exposes radio controls (**`WeeklyResetCalendarPreference`**).
+- **`User.weeklyResetCalendar`:** **`AMERICAS_OCEANIA`** (default) or **`EUROPE`**. Boundaries (UTC): **Tuesday 15:00** vs **Wednesday 04:00** — see **`lib/mountLockoutAvailability.ts`**. **`/account/settings`** exposes radio controls (**`WeeklyResetCalendarPreference`**).
 - **Table:** `MountLockoutCompletion` — **`userId`**, **`spellId`**, **`lastCompletedAt`**. Cascade-delete with user.
 - **Write path:** Same **`PUT /api/collection`** gate as farm attempts (**not** on duplicate snapshot / spam window). For each of the **top 50** farm-target spell IDs whose catalog **`lockout`** is **`daily`** or **`weekly`**, **`upsert`** **`lastCompletedAt = now`**.
 - **Read path:** **`POST /api/collection/farm-attempts`** merges catalog **`lockout`**, stored completion, and calendar into **`bySpellId[].lockout`**. **Daily** availability uses **24h** from **`lastCompletedAt`**. **Weekly** uses the current UTC period from the user’s calendar.

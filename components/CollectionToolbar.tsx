@@ -240,7 +240,11 @@ export function CollectionToolbar({
         <Link href="/account" className="collection-toolbar__account-link">
           My Mounts
         </Link>{" "}
-        for stats and weekly farm ideas.
+        for stats and weekly ideas, or{" "}
+        <Link href="/account/settings" className="collection-toolbar__account-link">
+          settings
+        </Link>{" "}
+        for lockout timing and account data.
       </p>
       <div className="collection-toolbar__actions">
         <button

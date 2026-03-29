@@ -32,6 +32,9 @@ export function AuthNav() {
         <Link href="/account" className="auth-nav__link" prefetch>
           My Mounts
         </Link>
+        <Link href="/account/settings" className="auth-nav__link" prefetch>
+          Settings
+        </Link>
         <button
           type="button"
           className="auth-nav__btn"

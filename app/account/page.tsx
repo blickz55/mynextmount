@@ -1,12 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import type { WeeklyResetCalendar } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { AccountStaleSessionActions } from "@/components/AccountStaleSessionActions";
-import { DeleteAccountButton } from "@/components/DeleteAccountButton";
-import { WeeklyResetCalendarPreference } from "@/components/WeeklyResetCalendarPreference";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
 import { computeCollectionProgressStats } from "@/lib/collectionProgressStats";
@@ -57,7 +54,6 @@ export default async function AccountPage() {
     email: string;
     collectionSpellIds: string;
     collectionUpdatedAt: Date | null;
-    weeklyResetCalendar: WeeklyResetCalendar;
   } | null = null;
   let dbLoadFailed = false;
   try {
@@ -158,6 +154,11 @@ export default async function AccountPage() {
         completion stats and the weekly suggestions below — same rules as the
         main tool (Retail catalog, unobtainable mounts excluded from farm math).
       </p>
+      <p className="status-block">
+        <Link href="/account/settings">Account settings</Link>
+        {" — "}
+        farm lockout timing, weekly reset calendar, and deleting your account.
+      </p>
 
       <section className="content-section" aria-labelledby="saved-heading">
         <h2 id="saved-heading" className="section-title account-section-heading">
@@ -195,25 +196,13 @@ export default async function AccountPage() {
           </p>
         ) : (
           <p className="status-block">
-            <Link href="/tool">View my collection on the tool</Link> — when
-            you&apos;re signed in, your saved spell list loads automatically on
-            the recommender page (or use <strong>Sync from account</strong> if you
-            pasted a different export).
+            <Link href="/tool?loadSaved=1">View my collection on the tool</Link>{" "}
+            — loads your saved spell list on the recommender (use this if the
+            textarea still has an old export). You can also use{" "}
+            <strong>Sync from account</strong> on the tool after pasting
+            something else.
           </p>
         )}
-      </section>
-
-      <section
-        className="content-section"
-        aria-labelledby="lockout-calendar-heading"
-      >
-        <h2
-          id="lockout-calendar-heading"
-          className="section-title account-section-heading"
-        >
-          Farm lockout timing
-        </h2>
-        <WeeklyResetCalendarPreference initial={user.weeklyResetCalendar} />
       </section>
 
       <section className="content-section" aria-labelledby="weekly-heading">
@@ -242,17 +231,6 @@ export default async function AccountPage() {
             ))}
           </ol>
         )}
-      </section>
-
-      <section className="content-section account-danger-zone" aria-labelledby="danger-heading">
-        <h2 id="danger-heading" className="section-title account-section-heading">
-          Account data
-        </h2>
-        <p className="section-intro">
-          Delete removes your email, password hash, and saved spell list from this
-          server.
-        </p>
-        <DeleteAccountButton />
       </section>
     </main>
   );

@@ -371,7 +371,7 @@ The app today: paste **`M:…`** → parse → filter owned → score (Easiest /
 
 **Goal:** Track whether a mount is **currently farmable** or **locked** (daily / weekly), aligned with catalog **`lockout`** field.
 
-**Shipped:** `MountLockoutCompletion`, `User.weeklyResetCalendar`, `PUT /api/collection` lockout upserts, `POST /api/collection/farm-attempts` **`lockout`** payload, `PATCH /api/account`, **`/account`** calendar UI, farm row **Available** / **Locked** — see **`docs/j7-accounts.md`** (Epic K.3).
+**Shipped:** `MountLockoutCompletion`, `User.weeklyResetCalendar`, `PUT /api/collection` lockout upserts, `POST /api/collection/farm-attempts` **`lockout`** payload, `PATCH /api/account`, **`/account/settings`** calendar UI, farm row **Available** / **Locked** — see **`docs/j7-accounts.md`** (Epic K.3).
 
 ### Feature K.3.1 — Lockout persistence
 

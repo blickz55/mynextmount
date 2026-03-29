@@ -421,6 +421,23 @@ export default function HomePage() {
     }
     let cancelled = false;
     (async () => {
+      const stripLoadSavedParam = () => {
+        if (typeof window === "undefined") return;
+        const u = new URL(window.location.href);
+        if (!u.searchParams.has("loadSaved")) return;
+        u.searchParams.delete("loadSaved");
+        const q = u.searchParams.toString();
+        window.history.replaceState(
+          {},
+          "",
+          `${u.pathname}${q ? `?${q}` : ""}${u.hash}`,
+        );
+      };
+
+      const forceLoadSaved =
+        typeof window !== "undefined" &&
+        new URLSearchParams(window.location.search).get("loadSaved") === "1";
+
       try {
         const res = await fetch("/api/collection");
         const data = (await res.json().catch(() => ({}))) as {
@@ -436,6 +453,12 @@ export default function HomePage() {
         const ids = Array.isArray(data.spellIds) ? data.spellIds : [];
         setRemoteSavedCount(ids.length);
         if (ids.length === 0) {
+          stripLoadSavedParam();
+          return;
+        }
+        if (forceLoadSaved) {
+          applyParsedIds(ids);
+          stripLoadSavedParam();
           return;
         }
         const trimmed = exportStringRef.current.trim();
