@@ -35,6 +35,10 @@ import {
   type SourceBucketId,
 } from "@/lib/mountSourceBucket";
 import { parseMountExport } from "@/lib/parseMountExport";
+import {
+  delegatesMountPasteToNativeControl,
+  tryParsePastedMountExport,
+} from "@/lib/tryParsePastedMountExport";
 import { recommendationScorer } from "@/lib/scoring";
 import { selectTopOwnedByRarest } from "@/lib/selectTopOwnedByRarest";
 import { sortMountsByScore } from "@/lib/selectTopMountsByScore";
@@ -267,6 +271,27 @@ export default function HomePage() {
       setOwnedRarestShowcase(null);
     }
   }, [exportString, applyParsedIds]);
+
+  useEffect(() => {
+    const onPaste = (e: ClipboardEvent) => {
+      if (delegatesMountPasteToNativeControl(e.target)) {
+        return;
+      }
+      const text = e.clipboardData?.getData("text/plain");
+      if (!text || !/\S/.test(text)) {
+        return;
+      }
+      const parsed = tryParsePastedMountExport(text);
+      if (!parsed) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      applyParsedIds(parsed.ids);
+    };
+    document.addEventListener("paste", onPaste);
+    return () => document.removeEventListener("paste", onPaste);
+  }, [applyParsedIds]);
 
   const filtersActive = anySourceFilterEnabled(sourceFilters);
   const showFarmSection = parsedIds !== null;
