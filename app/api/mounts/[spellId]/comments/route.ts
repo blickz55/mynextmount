@@ -29,8 +29,21 @@ export async function GET(
   const session = await auth();
   const userId = session?.user?.id ?? null;
 
+  const defaultSummary = {
+    commentCount: 0,
+    upCount: 0,
+    downCount: 0,
+    myVote: null as null | 1 | -1,
+  };
+
+  let rows: {
+    id: string;
+    body: string;
+    createdAt: Date;
+    userId: string;
+  }[] = [];
   try {
-    const rows = await prisma.mountComment.findMany({
+    rows = await prisma.mountComment.findMany({
       where: { spellId },
       orderBy: { createdAt: "desc" },
       take: MOUNT_COMMENTS_PAGE_SIZE,
@@ -41,34 +54,35 @@ export async function GET(
         userId: true,
       },
     });
+  } catch (e) {
+    console.error("[api/mounts/.../comments GET] mountComment.findMany", e);
+    rows = [];
+  }
 
+  let summary = defaultSummary;
+  try {
     const summaryMap = await loadMountCommunitySummaries(
       [spellId],
       userId ?? undefined,
     );
-    const summary = summaryMap[spellId] ?? {
-      commentCount: 0,
-      upCount: 0,
-      downCount: 0,
-      myVote: null,
-    };
-
-    return NextResponse.json({
-      comments: rows.map((r) => ({
-        id: r.id,
-        body: r.body,
-        createdAt: r.createdAt.toISOString(),
-        isYou: userId !== null && r.userId === userId,
-      })),
-      summary,
-    });
+    summary = summaryMap[spellId] ?? defaultSummary;
   } catch (e) {
-    console.error("[api/mounts/.../comments GET]", e);
-    return NextResponse.json(
-      { error: "Could not load comments." },
-      { status: 500 },
-    );
+    console.error("[api/mounts/.../comments GET] loadMountCommunitySummaries", e);
+    summary = {
+      ...defaultSummary,
+      commentCount: rows.length,
+    };
   }
+
+  return NextResponse.json({
+    comments: rows.map((r) => ({
+      id: r.id,
+      body: r.body,
+      createdAt: r.createdAt.toISOString(),
+      isYou: userId !== null && r.userId === userId,
+    })),
+    summary,
+  });
 }
 
 export async function POST(
