@@ -19,11 +19,11 @@ const addonListingUrl = getAddonListingUrl();
 export const metadata: Metadata = {
   title: "Coming soon",
   description:
-    "MyNextMount is a World of Warcraft helper that tells you what mounts to farm next from the ones you already own — with clear sources, guides, and an in-game export addon. Public launch is on the way.",
+    "Early alpha: MyNextMount is a World of Warcraft mount helper still in active development — we’re building toward a tool that’s useful for every collector. Farm suggestions from what you own, guides, and an in-game export addon.",
   openGraph: {
-    title: "MyNextMount — coming soon",
+    title: "MyNextMount — early alpha",
     description:
-      "Know what to farm next from your mount collection. Trustworthy links, step-by-step guidance, and a WoW addon that exports what you own.",
+      "We’re in early alpha and still building. A mount farming companion: know what to farm next from your collection, with guides and a WoW addon export.",
     url: "/",
   },
 };
@@ -41,6 +41,20 @@ export default function ComingSoonPage() {
         showMission
         highlightBannerUrl={highlightBannerUrl}
       />
+
+      <aside
+        className="home-alpha-callout"
+        aria-label="Product development stage"
+      >
+        <p className="home-alpha-callout__eyebrow">Early alpha</p>
+        <p className="home-alpha-callout__body">
+          You&apos;re seeing MyNextMount while it&apos;s still rough around the
+          edges. We&apos;re shipping and iterating so the product becomes
+          genuinely useful for <strong>every</strong> mount collector—not just
+          early testers. Expect changes, missing polish, and the occasional bug;
+          we appreciate everyone who tries it while we build.
+        </p>
+      </aside>
 
       <section
         className="how-to-panel coming-soon-pitch"
