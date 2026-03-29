@@ -40,3 +40,6 @@ public/mynextmount-highlight.jpeg
 public/favicon.png
 public/favicon.webp
 public/favicon.jpg
+
+# Local Gemini scratch exports (not shipped assets)
+data/images/Gemini_*.png
