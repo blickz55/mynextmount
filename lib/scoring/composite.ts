@@ -14,19 +14,22 @@ import type {
   ScoringContext,
 } from "./types";
 
+/** Plain-language hints for the score breakdown (shown under “Score” on farm cards). */
 const REASON_LABEL: Record<CompositeFactorKey, string> = {
-  easeFromDifficulty: "Approachable content",
-  dropLogProspect: "Forgiving drop odds (log-scaled)",
-  dropLinear: "Raw drop rate",
-  dropScarcity: "Rare drop table",
-  timeEfficiency: "Short runs",
-  difficultyIntensity: "Harder content",
-  rareTagBonus: "Rare-tagged mount",
-  lockoutFlex: "Many attempts per week",
-  accessibility: "Predictable source (vendor/quest/etc.)",
-  prestige: "Trophy / prestige",
-  evThroughput: "Value throughput (EV-style proxy)",
-  progressProximity: "Close to collection goal",
+  easeFromDifficulty: "Easier content—we weight low difficulty here",
+  dropLogProspect: "Drop odds look friendlier than the worst ultra-rares",
+  dropLinear: "Listed drop rate helps this row",
+  dropScarcity: "Very rare on paper (low listed drop chance)",
+  timeEfficiency: "Runs are relatively short per attempt",
+  difficultyIntensity: "Hooked to harder content (prestige)",
+  rareTagBonus: "Tagged as a rare spawn or rare drop in our data",
+  lockoutFlex: "You can try often—not stuck on a single weekly lockout",
+  accessibility: "Straightforward source (vendor, quest, shop, event, etc.)",
+  prestige: "Feels like a trophy (scarce, tough, or rare-tagged)",
+  evThroughput:
+    "Good mix of drop chance, time per run, and tries you can fit in a week",
+  progressProximity:
+    "Lines up with how complete you are in this expansion (when we know it)",
 };
 
 function sumWeights(w: CompositeWeights): number {
@@ -70,16 +73,21 @@ function applyWeights(
 
 function buildReasons(
   weighted: Partial<Record<CompositeFactorKey, number>>,
+  totalScore: number,
   limit = 4,
 ): string[] {
   const entries = Object.entries(weighted)
     .filter(([, v]) => typeof v === "number" && v > 0)
     .sort((a, b) => b[1]! - a[1]!)
     .slice(0, limit);
-  return entries.map(
-    ([k, v]) =>
-      `${REASON_LABEL[k as CompositeFactorKey] ?? k}: ${(v as number).toFixed(3)}`,
-  );
+  return entries.map(([k, v]) => {
+    const part = v as number;
+    const label = REASON_LABEL[k as CompositeFactorKey] ?? String(k);
+    if (!(totalScore > 1e-12)) return label;
+    const pct = Math.round((100 * part) / totalScore);
+    const clamped = Math.min(100, Math.max(1, pct));
+    return `${label} (~${clamped}% of this recommendation score).`;
+  });
 }
 
 /** Exact legacy `scoreRarest` with explainable terms (same numeric result). */
@@ -110,7 +118,7 @@ export function scoreMountComposite(
     score,
     factors,
     weighted,
-    reasons: buildReasons(weighted),
+    reasons: buildReasons(weighted, score),
     profileId,
   };
 }
