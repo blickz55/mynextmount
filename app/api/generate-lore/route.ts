@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 
+import { auth } from "@/auth";
 import type { MountLoreTheme } from "@/lib/mountLoreTheme";
 import {
   fetchMountLoreFromOpenAI,
   resolveMountLoreEnv,
 } from "@/lib/openaiMountLore";
+import { sessionHasDbIdentity } from "@/lib/prismaUserFromSession";
 
 export const runtime = "nodejs";
 
@@ -43,6 +45,11 @@ function normalizeTags(raw: unknown): string[] {
 }
 
 export async function POST(req: Request) {
+  const session = await auth();
+  if (!session?.user || !sessionHasDbIdentity(session.user)) {
+    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+  }
+
   const { apiKey } = resolveMountLoreEnv();
   if (!apiKey) {
     return NextResponse.json(

@@ -12,7 +12,7 @@ const TOOL_ENGAGED_KEY = "mnm_tool_engaged_v1";
 type Props = Omit<ComponentProps<typeof SiteBrand>, "homeHref">;
 
 /**
- * Picks logo/hero destination: first-time guests → tool; returning guests → marketing `/`;
+ * Picks logo/hero destination: first-time guests → beta gate; returning guests → marketing `/`;
  * signed-in users with a saved collection → `/`; others → tool.
  */
 export function SmartSiteBrand(props: Props) {
@@ -67,7 +67,7 @@ export function SmartSiteBrand(props: Props) {
       return savedCount > 0 ? "/" : "/tool";
     }
     if (status === "unauthenticated" && !localEngaged) {
-      return "/tool";
+      return "/beta";
     }
     return "/";
   })();

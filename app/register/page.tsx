@@ -1,19 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SmartSiteBrand } from "@/components/SmartSiteBrand";
+import { safeAppCallbackPath } from "@/lib/safeCallbackUrl";
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
     ? process.env.NEXT_PUBLIC_BRAND_LOGO_URL.trim()
     : "";
 
+const DEFAULT_CALLBACK = "/tool";
+
 export default function RegisterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const afterLogin = useMemo(
+    () => safeAppCallbackPath(searchParams.get("callbackUrl"), DEFAULT_CALLBACK),
+    [searchParams],
+  );
+  const loginQuery = useMemo(() => {
+    const q = new URLSearchParams();
+    q.set("callbackUrl", afterLogin);
+    return q.toString();
+  }, [afterLogin]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +52,9 @@ export default function RegisterPage() {
         setPending(false);
         return;
       }
-      router.push("/login?registered=1");
+      router.push(
+        `/login?registered=1&callbackUrl=${encodeURIComponent(afterLogin)}`,
+      );
       router.refresh();
     } catch {
       setError("Network error. Try again.");
@@ -52,8 +68,9 @@ export default function RegisterPage() {
       <SmartSiteBrand brandLogoUrl={brandLogoUrl} />
       <h1 className="section-title">Create account</h1>
       <p className="lead">
-        Store your <strong>M:…</strong> export on the server so you can reload it
-        from any device. The core tool stays usable without an account.
+        Beta access uses the same account as cloud save: after you register,
+        sign in once to open the recommender. You can also sync your{" "}
+        <strong>M:…</strong> export to the server from any device.
       </p>
       <form className="auth-form" onSubmit={onSubmit}>
         <label className="field-label" htmlFor="email">
@@ -94,8 +111,9 @@ export default function RegisterPage() {
         </button>
       </form>
       <p className="status-block">
-        Already have an account? <Link href="/login">Sign in</Link> ·{" "}
-        <Link href="/tool">Back to tool</Link>
+        Already have an account?{" "}
+        <Link href={`/login?${loginQuery}`}>Sign in</Link> ·{" "}
+        <Link href="/beta">Beta info</Link> · <Link href="/">Home</Link>
       </p>
     </main>
   );

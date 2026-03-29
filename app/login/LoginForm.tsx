@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SmartSiteBrand } from "@/components/SmartSiteBrand";
+import { safeAppCallbackPath } from "@/lib/safeCallbackUrl";
 
 const brandLogoUrl =
   typeof process.env.NEXT_PUBLIC_BRAND_LOGO_URL === "string"
@@ -17,7 +18,10 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const registered = searchParams.get("registered") === "1";
-  const redirectTo = searchParams.get("callbackUrl") || "/account";
+  const redirectTo = safeAppCallbackPath(
+    searchParams.get("callbackUrl"),
+    "/tool",
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,14 +37,14 @@ export default function LoginForm() {
         email: email.trim().toLowerCase(),
         password,
         redirect: false,
-        redirectTo: redirectTo.startsWith("/") ? redirectTo : "/account",
+        redirectTo,
       });
       if (!r?.ok) {
         setError("Invalid email or password.");
         setPending(false);
         return;
       }
-      router.push(redirectTo.startsWith("/") ? redirectTo : "/account");
+      router.push(redirectTo);
       router.refresh();
     } catch {
       setError("Sign-in failed. Try again.");
@@ -59,8 +63,8 @@ export default function LoginForm() {
         </p>
       )}
       <p className="lead">
-        Save your mount export to your account and open your{" "}
-        <Link href="/account">collection dashboard</Link>.
+        After signing in you&apos;ll return to the tool (or use{" "}
+        <Link href="/account">My Mounts</Link> for your saved collection).
       </p>
       <form className="auth-form" onSubmit={onSubmit}>
         <label className="field-label" htmlFor="email">
@@ -99,8 +103,13 @@ export default function LoginForm() {
         </button>
       </form>
       <p className="status-block">
-        No account? <Link href="/register">Register</Link> ·{" "}
-        <Link href="/tool">Back to tool</Link>
+        No account?{" "}
+        <Link
+          href={`/register?callbackUrl=${encodeURIComponent(redirectTo)}`}
+        >
+          Register for beta
+        </Link>{" "}
+        · <Link href="/beta">Beta info</Link> · <Link href="/">Home</Link>
       </p>
     </main>
   );

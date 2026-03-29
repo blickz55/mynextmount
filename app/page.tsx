@@ -89,18 +89,18 @@ export default function ComingSoonPage() {
 
       <section
         className="content-section coming-soon-actions"
-        aria-label="Try the preview or learn more"
+        aria-label="Join the beta or learn more"
       >
-        <h2 className="section-title">Already have an export?</h2>
+        <h2 className="section-title">Try the recommender</h2>
         <p className="section-intro">
-          If you&apos;re using the addon and need to paste your{" "}
-          <code className="inline-code">M:…</code> string, the working
-          recommender lives on a separate preview URL so early visitors
-          aren&apos;t dropped into a work-in-progress main page.
+          We&apos;re running a <strong>closed beta</strong>: create a free
+          account, then paste your{" "}
+          <code className="inline-code">M:…</code> export from the in-game addon
+          to see personalized farm suggestions, filters, and guides.
         </p>
         <p className="coming-soon-cta-row">
-          <Link href="/tool" className="btn-primary coming-soon-cta">
-            Open the recommender (preview)
+          <Link href="/beta" className="btn-primary coming-soon-cta">
+            Sign up for Beta
           </Link>
         </p>
       </section>

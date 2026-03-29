@@ -35,7 +35,7 @@ export function AuthNav() {
         <button
           type="button"
           className="auth-nav__btn"
-          onClick={() => signOut({ callbackUrl: "/tool" })}
+          onClick={() => signOut({ callbackUrl: "/" })}
         >
           Sign out
         </button>
@@ -45,10 +45,16 @@ export function AuthNav() {
 
   return (
     <nav className="auth-nav" aria-label="Account">
-      <Link href="/login" className="auth-nav__link">
+      <Link
+        href="/login?callbackUrl=/tool"
+        className="auth-nav__link"
+      >
         Sign in
       </Link>
-      <Link href="/register" className="auth-nav__link auth-nav__link--secondary">
+      <Link
+        href="/register?callbackUrl=/tool"
+        className="auth-nav__link auth-nav__link--secondary"
+      >
         Register
       </Link>
     </nav>

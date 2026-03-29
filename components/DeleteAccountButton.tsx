@@ -15,7 +15,7 @@ export function DeleteAccountButton() {
         setPending(false);
         return;
       }
-      await signOut({ callbackUrl: "/tool" });
+      await signOut({ callbackUrl: "/" });
     } catch {
       setPending(false);
     }

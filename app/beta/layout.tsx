@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import LoginForm from "./LoginForm";
-
 export const metadata: Metadata = {
-  title: "Sign in",
+  title: "Beta access",
   description:
-    "Sign in to your MyNextMount beta account and open the mount recommender.",
+    "Sign up for the MyNextMount beta to use the mount farming recommender.",
 };
 
-export default function LoginPage() {
+export default function BetaLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <Suspense
       fallback={
@@ -18,7 +18,7 @@ export default function LoginPage() {
         </main>
       }
     >
-      <LoginForm />
+      {children}
     </Suspense>
   );
 }
