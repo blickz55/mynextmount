@@ -16,7 +16,7 @@ export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
   if (!hasWowhead && !hasDigest) return null;
 
   return (
-    <details className="expandable-row expandable-row--farm">
+    <details className="mount-result-card__fold expandable-row--farm">
       <summary>
         <span className="sr-only">{mount.name}: </span>
         Quick steps & Wowhead
@@ -37,7 +37,7 @@ export function MountRarestSecondaryDetails({ mount }: { mount: Mount }) {
   if (!hasWowhead && !hasDigest) return null;
 
   return (
-    <details className="expandable-row expandable-row--rarest">
+    <details className="mount-result-card__fold expandable-row--rarest">
       <summary>
         <span className="sr-only">{mount.name}: </span>
         Quick steps & Wowhead

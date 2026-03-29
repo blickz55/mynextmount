@@ -41,7 +41,7 @@ function FarmResultCardBody({
       <div className="mount-result-card__line">
         Why: {buildRecommendationReason(mount, mode)}
       </div>
-      <details className="mount-result-card__scoring">
+      <details className="mount-result-card__scoring mount-result-card__fold">
         <summary>Score ({scored.score.toFixed(4)})</summary>
         <ul className="mount-result-card__scoring-list">
           {scored.reasons.map((line, i) => (
