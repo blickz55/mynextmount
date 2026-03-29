@@ -1,6 +1,10 @@
 "use client";
 
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import { MountCommunityHeadBadge } from "@/components/mount-community/MountCommunityHeadBadge";
+import { MountCommunityProvider } from "@/components/mount-community/MountCommunityProvider";
+import { MountCommunitySection } from "@/components/mount-community/MountCommunitySection";
+import { MountPanelFeedback } from "@/components/mount-community/MountPanelFeedback";
 import { MountIcon } from "@/components/MountIcon";
 import { MountFarmSecondaryDetails } from "@/components/MountRowSecondaryDetails";
 import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
@@ -26,6 +30,7 @@ function FarmResultCardBody({
       <div className="mount-result-card__head">
         <MountIcon mount={mount} />
         <strong>{mount.name}</strong>
+        <MountCommunityHeadBadge spellId={mount.id} />
       </div>
       <div className="mount-result-card__line">
         Location: {getMountLocationLabel(mount)}
@@ -45,6 +50,7 @@ function FarmResultCardBody({
         </ul>
       </details>
       <MountFarmSecondaryDetails mount={mount} />
+      <MountCommunitySection spellId={mount.id} mountName={mount.name} />
     </>
   );
 }
@@ -58,7 +64,8 @@ function FarmRecommendationsListPlain({ mounts, mode }: Props) {
   return (
     <ol className="mount-results-list">
       {mounts.map((mount) => (
-        <li key={mount.id} className="mount-result-card">
+        <li key={mount.id} className="mount-result-card mount-result-card--community">
+          <MountPanelFeedback spellId={mount.id} mountName={mount.name} />
           <FarmResultCardBody mount={mount} mode={mode} />
         </li>
       ))}
@@ -108,9 +115,10 @@ function FarmRecommendationsListWindowed({ mounts, mode }: Props) {
               }}
             >
               <div
-                className="mount-result-card"
+                className="mount-result-card mount-result-card--community"
                 data-farm-rank={vRow.index + 1}
               >
+                <MountPanelFeedback spellId={mount.id} mountName={mount.name} />
                 <FarmResultCardBody mount={mount} mode={mode} />
               </div>
             </div>
@@ -126,8 +134,11 @@ function FarmRecommendationsListWindowed({ mounts, mode }: Props) {
  * **`useWindowVirtualizer`** + **`measureElement`** at or above threshold (variable-height **`details`**).
  */
 export function FarmRecommendationsList({ mounts, mode }: Props) {
-  if (mounts.length < LIST_VIRTUALIZE_MIN) {
-    return <FarmRecommendationsListPlain mounts={mounts} mode={mode} />;
-  }
-  return <FarmRecommendationsListWindowed mounts={mounts} mode={mode} />;
+  const inner =
+    mounts.length < LIST_VIRTUALIZE_MIN ? (
+      <FarmRecommendationsListPlain mounts={mounts} mode={mode} />
+    ) : (
+      <FarmRecommendationsListWindowed mounts={mounts} mode={mode} />
+    );
+  return <MountCommunityProvider mounts={mounts}>{inner}</MountCommunityProvider>;
 }

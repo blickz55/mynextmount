@@ -18,4 +18,41 @@ model User {
   collectionUpdatedAt DateTime?
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
+
+  mountComments MountComment[]
+  mountVotes    MountListingVote[]
+}
+
+/// Per-mount discussion on the farm list (summon spell id = mount.id in app data).
+model MountComment {
+  id        String   @id @default(cuid())
+  userId    String
+  spellId   Int
+  body      String   @db.VarChar(2000)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([spellId, createdAt])
+}
+
+/// One vote per user per mount listing: +1 helpful / −1 not helpful.
+model MountListingVote {
+  id        String   @id @default(cuid())
+  userId    String
+  spellId   Int
+  value     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, spellId])
+  @@index([spellId])
+}
+
+/// Throttle admin email when listing feedback is heavily negative (see lib/mountCommunityAlert.ts).
+model MountListingAlertSent {
+  spellId Int      @id
+  sentAt  DateTime @default(now())
 }

@@ -22,6 +22,7 @@ Copy **`.env.example`** into **`.env.local`** (Next.js loads it automatically fo
 | **`DIRECT_URL`** | Yes (for `db:migrate`) | Used only when you run **`npm run db:migrate`** (not during Vercel **`npm run build`**). **Supabase:** **`db.<ref>.supabase.co:5432`** or **session pooler** **`*.pooler.supabase.com:5432`** — whichever your network can reach. **Neon / plain Postgres:** same as `DATABASE_URL` if there is no pooler. |
 | **`AUTH_URL`** | Recommended | Public site URL, e.g. `http://localhost:3000` locally, `https://yourdomain.com` in production. NextAuth uses it for callbacks. Also try **`NEXTAUTH_URL`** if your host documents that name. |
 | **`RESEND_API_KEY`** | No | If set, **`POST /api/register`** sends a short welcome email via [Resend](https://resend.com). **Free:** `RESEND_FROM=MyNextMount <onboarding@resend.dev>` — no custom domain. Paid DNS only needed if you want `From:` on your own domain. |
+| **`ADMIN_ALERT_EMAIL`** | No | If set (with **`RESEND_API_KEY`**), farm-list **thumbs-down** alerts: when a mount has **≥2** downvotes and **0** upvotes, you get one email per mount (48h cooldown). See **`MountListingVote`** / **`MountListingAlertSent`** in **`prisma/schema.prisma`**. |
 
 `npm install` runs **`prisma generate`** via `postinstall`.
 
