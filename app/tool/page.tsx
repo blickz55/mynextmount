@@ -407,8 +407,14 @@ export default function HomePage() {
           </p>
           <details className="disclosure-block owned-mounts-disclosure">
             <summary>
-              <span className="sr-only">Owned collection: </span>
-              View Your Mounts ({parsedIds.length})
+              <span
+                className="owned-mounts-disclosure__bg"
+                aria-hidden="true"
+              />
+              <span className="owned-mounts-disclosure__label">
+                <span className="sr-only">Owned collection: </span>
+                View Your Mounts ({parsedIds.length})
+              </span>
             </summary>
             <div className="disclosure-block__body">
               <OwnedMountsCollection

@@ -6,8 +6,15 @@ import {
   useMemo,
   useRef,
   useState,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 import { MountIcon } from "@/components/MountIcon";
+import {
+  OwnedMountsLoreProvider,
+  useOwnedMountLoreRow,
+  type OwnedMountLoreHoverPayload,
+} from "@/components/MountLoreRelicTooltip";
+import { loreThemeWithRotation } from "@/lib/mountLoreTheme";
 import { scoreRarest } from "@/lib/scoreRarest";
 import { LIST_VIRTUALIZE_MIN } from "@/lib/virtualizeThresholds";
 import type { Mount } from "@/types/mount";
@@ -22,6 +29,16 @@ type Row = {
   mount: Mount | undefined;
   rarityPct: number;
 };
+
+function wowheadUrlForOwnedRow(r: Row): string {
+  const fromMount = r.mount?.wowheadUrl?.trim();
+  if (fromMount) return fromMount;
+  const spellId = r.mount?.id ?? r.spellId;
+  if (Number.isFinite(spellId) && spellId > 0) {
+    return `https://www.wowhead.com/spell=${spellId}`;
+  }
+  return "";
+}
 
 function buildRows(parsedIds: number[], catalog: Mount[]): Row[] {
   const byId = new Map(catalog.map((m) => [m.id, m]));
@@ -47,8 +64,55 @@ function buildRows(parsedIds: number[], catalog: Mount[]): Row[] {
 }
 
 function OwnedMountRow({ row: r }: { row: Row }) {
-  return (
-    <div className="owned-collection__row" role="listitem">
+  const lore = useOwnedMountLoreRow();
+  const lorePayload = useMemo((): OwnedMountLoreHoverPayload | null => {
+    if (!r.mount) {
+      return {
+        spellId: r.spellId,
+        mountName: `Unknown (${r.spellId})`,
+        expansion: "Unknown",
+        theme: loreThemeWithRotation(
+          {
+            name: "",
+            source: "",
+            location: "",
+            tags: [],
+            expansion: "Unknown",
+          },
+          r.spellId,
+        ),
+      };
+    }
+    return {
+      spellId: r.spellId,
+      mountName: r.mount.name,
+      expansion: r.mount.expansion,
+      source: r.mount.source,
+      location: r.mount.location,
+      tags: r.mount.tags,
+      theme: loreThemeWithRotation(r.mount, r.spellId),
+      flavorFallback: r.mount.wowheadMountFlavor?.trim(),
+    };
+  }, [r]);
+
+  const lorePointer =
+    lore && lorePayload
+      ? {
+          onPointerEnter: (e: ReactPointerEvent<HTMLElement>) => {
+            lore.onRowEnter(lorePayload);
+            lore.onRowMove(e.clientX, e.clientY);
+          },
+          onPointerMove: (e: ReactPointerEvent<HTMLElement>) => {
+            lore.onRowMove(e.clientX, e.clientY);
+          },
+          onPointerLeave: () => lore.onRowLeave(),
+        }
+      : {};
+
+  const href = wowheadUrlForOwnedRow(r);
+  const label = r.mount?.name ?? `Unknown (${r.spellId})`;
+  const inner = (
+    <>
       {r.mount ? (
         <MountIcon mount={r.mount} size={28} />
       ) : (
@@ -81,6 +145,26 @@ function OwnedMountRow({ row: r }: { row: Row }) {
           style={{ width: r.mount ? `${r.rarityPct}%` : "0%" }}
         />
       </div>
+    </>
+  );
+  if (href) {
+    return (
+      <a
+        className="owned-collection__row owned-collection__row--link"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        role="listitem"
+        aria-label={`${label} on Wowhead (opens in new tab)`}
+        {...lorePointer}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <div className="owned-collection__row" role="listitem" {...lorePointer}>
+      {inner}
     </div>
   );
 }
@@ -173,7 +257,7 @@ type Props = {
  * Full export collection in a 2-column grid with site "rarest" score as a micro green bar.
  * Large exports use windowed rendering inside a scroll viewport (Epic G.2).
  */
-export function OwnedMountsCollection({ parsedIds, catalog }: Props) {
+function OwnedMountsCollectionInner({ parsedIds, catalog }: Props) {
   const rows = useMemo(
     () => buildRows(parsedIds, catalog),
     [parsedIds, catalog],
@@ -200,7 +284,9 @@ export function OwnedMountsCollection({ parsedIds, catalog }: Props) {
             {" "}
             Large list: scrollable window for {rows.length} mounts (faster UI).
           </>
-        ) : null}
+        ) : null}{" "}
+        Hover a row for Archivist lore (set{" "}
+        <code className="inline-code">OPENAI_API_KEY</code> on the server).
       </p>
       {useVirtual ? (
         <OwnedMountsGridVirtual rows={rows} />
@@ -214,5 +300,13 @@ export function OwnedMountsCollection({ parsedIds, catalog }: Props) {
         </div>
       )}
     </div>
+  );
+}
+
+export function OwnedMountsCollection(props: Props) {
+  return (
+    <OwnedMountsLoreProvider>
+      <OwnedMountsCollectionInner {...props} />
+    </OwnedMountsLoreProvider>
   );
 }

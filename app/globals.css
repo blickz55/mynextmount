@@ -904,6 +904,45 @@ html[data-theme="dark"] .auth-nav__btn {
   overflow-x: hidden;
 }
 
+/* Stronger CTA for owned collection; art layer ~35–40% visible */
+.owned-mounts-disclosure > summary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 52px;
+  margin: 0.15rem 0 0;
+  padding: 0.65rem 0.85rem 0.65rem 0.55rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--accent-gold-bright) 45%, transparent);
+  background: linear-gradient(
+    125deg,
+    color-mix(in srgb, var(--accent-gold) 14%, var(--bg-card)),
+    var(--bg-elevated) 55%,
+    color-mix(in srgb, var(--accent-gold) 8%, var(--bg-card))
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent-gold) 12%, transparent),
+    0 6px 24px rgba(0, 0, 0, 0.32);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.owned-mounts-disclosure__bg {
+  position: absolute;
+  inset: 0;
+  background: url("/ui/owned-mounts-cta-bg.svg") center / cover no-repeat;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.owned-mounts-disclosure__label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
 /* Epic I.7 — farm list + catalog QA search */
 .farm-list-search-disclosure {
   margin-top: 0.75rem;
@@ -1000,6 +1039,12 @@ html[data-theme="dark"] .auth-nav__btn {
   max-height: min(70vh, 28rem);
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.owned-collection__viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .owned-collection__viewport--auto {
@@ -1026,6 +1071,17 @@ html[data-theme="dark"] .auth-nav__btn {
   gap: 0.35rem;
   min-width: 0;
   font-size: 0.78rem;
+}
+
+.owned-collection__row--link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-sm);
+}
+
+.owned-collection__row--link:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .owned-collection__name-stack {
@@ -2436,5 +2492,275 @@ a.coming-soon-cta:focus-visible {
 
   .mount-result-card::before {
     left: 0.55rem;
+  }
+}
+
+/* --- Owned mounts: Archivist lore tooltip (cursor-follow, relic chrome) --- */
+.mount-lore-relic {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10050;
+  width: min(22rem, calc(100vw - 1.5rem));
+  max-width: 22rem;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  font-family: var(--font-cinzel), "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.mount-lore-relic__rim {
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius-md) + 2px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-gold-bright) 55%, transparent),
+    color-mix(in srgb, var(--accent-gold) 25%, transparent) 45%,
+    color-mix(in srgb, var(--accent-gold-bright) 40%, transparent)
+  );
+  filter: blur(0.5px);
+  animation: mount-lore-rim-breathe 2.8s ease-in-out infinite;
+}
+
+.mount-lore-relic__inner {
+  position: relative;
+  z-index: 1;
+  padding: 0.72rem 0.88rem 0.9rem;
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(
+      168deg,
+      color-mix(in srgb, var(--bg-card) 88%, #1c1812) 0%,
+      color-mix(in srgb, var(--bg-card) 72%, #0f0d0a) 100%
+    );
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 42%, transparent);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 14px 42px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 color-mix(in srgb, var(--accent-gold-bright) 12%, transparent);
+}
+
+.mount-lore-relic__title {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+  opacity: 0.95;
+}
+
+.mount-lore-relic__loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 3.2rem;
+  justify-content: center;
+}
+
+.mount-lore-relic__shimmer {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent-gold-bright) 55%, transparent),
+    color-mix(in srgb, var(--accent-arcane) 45%, transparent),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: mount-lore-shimmer 1.1s ease-in-out infinite;
+}
+
+.mount-lore-relic__loading-text {
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.mount-lore-relic__body {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.mount-lore-relic__body--ink {
+  animation: mount-lore-ink-in 0.55s ease-out both;
+}
+
+.mount-lore-relic__markdown .mount-lore-relic__md-p {
+  margin: 0 0 0.45rem;
+}
+
+.mount-lore-relic__markdown .mount-lore-relic__md-p:last-child {
+  margin-bottom: 0;
+}
+
+.mount-lore-relic__md-strong {
+  color: color-mix(in srgb, var(--accent-gold-bright) 88%, var(--text));
+  font-weight: 700;
+}
+
+.mount-lore-relic__md-em {
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+.mount-lore-relic__md-bq {
+  margin: 0.5rem 0 0;
+  padding: 0.35rem 0.5rem 0.35rem 0.65rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent-gold) 50%, transparent);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--bg-elevated) 65%, transparent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.mount-lore-relic__error {
+  margin: 0;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.mount-lore-relic--theme-shadowlands .mount-lore-relic__rim {
+  background: linear-gradient(
+    135deg,
+    rgba(72, 200, 120, 0.55),
+    rgba(30, 90, 55, 0.35)
+  );
+  animation: mount-lore-rim-fel 2.4s ease-in-out infinite;
+}
+
+.mount-lore-relic--theme-fel .mount-lore-relic__rim {
+  background: linear-gradient(
+    135deg,
+    rgba(100, 220, 90, 0.5),
+    rgba(40, 120, 40, 0.3)
+  );
+  animation: mount-lore-rim-fel 2.2s ease-in-out infinite;
+}
+
+.mount-lore-relic--theme-dragonflight .mount-lore-relic__rim {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 165, 90, 0.55),
+    rgba(140, 90, 40, 0.35)
+  );
+  animation: mount-lore-rim-bronze 2.6s ease-in-out infinite;
+}
+
+.mount-lore-relic--theme-arcane .mount-lore-relic__rim {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-arcane) 65%, transparent),
+    color-mix(in srgb, var(--accent-arcane) 25%, transparent)
+  );
+  animation: mount-lore-rim-arcane 2.5s ease-in-out infinite;
+}
+
+.mount-lore-relic--theme-life .mount-lore-relic__rim {
+  background: linear-gradient(
+    135deg,
+    rgba(90, 180, 110, 0.45),
+    rgba(40, 100, 70, 0.3)
+  );
+  animation: mount-lore-rim-breathe 3s ease-in-out infinite;
+}
+
+.mount-lore-relic--theme-northrend .mount-lore-relic__rim {
+  background: linear-gradient(
+    135deg,
+    rgba(160, 200, 230, 0.45),
+    rgba(60, 90, 130, 0.35)
+  );
+  animation: mount-lore-rim-breathe 2.9s ease-in-out infinite;
+}
+
+@keyframes mount-lore-rim-breathe {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.01);
+  }
+}
+
+@keyframes mount-lore-rim-fel {
+  0%,
+  100% {
+    opacity: 0.55;
+    filter: blur(0.5px) hue-rotate(0deg);
+  }
+  50% {
+    opacity: 0.92;
+    filter: blur(0.3px) hue-rotate(-12deg);
+  }
+}
+
+@keyframes mount-lore-rim-bronze {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes mount-lore-rim-arcane {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  33% {
+    opacity: 0.88;
+  }
+  66% {
+    opacity: 0.72;
+  }
+}
+
+@keyframes mount-lore-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes mount-lore-ink-in {
+  from {
+    opacity: 0;
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mount-lore-relic__rim,
+  .mount-lore-relic__shimmer {
+    animation: none !important;
+  }
+
+  .mount-lore-relic__body--ink {
+    animation: none !important;
+    opacity: 1;
+    filter: none;
   }
 }
