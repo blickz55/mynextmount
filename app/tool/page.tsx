@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {
   useCallback,
@@ -8,7 +9,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { FarmRecommendationsList } from "@/components/FarmRecommendationsList";
+import {
+  FarmRecommendationsList,
+  type FarmAttemptRowStats,
+} from "@/components/FarmRecommendationsList";
+import { FarmSessionPlanPanel } from "@/components/FarmSessionPlanPanel";
 import { MountIcon } from "@/components/MountIcon";
 import { MountRarestSecondaryDetails } from "@/components/MountRowSecondaryDetails";
 import { CollectionToolbar } from "@/components/CollectionToolbar";
@@ -21,12 +26,21 @@ import {
 } from "@/components/SmartSiteBrand";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import {
+  buildFarmSessionPlan,
+  type SessionBudgetPreset,
+} from "@/lib/farmSessionPlan";
+import {
   filterMountsByFarmSearchQuery,
   mountMatchesFarmSearchQuery,
 } from "@/lib/farmListSearch";
 import { filterUnownedMounts } from "@/lib/filterUnownedMounts";
 import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
+import { computeCollectionProgressStats } from "@/lib/collectionProgressStats";
 import { mounts } from "@/lib/mounts";
+import {
+  FARM_ATTEMPT_LOOKUP_MAX_IDS,
+  K_ATTEMPT_INCREMENT_CAP,
+} from "@/lib/farmAttemptConstants";
 import {
   anySourceFilterEnabled,
   getMountSourceBucket,
@@ -39,7 +53,20 @@ import {
   delegatesMountPasteToNativeControl,
   tryParsePastedMountExport,
 } from "@/lib/tryParsePastedMountExport";
-import { recommendationScorer } from "@/lib/scoring";
+import {
+  clientFarmScoringPersonalizationFromRows,
+  parseCommunityBoostBySpellIdJson,
+} from "@/lib/clientFarmScoringPersonalization";
+import { deriveFarmBehaviorSignals } from "@/lib/farmPreferenceModel";
+import {
+  clearFarmPreferenceStored,
+  FARM_PREF_CHANGED_EVENT,
+  loadFarmPreferenceStored,
+} from "@/lib/farmPreferenceStorage";
+import {
+  recommendationScorer,
+  type ScoringContext,
+} from "@/lib/scoring";
 import { selectTopOwnedByRarest } from "@/lib/selectTopOwnedByRarest";
 import { sortMountsByScore } from "@/lib/selectTopMountsByScore";
 import type { Mount } from "@/types/mount";
@@ -79,10 +106,33 @@ export default function HomePage() {
   const exportStringRef = useRef(exportString);
   const [remoteSavedCount, setRemoteSavedCount] = useState<number | null>(null);
   const [accountFetchSettled, setAccountFetchSettled] = useState(false);
+  const [farmAttemptsBySpellId, setFarmAttemptsBySpellId] = useState<
+    Readonly<Record<number, FarmAttemptRowStats>> | null
+  >(null);
+  const [nextWeeklyResetAt, setNextWeeklyResetAt] = useState<string | null>(
+    null,
+  );
+  const [communityBoostBySpellId, setCommunityBoostBySpellId] = useState<
+    Record<number, number> | null
+  >(null);
+  const [sessionBudgetMinutes, setSessionBudgetMinutes] =
+    useState<SessionBudgetPreset>(45);
+  const [farmPrefVersion, setFarmPrefVersion] = useState(0);
+  const [prefsHydrated, setPrefsHydrated] = useState(false);
 
   useEffect(() => {
     exportStringRef.current = exportString;
   }, [exportString]);
+
+  useEffect(() => {
+    setPrefsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    const onPrefs = () => setFarmPrefVersion((v) => v + 1);
+    window.addEventListener(FARM_PREF_CHANGED_EVENT, onPrefs);
+    return () => window.removeEventListener(FARM_PREF_CHANGED_EVENT, onPrefs);
+  }, []);
 
   const unownedMounts = useMemo(() => {
     if (parsedIds === null) return [];
@@ -101,7 +151,65 @@ export default function HomePage() {
     );
   }, [farmableUnownedMounts, sourceFilters]);
 
-  const scoreFn = useMemo(() => recommendationScorer(mode), [mode]);
+  const baselineScoreFn = useMemo(() => recommendationScorer(mode), [mode]);
+
+  const prelimSortedFarmList = useMemo(
+    () => sortMountsByScore(filteredUnowned, baselineScoreFn),
+    [filteredUnowned, baselineScoreFn],
+  );
+
+  const farmDataFetchIds = useMemo(
+    () =>
+      prelimSortedFarmList
+        .slice(0, FARM_ATTEMPT_LOOKUP_MAX_IDS)
+        .map((m) => m.id),
+    [prelimSortedFarmList],
+  );
+
+  const farmDataSpellIdsKey = useMemo(
+    () => farmDataFetchIds.join(","),
+    [farmDataFetchIds],
+  );
+
+  const scoringContext = useMemo<ScoringContext | undefined>(() => {
+    const behavior = prefsHydrated
+      ? deriveFarmBehaviorSignals(loadFarmPreferenceStored())
+      : undefined;
+    const farmReady =
+      sessionStatus === "authenticated" &&
+      farmAttemptsBySpellId !== null &&
+      nextWeeklyResetAt !== null &&
+      nextWeeklyResetAt !== "" &&
+      communityBoostBySpellId !== null;
+    const farmPart = farmReady
+      ? clientFarmScoringPersonalizationFromRows({
+          farmAttemptsBySpellId: farmAttemptsBySpellId!,
+          nextWeeklyResetAt: nextWeeklyResetAt!,
+          communityBoostBySpellId: communityBoostBySpellId!,
+        })
+      : null;
+
+    if (!farmPart && !behavior) return undefined;
+
+    return {
+      personalization: {
+        ...(farmPart ?? {}),
+        ...(behavior ? { behavior } : {}),
+      },
+    };
+  }, [
+    sessionStatus,
+    farmAttemptsBySpellId,
+    nextWeeklyResetAt,
+    communityBoostBySpellId,
+    farmPrefVersion,
+    prefsHydrated,
+  ]);
+
+  const scoreFn = useMemo(
+    () => recommendationScorer(mode, scoringContext),
+    [mode, scoringContext],
+  );
 
   const sortedFarmList = useMemo(
     () => sortMountsByScore(filteredUnowned, scoreFn),
@@ -111,6 +219,11 @@ export default function HomePage() {
   const searchFilteredFarmList = useMemo(
     () => filterMountsByFarmSearchQuery(sortedFarmList, debouncedFarmSearch),
     [sortedFarmList, debouncedFarmSearch],
+  );
+
+  const farmSessionPlan = useMemo(
+    () => buildFarmSessionPlan(searchFilteredFarmList, sessionBudgetMinutes),
+    [searchFilteredFarmList, sessionBudgetMinutes],
   );
 
   const catalogQaMatches = useMemo(() => {
@@ -125,6 +238,22 @@ export default function HomePage() {
     () => searchFilteredFarmList.slice(0, visibleFarmCount),
     [searchFilteredFarmList, visibleFarmCount],
   );
+
+  const collectionSaveContext = useMemo(
+    () => ({
+      recommendationMode: mode,
+      sourceFilters,
+      farmSearchQuery: debouncedFarmSearch,
+    }),
+    [mode, sourceFilters, debouncedFarmSearch],
+  );
+
+  const collectionProgress = useMemo(() => {
+    if (parsedIds === null || parsedIds.length === 0) {
+      return null;
+    }
+    return computeCollectionProgressStats(parsedIds, mounts);
+  }, [parsedIds]);
 
   useEffect(() => {
     const t = window.setTimeout(() => {
@@ -152,8 +281,91 @@ export default function HomePage() {
     if (sessionStatus !== "authenticated") {
       setRemoteSavedCount(null);
       setAccountFetchSettled(false);
+      setFarmAttemptsBySpellId(null);
+      setNextWeeklyResetAt(null);
+      setCommunityBoostBySpellId(null);
     }
   }, [sessionStatus]);
+
+  useEffect(() => {
+    if (sessionStatus !== "authenticated") {
+      return;
+    }
+    const ids =
+      farmDataSpellIdsKey === ""
+        ? []
+        : farmDataSpellIdsKey
+            .split(",")
+            .map((x) => Number(x))
+            .filter((n) => Number.isFinite(n) && n > 0);
+    if (ids.length === 0) {
+      setFarmAttemptsBySpellId({});
+      setNextWeeklyResetAt(null);
+      setCommunityBoostBySpellId(null);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/collection/farm-attempts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ spellIds: ids }),
+        });
+        const data = (await res.json().catch(() => ({}))) as {
+          nextWeeklyResetAt?: string;
+          communityBoostBySpellId?: Record<string, number>;
+          bySpellId?: Record<
+            string,
+            {
+              attempts: number;
+              lastAttemptAt: string | null;
+              pSeenDropPct: number | null;
+              lockout?: {
+                kind: "none" | "daily" | "weekly";
+                state: "available" | "locked";
+                unlocksAt: string | null;
+              };
+            }
+          >;
+        };
+        if (!res.ok || cancelled) return;
+        const next: Record<number, FarmAttemptRowStats> = {};
+        for (const [k, v] of Object.entries(data.bySpellId ?? {})) {
+          next[Number(k)] = {
+            attempts: v.attempts,
+            lastAttemptAt: v.lastAttemptAt,
+            pSeenDropPct: v.pSeenDropPct,
+            lockout: v.lockout ?? {
+              kind: "none",
+              state: "available",
+              unlocksAt: null,
+            },
+          };
+        }
+        if (!cancelled) {
+          setFarmAttemptsBySpellId(next);
+          setNextWeeklyResetAt(
+            typeof data.nextWeeklyResetAt === "string"
+              ? data.nextWeeklyResetAt
+              : null,
+          );
+          setCommunityBoostBySpellId(
+            parseCommunityBoostBySpellIdJson(data.communityBoostBySpellId),
+          );
+        }
+      } catch {
+        if (!cancelled) {
+          setFarmAttemptsBySpellId({});
+          setNextWeeklyResetAt(null);
+          setCommunityBoostBySpellId(null);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionStatus, farmDataSpellIdsKey]);
 
   useEffect(() => {
     if (parsedIds === null || sortedFarmList.length === 0) return;
@@ -393,6 +605,7 @@ export default function HomePage() {
         onApplyParsedIds={applyParsedIds}
         remoteSavedCount={remoteSavedCount}
         accountFetchSettled={accountFetchSettled}
+        saveContext={collectionSaveContext}
       />
       {parsedIds !== null && (
         <>
@@ -405,6 +618,33 @@ export default function HomePage() {
             Submitted {parsedIds.length}{" "}
             {parsedIds.length === 1 ? "mount" : "mounts"}.
           </p>
+          {collectionProgress !== null ? (
+            <aside
+              className="collection-progress-k7"
+              aria-label="Collection progress vs obtainable catalog"
+            >
+              <p className="collection-progress-k7__lead">
+                <strong>{collectionProgress.matchedObtainable}</strong> of{" "}
+                <strong>{collectionProgress.obtainableTotal}</strong> obtainable
+                Retail mounts in this catalog —{" "}
+                <strong>{collectionProgress.percentComplete}%</strong> complete.
+              </p>
+              <p className="field-hint collection-progress-k7__hint">
+                Obtainable = catalog rows with{" "}
+                <code className="inline-code">retailObtainable</code> not false.
+                Your export has{" "}
+                <strong>{collectionProgress.storedSpellCount}</strong> spell ID
+                {collectionProgress.storedSpellCount === 1 ? "" : "s"}.
+                {collectionProgress.unknownSpellIdCount > 0 ? (
+                  <>
+                    {" "}
+                    <strong>{collectionProgress.unknownSpellIdCount}</strong> do
+                    not match an obtainable row here.
+                  </>
+                ) : null}
+              </p>
+            </aside>
+          ) : null}
           <details className="disclosure-block owned-mounts-disclosure">
             <summary>
               <span
@@ -500,10 +740,24 @@ export default function HomePage() {
             >
               <h2 className="section-title">Top mounts to farm</h2>
               <p className="section-intro">
-                Each row shows the decision line first (where, boss, why). Open
-                the section below for the written guide, source link,
-                summarized community tips, and the full Wowhead comments link.
-                Scroll down to load more in batches of {PAGE_SIZE}.
+                Each row shows the decision line first (where, boss, why). When
+                you&apos;re signed in, <strong>Farm tries</strong> is how many
+                saves incremented this mount while it sat in your top{" "}
+                {K_ATTEMPT_INCREMENT_CAP} farm suggestions (same recommendation
+                mode, source filters, and farm search as here; duplicate or rapid
+                re-saves may skip counts). <strong>Est. ≥1 drop seen</strong> is
+                a rough hint from the catalog drop rate and your tries.{" "}
+                <strong>Lockout</strong> shows daily/weekly availability from
+                your last qualifying save; change the weekly calendar on{" "}
+                <Link href="/account">My Mounts</Link>. While signed in, sort
+                order adds a light nudge from tries, lockout rows, and weekly
+                reset timing (baseline mode score unchanged for guests; farm
+                data loads for the first {FARM_ATTEMPT_LOOKUP_MAX_IDS} mounts in
+                the baseline list — narrow filters if your target is deeper).
+                Open the section below
+                for the written guide, source link, summarized community tips,
+                and the full Wowhead comments link. Scroll down to load more in
+                batches of {PAGE_SIZE}.
               </p>
 
               <fieldset className="source-filter-fieldset">
@@ -609,6 +863,22 @@ export default function HomePage() {
 
               {filtersActive && searchFilteredFarmList.length > 0 && (
                 <>
+                  <p className="field-hint farm-pref-reset-hint">
+                    <button
+                      type="button"
+                      className="farm-pref-reset-btn"
+                      onClick={() => clearFarmPreferenceStored()}
+                    >
+                      Reset local farm ranking hints
+                    </button>{" "}
+                    (this browser — Score details + &quot;Show less like
+                    this&quot; on rows)
+                  </p>
+                  <FarmSessionPlanPanel
+                    plan={farmSessionPlan}
+                    budgetMinutes={sessionBudgetMinutes}
+                    onBudgetChange={setSessionBudgetMinutes}
+                  />
                   <p className="farm-count-hint" aria-live="polite">
                     Showing {visibleFarm.length} of{" "}
                     {searchFilteredFarmList.length}
@@ -622,7 +892,12 @@ export default function HomePage() {
                     ) : null}
                   </p>
                   <div className="results-stack">
-                    <FarmRecommendationsList mounts={visibleFarm} mode={mode} />
+                    <FarmRecommendationsList
+                      mounts={visibleFarm}
+                      mode={mode}
+                      farmAttemptsBySpellId={farmAttemptsBySpellId}
+                      scoringContext={scoringContext}
+                    />
                     {visibleFarmCount < searchFilteredFarmList.length && (
                       <>
                         <p className="load-more-actions">
@@ -709,6 +984,11 @@ export default function HomePage() {
               {catalogQaMatches.map((m) => (
                 <li key={m.id} className="catalog-qa-search__row">
                   <span className="catalog-qa-search__name">{m.name}</span>
+                  {m.retailObtainable === false ? (
+                    <span className="catalog-qa-search__retired">
+                      No longer obtainable
+                    </span>
+                  ) : null}
                   <span className="catalog-qa-search__spell">
                     {" "}
                     (spell {m.id})

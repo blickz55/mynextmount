@@ -1,3 +1,5 @@
+import type { WeeklyResetCalendar } from "@prisma/client";
+
 import { prisma } from "@/lib/prisma";
 
 const USER_ACCOUNT_SELECT = {
@@ -5,6 +7,7 @@ const USER_ACCOUNT_SELECT = {
   email: true,
   collectionSpellIds: true,
   collectionUpdatedAt: true,
+  weeklyResetCalendar: true,
 } as const;
 
 export type AppUserAccountRow = {
@@ -12,6 +15,7 @@ export type AppUserAccountRow = {
   email: string;
   collectionSpellIds: string;
   collectionUpdatedAt: Date | null;
+  weeklyResetCalendar: WeeklyResetCalendar;
 };
 
 /**

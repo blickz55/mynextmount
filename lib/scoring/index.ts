@@ -18,7 +18,9 @@ export type {
   CompositeFactorKey,
   CompositeWeights,
   FactorVector,
+  FarmBehaviorSignals,
   MountScoreResult,
   ScoreMountFn,
   ScoringContext,
+  ScoringPersonalization,
 } from "./types";

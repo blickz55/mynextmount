@@ -9,6 +9,12 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+/// Epic K.3 — weekly lockout calendar for “when does my week reset” (UTC boundaries in code).
+enum WeeklyResetCalendar {
+  AMERICAS_OCEANIA
+  EUROPE
+}
+
 model User {
   id                  String    @id @default(cuid())
   email               String    @unique
@@ -16,11 +22,53 @@ model User {
   /// Comma-separated summon spell IDs (same as export body after `M:`)
   collectionSpellIds  String    @default("")
   collectionUpdatedAt DateTime?
+  /// Epic K.3 — default Americas & Oceania (Tue 15:00 UTC); EU uses Wed 04:00 UTC.
+  weeklyResetCalendar WeeklyResetCalendar @default(AMERICAS_OCEANIA)
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 
-  mountComments MountComment[]
-  mountVotes    MountListingVote[]
+  mountComments             MountComment[]
+  mountVotes                MountListingVote[]
+  mountCollectionSnapshots  MountCollectionSnapshot[]
+  mountFarmAttempts         MountFarmAttempt[]
+  mountLockoutCompletions   MountLockoutCompletion[]
+}
+
+/// Epic K.2 — per-user farm attempt counts (summon spell id); increments only for top-ranked suggestions on save.
+model MountFarmAttempt {
+  userId        String
+  spellId       Int
+  attempts      Int      @default(0)
+  lastAttemptAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, spellId])
+  @@index([userId])
+}
+
+/// Epic K.3 — last time user marked a daily/weekly lockout mount “done this cycle” (same save trigger as farm attempts).
+model MountLockoutCompletion {
+  userId          String
+  spellId         Int
+  lastCompletedAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, spellId])
+  @@index([userId])
+}
+
+/// Epic K.1 — immutable history of saved collection exports (spell ID CSV matches `User.collectionSpellIds` format).
+model MountCollectionSnapshot {
+  id        String   @id @default(cuid())
+  userId    String
+  spellIds  String   @db.Text
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt(sort: Desc)])
 }
 
 /// Per-mount discussion on the farm list (summon spell id = mount.id in app data).
@@ -55,4 +103,15 @@ model MountListingVote {
 model MountListingAlertSent {
   spellId Int      @id
   sentAt  DateTime @default(now())
+}
+
+/// Epic K.8 — materialized sums from `MountListingVote` for recommendation tuning (not “objective quality”).
+model MountListingCommunityAggregate {
+  spellId                 Int      @id
+  voteCount               Int
+  sumValues               Int
+  listingHelpfulnessScore Int
+  /// Bump when the scalar formula or raw fields change (see `lib/scoring/k8CommunityRecommendation.ts`).
+  communitySignalSchemaVersion Int @default(1)
+  updatedAt               DateTime @updatedAt
 }

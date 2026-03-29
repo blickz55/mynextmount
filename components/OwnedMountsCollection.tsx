@@ -286,9 +286,7 @@ function OwnedMountsCollectionInner({ parsedIds, catalog }: Props) {
             Large list: scrollable window for {rows.length} mounts (faster UI).
           </>
         ) : null}{" "}
-        Hover for Archivist lore from{" "}
-        <code className="inline-code">data/mount-hover-lore.json</code> (batch:
-        npm run content:mount-hover-lore-batch).
+        Hover a mount for Archivist lore when we have a tale for it.
       </p>
       {useVirtual ? (
         <OwnedMountsGridVirtual rows={rows} />

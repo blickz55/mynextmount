@@ -7,6 +7,9 @@ import {
   PROFILE_EFFICIENT,
   PROFILE_LEGACY_RAREST,
 } from "./profiles";
+import { applyK4PersonalizationToScore } from "./k4Personalization";
+import { applyK6BehaviorPersonalizationToScore } from "./k6BehaviorPersonalization";
+import { applyK8CommunityBoostToScore } from "./k8CommunityRecommendation";
 import type {
   CompositeFactorKey,
   CompositeWeights,
@@ -128,23 +131,43 @@ export function scoreForRecommendationMode(
   mode: RecommendationMode,
   ctx?: ScoringContext,
 ): MountScoreResult {
+  let result: MountScoreResult;
   switch (mode) {
     case "efficient":
-      return scoreMountComposite(
+      result = scoreMountComposite(
         mount,
         PROFILE_EFFICIENT,
         "efficient",
         ctx,
       );
+      break;
     case "balanced":
-      return scoreMountComposite(mount, PROFILE_BALANCED, "balanced", ctx);
+      result = scoreMountComposite(mount, PROFILE_BALANCED, "balanced", ctx);
+      break;
     case "rarest":
-      return scoreRarestDetailed(mount);
+      result = scoreRarestDetailed(mount);
+      break;
     default: {
       const _exhaustive: never = mode;
       return _exhaustive;
     }
   }
+  const afterK4 = applyK4PersonalizationToScore(
+    mount,
+    result.score,
+    ctx?.personalization,
+  );
+  const afterK6 = applyK6BehaviorPersonalizationToScore(
+    mount,
+    afterK4,
+    ctx?.personalization,
+  );
+  const score = applyK8CommunityBoostToScore(
+    mount,
+    afterK6,
+    ctx?.personalization,
+  );
+  return { ...result, score };
 }
 
 export function recommendationScorer(

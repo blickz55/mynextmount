@@ -5,6 +5,7 @@ import { mounts } from "@/lib/mounts";
 import { maybeNotifyAdminNegativeListingFeedback } from "@/lib/mountCommunityAlert";
 import { loadMountCommunitySummaries } from "@/lib/mountCommunityBatch";
 import { prisma } from "@/lib/prisma";
+import { refreshMountListingCommunityAggregate } from "@/lib/refreshMountListingCommunityAggregate";
 import {
   findAppUserFromSession,
   sessionHasDbIdentity,
@@ -76,6 +77,8 @@ export async function POST(
         update: { value },
       });
     }
+
+    await refreshMountListingCommunityAggregate(prisma, spellId);
 
     const summaryMap = await loadMountCommunitySummaries([spellId], userId);
     const summary = summaryMap[spellId]!;

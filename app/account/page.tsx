@@ -1,12 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import type { WeeklyResetCalendar } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { AccountStaleSessionActions } from "@/components/AccountStaleSessionActions";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
+import { WeeklyResetCalendarPreference } from "@/components/WeeklyResetCalendarPreference";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import { SiteBrand } from "@/components/SiteBrand";
+import { computeCollectionProgressStats } from "@/lib/collectionProgressStats";
 import { mounts } from "@/lib/mounts";
 import {
   findAppUserFromSession,
@@ -54,6 +57,7 @@ export default async function AccountPage() {
     email: string;
     collectionSpellIds: string;
     collectionUpdatedAt: Date | null;
+    weeklyResetCalendar: WeeklyResetCalendar;
   } | null = null;
   let dbLoadFailed = false;
   try {
@@ -131,11 +135,7 @@ export default async function AccountPage() {
   }
 
   const brandHomeHref = owned.length > 0 ? "/" : "/tool";
-  const ownedSet = new Set(owned);
-  const catalogRetail = mounts.filter((m) => m.retailObtainable !== false);
-  const matched = catalogRetail.filter((m) => ownedSet.has(m.id)).length;
-  const total = catalogRetail.length;
-  const pct = total > 0 ? Math.round((matched / total) * 1000) / 10 : 0;
+  const progress = computeCollectionProgressStats(owned, mounts);
 
   let plan: ReturnType<typeof computeWeeklyPlanMounts> = [];
   try {
@@ -165,15 +165,25 @@ export default async function AccountPage() {
         </h2>
         <ul className="account-stats">
           <li>
-            <strong>{owned.length}</strong> spell IDs stored
+            <strong>{progress.storedSpellCount}</strong> spell IDs stored
           </li>
           <li>
             Last updated: {formatUpdatedAt(user.collectionUpdatedAt)}
           </li>
           <li>
-            <strong>{matched}</strong> of <strong>{total}</strong> Retail mounts
-            in this site&apos;s data match your export ({pct}% of catalog).
+            <strong>{progress.matchedObtainable}</strong> of{" "}
+            <strong>{progress.obtainableTotal}</strong> obtainable Retail mounts
+            in this catalog ({progress.percentComplete}% complete). Obtainable =
+            catalog entries with <code>retailObtainable</code> not false (same as
+            farm math on the tool).
           </li>
+          {progress.unknownSpellIdCount > 0 ? (
+            <li className="account-stats__hint">
+              <strong>{progress.unknownSpellIdCount}</strong> stored ID
+              {progress.unknownSpellIdCount === 1 ? "" : "s"} do not match an
+              obtainable mount row here (stubs, unobtainable, or data gaps).
+            </li>
+          ) : null}
         </ul>
         {owned.length === 0 ? (
           <p className="status-block">
@@ -191,6 +201,19 @@ export default async function AccountPage() {
             pasted a different export).
           </p>
         )}
+      </section>
+
+      <section
+        className="content-section"
+        aria-labelledby="lockout-calendar-heading"
+      >
+        <h2
+          id="lockout-calendar-heading"
+          className="section-title account-section-heading"
+        >
+          Farm lockout timing
+        </h2>
+        <WeeklyResetCalendarPreference initial={user.weeklyResetCalendar} />
       </section>
 
       <section className="content-section" aria-labelledby="weekly-heading">

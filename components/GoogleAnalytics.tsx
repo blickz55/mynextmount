@@ -1,18 +1,32 @@
 "use client";
 
 import Script from "next/script";
-import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 /** Default production GA4 property; override with NEXT_PUBLIC_GA_MEASUREMENT_ID. */
 const DEFAULT_MEASUREMENT_ID = "G-W7BYTKR21X";
 
+/**
+ * Explicitly set NEXT_PUBLIC_GA_MEASUREMENT_ID=false|0|off|no|disabled to turn GA off.
+ * Empty string is treated as “unset” (uses default) so Vercel placeholders don’t silently disable tracking.
+ */
 function measurementId(): string | null {
-  const fromEnv = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
-  if (fromEnv === "" || fromEnv === "0" || fromEnv?.toLowerCase() === "false") {
+  const raw = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  if (raw === undefined || raw === null) return DEFAULT_MEASUREMENT_ID;
+  const fromEnv = String(raw).trim();
+  if (fromEnv === "") return DEFAULT_MEASUREMENT_ID;
+  const lower = fromEnv.toLowerCase();
+  if (
+    lower === "false" ||
+    lower === "0" ||
+    lower === "off" ||
+    lower === "no" ||
+    lower === "disabled"
+  ) {
     return null;
   }
-  return fromEnv || DEFAULT_MEASUREMENT_ID;
+  return fromEnv;
 }
 
 declare global {
@@ -24,17 +38,18 @@ declare global {
 
 function GoogleAnalyticsInner({ id }: { id: string }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const qs = searchParams.toString();
-    const path = qs ? `${pathname}?${qs}` : pathname;
+    const path =
+      typeof window !== "undefined"
+        ? `${window.location.pathname}${window.location.search}`
+        : pathname;
     window.gtag?.("event", "page_view", {
       page_path: path,
       page_title: typeof document !== "undefined" ? document.title : undefined,
       page_location: typeof window !== "undefined" ? window.location.href : undefined,
     });
-  }, [pathname, searchParams, id]);
+  }, [pathname, id]);
 
   return null;
 }
@@ -60,9 +75,7 @@ export function GoogleAnalytics() {
           gtag('config', '${id}', { send_page_view: false });
         `}
       </Script>
-      <Suspense fallback={null}>
-        <GoogleAnalyticsInner id={id} />
-      </Suspense>
+      <GoogleAnalyticsInner id={id} />
     </>
   );
 }

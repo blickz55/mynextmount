@@ -13,13 +13,17 @@ function mountHasSpotlightCopy(m: Mount): boolean {
 export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
   const hasWowhead = resolveWowheadCommentsLink(mount) !== null;
   const hasDigest = mountHasSpotlightCopy(mount);
-  if (!hasWowhead && !hasDigest) return null;
+  const retired = mount.retailObtainable === false;
+  if (!hasWowhead && !hasDigest && !retired) return null;
 
   return (
     <details className="mount-result-card__fold expandable-row--farm">
       <summary>
         <span className="sr-only">{mount.name}: </span>
         Quick steps & Wowhead
+        {retired ? (
+          <span className="expandable-row__summary-suffix"> — no longer obtainable</span>
+        ) : null}
       </summary>
       <div className="expandable-row__panel">
         <WowheadCommentDigest mount={mount} />
@@ -34,13 +38,17 @@ export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
 export function MountRarestSecondaryDetails({ mount }: { mount: Mount }) {
   const hasWowhead = resolveWowheadCommentsLink(mount) !== null;
   const hasDigest = mountHasSpotlightCopy(mount);
-  if (!hasWowhead && !hasDigest) return null;
+  const retired = mount.retailObtainable === false;
+  if (!hasWowhead && !hasDigest && !retired) return null;
 
   return (
     <details className="mount-result-card__fold expandable-row--rarest">
       <summary>
         <span className="sr-only">{mount.name}: </span>
         Quick steps & Wowhead
+        {retired ? (
+          <span className="expandable-row__summary-suffix"> — no longer obtainable</span>
+        ) : null}
       </summary>
       <div className="expandable-row__panel">
         <WowheadCommentDigest mount={mount} />

@@ -1,7 +1,12 @@
 {
   "schemaVersion": 1,
-  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Verify on Wowhead before adding rows.",
+  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows.",
   "patches": [
+    {
+      "id": 43688,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2025-03"
+    },
     {
       "id": 59976,
       "retailObtainable": false,
@@ -13,14 +18,299 @@
       "asOfPatch": "curated-2025-03"
     },
     {
-      "id": 43688,
+      "id": 64927,
       "retailObtainable": false,
       "asOfPatch": "curated-2025-03"
     },
     {
-      "id": 64927,
+      "id": 121820,
       "retailObtainable": false,
-      "asOfPatch": "curated-2025-03"
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 134573,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 149801,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 232405,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 278966,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 289639,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 307256,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 307263,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 348162,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 386452,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 428067,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 431992,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 434462,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 441324,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 441325,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 458335,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1217235,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1221694,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1229276,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1229283,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1229288,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1235513,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1238729,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1241429,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250482,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250879,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250880,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250881,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250882,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250884,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1250886,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251255,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251265,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251279,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251281,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251283,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251284,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251295,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251297,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251298,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251300,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251305,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251307,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251309,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251311,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251396,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251397,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251398,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251399,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1251400,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1253129,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1253130,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1255264,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1255431,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1255456,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1255463,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1255467,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 1255471,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03"
     }
   ]
 }

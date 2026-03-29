@@ -17,23 +17,6 @@
     "sourceCategory": "vendor"
   },
   {
-    "id": 459,
-    "name": "Gray Wolf",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=459",
-    "commentsUrl": "https://www.wowhead.com/spell=459#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
     "id": 468,
     "name": "White Stallion",
     "source": "VENDOR — Vendor",
@@ -131,23 +114,6 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=580",
     "commentsUrl": "https://www.wowhead.com/spell=580#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
-    "id": 581,
-    "name": "Winter Wolf",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=581",
-    "commentsUrl": "https://www.wowhead.com/spell=581#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "vendor"
@@ -372,23 +338,6 @@
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "vendor"
-  },
-  {
-    "id": 10790,
-    "name": "Tiger",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=10790",
-    "commentsUrl": "https://www.wowhead.com/spell=10790#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
   },
   {
     "id": 10793,
@@ -869,23 +818,6 @@
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "drop"
-  },
-  {
-    "id": 18363,
-    "name": "Riding Kodo",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=18363",
-    "commentsUrl": "https://www.wowhead.com/spell=18363#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
   },
   {
     "id": 18989,
@@ -3292,23 +3224,6 @@
     "sourceCategory": "drop"
   },
   {
-    "id": 59572,
-    "name": "Black Polar Bear",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=59572",
-    "commentsUrl": "https://www.wowhead.com/spell=59572#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
     "id": 59650,
     "name": "Black Drake",
     "source": "DROP — Drop",
@@ -3621,40 +3536,6 @@
     "sourceCategory": "achievement"
   },
   {
-    "id": 60136,
-    "name": "Grand Caravan Mammoth",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=60136",
-    "commentsUrl": "https://www.wowhead.com/spell=60136#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
-    "id": 60140,
-    "name": "Grand Caravan Mammoth",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=60140",
-    "commentsUrl": "https://www.wowhead.com/spell=60140#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
     "id": 60424,
     "name": "Mekgineer's Chopper",
     "source": "PROFESSION — Profession",
@@ -3897,25 +3778,6 @@
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "achievement"
-  },
-  {
-    "id": 62048,
-    "name": "Illidari Doomhawk",
-    "source": "DROP — Drop",
-    "location": "Dungeon, raid, or world drop — check Wowhead for instance or boss",
-    "dropRate": 0.02,
-    "difficulty": 4,
-    "timeToComplete": 120,
-    "lockout": "weekly",
-    "expansion": "Unknown",
-    "tags": [
-      "rare"
-    ],
-    "wowheadUrl": "https://www.wowhead.com/spell=62048",
-    "commentsUrl": "https://www.wowhead.com/spell=62048#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "drop"
   },
   {
     "id": 63232,
@@ -6149,8 +6011,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=121820",
     "commentsUrl": "https://www.wowhead.com/spell=121820#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -6234,23 +6096,6 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=122708",
     "commentsUrl": "https://www.wowhead.com/spell=122708#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
-    "id": 123182,
-    "name": "Kafa Yak",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=123182",
-    "commentsUrl": "https://www.wowhead.com/spell=123182#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "vendor"
@@ -6595,40 +6440,6 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=127178",
     "commentsUrl": "https://www.wowhead.com/spell=127178#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
-    "id": 127209,
-    "name": "Black Riding Yak",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=127209",
-    "commentsUrl": "https://www.wowhead.com/spell=127209#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
-    "id": 127213,
-    "name": "Modest Expedition Yak",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=127213",
-    "commentsUrl": "https://www.wowhead.com/spell=127213#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "vendor"
@@ -7160,8 +6971,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=134573",
     "commentsUrl": "https://www.wowhead.com/spell=134573#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "petstore"
   },
   {
@@ -7832,8 +7643,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=149801",
     "commentsUrl": "https://www.wowhead.com/spell=149801#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -9205,23 +9016,6 @@
     "sourceCategory": "achievement"
   },
   {
-    "id": 194046,
-    "name": "Swift Spectral Rylak",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=194046",
-    "commentsUrl": "https://www.wowhead.com/spell=194046#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
-  },
-  {
     "id": 194464,
     "name": "Eclipse Dragonhawk",
     "source": "VENDOR — Vendor",
@@ -10385,8 +10179,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=232405",
     "commentsUrl": "https://www.wowhead.com/spell=232405#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -10602,57 +10396,6 @@
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
     "sourceCategory": "achievement"
-  },
-  {
-    "id": 239363,
-    "name": "Swift Spectral Hippogryph",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=239363",
-    "commentsUrl": "https://www.wowhead.com/spell=239363#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
-  },
-  {
-    "id": 239766,
-    "name": "Blue Qiraji War Tank",
-    "source": "WORLDEVENT — World Event",
-    "location": "Seasonal world event (see in-game calendar)",
-    "dropRate": 0.35,
-    "difficulty": 2,
-    "timeToComplete": 60,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=239766",
-    "commentsUrl": "https://www.wowhead.com/spell=239766#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "worldevent"
-  },
-  {
-    "id": 239767,
-    "name": "Red Qiraji War Tank",
-    "source": "WORLDEVENT — World Event",
-    "location": "Seasonal world event (see in-game calendar)",
-    "dropRate": 0.35,
-    "difficulty": 2,
-    "timeToComplete": 60,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=239767",
-    "commentsUrl": "https://www.wowhead.com/spell=239767#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "worldevent"
   },
   {
     "id": 239770,
@@ -12276,8 +12019,8 @@
     ],
     "wowheadUrl": "https://www.wowhead.com/spell=278966",
     "commentsUrl": "https://www.wowhead.com/spell=278966#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "drop"
   },
   {
@@ -13032,8 +12775,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=289639",
     "commentsUrl": "https://www.wowhead.com/spell=289639#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "quest"
   },
   {
@@ -13650,74 +13393,6 @@
     "sourceCategory": "tradingpost"
   },
   {
-    "id": 302794,
-    "name": "Swift Spectral Fathom Ray",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=302794",
-    "commentsUrl": "https://www.wowhead.com/spell=302794#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
-  },
-  {
-    "id": 302795,
-    "name": "Swift Spectral Magnetocraft",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=302795",
-    "commentsUrl": "https://www.wowhead.com/spell=302795#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
-  },
-  {
-    "id": 302796,
-    "name": "Swift Spectral Armored Gryphon",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=302796",
-    "commentsUrl": "https://www.wowhead.com/spell=302796#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
-  },
-  {
-    "id": 302797,
-    "name": "Swift Spectral Pterrordax",
-    "source": "ACHIEVEMENT — Achievement",
-    "location": "Achievement reward (criteria vary)",
-    "dropRate": 0.25,
-    "difficulty": 3,
-    "timeToComplete": 180,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=302797",
-    "commentsUrl": "https://www.wowhead.com/spell=302797#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "achievement"
-  },
-  {
     "id": 303767,
     "name": "Honeyback Hivemother",
     "source": "Retail — Blizzard Game Data API",
@@ -13814,8 +13489,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=307256",
     "commentsUrl": "https://www.wowhead.com/spell=307256#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -13831,8 +13506,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=307263",
     "commentsUrl": "https://www.wowhead.com/spell=307263#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -16172,8 +15847,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=348162",
     "commentsUrl": "https://www.wowhead.com/spell=348162#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -18836,8 +18511,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=386452",
     "commentsUrl": "https://www.wowhead.com/spell=386452#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -20350,8 +20025,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=428067",
     "commentsUrl": "https://www.wowhead.com/spell=428067#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "promotion"
   },
   {
@@ -20485,8 +20160,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=431992",
     "commentsUrl": "https://www.wowhead.com/spell=431992#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -20591,8 +20266,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=434462",
     "commentsUrl": "https://www.wowhead.com/spell=434462#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "achievement"
   },
   {
@@ -21136,8 +20811,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=441324",
     "commentsUrl": "https://www.wowhead.com/spell=441324#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "vendor"
   },
   {
@@ -21153,8 +20828,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=441325",
     "commentsUrl": "https://www.wowhead.com/spell=441325#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "vendor"
   },
   {
@@ -22236,8 +21911,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=458335",
     "commentsUrl": "https://www.wowhead.com/spell=458335#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "achievement"
   },
   {
@@ -23387,8 +23062,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1217235",
     "commentsUrl": "https://www.wowhead.com/spell=1217235#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "achievement"
   },
   {
@@ -23773,8 +23448,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1221694",
     "commentsUrl": "https://www.wowhead.com/spell=1221694#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "achievement"
   },
   {
@@ -24094,8 +23769,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1229276",
     "commentsUrl": "https://www.wowhead.com/spell=1229276#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -24111,8 +23786,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1229283",
     "commentsUrl": "https://www.wowhead.com/spell=1229283#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -24128,8 +23803,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1229288",
     "commentsUrl": "https://www.wowhead.com/spell=1229288#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -24415,8 +24090,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1235513",
     "commentsUrl": "https://www.wowhead.com/spell=1235513#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -24601,8 +24276,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1238729",
     "commentsUrl": "https://www.wowhead.com/spell=1238729#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -24745,8 +24420,8 @@
     ],
     "wowheadUrl": "https://www.wowhead.com/spell=1241429",
     "commentsUrl": "https://www.wowhead.com/spell=1241429#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "drop"
   },
   {
@@ -25258,8 +24933,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250482",
     "commentsUrl": "https://www.wowhead.com/spell=1250482#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25294,8 +24969,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250879",
     "commentsUrl": "https://www.wowhead.com/spell=1250879#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25311,8 +24986,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250880",
     "commentsUrl": "https://www.wowhead.com/spell=1250880#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25328,8 +25003,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250881",
     "commentsUrl": "https://www.wowhead.com/spell=1250881#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25345,8 +25020,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250882",
     "commentsUrl": "https://www.wowhead.com/spell=1250882#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25362,8 +25037,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250884",
     "commentsUrl": "https://www.wowhead.com/spell=1250884#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25379,8 +25054,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1250886",
     "commentsUrl": "https://www.wowhead.com/spell=1250886#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25396,8 +25071,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251255",
     "commentsUrl": "https://www.wowhead.com/spell=1251255#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25413,8 +25088,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251265",
     "commentsUrl": "https://www.wowhead.com/spell=1251265#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25430,8 +25105,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251279",
     "commentsUrl": "https://www.wowhead.com/spell=1251279#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25447,8 +25122,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251281",
     "commentsUrl": "https://www.wowhead.com/spell=1251281#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25464,8 +25139,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251283",
     "commentsUrl": "https://www.wowhead.com/spell=1251283#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25481,8 +25156,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251284",
     "commentsUrl": "https://www.wowhead.com/spell=1251284#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25498,8 +25173,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251295",
     "commentsUrl": "https://www.wowhead.com/spell=1251295#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25515,8 +25190,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251297",
     "commentsUrl": "https://www.wowhead.com/spell=1251297#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25532,8 +25207,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251298",
     "commentsUrl": "https://www.wowhead.com/spell=1251298#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25549,8 +25224,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251300",
     "commentsUrl": "https://www.wowhead.com/spell=1251300#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25566,8 +25241,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251305",
     "commentsUrl": "https://www.wowhead.com/spell=1251305#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25583,8 +25258,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251307",
     "commentsUrl": "https://www.wowhead.com/spell=1251307#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25600,8 +25275,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251309",
     "commentsUrl": "https://www.wowhead.com/spell=1251309#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25617,8 +25292,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251311",
     "commentsUrl": "https://www.wowhead.com/spell=1251311#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25634,8 +25309,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251396",
     "commentsUrl": "https://www.wowhead.com/spell=1251396#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25651,8 +25326,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251397",
     "commentsUrl": "https://www.wowhead.com/spell=1251397#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25668,8 +25343,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251398",
     "commentsUrl": "https://www.wowhead.com/spell=1251398#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25685,8 +25360,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251399",
     "commentsUrl": "https://www.wowhead.com/spell=1251399#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25702,8 +25377,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1251400",
     "commentsUrl": "https://www.wowhead.com/spell=1251400#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25889,8 +25564,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1253129",
     "commentsUrl": "https://www.wowhead.com/spell=1253129#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -25906,8 +25581,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1253130",
     "commentsUrl": "https://www.wowhead.com/spell=1253130#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -26029,8 +25704,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1255264",
     "commentsUrl": "https://www.wowhead.com/spell=1255264#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -26046,8 +25721,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1255431",
     "commentsUrl": "https://www.wowhead.com/spell=1255431#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -26063,8 +25738,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1255456",
     "commentsUrl": "https://www.wowhead.com/spell=1255456#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -26080,8 +25755,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1255463",
     "commentsUrl": "https://www.wowhead.com/spell=1255463#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -26097,8 +25772,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1255467",
     "commentsUrl": "https://www.wowhead.com/spell=1255467#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {
@@ -26114,8 +25789,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1255471",
     "commentsUrl": "https://www.wowhead.com/spell=1255471#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03",
     "sourceCategory": "worldevent"
   },
   {

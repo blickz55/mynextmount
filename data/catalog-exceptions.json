@@ -1,8 +1,11 @@
 {
   "schemaVersion": 1,
-  "excludedSpellIds": [],
+  "excludedSpellIds": [
+    459, 581, 10790, 18363, 59572, 60136, 60140, 62048, 123182, 127209, 127213,
+    194046, 239363, 239766, 239767, 302794, 302795, 302796, 302797
+  ],
   "notes": [
     "Spell IDs listed in excludedSpellIds are obtainable in-game (or appear in API) but are intentionally omitted from mounts.json. Each ID must be justified in docs/mount-catalog-exceptions.md.",
-    "Empty array means no intentional omissions are tracked yet."
+    "2026-03: Datamined / never-shipped Retail mounts (cut before release); excluded so exports and farm lists stay honest."
   ]
 }

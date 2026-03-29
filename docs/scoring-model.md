@@ -137,11 +137,31 @@ The compare script perturbs `dropRate` (+8%) and `timeToComplete` (×1.2) and me
 | **Balanced** | `balanced` | Blend prestige + accessibility + EV |
 | **Rarest prestige** | `rarest` | Legacy rare formula (explainable via same factors) |
 
-Future (**J.7**): drive `progressProximity` and optional \(U\) from saved collection.
+**Shipped:** `completionByExpansion` remains optional; **Epic K.4** adds **`personalization`** on the same `ScoringContext` (attempt pressure, weekly reset urgency, lockout demotion).
 
 ---
 
-## 8. Explainability
+## 8. K.4 personalization (signed-in farm list)
+
+After the baseline **`scoreForRecommendationMode`** result (efficient / balanced / rarest), we apply **`applyK4PersonalizationToScore`** when `ctx.personalization` is set:
+
+| Signal | Effect |
+|--------|--------|
+| **Farm attempts** (per spell) | Small additive boost with **\(1 - e^{-a/\tau}\)** (diminishing returns; \(\tau \approx 9\)). |
+| **Locked** (daily/weekly, from K.3 row) | Score multiplied by a **small constant** (~0.018) so the mount sinks in the list. |
+| **Weekly + available** | Additive boost scaling with **\(1 - \Delta t / 7\text{d}\)** where \(\Delta t\) is time until **`nextWeeklyResetAt`** — stronger as the weekly reset approaches. |
+
+**Constants** live in **`lib/scoring/k4Personalization.ts`** (tunable).
+
+**Coverage cap:** `/tool` only loads farm-row data for the first **500** mounts in the **baseline** sort; mounts beyond that keep **neutral** personalization until filters narrow the list.
+
+**Epic K.6 (same `ScoringContext.personalization`):** optional **`behavior`** (`preferShortRunsStrength`, `raidAvoidanceStrength`) from local engagement / deprioritize — see **`lib/scoring/k6BehaviorPersonalization.ts`** and **`docs/j7-accounts.md`** (Epic K.6).
+
+**Epic K.8 (after K.4 + K.6):** optional **`communityBoostBySpellId`** — small additive deltas from **`MountListingCommunityAggregate`** / listing helpfulness sums. Implementation: **`lib/scoring/k8CommunityRecommendation.ts`** (`recommendationBoostFromPersistedAggregate`, **`getCommunityRecommendationBoost`**). Loaded with **`POST /api/collection/farm-attempts`** on **`/tool`** and on the server save path via **`buildServerFarmScoringPersonalization`**. UI copy for votes stays **“helpful listing”**; ranking use is downstream only.
+
+---
+
+## 9. Explainability
 
 `scoreForRecommendationMode` returns:
 
@@ -154,7 +174,7 @@ The farm list UI exposes a **collapsible “Score”** block per mount.
 
 ---
 
-## 9. Tradeoffs & extensions
+## 10. Tradeoffs & extensions
 
 | Tradeoff | Choice |
 |----------|--------|
@@ -173,4 +193,7 @@ The farm list UI exposes a **collapsible “Score”** block per mount.
 - `lib/scoreRarest.ts` — thin wrapper over `scoreRarestDetailed`
 - `lib/selectTopMountsByScore.ts` — sort helper
 - `scripts/scoring-model-compare.ts` — offline stats
-- `tests/scoring-composite.test.ts`, `tests/scoring-stats.test.ts`
+- `lib/farmSessionPlan.ts` — Epic **K.5** session builder (uses ranked farm list order)
+- `lib/farmPreferenceModel.ts`, `lib/farmPreferenceStorage.ts`, `lib/scoring/k6BehaviorPersonalization.ts` — Epic **K.6**
+- `lib/scoring/k8CommunityRecommendation.ts`, `lib/loadCommunityRecommendationBoostMap.ts`, `lib/refreshMountListingCommunityAggregate.ts` — Epic **K.8**
+- `tests/scoring-composite.test.ts`, `tests/scoring-stats.test.ts`, `tests/k4-personalization.test.ts`, `tests/k6-behavior-personalization.test.ts`, `tests/k8-community-recommendation.test.ts`, `tests/farm-preference-model.test.ts`, `tests/farm-session-plan.test.ts`

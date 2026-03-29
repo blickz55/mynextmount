@@ -8,28 +8,69 @@ import { MountPanelFeedback } from "@/components/mount-community/MountPanelFeedb
 import { MountIcon } from "@/components/MountIcon";
 import { MountFarmSecondaryDetails } from "@/components/MountRowSecondaryDetails";
 import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
+import { formatUnlockInShort } from "@/lib/formatLockoutCountdown";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
-import { scoreForRecommendationMode } from "@/lib/scoring";
+import {
+  recordFarmDeprioritize,
+  recordFarmScoreEngagement,
+} from "@/lib/farmPreferenceStorage";
+import {
+  scoreForRecommendationMode,
+  type ScoringContext,
+} from "@/lib/scoring";
 import { LIST_VIRTUALIZE_MIN } from "@/lib/virtualizeThresholds";
 import type { Mount } from "@/types/mount";
 import type { RecommendationMode } from "@/types/recommendationMode";
 
+/** Epic K.3 — lockout row state from `POST /api/collection/farm-attempts`. */
+export type FarmLockoutRowStats = {
+  kind: "none" | "daily" | "weekly";
+  state: "available" | "locked";
+  unlocksAt: string | null;
+};
+
+/** Epic K.2 / K.3 — row stats from `POST /api/collection/farm-attempts`. */
+export type FarmAttemptRowStats = {
+  attempts: number;
+  lastAttemptAt: string | null;
+  pSeenDropPct: number | null;
+  lockout: FarmLockoutRowStats;
+};
+
 /** Collapsed-row guess; `measureElement` corrects when rows expand (details open). */
 const FARM_ROW_ESTIMATE_PX = 152;
+
+const FARM_ATTEMPT_TOOLTIP =
+  "Counts how many times you saved your collection while this mount was in your top farm suggestions (same mode, filters, and farm search as the tool). The drop estimate uses the catalog drop rate and assumes independent tries (heuristic).";
+
+const LOCKOUT_TOOLTIP =
+  "Daily: locked for 24h after a save that counted this mount. Weekly: uses your account calendar (Tuesday 15:00 UTC Americas/Oceania or Wednesday 04:00 UTC Europe). UTC storage; countdown uses your device clock.";
 
 function FarmResultCardBody({
   mount,
   mode,
+  farmAttempt,
+  scoringContext,
 }: {
   mount: Mount;
   mode: RecommendationMode;
+  farmAttempt: FarmAttemptRowStats;
+  scoringContext?: ScoringContext;
 }) {
-  const scored = scoreForRecommendationMode(mount, mode);
+  const scored = scoreForRecommendationMode(mount, mode, scoringContext);
+  const attempts = farmAttempt.attempts;
+  const pSeen = farmAttempt.pSeenDropPct;
+  const lock = farmAttempt.lockout;
+  const unlockDate =
+    lock.unlocksAt !== null ? new Date(lock.unlocksAt) : null;
   return (
     <>
       <div className="mount-result-card__head">
         <MountIcon mount={mount} />
         <strong>{mount.name}</strong>
+        {mount.retailObtainable === false ? (
+          <span className="mount-result-card__unobtainable">No longer obtainable</span>
+        ) : null}
         <MountCommunityHeadBadge spellId={mount.id} />
       </div>
       <div className="mount-result-card__line">
@@ -41,7 +82,69 @@ function FarmResultCardBody({
       <div className="mount-result-card__line">
         Why: {buildRecommendationReason(mount, mode)}
       </div>
-      <details className="mount-result-card__scoring mount-result-card__fold">
+      <div
+        className="mount-result-card__line mount-result-card__farm-attempts"
+        title={FARM_ATTEMPT_TOOLTIP}
+      >
+        <span className="mount-result-card__farm-attempts__label">
+          Farm tries (saved while in top suggestions):{" "}
+          <strong>{attempts}</strong>
+        </span>
+        {pSeen !== null ? (
+          <span className="mount-result-card__farm-attempts__est">
+            Est. ≥1 drop seen: {pSeen}%
+          </span>
+        ) : null}
+      </div>
+      {lock.kind !== "none" ? (
+        <div
+          className="mount-result-card__line mount-result-card__lockout"
+          title={LOCKOUT_TOOLTIP}
+        >
+          {lock.state === "available" ? (
+            <>
+              Lockout: <strong>Available</strong>
+              <span className="mount-result-card__lockout__kind">
+                {" "}
+                ({lock.kind})
+              </span>
+            </>
+          ) : (
+            <>
+              Lockout: <strong>Locked</strong>
+              {unlockDate !== null && !Number.isNaN(unlockDate.getTime()) ? (
+                <>
+                  {" "}
+                  — try again in{" "}
+                  <span className="mount-result-card__lockout__countdown">
+                    {formatUnlockInShort(unlockDate)}
+                  </span>{" "}
+                  <span className="mount-result-card__lockout__local">
+                    (
+                    {unlockDate.toLocaleString(undefined, {
+                      dateStyle: "short",
+                      timeStyle: "short",
+                    })}
+                    )
+                  </span>
+                </>
+              ) : null}
+            </>
+          )}
+        </div>
+      ) : null}
+      <details
+        className="mount-result-card__scoring mount-result-card__fold"
+        onToggle={(e) => {
+          const el = e.currentTarget;
+          if (el.open) {
+            recordFarmScoreEngagement(
+              mount.id,
+              Math.max(1, mount.timeToComplete),
+            );
+          }
+        }}
+      >
         <summary>Score ({scored.score.toFixed(4)})</summary>
         <ul className="mount-result-card__scoring-list">
           {scored.reasons.map((line, i) => (
@@ -49,6 +152,19 @@ function FarmResultCardBody({
           ))}
         </ul>
       </details>
+      <div className="farm-pref-actions">
+        <button
+          type="button"
+          className="farm-pref-actions__deprioritize"
+          onClick={() => recordFarmDeprioritize(mount)}
+        >
+          Show less like this
+        </button>
+        <span className="farm-pref-actions__hint">
+          Adjusts ranking on <strong>this device</strong> (opens Score above to
+          signal what you like).
+        </span>
+      </div>
       <MountFarmSecondaryDetails mount={mount} />
       <MountCommunitySection spellId={mount.id} mountName={mount.name} />
     </>
@@ -58,22 +174,68 @@ function FarmResultCardBody({
 type Props = {
   mounts: Mount[];
   mode: RecommendationMode;
+  /** Per spell ID; missing keys show as 0 tries (guest or not yet loaded). */
+  farmAttemptsBySpellId?: Readonly<Record<number, FarmAttemptRowStats>> | null;
+  /** Epic K.4 — when set (signed-in + farm data loaded), card score matches list sort. */
+  scoringContext?: ScoringContext;
 };
 
-function FarmRecommendationsListPlain({ mounts, mode }: Props) {
+const ZERO_LOCKOUT: FarmLockoutRowStats = {
+  kind: "none",
+  state: "available",
+  unlocksAt: null,
+};
+
+const ZERO_ATTEMPT: FarmAttemptRowStats = {
+  attempts: 0,
+  lastAttemptAt: null,
+  pSeenDropPct: null,
+  lockout: ZERO_LOCKOUT,
+};
+
+function rowStats(
+  map: Readonly<Record<number, FarmAttemptRowStats>> | null | undefined,
+  spellId: number,
+): FarmAttemptRowStats {
+  const row = map?.[spellId];
+  if (!row) return ZERO_ATTEMPT;
+  return {
+    attempts: row.attempts,
+    lastAttemptAt: row.lastAttemptAt,
+    pSeenDropPct: row.pSeenDropPct,
+    lockout: row.lockout ?? ZERO_LOCKOUT,
+  };
+}
+
+function FarmRecommendationsListPlain({
+  mounts,
+  mode,
+  farmAttemptsBySpellId,
+  scoringContext,
+}: Props) {
   return (
     <ol className="mount-results-list">
       {mounts.map((mount) => (
         <li key={mount.id} className="mount-result-card mount-result-card--community">
           <MountPanelFeedback spellId={mount.id} mountName={mount.name} />
-          <FarmResultCardBody mount={mount} mode={mode} />
+          <FarmResultCardBody
+            mount={mount}
+            mode={mode}
+            farmAttempt={rowStats(farmAttemptsBySpellId, mount.id)}
+            scoringContext={scoringContext}
+          />
         </li>
       ))}
     </ol>
   );
 }
 
-function FarmRecommendationsListWindowed({ mounts, mode }: Props) {
+function FarmRecommendationsListWindowed({
+  mounts,
+  mode,
+  farmAttemptsBySpellId,
+  scoringContext,
+}: Props) {
   const virtualizer = useWindowVirtualizer({
     count: mounts.length,
     estimateSize: () => FARM_ROW_ESTIMATE_PX,
@@ -119,7 +281,12 @@ function FarmRecommendationsListWindowed({ mounts, mode }: Props) {
                 data-farm-rank={vRow.index + 1}
               >
                 <MountPanelFeedback spellId={mount.id} mountName={mount.name} />
-                <FarmResultCardBody mount={mount} mode={mode} />
+                <FarmResultCardBody
+                  mount={mount}
+                  mode={mode}
+                  farmAttempt={rowStats(farmAttemptsBySpellId, mount.id)}
+                  scoringContext={scoringContext}
+                />
               </div>
             </div>
           );
@@ -133,12 +300,27 @@ function FarmRecommendationsListWindowed({ mounts, mode }: Props) {
  * Epic I.5 — Farm recommendations: plain **`ol`** under **`LIST_VIRTUALIZE_MIN`** rows;
  * **`useWindowVirtualizer`** + **`measureElement`** at or above threshold (variable-height **`details`**).
  */
-export function FarmRecommendationsList({ mounts, mode }: Props) {
+export function FarmRecommendationsList({
+  mounts,
+  mode,
+  farmAttemptsBySpellId = null,
+  scoringContext,
+}: Props) {
   const inner =
     mounts.length < LIST_VIRTUALIZE_MIN ? (
-      <FarmRecommendationsListPlain mounts={mounts} mode={mode} />
+      <FarmRecommendationsListPlain
+        mounts={mounts}
+        mode={mode}
+        farmAttemptsBySpellId={farmAttemptsBySpellId}
+        scoringContext={scoringContext}
+      />
     ) : (
-      <FarmRecommendationsListWindowed mounts={mounts} mode={mode} />
+      <FarmRecommendationsListWindowed
+        mounts={mounts}
+        mode={mode}
+        farmAttemptsBySpellId={farmAttemptsBySpellId}
+        scoringContext={scoringContext}
+      />
     );
   return <MountCommunityProvider mounts={mounts}>{inner}</MountCommunityProvider>;
 }

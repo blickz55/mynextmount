@@ -29,7 +29,7 @@ export type OwnedMountLoreHoverPayload = {
   flavorFallback?: string;
 };
 
-type TooltipPhase = "hidden" | "ready" | "error";
+type TooltipPhase = "hidden" | "ready" | "empty";
 
 type LoreContextValue = {
   onRowEnter: (payload: OwnedMountLoreHoverPayload) => void;
@@ -45,8 +45,9 @@ export function useOwnedMountLoreRow(): LoreContextValue | null {
 
 const LEAVE_MS = 320;
 
-const NO_ENTRY_MSG =
-  "No Archivist entry for this mount yet. Maintainer: run npm run content:mount-hover-lore-batch — see .env.example (batch uses OpenAI once; the site does not call the API on hover).";
+/** Shown when batch lore is not generated yet — keep copy end-user safe (no maintainer commands). */
+const NO_LORE_YET_MSG =
+  "The Archivist has no tale for this mount in our ledger yet. We add new verses over time—check back later.";
 
 function clampTooltipTarget(
   clientX: number,
@@ -92,19 +93,19 @@ function LoreMarkdown({ text }: { text: string }) {
 }
 
 function resolveHoverBody(payload: OwnedMountLoreHoverPayload): {
-  phase: "ready" | "error";
+  phase: "ready" | "empty";
   lore: string;
-  errorMsg: string | null;
+  emptyMsg: string | null;
 } {
   const archivist = payload.prebakedLore?.trim();
   if (archivist) {
-    return { phase: "ready", lore: archivist, errorMsg: null };
+    return { phase: "ready", lore: archivist, emptyMsg: null };
   }
   const fb = payload.flavorFallback?.trim();
   if (fb) {
-    return { phase: "ready", lore: fb, errorMsg: null };
+    return { phase: "ready", lore: fb, emptyMsg: null };
   }
-  return { phase: "error", lore: "", errorMsg: NO_ENTRY_MSG };
+  return { phase: "empty", lore: "", emptyMsg: NO_LORE_YET_MSG };
 }
 
 export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
@@ -119,7 +120,7 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
   const [lore, setLore] = useState("");
   const [theme, setTheme] = useState<MountLoreTheme>("default");
   const [title, setTitle] = useState("");
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [emptyMsg, setEmptyMsg] = useState<string | null>(null);
 
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -139,7 +140,7 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
     visibleRef.current = false;
     setPhase("hidden");
     setLore("");
-    setErrorMsg(null);
+    setEmptyMsg(null);
     setTitle("");
   }, [clearLeaveTimer]);
 
@@ -161,12 +162,12 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
       const r = resolveHoverBody(payload);
       if (r.phase === "ready") {
         setLore(r.lore);
-        setErrorMsg(null);
+        setEmptyMsg(null);
         setPhase("ready");
       } else {
         setLore("");
-        setErrorMsg(r.errorMsg);
-        setPhase("error");
+        setEmptyMsg(r.emptyMsg);
+        setPhase("empty");
       }
     },
     [clearLeaveTimer],
@@ -247,8 +248,8 @@ export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {
                   <LoreMarkdown text={lore} />
                 </div>
               ) : null}
-              {phase === "error" && errorMsg ? (
-                <p className="mount-lore-relic__error">{errorMsg}</p>
+              {phase === "empty" && emptyMsg ? (
+                <p className="mount-lore-relic__empty-note">{emptyMsg}</p>
               ) : null}
             </div>
           </div>,

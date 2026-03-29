@@ -45,12 +45,46 @@ export type MountScoreResult = {
   profileId: string;
 };
 
+/** Epic K.6 — derived from local engagement / deprioritize signals (`lib/farmPreferenceModel.ts`). */
+export type FarmBehaviorSignals = {
+  preferShortRunsStrength: number;
+  raidAvoidanceStrength: number;
+};
+
+/** Epic K.4 + K.6 — optional scoring overlays (omit = legacy ordering). */
+export type ScoringPersonalization = {
+  attemptsBySpellId?: Readonly<Record<number, number>>;
+  lockoutBySpellId?: Readonly<
+    Record<
+      number,
+      {
+        kind: "none" | "daily" | "weekly";
+        state: "available" | "locked";
+        unlocksAt: string | null;
+      }
+    >
+  >;
+  /** ISO instant of next weekly reset for this user’s calendar. */
+  nextWeeklyResetAt?: string;
+  /** Anchor for urgency math (defaults to `Date.now()` in adjust if omitted). */
+  nowMs?: number;
+  /** Epic K.6 — learned on this device from Score opens + “Show less like this”. */
+  behavior?: FarmBehaviorSignals;
+  /**
+   * Epic K.8 — precomputed additive boosts from listing helpfulness aggregates
+   * (`getCommunityRecommendationBoost` / `recommendationBoostFromPersistedAggregate`).
+   */
+  communityBoostBySpellId?: Readonly<Record<number, number>>;
+};
+
 export type ScoringContext = {
   /**
    * Optional: ratio of mounts in same expansion (or global) collected [0,1].
    * When absent, `progressProximity` stays neutral.
    */
   completionByExpansion?: Record<string, number>;
+  /** Epic K.4 — attempt pressure + weekly urgency + lockout demotion. */
+  personalization?: ScoringPersonalization;
 };
 
 export type ScoreMountFn = (mount: Mount) => number;

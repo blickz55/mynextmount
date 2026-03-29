@@ -20,7 +20,26 @@
 
 | Spell ID | Name (if known) | Category | Rationale |
 |----------|-----------------|----------|-----------|
-| — | — | — | *None yet — add rows as needed.* |
+| 459 | Gray Wolf | Never shipped | Datamined; not implemented in live Retail. |
+| 581 | Winter Wolf | Never shipped | Same. |
+| 10790 | Tiger | Never shipped | Same. |
+| 18363 | Riding Kodo | Never shipped | Same. |
+| 59572 | Black Polar Bear | Never shipped | Same. |
+| 60136, 60140 | Grand Caravan Mammoth | Never shipped | Same (two journal rows / variants). |
+| 62048 | Illidari Doomhawk | Never shipped | Same. |
+| 123182 | Kafa Yak | Never shipped | Same. |
+| 127209 | Black Riding Yak | Never shipped | Same. |
+| 127213 | Modest Expedition Yak | Never shipped | Same. |
+| 194046 | Swift Spectral Rylak | Never shipped | Same. |
+| 239363 | Swift Spectral Hippogryph | Never shipped | Same. |
+| 239766 | Blue Qiraji War Tank | Never shipped | Same. |
+| 239767 | Red Qiraji War Tank | Never shipped | Same. |
+| 302794 | Swift Spectral Fathom Ray | Never shipped | Same. |
+| 302795 | Swift Spectral Magnetocraft | Never shipped | Same. |
+| 302796 | Swift Spectral Armored Gryphon | Never shipped | Same. |
+| 302797 | Swift Spectral Pterrordax | Never shipped | Same. |
+
+*(“Brewfest Kodo” from some cut lists is not present in our catalog under that exact name; no separate row.)*
 
 ## Machine-readable list
 

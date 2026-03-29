@@ -19,7 +19,8 @@ export function WowheadCommentDigest({ mount }: Props) {
     : [];
 
   const hasCopy = Boolean(flavor) || lines.length > 0;
-  if (!target && !hasCopy) return null;
+  const retired = mount.retailObtainable === false;
+  if (!retired && !target && !hasCopy) return null;
 
   const linkLabel =
     target?.pageKind === "item"
@@ -33,6 +34,12 @@ export function WowheadCommentDigest({ mount }: Props) {
 
   return (
     <div className="comment-digest">
+      {retired ? (
+        <p className="comment-digest__unobtainable-banner" role="status">
+          <strong>No longer obtainable in Retail.</strong> Notes and Wowhead links below are for
+          history and context only — you cannot earn this mount on current Retail servers.
+        </p>
+      ) : null}
       {hasCopy ? (
         <>
           <p className="comment-digest__heading">
@@ -49,8 +56,9 @@ export function WowheadCommentDigest({ mount }: Props) {
             </ul>
           ) : null}
           <p className="comment-digest__fineprint">
-            Steps are generated with OpenAI from our mount metadata (or edited by hand). Verify
-            in-game; drops and vendors change with patches.
+            {retired
+              ? "These steps may describe sources that no longer exist or were time-limited. Treat as archival reference; confirm details on Wowhead."
+              : "Steps are generated with OpenAI from our mount metadata (or edited by hand). Verify in-game; drops and vendors change with patches."}
             {mount.wowheadCommentDigestAsOf
               ? ` Updated ${mount.wowheadCommentDigestAsOf}.`
               : ""}
@@ -58,7 +66,13 @@ export function WowheadCommentDigest({ mount }: Props) {
         </>
       ) : target ? (
         <p className="comment-digest__empty">
-          No spotlight copy in our data yet for this mount.
+          {retired
+            ? "No spotlight copy in our data. Use Wowhead for historical discussion."
+            : "No spotlight copy in our data yet for this mount."}
+        </p>
+      ) : retired ? (
+        <p className="comment-digest__empty">
+          No Wowhead link in our data for this mount.
         </p>
       ) : null}
 
