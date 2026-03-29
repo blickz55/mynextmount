@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-03-25T15:15:05.830Z",
+  "generatedAt": "2026-03-29T04:54:04.566Z",
   "gameVersion": "retail-static-us",
-  "notes": "Epic B.2 + B.5 — Blizzard mount API + mount-to-summon-spell map + sourceCategory scoring heuristics + data/overrides/*.json",
+  "notes": "Epic B.2 + B.5 — Blizzard mount API + mount-to-summon-spell map + sourceCategory scoring heuristics + data/overrides/*.json (incl. retail-unobtainable) + per-row asOfPatch",
   "rowCount": 1578,
   "spellIdCount": 1578,
   "excludedSkipped": 0,
@@ -11,7 +11,7 @@
       "tier": 1,
       "name": "Blizzard Game Data API",
       "endpointOrNote": "/data/wow/mount/index + per-mount detail (static-us)",
-      "retrievedAt": "2026-03-25T15:15:05.830Z"
+      "retrievedAt": "2026-03-29T04:54:04.566Z"
     }
   ],
   "settings": {
