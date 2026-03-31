@@ -2,7 +2,7 @@
 ## Title: MyNextMount
 ## IconTexture: Media\mynextmount-icon.png
 ## Notes: Exports collected mount spell IDs as M:... for mynextmount.com (see docs/export-contract.md). Optional farm guides (Epic C.2). Website install link: docs/addon-install.md § Public listing.
-## Version: 1.2.5
+## Version: 1.2.6
 ## Author: MyNextMount
 ## SavedVariables: MyNextMountDB, MountFarmExportDB
 

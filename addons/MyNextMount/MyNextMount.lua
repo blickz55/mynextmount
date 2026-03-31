@@ -251,7 +251,6 @@ local function RegisterOptionsPanel()
   if optionsRegistered then
     return
   end
-  optionsRegistered = true
 
   if not Settings or not Settings.RegisterCanvasLayoutCategory then
     return
@@ -336,13 +335,22 @@ local function RegisterOptionsPanel()
     category:SetID(ADDON_NAME)
   end
   Settings.RegisterAddOnCategory(category)
+  optionsRegistered = true
 end
 
 local minimapButton
 
 local function OpenAddonSettings()
+  RegisterOptionsPanel()
   if MNM_SettingsCategory and Settings and Settings.OpenToCategory then
-    Settings.OpenToCategory(MNM_SettingsCategory)
+    -- Defer so the click handler finishes before the UI opens (avoids stuck state).
+    C_Timer.After(0, function()
+      local sp = _G.SettingsPanel
+      if type(sp) == "table" and sp.IsShown and not sp:IsShown() and ShowUIPanel then
+        ShowUIPanel(sp)
+      end
+      Settings.OpenToCategory(MNM_SettingsCategory)
+    end)
     return
   end
   print(
@@ -354,6 +362,29 @@ local function OpenAddonSettings()
   )
 end
 
+--- Orbit angle (degrees): 0 = right of center, 90 = top; default ~lower-left rim.
+local function GetMinimapButtonAngle()
+  local v = MyNextMountDB.minimapAngle
+  if type(v) == "number" then
+    return v
+  end
+  return 200
+end
+
+local function PlaceMinimapButton(btn)
+  if not btn or not Minimap then
+    return
+  end
+  local mapW, mapH = Minimap:GetWidth(), Minimap:GetHeight()
+  local radius = (math.min(mapW, mapH) / 2) + 3
+  local a = math.rad(GetMinimapButtonAngle())
+  local x, y = math.cos(a), math.sin(a)
+  btn:ClearAllPoints()
+  btn:SetPoint("CENTER", Minimap, "CENTER", -x * radius, y * radius)
+end
+
+local minimapButtonOnUpdateFrame
+
 local function EnsureMinimapButton()
   if minimapButton then
     return
@@ -361,20 +392,49 @@ local function EnsureMinimapButton()
   if not Minimap then
     return
   end
-  minimapButton = CreateFrame("Button", "MyNextMountMinimapButton", Minimap)
-  minimapButton:SetSize(32, 32)
-  minimapButton:SetFrameStrata("MEDIUM")
-  minimapButton:SetFrameLevel(Minimap:GetFrameLevel() + 5)
-  minimapButton:SetPoint("CENTER", Minimap, "CENTER", -70, -12)
-  minimapButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-  local tex = minimapButton:CreateTexture(nil, "BACKGROUND")
-  tex:SetAllPoints()
-  tex:SetTexture("Interface\\AddOns\\MyNextMount\\Media\\mynextmount-icon.png")
-  minimapButton:SetHighlightTexture(
-    "Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight",
-    "ADD"
-  )
-  minimapButton:SetScript("OnEnter", function(self)
+  -- Match default tracking-style minimap buttons: gold ring + small circular icon on the rim.
+  local btn = CreateFrame("Button", "MyNextMountMinimapButton", Minimap)
+  minimapButton = btn
+  btn:SetSize(32, 32)
+  btn:SetFrameStrata("HIGH")
+  btn:SetFrameLevel(Minimap:GetFrameLevel() + 15)
+  btn:EnableMouse(true)
+  PlaceMinimapButton(btn)
+
+  local border = btn:CreateTexture(nil, "OVERLAY")
+  border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+  border:SetSize(54, 54)
+  border:SetPoint("CENTER", btn, "CENTER", 0, 0)
+
+  local icon = btn:CreateTexture(nil, "BACKGROUND")
+  icon:SetSize(20, 20)
+  icon:SetPoint("CENTER", btn, "CENTER", 1, 2)
+  icon:SetTexture("Interface\\AddOns\\MyNextMount\\Media\\mynextmount-icon.png")
+  local mask = btn:CreateMaskTexture()
+  mask:SetTexture("Interface\\CHARACTERFRAME\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+  mask:SetSize(20, 20)
+  mask:SetPoint("CENTER", icon, "CENTER", 0, 0)
+  icon:AddMaskTexture(mask)
+
+  btn:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight", "ADD")
+  local hl = btn:GetHighlightTexture()
+  if hl then
+    hl:SetBlendMode("ADD")
+    hl:SetSize(36, 36)
+    hl:SetPoint("CENTER", btn, "CENTER", 0, 0)
+  end
+
+  -- "AnyUp" is more reliable for right-click on minimap-adjacent buttons than Up-only pairs.
+  btn:RegisterForClicks("AnyUp")
+  btn:SetScript("OnClick", function(_, button)
+    if button == "RightButton" then
+      OpenAddonSettings()
+    else
+      RunExport()
+    end
+  end)
+
+  btn:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     GameTooltip:SetText(ADDON_NAME, 1, 1, 1)
     GameTooltip:AddLine(
@@ -393,14 +453,26 @@ local function EnsureMinimapButton()
     )
     GameTooltip:Show()
   end)
-  minimapButton:SetScript("OnLeave", GameTooltip_Hide)
-  minimapButton:SetScript("OnClick", function(_, btn)
-    if btn == "RightButton" then
-      OpenAddonSettings()
-    else
-      RunExport()
+  btn:SetScript("OnLeave", GameTooltip_Hide)
+
+  -- Reposition when the minimap layout or zoom changes (stay on the rim like other buttons).
+  if not minimapButtonOnUpdateFrame then
+    minimapButtonOnUpdateFrame = CreateFrame("Frame")
+    minimapButtonOnUpdateFrame:RegisterEvent("MINIMAP_UPDATE_ZOOM")
+    minimapButtonOnUpdateFrame:SetScript("OnEvent", function()
+      if minimapButton then
+        PlaceMinimapButton(minimapButton)
+      end
+    end)
+    if not Minimap._MyNextMountSizeHook then
+      Minimap._MyNextMountSizeHook = true
+      Minimap:HookScript("OnSizeChanged", function()
+        if minimapButton then
+          PlaceMinimapButton(minimapButton)
+        end
+      end)
     end
-  end)
+  end
 end
 
 local function MigrateLegacySavedVariables()

@@ -114,16 +114,15 @@ export async function PUT(req: Request) {
     const farmSearchQuery =
       typeof b.farmSearchQuery === "string" ? b.farmSearchQuery : "";
 
-    await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        collectionSpellIds: serialized,
-        collectionUpdatedAt: new Date(),
-      },
-    });
-
     /** K.1.3 — no snapshot row for empty collection (still clear `User.collectionSpellIds`). */
     if (nextIds.length === 0) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          collectionSpellIds: serialized,
+          collectionUpdatedAt: new Date(),
+        },
+      });
       return NextResponse.json({
         ok: true,
         count: 0,
@@ -140,14 +139,27 @@ export async function PUT(req: Request) {
     const duplicateSkipped = Boolean(latest && latest.spellIds === serialized);
     const skipFarmAttemptIncrement = duplicateSkipped || spamSameCollection;
 
-    if (!duplicateSkipped) {
-      await prisma.mountCollectionSnapshot.create({
+    /**
+     * One transaction for user row + optional snapshot so we never persist an updated
+     * collection without a matching snapshot row (or clear failure for both).
+     */
+    await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id: user.id },
         data: {
-          userId: user.id,
-          spellIds: serialized,
+          collectionSpellIds: serialized,
+          collectionUpdatedAt: new Date(),
         },
       });
-    }
+      if (!duplicateSkipped) {
+        await tx.mountCollectionSnapshot.create({
+          data: {
+            userId: user.id,
+            spellIds: serialized,
+          },
+        });
+      }
+    });
 
     let diff: {
       addedSpellIds: number[];
@@ -182,66 +194,80 @@ export async function PUT(req: Request) {
     }
 
     let spellIdsBumped = 0;
+    let farmSideEffectsFailed = false;
     if (!skipFarmAttemptIncrement) {
-      const ranked = farmTargetRankingMounts(
-        nextIds,
-        saveMode,
-        saveFilters,
-        farmSearchQuery,
-      );
-      const sliceIds = ranked.slice(0, 500).map((m) => m.id);
-      const personalization = await buildServerFarmScoringPersonalization(
-        prisma,
-        user.id,
-        user.weeklyResetCalendar,
-        sliceIds,
-      );
-      const scoreFn = recommendationScorer(saveMode, { personalization });
-      const reranked = sortMountsByScore(ranked, scoreFn);
-      const targetIds = reranked
-        .slice(0, K_ATTEMPT_INCREMENT_CAP)
-        .map((m) => m.id);
-      if (targetIds.length > 0) {
-        const now = new Date();
-        const farmOps = targetIds.map((spellId) =>
-          prisma.mountFarmAttempt.upsert({
-            where: {
-              userId_spellId: { userId: user.id, spellId },
-            },
-            create: {
-              userId: user.id,
-              spellId,
-              attempts: 1,
-              lastAttemptAt: now,
-            },
-            update: {
-              attempts: { increment: 1 },
-              lastAttemptAt: now,
-            },
-          }),
+      try {
+        const ranked = farmTargetRankingMounts(
+          nextIds,
+          saveMode,
+          saveFilters,
+          farmSearchQuery,
         );
-        const lockoutSpellIds = targetIds.filter((spellId) => {
-          const m = MOUNT_BY_ID.get(spellId);
-          return (
-            m !== undefined &&
-            (m.lockout === "daily" || m.lockout === "weekly")
+        const sliceIds = ranked.slice(0, 500).map((m) => m.id);
+        const personalization = await buildServerFarmScoringPersonalization(
+          prisma,
+          user.id,
+          user.weeklyResetCalendar,
+          sliceIds,
+        );
+        const scoreFn = recommendationScorer(saveMode, { personalization });
+        const reranked = sortMountsByScore(ranked, scoreFn);
+        const targetIds = reranked
+          .slice(0, K_ATTEMPT_INCREMENT_CAP)
+          .map((m) => m.id);
+        if (targetIds.length > 0) {
+          const now = new Date();
+          const lockoutSpellIds = targetIds.filter((spellId) => {
+            const m = MOUNT_BY_ID.get(spellId);
+            return (
+              m !== undefined &&
+              (m.lockout === "daily" || m.lockout === "weekly")
+            );
+          });
+          /**
+           * Interactive transaction supports `timeout` / `maxWait`; the array form does not.
+           * Default 5s is too tight for ~50 upserts on Vercel + Supabase pooler.
+           */
+          await prisma.$transaction(
+            async (tx) => {
+              for (const spellId of targetIds) {
+                await tx.mountFarmAttempt.upsert({
+                  where: {
+                    userId_spellId: { userId: user.id, spellId },
+                  },
+                  create: {
+                    userId: user.id,
+                    spellId,
+                    attempts: 1,
+                    lastAttemptAt: now,
+                  },
+                  update: {
+                    attempts: { increment: 1 },
+                    lastAttemptAt: now,
+                  },
+                });
+              }
+              for (const spellId of lockoutSpellIds) {
+                await tx.mountLockoutCompletion.upsert({
+                  where: {
+                    userId_spellId: { userId: user.id, spellId },
+                  },
+                  create: {
+                    userId: user.id,
+                    spellId,
+                    lastCompletedAt: now,
+                  },
+                  update: { lastCompletedAt: now },
+                });
+              }
+            },
+            { maxWait: 15_000, timeout: 25_000 },
           );
-        });
-        const lockoutOps = lockoutSpellIds.map((spellId) =>
-          prisma.mountLockoutCompletion.upsert({
-            where: {
-              userId_spellId: { userId: user.id, spellId },
-            },
-            create: {
-              userId: user.id,
-              spellId,
-              lastCompletedAt: now,
-            },
-            update: { lastCompletedAt: now },
-          }),
-        );
-        await prisma.$transaction([...farmOps, ...lockoutOps]);
-        spellIdsBumped = targetIds.length;
+          spellIdsBumped = targetIds.length;
+        }
+      } catch (farmErr) {
+        farmSideEffectsFailed = true;
+        console.error("[api/collection PUT] farm/lockout side effects", farmErr);
       }
     }
 
@@ -255,6 +281,7 @@ export async function PUT(req: Request) {
       farmAttempts: {
         skippedIncrement: skipFarmAttemptIncrement,
         spellIdsBumped,
+        sideEffectsFailed: farmSideEffectsFailed,
       },
     });
   } catch (e) {

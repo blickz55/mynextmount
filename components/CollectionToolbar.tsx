@@ -30,9 +30,16 @@ type Props = {
 function withFarmAttemptNote(
   base: string,
   count: number,
-  farmAttempts?: { skippedIncrement?: boolean; spellIdsBumped?: number },
+  farmAttempts?: {
+    skippedIncrement?: boolean;
+    spellIdsBumped?: number;
+    sideEffectsFailed?: boolean;
+  },
 ): string {
   if (count <= 0) return base;
+  if (farmAttempts?.sideEffectsFailed) {
+    return `${base} Your collection was saved, but farm-try / lockout counters did not update (timeout or database load). Try Save again in a moment.`;
+  }
   const bumped = farmAttempts?.spellIdsBumped ?? 0;
   if (farmAttempts?.skippedIncrement && bumped === 0) {
     return `${base} Farm attempt counts for your top suggestions were unchanged (duplicate snapshot or rapid re-save).`;
@@ -86,7 +93,11 @@ export function CollectionToolbar({
             removed: { spellId: number; name: string }[];
           };
         } | null;
-        farmAttempts?: { skippedIncrement?: boolean; spellIdsBumped?: number };
+        farmAttempts?: {
+          skippedIncrement?: boolean;
+          spellIdsBumped?: number;
+          sideEffectsFailed?: boolean;
+        };
       } = {};
       try {
         data = raw ? (JSON.parse(raw) as typeof data) : {};

@@ -160,7 +160,7 @@ npm run dev
 
 ## Troubleshooting save / load (production)
 
-- **Save fails in the UI:** The API returns JSON errors when possible. Check host logs for **`[api/collection PUT]`** or **`[api/collection GET]`** — common causes are **Prisma / Postgres** errors (pooler, `DATABASE_URL`, or cold start). Ensure **`DATABASE_URL`** on the server allows **writes** (e.g. Supabase **transaction pooler :6543** with **`pgbouncer=true`** in the query string, per Prisma + Supabase docs).
+- **Save fails in the UI:** The API returns JSON errors when possible. Check host logs for **`[api/collection PUT]`** or **`[api/collection GET]`** — common causes are **Prisma / Postgres** errors (pooler, `DATABASE_URL`, or cold start). Ensure **`DATABASE_URL`** on the server allows **writes** (e.g. Supabase **transaction pooler :6543** with **`pgbouncer=true`** and **`connection_limit=1`** for serverless, per Prisma + Supabase docs). If the collection saves but you see a note about farm tries not updating, the heavy **farm-attempt / lockout** batch timed out — try Save again; **`[api/collection PUT] farm/lockout side effects`** appears in logs.
 - **Session alignment:** **`GET` / `PUT` `/api/collection`**, **`DELETE` `/api/account`**, and the **`/account` RSC** use **`auth` from `@/auth`**, the same NextAuth instance as **`[...nextauth]`**, so JWT handling matches the browser session.
 - **`/account` shows “Couldn’t load your collection” (error boundary):** That digest is a generic Next.js error page — often a thrown **`prisma.user.findUnique`** (same DB issues as save). The page now catches DB errors and shows an inline **“Try again”** state with the normal hero instead of that boundary when Prisma fails on load.
 
