@@ -10,10 +10,7 @@ import { MountFarmSecondaryDetails } from "@/components/MountRowSecondaryDetails
 import { buildRecommendationReason } from "@/lib/buildRecommendationReason";
 import { formatUnlockInShort } from "@/lib/formatLockoutCountdown";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
-import {
-  recordFarmDeprioritize,
-  recordFarmScoreEngagement,
-} from "@/lib/farmPreferenceStorage";
+import { recordFarmScoreEngagement } from "@/lib/farmPreferenceStorage";
 import {
   scoreForRecommendationMode,
   type ScoringContext,
@@ -38,7 +35,7 @@ export type FarmAttemptRowStats = {
 };
 
 /** Collapsed-row guess; `measureElement` corrects when rows expand (details open). */
-const FARM_ROW_ESTIMATE_PX = 152;
+const FARM_ROW_ESTIMATE_PX = 140;
 
 const FARM_ATTEMPT_TOOLTIP =
   "Counts how many times you saved your collection while this mount was in your top farm suggestions (same mode, filters, and farm search as the tool). The drop estimate uses the catalog drop rate and assumes independent tries (heuristic).";
@@ -152,19 +149,6 @@ function FarmResultCardBody({
           ))}
         </ul>
       </details>
-      <div className="farm-pref-actions">
-        <button
-          type="button"
-          className="farm-pref-actions__deprioritize"
-          onClick={() => recordFarmDeprioritize(mount)}
-        >
-          Show less like this
-        </button>
-        <span className="farm-pref-actions__hint">
-          Adjusts ranking on <strong>this device</strong> (opens Score above to
-          signal what you like).
-        </span>
-      </div>
       <MountFarmSecondaryDetails mount={mount} />
       <MountCommunitySection spellId={mount.id} mountName={mount.name} />
     </>

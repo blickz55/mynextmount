@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   ADDON_INSTALL_DOCS_URL,
   getAddonListingUrl,
@@ -83,6 +84,18 @@ export function HowToExportPanel() {
           </span>
         </div>
       </div>
+      <p className="how-to-panel__catalog-note">
+        <Link
+          href="/tool/retail-unobtainable"
+          className="how-to-panel__catalog-note-link"
+        >
+          Retail unobtainable list
+        </Link>
+        <span className="how-to-panel__catalog-note-muted">
+          {" "}
+          — catalog reference (legacy / removed vendors, etc.)
+        </span>
+      </p>
     </section>
   );
 }

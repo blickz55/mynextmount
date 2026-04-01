@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows. Legacy vendor phantoms: Palomino (16082), White Stallion (468, 16083), Mottled Red Raptor (16084), Black Wolf (578, 64658), Red Wolf (579, 16080), Black Ram (6896, 17461), Frost Ram (17460), Green Kodo (18991), Teal Kodo (18992), Skeletal Horse (8980), Ivory Raptor (10795, 17450), Icy Blue Mechanostrider Mod A (17459), White Mechanostrider Mod B (15779), Green Mechanostrider (15780, 17453), Black Nightsaber (16055), Ancient Frostsaber (16056) — not obtainable as listed in current Retail.",
+  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Maintainer reference: docs/retail-unobtainable-mounts.md. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows. Stormwind Skychaser (245723), Orgrimmar Interceptor (245725) — legacy limited promotion pair. Cindermane Charger (171847) — legacy Heroes of the Storm promotion. Legacy Recruit-A-Friend: Swift Zhevra (48954, 49322). Legacy vendor phantoms: Palomino (16082), White Stallion (468, 16083), Mottled Red Raptor (16084), Black Wolf (578, 64658), Red Wolf (579, 16080), Black Ram (6896, 17461), Frost Ram (17460), Green Kodo (18991), Teal Kodo (18992), Skeletal Horse (8980), Ivory Raptor (10795, 17450), Icy Blue Mechanostrider Mod A (17459), White Mechanostrider Mod B (15779), Green Mechanostrider (15780, 17453), Black Nightsaber (16055), Ancient Frostsaber (16056) — not obtainable as listed in current Retail.",
   "patches": [
     {
       "id": 43688,
@@ -421,6 +421,131 @@
       "id": 16056,
       "retailObtainable": false,
       "asOfPatch": "curated-2026-03-ancient-frostsaber"
+    },
+    {
+      "id": 48954,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-swift-zhevra"
+    },
+    {
+      "id": 49322,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-swift-zhevra"
+    },
+    {
+      "id": 171847,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-cindermane-charger"
+    },
+    {
+      "id": 245723,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-stormwind-skychaser"
+    },
+    {
+      "id": 245725,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-orgrimmar-interceptor"
+    },
+    {
+      "id": 255695,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-seabraid-stallion"
+    },
+    {
+      "id": 255696,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-gilded-ravasaur"
+    },
+    {
+      "id": 346136,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-viridian-phase-hunter"
+    },
+    {
+      "id": 367620,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-coral-stalker-waveray"
+    },
+    {
+      "id": 370770,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-tuskarr-shoreglider"
+    },
+    {
+      "id": 424009,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-runebound-firelord"
+    },
+    {
+      "id": 428065,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-jeweled-jade-scarab"
+    },
+    {
+      "id": 453255,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-savage-ebony-battle-turtle"
+    },
+    {
+      "id": 459784,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-golden-ashes-of-alar"
+    },
+    {
+      "id": 464443,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-harmonious-salutations-bear"
+    },
+    {
+      "id": 1216422,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-sha-warped-cloud-serpent"
+    },
+    {
+      "id": 1216430,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-sha-warped-riding-tiger"
+    },
+    {
+      "id": 1216542,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-blazing-royal-fire-hawk"
+    },
+    {
+      "id": 1226851,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-felborn-cormaera"
+    },
+    {
+      "id": 1236262,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-shaohaos-sage-serpent"
+    },
+    {
+      "id": 1243589,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-void-forged-overseer"
+    },
+    {
+      "id": 1268809,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-fantastical-goblin-waveshredder"
+    },
+    {
+      "id": 1269181,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-ghastropod"
+    },
+    {
+      "id": 1269556,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-hypo-speed-x6000"
+    },
+    {
+      "id": 1271549,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-fel-spirehawk"
     }
   ]
 }

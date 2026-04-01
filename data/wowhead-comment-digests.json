@@ -6062,19 +6062,18 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "This was a limited-time promotion mount.",
-      "Currently unobtainable in Retail.",
-      "Watch future shop or promotion returns.",
-      "No boss, vendor, or farm exists."
+      "Unobtainable in Retail; legacy limited-time promotion mount.",
+      "Only if already learned on your account.",
+      "No boss, vendor, or farm; verify on Wowhead if status changes."
     ]
   },
   "245725": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Unobtainable in Retail; came from a past promotion.",
-      "Not farmed, purchased, or earned from gameplay.",
-      "Check Black Market Auction House only if ever listed."
+      "Unobtainable in Retail; legacy limited-time promotion mount (Horde).",
+      "Only if already learned on your account.",
+      "No boss, vendor, or farm; BMAH extremely rare if ever. Verify on Wowhead."
     ]
   },
   "247402": {
@@ -6355,7 +6354,7 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Came from Battle for Azeroth Digital Deluxe promotion",
+      "Originally from Battle for Azeroth Digital Deluxe / Battle.net-style offers",
       "No boss, vendor, or drop source exists",
       "Promotion ended; currently unobtainable in Retail",
       "No lockout applies"
@@ -6365,9 +6364,10 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Unavailable now; earned from a past promotion.",
-      "Cannot be farmed, bought, or dropped in Retail.",
-      "Watch Blizzard promotions for any future re-release."
+      "Limited-time Battle.net / charity or promotional reward",
+      "Cannot be farmed, bought, or dropped in Retail",
+      "Promotion ended; currently unobtainable in Retail",
+      "No lockout applies"
     ]
   },
   "256123": {
@@ -8870,8 +8870,10 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Originally from The Burning Crusade Classic Deluxe Edition.",
-      "Currently unobtainable; no boss, vendor, or farm exists."
+      "Originally from The Burning Crusade Classic Deluxe Edition",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor, or repeatable farm exists",
+      "No lockout applies"
     ]
   },
   "346141": {
@@ -9902,9 +9904,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Was from a limited-time Shop or 6-month promotion",
-      "Currently unobtainable unless Blizzard reoffers it",
-      "No boss, vendor, currency, or lockout applies"
+      "Limited-time in-game Shop / Battle.net subscription-style promotion",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor, currency farm, or lockout applies"
     ]
   },
   "367673": {
@@ -10089,11 +10091,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Only from limited Blizzard promotions or bonus offers",
-      "Watch Shop, launcher, Prime Gaming, and Twitch campaigns",
-      "Redeem the promotion; mount appears in Collections",
-      "No boss, vendor, or lockout applies",
-      "Availability is time-gated and often temporary"
+      "Limited-time in-game Shop / Battle.net partner promotions (e.g. Prime Gaming)",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor, currency farm, or lockout applies"
     ]
   },
   "371176": {
@@ -11062,10 +11062,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim through a Blizzard Shop or subscription promotion",
-      "Redeem in Battle.net Gifts or Collections when awarded",
-      "No boss, vendor, difficulty, or lockout applies",
-      "If promotion ended, currently unobtainable in Retail"
+      "Limited-time Blizzard Shop / Battle.net cross-promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, difficulty gate, or lockout applies"
     ]
   },
   "424082": {
@@ -11339,11 +11338,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Get it from a limited-time Blizzard promotion or bundle",
-      "Check Battle.net Shop promotions for Jeweled Jade Scarab",
-      "Claim the reward, then learn it in Collections",
-      "No boss, vendor, difficulty, or weekly lockout",
-      "Unavailable unless the promotion returns"
+      "Limited-time Blizzard Shop / Battle.net promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, difficulty gate, or weekly lockout"
     ]
   },
   "428067": {
@@ -12335,10 +12332,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim through an active Blizzard promotion or partner giveaway",
-      "Redeem the code, then learn it from Collections",
-      "No boss, vendor, dungeon, or raid source",
-      "Available only while the promotion is running"
+      "Limited-time Blizzard or partner promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor, dungeon, or raid source"
     ]
   },
   "453785": {
@@ -12429,11 +12425,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Obtain from a Blizzard promotion when available",
-      "Check Shop, bundles, Prime Gaming, or event rewards",
-      "Claim it, then learn from your Collections mount tab",
-      "No boss, vendor, or lockout applies",
-      "Availability is time-limited and may rotate back"
+      "Limited-time Blizzard Shop / bundle promotion (teach item: Golden Ashes of Al'ar)",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, or lockout applies"
     ]
   },
   "463025": {
@@ -12458,10 +12452,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim it through an active Blizzard promotion or bonus offer",
-      "Check Battle.net Shop, launcher, or current event bundles",
-      "No boss, vendor, difficulty, or lockout applies",
-      "Time-gated availability; unobtainable outside the promotion window"
+      "Limited-time Blizzard Shop / event promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, difficulty gate, or lockout applies"
     ]
   },
   "465235": {
@@ -13001,28 +12994,27 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim through its Blizzard promotion when offered.",
-      "Unavailable outside active promo windows; watch official announcements."
+      "Limited-time Blizzard promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, or weekly lockout applies"
     ]
   },
   "1216430": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim through a limited Blizzard promotion when active",
-      "Watch Battle.net news for eligible promotion windows",
-      "No boss, vendor, or weekly lockout applies",
-      "Unavailable unless the promotion returns"
+      "Limited-time Blizzard promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, or weekly lockout applies"
     ]
   },
   "1216542": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim through its specific limited-time promotion",
-      "Check promotion details in the in-game Shop",
-      "No boss, vendor, or dungeon source",
-      "Usually time-gated; unavailable outside promotion windows"
+      "Limited-time Blizzard Shop / promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, or dungeon source"
     ]
   },
   "1217235": {
@@ -13348,10 +13340,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Get it from a limited-time Blizzard promotion",
-      "Watch Battle.net Shop and official promotion announcements",
-      "Claim the reward on your Battle.net account",
-      "Unavailable outside active promo periods"
+      "Limited-time Blizzard Shop / promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, or weekly lockout applies"
     ]
   },
   "1226855": {
@@ -13663,10 +13654,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Get it only from an active Blizzard promotion.",
-      "Claim the promotion reward through Battle.net.",
-      "Log into Retail; mount appears in your collection.",
-      "No boss, vendor, currency, or lockout involved."
+      "Limited-time Blizzard Shop / promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, currency grind, or lockout applies"
     ]
   },
   "1237631": {
@@ -13798,10 +13788,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Obtain through a limited Blizzard promotion or bonus offer.",
-      "Check current Shop, bundles, Prime, or event promotions.",
-      "No boss, vendor, difficulty, or raid lockout applies.",
-      "Unavailable unless that promotion is active or returns."
+      "Limited-time Blizzard Shop / partner promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, difficulty gate, or raid lockout applies"
     ]
   },
   "1243593": {
@@ -15062,11 +15051,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Obtain only through an active Blizzard promotion.",
-      "Redeem the promotion code or claim reward account-wide.",
-      "No boss, vendor, dungeon, or raid source.",
-      "No lockout; availability depends entirely on promotion dates.",
-      "If promotion is inactive, wait for a future return."
+      "Limited-time Blizzard Shop / promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, dungeon, or raid source"
     ]
   },
   "1268924": {
@@ -15101,10 +15088,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Claim it through a limited-time promotion",
-      "Check Battle.net promotions or partner campaign rewards",
-      "No boss, vendor, raid, or in-game farm",
-      "If promotion ended, wait for a future rerun"
+      "Limited-time Blizzard / partner promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, raid, or in-game drop source"
     ]
   },
   "1269273": {
@@ -15150,11 +15136,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Get a code from the active promotion partner.",
-      "Redeem the code on your Battle.net account.",
-      "Log in and claim it from in-game mail.",
-      "Available only during active promotion windows.",
-      "No lockout; availability depends entirely on promotion timing."
+      "Limited-time partner / Battle.net promotion (often code redemption)",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, or lockout applies"
     ]
   },
   "1270520": {
@@ -15217,11 +15201,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Obtain through a Blizzard promotion, not gameplay.",
-      "Check Battle.net promotions for current eligibility.",
-      "Redeem the reward, then claim it in Collections.",
-      "No boss, vendor, difficulty, or lockout applies.",
-      "Often time-limited; unavailable outside active promotion."
+      "Limited-time Blizzard Shop / promotion reward",
+      "Promotion ended; currently unobtainable in Retail",
+      "No boss, vendor farm, difficulty gate, or lockout applies"
     ]
   },
   "1276650": {

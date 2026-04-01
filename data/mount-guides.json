@@ -1896,12 +1896,11 @@
       "sourceLabel": "Wowhead — Acherus Deathcharger (spell 48778)"
     },
     "48954": {
-      "overview": "Swift Zhevra is not a normal farmable drop; it came from a limited promotion and may no longer be obtainable through standard gameplay. If Blizzard changes how it is awarded, the exact method can shift, so verify the current status on the linked Wowhead page before you spend time chasing it.",
+      "overview": "Swift Zhevra was a legacy Recruit-A-Friend reward and is not obtainable in current Retail through any normal promotion or vendor path. Only accounts that already learned it keep it. Verify on the linked page if Blizzard ever reissues it.",
       "checklist": [
-        "Open Collections → Mounts, search Swift Zhevra, and read the Source line to confirm it is a promotion mount.",
-        "Check your in-game mail, account rewards, or Battle.net promotions for any active mount grant tied to the event.",
-        "If the promotion is live, claim the reward on the correct account and log into Retail to learn the mount.",
-        "If it is not currently offered, leave it on your watchlist and wait for the next promotion window; there is no farm lockout to grind."
+        "Treat Swift Zhevra as unobtainable in Retail unless Blizzard announces a new acquisition path.",
+        "If you see it grayed out in the journal, you never learned it on this account — there is no farm or purchase to complete.",
+        "Confirm current status on Wowhead comments and patch notes; do not plan around old RAF instructions."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=48954",
       "sourceLabel": "Wowhead — Swift Zhevra (spell 48954)"
@@ -1919,13 +1918,11 @@
       "sourceLabel": "Wowhead — Vengeful Nether Drake (spell 49193)"
     },
     "49322": {
-      "overview": "Swift Zhevra is not a normal farmable drop; it comes from a limited promotion, so availability can be time-gated or unavailable depending on current offers. Check the linked page for the latest acquisition details and whether the promotion is active in Retail right now.",
+      "overview": "Swift Zhevra was a legacy Recruit-A-Friend reward and is not obtainable in current Retail through any normal promotion or vendor path. Only accounts that already learned it keep it. Verify on the linked page if Blizzard ever reissues it.",
       "checklist": [
-        "Open Collections → Mounts, select Swift Zhevra, and read the Source line for the active promotion details.",
-        "If the promotion is live, claim it through the in-game shop, launcher offer, or included bonus reward on the correct account.",
-        "Check your mount journal for Swift Zhevra after redeeming, then relog if it does not appear immediately.",
-        "If the promotion is inactive, keep the mount tracked in your journal and watch for the next limited-time return.",
-        "Before redeeming, confirm your region, edition, and account eligibility so the promotion applies to the right WoW account."
+        "Treat Swift Zhevra as unobtainable in Retail unless Blizzard announces a new acquisition path.",
+        "If you see it grayed out in the journal, you never learned it on this account — there is no farm or purchase to complete.",
+        "Confirm current status on Wowhead comments and patch notes; do not plan around old RAF instructions."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=49322",
       "sourceLabel": "Wowhead — Swift Zhevra (spell 49322)"
@@ -5555,13 +5552,11 @@
       "sourceLabel": "Wowhead — Champion's Treadblade (spell 171846)"
     },
     "171847": {
-      "overview": "Cindermane Charger is a promotion mount, so it is not a normal dungeon, raid, or world-drop farm. Availability can be time-limited or tied to a specific bonus offer, so check the linked page for the current acquisition method and whether it is still obtainable on Retail. If the promotion is active, follow the page instructions exactly to claim it.",
+      "overview": "Cindermane Charger was tied to a legacy Heroes of the Storm cross-promotion and is not obtainable in current Retail through any normal in-game path. Only accounts that already claimed it keep the mount. Verify on the linked page if Blizzard ever reissues it.",
       "checklist": [
-        "Open the Mounts journal and select Cindermane Charger to read its Promotion source entry.",
-        "Check your Battle.net account, launcher, or in-game promotions panel for any active claim offer.",
-        "If the promotion is live, follow the claim prompt and redeem the mount on the linked account.",
-        "Log back into Retail and open Collections > Mounts to confirm Cindermane Charger is added.",
-        "If it is not currently available, keep the mount journal entry bookmarked and watch for the next bonus promotion."
+        "Treat Cindermane Charger as unobtainable in Retail unless Blizzard announces a new acquisition path.",
+        "If it is grayed out in the journal, you never unlocked it — there is no farm or vendor to complete.",
+        "Confirm current status on Wowhead comments and patch notes; do not plan around the old HotS promotion."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=171847",
       "sourceLabel": "Wowhead — Cindermane Charger (spell 171847)"
@@ -6943,23 +6938,21 @@
       "sourceLabel": "Wowhead — Spectral Pterrorwing (spell 244712)"
     },
     "245723": {
-      "overview": "Stormwind Skychaser is a promotion mount, so it is not a normal farm and usually comes from a limited-time offer, bonus, or account-wide reward. Check the linked Wowhead page for the current acquisition details, since promotion availability can change and may not be obtainable at all times.",
+      "overview": "Stormwind Skychaser was from a legacy limited-time promotion and is not obtainable in current Retail through any normal path. Only accounts that already claimed it keep the mount. Verify on the linked page if Blizzard ever reissues it.",
       "checklist": [
-        "Open the Mounts journal and select Stormwind Skychaser to read its Promotion source entry.",
-        "Check your Battle.net account, launcher, or in-game shop for any active promotion, bonus, or bundle tied to the mount.",
-        "If the promotion is live, claim or redeem it through the listed client flow and log back in to receive the mount.",
-        "If it is not currently available, keep the mount tracked in your journal and watch for the promotion to return."
+        "Treat Stormwind Skychaser as unobtainable in Retail unless Blizzard announces a new acquisition path.",
+        "If it is grayed out in the journal, you never unlocked it — there is no farm, vendor, or current promotion to complete.",
+        "Confirm status on Wowhead comments and patch notes; do not plan around the old promotion window."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=245723",
       "sourceLabel": "Wowhead — Stormwind Skychaser (spell 245723)"
     },
     "245725": {
-      "overview": "Orgrimmar Interceptor is a promotion mount, so it is not a normal dungeon, raid, or world drop farm. Availability can be limited or tied to a specific bonus or promotion window, so check the linked page for the current acquisition method and whether it is still obtainable on Retail. If it is active, the main task is usually to complete the promotion requirement rather than farm a boss or currency.",
+      "overview": "Orgrimmar Interceptor was from a legacy limited-time promotion (Horde counterpart to Stormwind Skychaser) and is not obtainable in current Retail through any normal path. Only accounts that already claimed it keep the mount. Verify on the linked page if Blizzard ever reissues it.",
       "checklist": [
-        "Open Collections → Mounts, select Orgrimmar Interceptor, and read the Source line for the current promotion requirement.",
-        "If the promotion is active, complete the linked in-game or account bonus condition before it expires.",
-        "Claim the mount in your Battle.net or in-game rewards/collections flow, then relog if it does not appear immediately.",
-        "If it is not currently available, keep the mount tracked in Collections and check future promotion windows from the client news or shop."
+        "Treat Orgrimmar Interceptor as unobtainable in Retail unless Blizzard announces a new acquisition path.",
+        "If it is grayed out in the journal, you never unlocked it — there is no farm, vendor, or current promotion to complete.",
+        "Confirm status on Wowhead comments and patch notes; do not plan around the old promotion window."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=245725",
       "sourceLabel": "Wowhead — Orgrimmar Interceptor (spell 245725)"
@@ -7276,24 +7269,23 @@
       "sourceLabel": "Wowhead — Sharkbait (spell 254813)"
     },
     "255695": {
-      "overview": "Seabraid Stallion is a promotion mount, so it is not a normal dungeon, raid, or world drop farm. Availability can be tied to a limited-time offer, bonus, or account promotion, so check the linked page for the current acquisition details before you spend time chasing it. If the promotion is inactive, you may need to wait for it to return or look for a different eligible source.",
+      "overview": "Seabraid Stallion was tied to the Battle for Azeroth Digital Deluxe edition and similar Battle.net offers, not a repeatable in-world farm. In Retail it is treated as unobtainable for new players after those promotions ended, so there is no dungeon, vendor, or drop route to chase.",
       "checklist": [
-        "Open the Mounts journal and select Seabraid Stallion to read its Promotion source and availability notes.",
-        "Check your account services, in-game mail, or Battle.net promotions for an active redemption tied to the mount.",
-        "If the promotion is live, follow the in-client redemption steps and claim the mount on the correct account.",
-        "After redeeming, open Collections → Mounts and search Seabraid Stallion to confirm it was added.",
-        "If it is not currently available, keep the mount tracked in your journal and watch for a future promotion rerun."
+        "Open the Mounts journal and select Seabraid Stallion to read its source and history.",
+        "Confirm on Wowhead or official notes whether any new Battle.net or shop bundle still grants it (often it does not).",
+        "If you already own it from the original offer, it remains in Collections; otherwise there is no current Retail acquisition path.",
+        "Track it in your journal only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=255695",
       "sourceLabel": "Wowhead — Seabraid Stallion (spell 255695)"
     },
     "255696": {
-      "overview": "Gilded Ravasaur is a promotion-based mount, so there is no repeatable farm route like a dungeon or raid drop. If the promotion is currently active, follow the linked page for the exact claim or purchase steps, since availability and redemption rules can change by patch or event. If the promotion is not live, you may need to wait for it to return or appear through another eligible offer.",
+      "overview": "Gilded Ravasaur was a limited-time Battle.net / promotional reward (often tied to a charity bundle or similar offer), not a dungeon, vendor, or world drop. In Retail it is treated as unobtainable for new players after that window closed, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and select Gilded Ravasaur to read its Promotion source entry.",
-        "Check the in-game promotion or shop banner for an active redemption, bonus, or claim event.",
-        "If the promotion is live, follow the client prompts to redeem it on the correct Battle.net account.",
-        "Log out and back in, then confirm Gilded Ravasaur appears in your mount collection."
+        "Open Collections → Mounts and select Gilded Ravasaur to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current offer still grants it (typically it does not).",
+        "If you earned it during the original promotion, it stays in your collection; otherwise there is no current Retail path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=255696",
       "sourceLabel": "Wowhead — Gilded Ravasaur (spell 255696)"
@@ -7992,13 +7984,12 @@
       "sourceLabel": "Wowhead — Prestigious Bloodforged Courser (spell 281044)"
     },
     "281554": {
-      "overview": "Meat Wagon is a promotion mount, so it is not a normal dungeon, raid, or world drop farm. Availability can be limited or time-gated, and the exact way to claim it may change over time, so verify the current method on the linked page before you spend any time chasing it. If the promotion is active, the main task is simply to meet the offer requirements and redeem it on the correct account.",
+      "overview": "Meat Wagon comes from a Battle.net purchase (historically Warcraft III: Reforged Spoils of War), not a dungeon, vendor, or world drop. Use the linked Wowhead item page for comments and current eligibility; there is no repeatable farm route.",
       "checklist": [
-        "Open Collections → Mounts and select Meat Wagon to read its Promotion source and any current eligibility notes.",
-        "Check the in-game Shop, launcher promo banner, or account rewards tab for an active offer tied to your region.",
-        "Complete the required purchase, subscription, or event action while the promotion is live.",
-        "Log back into Retail and open your Mounts journal to learn Meat Wagon if it was granted to your account.",
-        "If it is missing, check your account rewards history or support inbox before the promotion ends."
+        "Open Collections → Mounts and select Meat Wagon to read its source entry.",
+        "Check Battle.net shop or account services for the edition or bundle that still grants the mount in your region.",
+        "After purchase or redemption, log into Retail and confirm Meat Wagon appears under Collections → Mounts.",
+        "If you already own it from the original offer, it remains in your collection."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=281554",
       "sourceLabel": "Wowhead — Meat Wagon (spell 281554)"
@@ -10135,13 +10126,12 @@
       "sourceLabel": "Wowhead — Voracious Gorger (spell 344659)"
     },
     "346136": {
-      "overview": "Viridian Phase-Hunter is a promotion mount, so it is not a normal farmable drop. Availability can be time-limited or tied to a specific offer, so check the linked page for the current acquisition method and any regional or account restrictions. If the promotion is active, follow the page’s instructions rather than running a dungeon or raid farm.",
+      "overview": "Viridian Phase-Hunter was tied to The Burning Crusade Classic Deluxe Edition (and similar limited Battle.net offers), not a dungeon, vendor, or world drop. In Retail it is treated as unobtainable for new players after those editions stopped being sold, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts, search for Viridian Phase-Hunter, and read its Source entry.",
-        "Check your Battle.net account, launcher, or in-game promo banner for an active redemption offer.",
-        "If the promotion is live, follow the redemption steps and claim the mount on the correct account.",
-        "Log back into WoW, open the Mounts journal, and verify Viridian Phase-Hunter is unlocked.",
-        "If the offer is inactive, keep the mount tracked in your journal and watch for the promotion to return."
+        "Open Collections → Mounts and select Viridian Phase-Hunter to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current bundle still grants it (typically it does not).",
+        "If you purchased the eligible edition when it was available, the mount remains on your account; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=346136",
       "sourceLabel": "Wowhead — Viridian Phase-Hunter (spell 346136)"
@@ -11316,13 +11306,12 @@
       "sourceLabel": "Wowhead — [DND] Test Mount JZB (spell 367190)"
     },
     "367620": {
-      "overview": "Coral-Stalker Waveray is tied to a promotion rather than a normal in-game drop, so there is no farm route or weekly lockout to grind. Availability can be time-limited or tied to a specific offer, so verify the current acquisition details on the linked Wowhead page before you plan around it.",
+      "overview": "Coral-Stalker Waveray was tied to limited-time in-game Shop and Battle.net subscription-style promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and search for Coral-Stalker Waveray to read its Promotion source entry.",
-        "Check your in-game Shop, promotions banner, and account rewards for any active Coral-Stalker Waveray offer.",
-        "If the promotion is live, follow the redemption prompt and claim the mount on the same Battle.net account.",
-        "Log out and back in, then reopen Collections → Mounts to confirm Coral-Stalker Waveray is added.",
-        "If it is not currently available, keep the mount marked in your journal and watch for a future promotion return."
+        "Open Collections → Mounts and select Coral-Stalker Waveray to read its source and history.",
+        "Confirm on Wowhead or official notes whether the Shop or bundle offer still grants it (typically it does not).",
+        "If you claimed it during the original promotion, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=367620",
       "sourceLabel": "Wowhead — Coral-Stalker Waveray (spell 367620)"
@@ -11533,13 +11522,12 @@
       "sourceLabel": "Wowhead — Elusive Emerald Hawkstrider (spell 370620)"
     },
     "370770": {
-      "overview": "Tuskarr Shoreglider is tied to a promotion rather than a normal in-game drop, so there is no dungeon, raid, or world farm route for it. If the promotion is active, follow the acquisition steps on the linked page; if not, you may need to wait for it to return or check whether it is still obtainable in Retail. Because promotion rules can change, verify the current status on the Wowhead spell page before you plan around it.",
+      "overview": "Tuskarr Shoreglider was granted through limited-time Battle.net-facing offers (such as in-game Shop bundles or partner promotions like Prime Gaming), not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those windows closed, so there is no farm route to chase.",
       "checklist": [
-        "Open the Mounts collection and search for Tuskarr Shoreglider to read its Promotion source",
-        "Check the in-game shop, launcher promotions, or event banner for an active claim or bonus offer",
-        "If the promotion is live, follow the claim prompt and redeem the mount on the correct Battle.net account",
-        "Log back into Retail and open Collections to confirm Tuskarr Shoreglider is added to your mounts",
-        "If it is not active, keep an eye on future promotion windows and bonus-event announcements in the client"
+        "Open Collections → Mounts and select Tuskarr Shoreglider to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current Shop or partner campaign still grants it (typically it does not).",
+        "If you redeemed it during the original offer, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=370770",
       "sourceLabel": "Wowhead — Tuskarr Shoreglider (spell 370770)"
@@ -12666,13 +12654,12 @@
       "sourceLabel": "Wowhead — Lunar Dreamstag (spell 423891)"
     },
     "424009": {
-      "overview": "Runebound Firelord is a promotion mount, so it is not a normal farm and usually comes from a limited-time offer, bonus, or account-wide promotion. Check the linked page for the current acquisition method and any patch or event changes, since availability can shift over time.",
+      "overview": "Runebound Firelord was tied to a limited-time Battle.net or in-game Shop promotion (cross-title bundles and similar offers), not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after that promotion ended, so there is no farm route to chase.",
       "checklist": [
-        "Open the Mounts journal and select Runebound Firelord to read its Promotion source and any active acquisition notes.",
-        "Check your in-game mail, shop, or event banner for the current promotion offer and claim path.",
-        "If the promotion is live, complete the required purchase, login, or account-link step before the timer ends.",
-        "After redeeming, relog and reopen Collections to make sure Runebound Firelord is added to your mount list.",
-        "If the promotion is not active, keep the mount tracked in your journal and watch for the next bonus or rerun window."
+        "Open Collections → Mounts and select Runebound Firelord to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current offer still grants it (typically it does not).",
+        "If you redeemed it during the original promotion, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=424009",
       "sourceLabel": "Wowhead — Runebound Firelord (spell 424009)"
@@ -12993,13 +12980,12 @@
       "sourceLabel": "Wowhead — Jeweled Sapphire Scarab (spell 428062)"
     },
     "428065": {
-      "overview": "Jeweled Jade Scarab is a promotion mount, so there is no dungeon, raid, or repeatable farm route for it. Availability can be time-limited or tied to a specific bonus offer, so check the linked page for the current acquisition method and whether it is still obtainable on Retail.",
+      "overview": "Jeweled Jade Scarab was tied to limited-time Battle.net or in-game Shop promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and search for Jeweled Jade Scarab to read its Promotion source entry.",
-        "Check the in-game promotion or shop banner for an active redemption offer on your account.",
-        "If the offer is live, follow the client redemption steps and claim the mount on the same Battle.net account.",
-        "Log out and back in, then reopen Mounts to confirm Jeweled Jade Scarab is added to your collection.",
-        "If the promotion is inactive, keep the mount tracked in your journal and watch for the next return window."
+        "Open Collections → Mounts and select Jeweled Jade Scarab to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you redeemed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=428065",
       "sourceLabel": "Wowhead — Jeweled Jade Scarab (spell 428065)"
@@ -14157,12 +14143,12 @@
       "sourceLabel": "Wowhead — Ivory Goliathus (spell 452779)"
     },
     "453255": {
-      "overview": "Savage Ebony Battle Turtle is a promotion mount, so there is no dungeon, raid, or world drop farm for it. Availability can be limited or time-gated, and the exact claim method can change, so check the linked Wowhead page for the latest details before you spend time chasing it. If the promotion is currently active, follow the page’s instructions to unlock or claim it.",
+      "overview": "Savage Ebony Battle Turtle was tied to limited-time Blizzard or partner promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts, select Savage Ebony Battle Turtle, and read the Source line for the current promotion details",
-        "Check your account region, eligible game version, and any linked promotion requirements before claiming",
-        "Complete the promotion steps in the Battle.net or in-game event flow, then claim the mount reward",
-        "If the promotion is inactive, leave the mount tracked in your journal and wait for the next eligible promotion window"
+        "Open Collections → Mounts and select Savage Ebony Battle Turtle to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=453255",
       "sourceLabel": "Wowhead — Savage Ebony Battle Turtle (spell 453255)"
@@ -14270,13 +14256,12 @@
       "sourceLabel": "Wowhead — Hand of Reshkigaal (spell 459193)"
     },
     "459784": {
-      "overview": "Golden Ashes of Al'ar is a promotion-based mount, so there is no dungeon, raid, or repeatable farm route to run. If the promotion is currently active, follow the linked page for the exact claim method and any region or time limits, since these offers can change. If it is not available right now, you will need to wait for the promotion to return.",
+      "overview": "Golden Ashes of Al'ar was tied to limited-time Blizzard Shop or bundle promotions (learned from the teach item in Collections), not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and select Golden Ashes of Al'ar to read its Promotion source and any claim notes.",
-        "Check your Battle.net account, region, and eligible game licenses for the active promotion or bonus offer.",
-        "Redeem the mount through the in-client promotion flow, launcher offer, or linked account reward before it expires.",
-        "Log back into Retail and confirm Golden Ashes of Al'ar appears in your Mounts journal.",
-        "If the promotion is unavailable, keep the mount tracked and wait for the next bonus event or rerun."
+        "Open Collections → Mounts and select Golden Ashes of Al'ar to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current offer still grants it (typically it does not).",
+        "If you redeemed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=459784",
       "sourceLabel": "Wowhead — Golden Ashes of Al'ar (spell 459784)"
@@ -14305,12 +14290,12 @@
       "sourceLabel": "Wowhead — Coldflame Tempest (spell 463133)"
     },
     "464443": {
-      "overview": "Harmonious Salutations Bear is a promotion mount, so there is no dungeon, raid, or world-drop farm route to run. Your main task is to claim it through the active promotion or bonus offer while it is available, then log in and redeem it on the correct Battle.net account. Because promotion rules can change by region, campaign, or patch, verify the current requirements on the linked page before you spend time chasing it.",
+      "overview": "Harmonious Salutations Bear was tied to limited-time Blizzard Shop or event promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts, select Harmonious Salutations Bear, and read the Source line for the active promotion requirement.",
-        "Check your Battle.net account, region, and eligible product or event purchase needed for the promotion reward.",
-        "Complete the promotion steps in the client or account page, then redeem the mount on the same Battle.net account.",
-        "Log into Retail and open Collections → Mounts to claim or refresh the mount if it does not appear immediately."
+        "Open Collections → Mounts and select Harmonious Salutations Bear to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=464443",
       "sourceLabel": "Wowhead — Harmonious Salutations Bear (spell 464443)"
@@ -14986,35 +14971,34 @@
       "sourceLabel": "Wowhead — Copper-Maned Quilen (spell 1214974)"
     },
     "1216422": {
-      "overview": "Sha-Warped Cloud Serpent is a promotion-based mount, so there is no dungeon, raid, or boss farm route for it. Availability can be limited or time-gated, and the exact claim method may change over time, so verify the current details on the linked Wowhead page before you plan around it.",
+      "overview": "Sha-Warped Cloud Serpent was tied to limited-time Blizzard promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open the Mounts journal and select Sha-Warped Cloud Serpent to read its Promotion source and any claim requirements.",
-        "Check the in-game promotion, shop, or account reward panel for the active offer and claim the mount if available.",
-        "If the promotion is not active, note it as time-gated and wait for the next return window or bonus event.",
-        "After claiming, relog or reopen Collections to verify Sha-Warped Cloud Serpent is added to your mount list."
+        "Open Collections → Mounts and select Sha-Warped Cloud Serpent to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1216422",
       "sourceLabel": "Wowhead — Sha-Warped Cloud Serpent (spell 1216422)"
     },
     "1216430": {
-      "overview": "Sha-Warped Riding Tiger is a promotion reward, not a normal dungeon or raid farm. Availability can be time-limited or tied to a specific bonus event, so check the linked page for the current acquisition method before you plan around it. If it is active, the main task is usually to complete the promotion requirement rather than repeat a drop farm.",
+      "overview": "Sha-Warped Riding Tiger was tied to limited-time Blizzard promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open the Mounts journal and select Sha-Warped Riding Tiger to read its Promotion source text.",
-        "Check your Battle.net account, launcher, or in-game promotion notifications for an active bonus offer tied to the mount.",
-        "Complete the required promotion task on the correct account or character while the offer is live.",
-        "Return to the Collections journal and claim the mount once the promotion reward is granted."
+        "Open Collections → Mounts and select Sha-Warped Riding Tiger to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1216430",
       "sourceLabel": "Wowhead — Sha-Warped Riding Tiger (spell 1216430)"
     },
     "1216542": {
-      "overview": "Blazing Royal Fire Hawk is a promotion mount, so there is no repeatable farm route for it in Retail. Availability can be time-limited or tied to a specific bonus offer, so check the linked page for the current acquisition method and any region or account restrictions. If the promotion is inactive, you may need to wait for it to return or verify whether it is still obtainable through a legacy offer.",
+      "overview": "Blazing Royal Fire Hawk was tied to limited-time Blizzard Shop or event promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open the Mounts journal and search for Blazing Royal Fire Hawk to read its Promotion source and availability note.",
-        "Check your Battle.net account, in-game shop, or launcher promotions for any active redemption tied to the mount.",
-        "If the promotion is live, follow the in-client or account redemption steps and claim the mount on the correct region/account.",
-        "Log back into Retail and open the Collections journal to confirm Blazing Royal Fire Hawk is added to your mount list.",
-        "If it is not active, keep the mount tracked in your journal and watch future promotion windows or bonus events."
+        "Open Collections → Mounts and select Blazing Royal Fire Hawk to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1216542",
       "sourceLabel": "Wowhead — Blazing Royal Fire Hawk (spell 1216542)"
@@ -15405,12 +15389,12 @@
       "sourceLabel": "Wowhead — Prophet's Great Raven (spell 1226760)"
     },
     "1226851": {
-      "overview": "Felborn Cormaera is a promotion mount, so it is not a normal farm and usually comes from a limited-time offer, bonus, or other account-level promotion. Check the linked page for the current acquisition method and any region, timing, or eligibility requirements, since promotion rewards can change between patches and events.",
+      "overview": "Felborn Cormaera was tied to limited-time Blizzard Shop or event promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and search for Felborn Cormaera to read its Promotion source entry.",
-        "Check your Battle.net account, in-game shop, or launcher promotions for any active mount offer tied to your region.",
-        "If the promotion is live, complete the required purchase, bundle claim, or account reward steps on the same account.",
-        "Log back into Retail and confirm Felborn Cormaera appears in your mount journal and can be summoned."
+        "Open Collections → Mounts and select Felborn Cormaera to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1226851",
       "sourceLabel": "Wowhead — Felborn Cormaera (spell 1226851)"
@@ -15792,13 +15776,12 @@
       "sourceLabel": "Wowhead — Banshee's Sickening Charger (spell 1235820)"
     },
     "1236262": {
-      "overview": "Shaohao's Sage Serpent is a promotion mount, so there is no dungeon, raid, or world drop farm for it. Availability can be limited or time-gated, so check the linked page for the current obtain method and whether the promotion is still active. If it is unavailable right now, you may need to wait for it to return through a future offer or bonus event.",
+      "overview": "Shaohao's Sage Serpent was tied to limited-time Blizzard Shop or event promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and select Shaohao's Sage Serpent to read its Promotion source and any active acquisition notes.",
-        "Check your account's promotion or rewards tab in the WoW client for the mount redemption offer and eligibility.",
-        "If the promotion is live, complete the required in-client redemption steps and claim the mount on the correct account.",
-        "Log out and back in, then reopen the Mounts journal to confirm Shaohao's Sage Serpent is added to your collection.",
-        "If the offer is unavailable, keep the mount tracked in your journal and watch for the promotion to return."
+        "Open Collections → Mounts and select Shaohao's Sage Serpent to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1236262",
       "sourceLabel": "Wowhead — Shaohao's Sage Serpent (spell 1236262)"
@@ -15963,12 +15946,12 @@
       "sourceLabel": "Wowhead — Light-Forged Mechsuit (spell 1243003)"
     },
     "1243589": {
-      "overview": "Void-Forged Overseer is a promotion reward, so it is not a normal farmable drop. If the promotion is currently active, follow the linked page for the exact claim method and any region or account restrictions, since these offers can change by patch or event. If it is not active, you may need to wait for a future return or bonus offer.",
+      "overview": "Void-Forged Overseer was tied to limited-time Blizzard Shop or partner promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and search for Void-Forged Overseer to read its Promotion source entry.",
-        "Check your Battle.net account, launcher, or in-game promo notifications for any active claim offer tied to the mount.",
-        "If the promotion is live, follow the claim flow and redeem it on the eligible account before it expires.",
-        "Log into WoW and open Collections → Mounts to confirm Void-Forged Overseer is added to your journal."
+        "Open Collections → Mounts and select Void-Forged Overseer to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1243589",
       "sourceLabel": "Wowhead — Void-Forged Overseer (spell 1243589)"
@@ -17510,13 +17493,12 @@
       "sourceLabel": "Wowhead — Accented Pseudoshell (spell 1267004)"
     },
     "1268809": {
-      "overview": "This mount is tied to a promotion rather than a normal in-game drop, so there is no traditional farm route. Check the linked page for the current promotion details, eligibility, and any time limits, since these offers can change with patches or regional availability. If the promotion is inactive, you may need to wait for it to return or verify whether it is still obtainable on Retail.",
+      "overview": "Fantastical Goblin Waveshredder was tied to limited-time Blizzard Shop or event promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and select Fantastical Goblin Waveshredder to read its Promotion source",
-        "Check your account, region, or Battle.net launcher for any active promotion or bonus offer tied to the mount",
-        "If the promotion is live, complete the required purchase, subscription, or event claim steps in the client",
-        "Claim the mount from your in-game mail or Collections once the promotion reward is granted",
-        "If it is unavailable, keep the mount tracked in your journal and watch for the next limited-time return"
+        "Open Collections → Mounts and select Fantastical Goblin Waveshredder to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1268809",
       "sourceLabel": "Wowhead — Fantastical Goblin Waveshredder (spell 1268809)"
@@ -17556,13 +17538,12 @@
       "sourceLabel": "Wowhead — Arcanovoid Construct (spell 1268949)"
     },
     "1269181": {
-      "overview": "Ghastropod is a promotion mount, so it is not a normal dungeon, raid, or world drop farm. Availability can be time-limited or tied to a specific promotional offer, so check the linked page for the current acquisition method and whether it is still obtainable. If the promotion is active, follow the redemption steps there rather than trying to farm it in-game.",
+      "overview": "Ghastropod was tied to limited-time Blizzard or partner promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and search for Ghastropod to confirm it is a promotion reward.",
-        "Check the mount tooltip/source entry for any active promotion, bundle, or account-claim requirement.",
-        "If the promotion is live, follow the in-game or Battle.net redemption flow and claim the mount on your account.",
-        "Log out and back in, then reopen Collections → Mounts to verify Ghastropod is added to your journal.",
-        "If the promotion is inactive, leave it tracked and watch for a future rerun or bonus offer before spending time on it."
+        "Open Collections → Mounts and select Ghastropod to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1269181",
       "sourceLabel": "Wowhead — Ghastropod (spell 1269181)"
@@ -17613,12 +17594,12 @@
       "sourceLabel": "Wowhead — Savage Snapvine (spell 1269280)"
     },
     "1269556": {
-      "overview": "Hypo-Speed X6000 is a promotion mount, so it is not a normal farm and usually comes from a limited-time offer, bonus, or other special acquisition path. Check the linked page for the current source and any region, account, or time-gated requirements, since promotion availability can change with patches or events.",
+      "overview": "Hypo-Speed X6000 was tied to limited-time Blizzard or partner promotions (often code redemption), not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and select Hypo-Speed X6000 to read its Promotion source.",
-        "Check your in-game mail, shop, or account bonus offers for an active promotion tied to the mount.",
-        "Confirm the promotion is available in your region and not time-limited before you claim anything.",
-        "Redeem the promotion through the Battle.net shop or linked offer while it is active."
+        "Open Collections → Mounts and select Hypo-Speed X6000 to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you redeemed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1269556",
       "sourceLabel": "Wowhead — Hypo-Speed X6000 (spell 1269556)"
@@ -17690,13 +17671,12 @@
       "sourceLabel": "Wowhead — Vivid Chloroceros (spell 1270675)"
     },
     "1271549": {
-      "overview": "Fel Spirehawk is a promotion reward rather than a normal farm, so there is no dungeon, raid, or world drop route to run. Availability can be time-limited or tied to a specific promotion, so check the linked page for the current acquisition method and any regional or patch changes.",
+      "overview": "Fel Spirehawk was tied to limited-time Blizzard Shop or event promotions, not a dungeon, vendor grind, or world drop. In Retail it is treated as unobtainable for new players after those offers ended, so there is no farm route to chase.",
       "checklist": [
-        "Open Collections → Mounts and select Fel Spirehawk to read its Promotion source in the journal.",
-        "Check your Battle.net account, in-game mail, or launcher promotions for any active redemption offer tied to the mount.",
-        "If the promotion is active, follow the client redemption steps and claim the mount on the correct account.",
-        "Log back into Retail and verify Fel Spirehawk appears in your Mounts collection.",
-        "If it is not currently available, keep an eye on future promotion or bonus-event announcements in the launcher and account page."
+        "Open Collections → Mounts and select Fel Spirehawk to read its source and history.",
+        "Confirm on Wowhead or official notes whether any current promotion still grants it (typically it does not).",
+        "If you claimed it during the original window, it stays in your collection; otherwise there is no current Retail acquisition path.",
+        "Track it only for completion context, not as an active farm target."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=1271549",
       "sourceLabel": "Wowhead — Fel Spirehawk (spell 1271549)"

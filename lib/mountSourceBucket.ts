@@ -1,6 +1,9 @@
 import type { Mount } from "@/types/mount";
 
-/** Normalized acquisition bucket for UI filters (maps Blizzard/API source + sourceCategory). */
+/**
+ * Normalized acquisition bucket for UI filters (maps Blizzard/API source + sourceCategory).
+ * Curated `sourceCategory` patches: `data/overrides/farm-source-bucket.json` (merged into mounts.json).
+ */
 export type SourceBucketId =
   | "drop"
   | "vendor"

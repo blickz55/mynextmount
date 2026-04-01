@@ -638,6 +638,36 @@ html[data-theme="dark"] .auth-nav__btn {
   font-weight: 600;
 }
 
+.how-to-panel__catalog-note {
+  margin: 0.65rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+  text-align: right;
+}
+
+.how-to-panel__catalog-note-link {
+  color: color-mix(in srgb, var(--text-muted) 88%, var(--accent-gold-bright));
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--text-muted) 50%,
+    transparent
+  );
+  text-underline-offset: 2px;
+}
+
+.how-to-panel__catalog-note-link:hover {
+  color: var(--text);
+}
+
+.how-to-panel__catalog-note-muted {
+  color: var(--text-soft);
+}
+
 .how-to-panel__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1683,6 +1713,60 @@ html[data-theme="dark"] .btn-primary {
   color: var(--text-muted);
 }
 
+.retail-unobtainable-page__back {
+  margin: 0 0 0.5rem;
+  font-size: 0.88rem;
+}
+
+.retail-unobtainable-page__back a {
+  color: color-mix(in srgb, var(--text-muted) 90%, var(--accent-gold-bright));
+  text-decoration: none;
+}
+
+.retail-unobtainable-page__back a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.retail-unobtainable-page__intro {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 52rem;
+}
+
+.retail-unobtainable-page__meta {
+  margin: 0 0 0.75rem;
+  font-size: 0.86rem;
+  color: var(--text-soft);
+}
+
+.retail-unobtainable-page__table-wrap {
+  margin-bottom: 1rem;
+}
+
+.retail-unobtainable-page__na {
+  color: var(--text-soft);
+}
+
+.retail-unobtainable-page__wh-link {
+  font-weight: 600;
+  color: color-mix(in srgb, var(--accent-gold-bright) 55%, var(--text));
+}
+
+.retail-unobtainable-page__wh-link:hover {
+  color: var(--accent-gold-bright);
+}
+
+.retail-unobtainable-page__maintainer-hint {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+  max-width: 48rem;
+}
+
 .content-section {
   margin-top: 1.5rem;
 }
@@ -1826,6 +1910,31 @@ html[data-theme="dark"] .btn-primary {
 
 .collection-progress-k7__hint {
   margin: 0;
+}
+
+.collection-progress-k7__ref {
+  margin: 0.45rem 0 0;
+}
+
+.collection-progress-k7__ref-link {
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--text-muted) 88%, var(--accent-gold-bright));
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--text-muted) 55%,
+    transparent
+  );
+  text-underline-offset: 2px;
+}
+
+.collection-progress-k7__ref-link:hover {
+  color: var(--text);
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--accent-gold-bright) 45%,
+    var(--border)
+  );
 }
 
 .status-block--success {
@@ -2048,11 +2157,10 @@ html[data-theme="dark"] .btn-primary {
   right: 0.55rem;
   z-index: 2;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.15rem 0.35rem;
-  max-width: 5.25rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  max-width: 7.25rem;
   opacity: 0;
   pointer-events: none;
   filter: grayscale(1);
@@ -2066,7 +2174,7 @@ html[data-theme="dark"] .btn-primary {
 }
 
 .mount-panel-feedback__hint {
-  flex: 1 1 100%;
+  width: 100%;
   text-align: right;
   font-size: 0.62rem;
   font-weight: 600;
@@ -2074,6 +2182,12 @@ html[data-theme="dark"] .btn-primary {
   letter-spacing: 0.06em;
   color: var(--text-soft);
   line-height: 1.2;
+}
+
+.mount-panel-feedback__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
 }
 
 .mount-panel-feedback__btn {
@@ -2122,12 +2236,26 @@ html[data-theme="dark"] .btn-primary {
   opacity: 0.92;
 }
 
-.mount-panel-feedback__counts {
-  flex: 1 1 100%;
+.mount-panel-feedback__score {
+  margin: 0;
+  width: 100%;
   text-align: right;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--text-soft);
+  color: color-mix(in srgb, var(--text) 82%, var(--text-soft));
+  line-height: 1.25;
+}
+
+.mount-panel-feedback__thanks {
+  margin: 0;
+  width: 100%;
+  text-align: right;
+  font-size: 0.62rem;
+  font-weight: 500;
+  font-style: italic;
+  color: color-mix(in srgb, var(--accent-fel) 75%, var(--text-soft));
+  line-height: 1.2;
 }
 
 .mount-community {
@@ -2418,39 +2546,6 @@ html[data-theme="dark"] .btn-primary {
 
 .mount-result-card__farm-attempts__est {
   color: var(--text-muted, var(--text));
-}
-
-/* Epic K.6 — local preference capture on farm rows */
-.farm-pref-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  margin-top: 0.35rem;
-  font-size: 0.82rem;
-}
-
-.farm-pref-actions__deprioritize {
-  padding: 0.2rem 0.55rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.18));
-  background: transparent;
-  color: var(--accent-gold-bright, #c9a227);
-  font-size: inherit;
-  font-family: inherit;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.farm-pref-actions__deprioritize:hover {
-  opacity: 0.92;
-}
-
-.farm-pref-actions__hint {
-  color: var(--text-muted, var(--text));
-  font-size: 0.8rem;
-  line-height: 1.35;
 }
 
 .farm-pref-reset-hint {

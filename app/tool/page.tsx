@@ -13,7 +13,6 @@ import {
   FarmRecommendationsList,
   type FarmAttemptRowStats,
 } from "@/components/FarmRecommendationsList";
-import { FarmSessionPlanPanel } from "@/components/FarmSessionPlanPanel";
 import { MountIcon } from "@/components/MountIcon";
 import { MountRarestOwnedPanel } from "@/components/MountRarestOwnedPanel";
 import { CollectionToolbar } from "@/components/CollectionToolbar";
@@ -24,10 +23,6 @@ import {
   SmartSiteBrand,
   TOOL_ENGAGED_KEY,
 } from "@/components/SmartSiteBrand";
-import {
-  buildFarmSessionPlan,
-  type SessionBudgetPreset,
-} from "@/lib/farmSessionPlan";
 import {
   filterMountsByFarmSearchQuery,
   mountMatchesFarmSearchQuery,
@@ -100,7 +95,6 @@ export default function HomePage() {
   const [debouncedFarmSearch, setDebouncedFarmSearch] = useState("");
   const [catalogSearchInput, setCatalogSearchInput] = useState("");
   const [debouncedCatalogSearch, setDebouncedCatalogSearch] = useState("");
-  const resultsRef = useRef<HTMLElement>(null);
   const loadMoreSentinelRef = useRef<HTMLDivElement>(null);
   const exportStringRef = useRef(exportString);
   const [remoteSavedCount, setRemoteSavedCount] = useState<number | null>(null);
@@ -114,8 +108,6 @@ export default function HomePage() {
   const [communityBoostBySpellId, setCommunityBoostBySpellId] = useState<
     Record<number, number> | null
   >(null);
-  const [sessionBudgetMinutes, setSessionBudgetMinutes] =
-    useState<SessionBudgetPreset>(45);
   const [farmPrefVersion, setFarmPrefVersion] = useState(0);
   const [prefsHydrated, setPrefsHydrated] = useState(false);
 
@@ -218,11 +210,6 @@ export default function HomePage() {
   const searchFilteredFarmList = useMemo(
     () => filterMountsByFarmSearchQuery(sortedFarmList, debouncedFarmSearch),
     [sortedFarmList, debouncedFarmSearch],
-  );
-
-  const farmSessionPlan = useMemo(
-    () => buildFarmSessionPlan(searchFilteredFarmList, sessionBudgetMinutes),
-    [searchFilteredFarmList, sessionBudgetMinutes],
   );
 
   const catalogQaMatches = useMemo(() => {
@@ -365,19 +352,6 @@ export default function HomePage() {
       cancelled = true;
     };
   }, [sessionStatus, farmDataSpellIdsKey]);
-
-  useEffect(() => {
-    if (parsedIds === null || sortedFarmList.length === 0) return;
-    const reduceMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    requestAnimationFrame(() => {
-      resultsRef.current?.scrollIntoView({
-        behavior: reduceMotion ? "auto" : "smooth",
-        block: "start",
-      });
-    });
-  }, [parsedIds, sortedFarmList.length]);
 
   useEffect(() => {
     const el = loadMoreSentinelRef.current;
@@ -665,6 +639,14 @@ export default function HomePage() {
                   </>
                 ) : null}
               </p>
+              <p className="collection-progress-k7__ref">
+                <Link
+                  href="/tool/retail-unobtainable"
+                  className="collection-progress-k7__ref-link"
+                >
+                  View mounts marked unobtainable in Retail (reference)
+                </Link>
+              </p>
             </aside>
           ) : null}
           <details className="disclosure-block owned-mounts-disclosure">
@@ -752,11 +734,7 @@ export default function HomePage() {
             </>
           )}
           {showFarmSection && (
-            <section
-              ref={resultsRef}
-              className="content-section"
-              aria-label="Results"
-            >
+            <section className="content-section" aria-label="Results">
               <h2 className="section-title">Top mounts to farm</h2>
               <details className="disclosure-block tool-farm-help-disclosure">
                 <summary>
@@ -922,14 +900,9 @@ export default function HomePage() {
                     >
                       Reset local farm ranking hints
                     </button>{" "}
-                    (this browser — Score details + &quot;Show less like
-                    this&quot; on rows)
+                    (this browser — opening Score details on rows)
                   </p>
-                  <FarmSessionPlanPanel
-                    plan={farmSessionPlan}
-                    budgetMinutes={sessionBudgetMinutes}
-                    onBudgetChange={setSessionBudgetMinutes}
-                  />
+                  {/* Archived: Suggested farm session — FarmSessionPlanPanel + buildFarmSessionPlan (lib/farmSessionPlan.ts). */}
                   <p className="farm-count-hint" aria-live="polite">
                     Showing {visibleFarm.length} of{" "}
                     {searchFilteredFarmList.length}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "notes": "Per-spell sourceCategory overrides for farm list buckets (`getMountSourceBucket` reads `sourceCategory` first). Use when Blizzard/API metadata buckets a mount in a way that misleads our filters. Big Blizzard Bear (58983): codes / secondary market — petstore. Imperial Quilen (124659), Dread Raven (155741), Illidari Felstalker (189998): shop / bundle / preorder bonus — petstore. Seabraid Stallion (255695): BfA Digital Deluxe / shop-adjacent — petstore. Meat Wagon (281554): WC3 Reforged Spoils of War / Battle.net — petstore. Bound Blizzard (358072): Battle.net / cross-promo shop bundle — petstore. Coral-Stalker Waveray (367620): in-game Shop / 6-month sub style offer — petstore. Tuskarr Shoreglider (370770): Shop / Prime Gaming–style Battle.net promo — petstore. Hidden when “In-Game Shop (Battle.net)” is off (default). Merge: npm run data:apply-overrides or data:build.",
+  "patches": [
+    {
+      "id": 58983,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 124659,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 155741,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 189998,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 255695,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 281554,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 358072,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 367620,
+      "sourceCategory": "petstore"
+    },
+    {
+      "id": 370770,
+      "sourceCategory": "petstore"
+    }
+  ]
+}

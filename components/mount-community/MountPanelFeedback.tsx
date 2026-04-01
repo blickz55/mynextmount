@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   useMountCommunityContext,
@@ -13,6 +13,8 @@ type Props = {
   mountName: string;
 };
 
+const THANK_YOU_MS = 4500;
+
 export function MountPanelFeedback({ spellId, mountName }: Props) {
   const { data: session, status } = useSession();
   const summary = useMountCommunitySummary(spellId);
@@ -20,6 +22,17 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
   const [pending, setPending] = useState<"up" | "down" | "clear" | null>(
     null,
   );
+  const [showThanks, setShowThanks] = useState(false);
+
+  useEffect(() => {
+    setShowThanks(false);
+  }, [spellId]);
+
+  useEffect(() => {
+    if (!showThanks) return;
+    const t = window.setTimeout(() => setShowThanks(false), THANK_YOU_MS);
+    return () => window.clearTimeout(t);
+  }, [showThanks]);
 
   const submit = useCallback(
     async (value: 1 | -1 | 0) => {
@@ -50,6 +63,11 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
                 ? data.summary.myVote
                 : null,
           });
+          if (value === 1 || value === -1) {
+            setShowThanks(true);
+          } else {
+            setShowThanks(false);
+          }
         }
       } finally {
         setPending(null);
@@ -78,6 +96,9 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
 
   const busy = pending !== null;
 
+  const up = summary.upCount;
+  const down = summary.downCount;
+
   return (
     <div
       className="mount-panel-feedback"
@@ -87,45 +108,54 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
       <span className="mount-panel-feedback__hint" aria-hidden>
         Rate this listing
       </span>
-      <button
-        type="button"
-        className="mount-panel-feedback__btn"
-        disabled={busy || status !== "authenticated"}
-        aria-pressed={summary.myVote === 1}
-        aria-label="This farm listing was helpful"
-        title={
-          status !== "authenticated"
-            ? "Sign in to rate this listing"
-            : summary.myVote === 1
-              ? "Remove thumbs up"
-              : "Thumbs up"
-        }
-        onClick={onUp}
+      <div className="mount-panel-feedback__buttons">
+        <button
+          type="button"
+          className="mount-panel-feedback__btn"
+          disabled={busy || status !== "authenticated"}
+          aria-pressed={summary.myVote === 1}
+          aria-label="This farm listing was helpful"
+          title={
+            status !== "authenticated"
+              ? "Sign in to rate this listing"
+              : summary.myVote === 1
+                ? "Remove thumbs up"
+                : "Thumbs up"
+          }
+          onClick={onUp}
+        >
+          <ThumbIcon up />
+        </button>
+        <button
+          type="button"
+          className="mount-panel-feedback__btn"
+          disabled={busy || status !== "authenticated"}
+          aria-pressed={summary.myVote === -1}
+          aria-label="This farm listing was not helpful"
+          title={
+            status !== "authenticated"
+              ? "Sign in to rate this listing"
+              : summary.myVote === -1
+                ? "Remove thumbs down"
+                : "Thumbs down"
+          }
+          onClick={onDown}
+        >
+          <ThumbIcon up={false} />
+        </button>
+      </div>
+      <p
+        className="mount-panel-feedback__score"
+        aria-live="polite"
+        title="Community thumbs up vs thumbs down on this listing"
       >
-        <ThumbIcon up />
-      </button>
-      <button
-        type="button"
-        className="mount-panel-feedback__btn"
-        disabled={busy || status !== "authenticated"}
-        aria-pressed={summary.myVote === -1}
-        aria-label="This farm listing was not helpful"
-        title={
-          status !== "authenticated"
-            ? "Sign in to rate this listing"
-            : summary.myVote === -1
-              ? "Remove thumbs down"
-              : "Thumbs down"
-        }
-        onClick={onDown}
-      >
-        <ThumbIcon up={false} />
-      </button>
-      {(summary.upCount > 0 || summary.downCount > 0) && (
-        <span className="mount-panel-feedback__counts" aria-hidden>
-          +{summary.upCount} / −{summary.downCount}
-        </span>
-      )}
+        +{up} / -{down}
+      </p>
+      {showThanks ? (
+        <p className="mount-panel-feedback__thanks" aria-live="polite">
+          Thank you
+        </p>
+      ) : null}
     </div>
   );
 }

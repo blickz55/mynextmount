@@ -361,6 +361,13 @@ Blizzard’s static **mount detail** JSON has **no** trustworthy “no longer ob
 
 The app excludes **`retailObtainable === false`** from **Top mounts to farm**; **View your mounts** labels those rows **No longer obtainable**.
 
+### Farm source bucket tweaks (`sourceCategory`)
+
+**`lib/mountSourceBucket.ts`** maps each mount to a filter checkbox (drops, vendor, **In-Game Shop (Battle.net)** = `petstore`, promotion, etc.). Default farm filters **turn shop off** (`initialSourceFiltersDefault`).
+
+- **`data/overrides/farm-source-bucket.json`** — optional **`sourceCategory`** patches when API metadata buckets a mount wrong for **our** filters (e.g. legacy promo mount only obtainable via codes / secondary market → treat as **`petstore`** so it stays hidden until the user opts into shop mounts).
+- Merged with the same **`npm run data:apply-overrides`** / **`data:build`** pass as other override files.
+
 ---
 
 ## Stubs vs master (`merge-export-stubs`, Epic B.7)

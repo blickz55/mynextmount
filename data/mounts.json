@@ -2933,8 +2933,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=48954",
     "commentsUrl": "https://www.wowhead.com/spell=48954#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-swift-zhevra",
     "sourceCategory": "promotion"
   },
   {
@@ -2967,8 +2967,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=49322",
     "commentsUrl": "https://www.wowhead.com/spell=49322#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-swift-zhevra",
     "sourceCategory": "promotion"
   },
   {
@@ -3128,7 +3128,7 @@
     "commentsUrl": "https://www.wowhead.com/spell=58983#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "sourceCategory": "petstore"
   },
   {
     "id": 59567,
@@ -6200,7 +6200,7 @@
     "commentsUrl": "https://www.wowhead.com/spell=124659#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "sourceCategory": "petstore"
   },
   {
     "id": 126507,
@@ -7679,7 +7679,7 @@
     "commentsUrl": "https://www.wowhead.com/spell=155741#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "sourceCategory": "petstore"
   },
   {
     "id": 163024,
@@ -8559,8 +8559,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=171847",
     "commentsUrl": "https://www.wowhead.com/spell=171847#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-cindermane-charger",
     "sourceCategory": "promotion"
   },
   {
@@ -8894,7 +8894,7 @@
     "commentsUrl": "https://www.wowhead.com/spell=189998#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "sourceCategory": "petstore"
   },
   {
     "id": 189999,
@@ -10681,8 +10681,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=245723",
     "commentsUrl": "https://www.wowhead.com/spell=245723#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-stormwind-skychaser",
     "sourceCategory": "promotion"
   },
   {
@@ -10698,8 +10698,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=245725",
     "commentsUrl": "https://www.wowhead.com/spell=245725#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-orgrimmar-interceptor",
     "sourceCategory": "promotion"
   },
   {
@@ -11206,9 +11206,9 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=255695",
     "commentsUrl": "https://www.wowhead.com/spell=255695#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-seabraid-stallion",
+    "sourceCategory": "petstore"
   },
   {
     "id": 255696,
@@ -11223,8 +11223,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=255696",
     "commentsUrl": "https://www.wowhead.com/spell=255696#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-gilded-ravasaur",
     "sourceCategory": "promotion"
   },
   {
@@ -12313,7 +12313,7 @@
     "commentsUrl": "https://www.wowhead.com/spell=281554#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "sourceCategory": "petstore"
   },
   {
     "id": 281887,
@@ -15652,8 +15652,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=346136",
     "commentsUrl": "https://www.wowhead.com/spell=346136#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-viridian-phase-hunter",
     "sourceCategory": "promotion"
   },
   {
@@ -16657,7 +16657,7 @@
     "commentsUrl": "https://www.wowhead.com/spell=358072#comments",
     "retailObtainable": true,
     "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "sourceCategory": "petstore"
   },
   {
     "id": 358319,
@@ -17456,9 +17456,9 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=367620",
     "commentsUrl": "https://www.wowhead.com/spell=367620#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-coral-stalker-waveray",
+    "sourceCategory": "petstore"
   },
   {
     "id": 367673,
@@ -17781,9 +17781,9 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=370770",
     "commentsUrl": "https://www.wowhead.com/spell=370770#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "promotion"
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-tuskarr-shoreglider",
+    "sourceCategory": "petstore"
   },
   {
     "id": 371176,
@@ -19511,8 +19511,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=424009",
     "commentsUrl": "https://www.wowhead.com/spell=424009#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-runebound-firelord",
     "sourceCategory": "promotion"
   },
   {
@@ -20008,8 +20008,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=428065",
     "commentsUrl": "https://www.wowhead.com/spell=428065#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-jeweled-jade-scarab",
     "sourceCategory": "promotion"
   },
   {
@@ -21777,8 +21777,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=453255",
     "commentsUrl": "https://www.wowhead.com/spell=453255#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-savage-ebony-battle-turtle",
     "sourceCategory": "promotion"
   },
   {
@@ -21945,8 +21945,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=459784",
     "commentsUrl": "https://www.wowhead.com/spell=459784#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-golden-ashes-of-alar",
     "sourceCategory": "promotion"
   },
   {
@@ -21996,8 +21996,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=464443",
     "commentsUrl": "https://www.wowhead.com/spell=464443#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-harmonious-salutations-bear",
     "sourceCategory": "promotion"
   },
   {
@@ -23011,8 +23011,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1216422",
     "commentsUrl": "https://www.wowhead.com/spell=1216422#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-sha-warped-cloud-serpent",
     "sourceCategory": "promotion"
   },
   {
@@ -23028,8 +23028,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1216430",
     "commentsUrl": "https://www.wowhead.com/spell=1216430#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-sha-warped-riding-tiger",
     "sourceCategory": "promotion"
   },
   {
@@ -23045,8 +23045,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1216542",
     "commentsUrl": "https://www.wowhead.com/spell=1216542#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-blazing-royal-fire-hawk",
     "sourceCategory": "promotion"
   },
   {
@@ -23651,8 +23651,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1226851",
     "commentsUrl": "https://www.wowhead.com/spell=1226851#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-felborn-cormaera",
     "sourceCategory": "promotion"
   },
   {
@@ -24226,8 +24226,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1236262",
     "commentsUrl": "https://www.wowhead.com/spell=1236262#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-shaohaos-sage-serpent",
     "sourceCategory": "promotion"
   },
   {
@@ -24490,8 +24490,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1243589",
     "commentsUrl": "https://www.wowhead.com/spell=1243589#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-void-forged-overseer",
     "sourceCategory": "promotion"
   },
   {
@@ -26840,8 +26840,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1268809",
     "commentsUrl": "https://www.wowhead.com/spell=1268809#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-fantastical-goblin-waveshredder",
     "sourceCategory": "promotion"
   },
   {
@@ -26908,8 +26908,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1269181",
     "commentsUrl": "https://www.wowhead.com/spell=1269181#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-ghastropod",
     "sourceCategory": "promotion"
   },
   {
@@ -26993,8 +26993,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1269556",
     "commentsUrl": "https://www.wowhead.com/spell=1269556#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-hypo-speed-x6000",
     "sourceCategory": "promotion"
   },
   {
@@ -27112,8 +27112,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=1271549",
     "commentsUrl": "https://www.wowhead.com/spell=1271549#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-fel-spirehawk",
     "sourceCategory": "promotion"
   },
   {
