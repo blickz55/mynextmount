@@ -12,6 +12,7 @@ import {
   findAppUserFromSession,
   sessionHasDbIdentity,
 } from "@/lib/prismaUserFromSession";
+import { bulkUpsertFarmSideEffects } from "@/lib/bulkUpsertFarmSideEffects";
 import { retryAsync } from "@/lib/retryAsync";
 import {
   deserializeSpellIds,
@@ -225,45 +226,21 @@ export async function PUT(req: Request) {
             );
           });
           /**
-           * Interactive transaction supports `timeout` / `maxWait`; the array form does not.
-           * Default 5s is too tight for ~50 upserts on Vercel + Supabase pooler.
+           * Two bulk INSERT…ON CONFLICT statements (see `bulkUpsertFarmSideEffects`) instead of
+           * ~50 sequential upserts — avoids interactive-transaction timeouts on serverless + pooler.
            */
           await prisma.$transaction(
             async (tx) => {
-              for (const spellId of targetIds) {
-                await tx.mountFarmAttempt.upsert({
-                  where: {
-                    userId_spellId: { userId: user.id, spellId },
-                  },
-                  create: {
-                    userId: user.id,
-                    spellId,
-                    attempts: 1,
-                    lastAttemptAt: now,
-                  },
-                  update: {
-                    attempts: { increment: 1 },
-                    lastAttemptAt: now,
-                  },
-                });
-              }
-              for (const spellId of lockoutSpellIds) {
-                await tx.mountLockoutCompletion.upsert({
-                  where: {
-                    userId_spellId: { userId: user.id, spellId },
-                  },
-                  create: {
-                    userId: user.id,
-                    spellId,
-                    lastCompletedAt: now,
-                  },
-                  update: { lastCompletedAt: now },
-                });
-              }
+              await bulkUpsertFarmSideEffects(tx, {
+                userId: user.id,
+                targetIds,
+                lockoutSpellIds,
+                now,
+              });
             },
             { maxWait: 15_000, timeout: 25_000 },
           );
-          spellIdsBumped = targetIds.length;
+          spellIdsBumped = new Set(targetIds).size;
         }
       } catch (farmErr) {
         farmSideEffectsFailed = true;

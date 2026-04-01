@@ -1,8 +1,8 @@
 ## Interface: 110105, 120000
 ## Title: MyNextMount
 ## IconTexture: Media\mynextmount-icon.png
-## Notes: Exports collected mount spell IDs as M:... for mynextmount.com (see docs/export-contract.md). Optional farm guides (Epic C.2). Website install link: docs/addon-install.md § Public listing.
-## Version: 1.2.6
+## Notes: Track your mounts and determine your next mount to farm!
+## Version: 1.2.11
 ## Author: MyNextMount
 ## SavedVariables: MyNextMountDB, MountFarmExportDB
 

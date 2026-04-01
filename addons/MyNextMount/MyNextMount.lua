@@ -12,8 +12,15 @@ local MNM_SettingsCategory = nil
 
 MyNextMountDB = MyNextMountDB or {}
 MyNextMountDB.websiteUrl = MyNextMountDB.websiteUrl or ""
+-- Minimap: angle (degrees) on rim; hidden = Shift+right-click hide (re-show in options).
+if MyNextMountDB.minimapHidden == nil then
+  MyNextMountDB.minimapHidden = false
+end
 
 local pendingDocsUrl = ""
+
+--- Set when options panel toggles minimap visibility (assigned after EnsureMinimapButton).
+local ApplyMinimapVisibility
 
 -- After Ctrl+C, hide on the next tick so the client handles Copy first (Raidbots-style).
 local function HookEditBoxCloseOnCtrlC(edit, hideFn)
@@ -324,9 +331,24 @@ local function RegisterOptionsPanel()
     StaticPopup_Show("MYNEXTMOUNT_URL_COPY")
   end)
 
+  local minimapShowCheck = CreateFrame("CheckButton", "MyNextMountMinimapShowCheck", canvas, "InterfaceOptionsCheckButtonTemplate")
+  minimapShowCheck:SetPoint("TOPLEFT", urlBtn, "BOTTOMLEFT", 0, -28)
+  minimapShowCheck.Text:SetText("Show minimap button")
+  minimapShowCheck:SetChecked(not MyNextMountDB.minimapHidden)
+  minimapShowCheck:SetScript("OnClick", function(self)
+    MyNextMountDB.minimapHidden = not self:GetChecked()
+    if ApplyMinimapVisibility then
+      ApplyMinimapVisibility()
+    end
+  end)
+
   if MyNextMountGuideUI_OnOptionsCanvasReady then
-    MyNextMountGuideUI_OnOptionsCanvasReady(canvas, urlBtn)
+    MyNextMountGuideUI_OnOptionsCanvasReady(canvas, minimapShowCheck)
   end
+
+  canvas:SetScript("OnShow", function()
+    minimapShowCheck:SetChecked(not MyNextMountDB.minimapHidden)
+  end)
 
   local category = Settings.RegisterCanvasLayoutCategory(canvas, displayTitle)
   MNM_SettingsCategory = category
@@ -383,55 +405,121 @@ local function PlaceMinimapButton(btn)
   btn:SetPoint("CENTER", Minimap, "CENTER", -x * radius, y * radius)
 end
 
+local EnsureMinimapButton
+
+ApplyMinimapVisibility = function()
+  if not Minimap then
+    return
+  end
+  EnsureMinimapButton()
+  if not minimapButton then
+    return
+  end
+  if MyNextMountDB.minimapHidden then
+    minimapButton:Hide()
+  else
+    minimapButton:Show()
+    PlaceMinimapButton(minimapButton)
+  end
+end
+
 local minimapButtonOnUpdateFrame
 
-local function EnsureMinimapButton()
+-- Layout copied from LibDBIcon-1.0 (Blizzard minimap broker pattern): 31×31 hit box, 53×53 ring TOPLEFT-
+-- anchored (not centered on a larger frame). UI-Minimap-Background + ARTWORK icon avoids mask bugs.
+local MNM_MM_BTN_SIZE = 31
+local MNM_MM_TRACK = 53
+local MNM_MM_BG_SIZE = 20
+local MNM_MM_BG_X, MNM_MM_BG_Y = 7, -5
+local MNM_MM_ICON_SIZE = 17
+local MNM_MM_ICON_X, MNM_MM_ICON_Y = 7, -6
+
+EnsureMinimapButton = function()
   if minimapButton then
     return
   end
   if not Minimap then
     return
   end
-  -- Match default tracking-style minimap buttons: gold ring + small circular icon on the rim.
   local btn = CreateFrame("Button", "MyNextMountMinimapButton", Minimap)
   minimapButton = btn
-  btn:SetSize(32, 32)
-  btn:SetFrameStrata("HIGH")
-  btn:SetFrameLevel(Minimap:GetFrameLevel() + 15)
+  btn:SetSize(MNM_MM_BTN_SIZE, MNM_MM_BTN_SIZE)
+  btn:SetFrameStrata("MEDIUM")
+  btn:SetFrameLevel(8)
   btn:EnableMouse(true)
-  PlaceMinimapButton(btn)
-
-  local border = btn:CreateTexture(nil, "OVERLAY")
-  border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
-  border:SetSize(54, 54)
-  border:SetPoint("CENTER", btn, "CENTER", 0, 0)
-
-  local icon = btn:CreateTexture(nil, "BACKGROUND")
-  icon:SetSize(20, 20)
-  icon:SetPoint("CENTER", btn, "CENTER", 1, 2)
-  icon:SetTexture("Interface\\AddOns\\MyNextMount\\Media\\mynextmount-icon.png")
-  local mask = btn:CreateMaskTexture()
-  mask:SetTexture("Interface\\CHARACTERFRAME\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-  mask:SetSize(20, 20)
-  mask:SetPoint("CENTER", icon, "CENTER", 0, 0)
-  icon:AddMaskTexture(mask)
-
+  if btn.EnableMouseMotion then
+    btn:EnableMouseMotion(true)
+  end
+  btn:RegisterForDrag("LeftButton")
   btn:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight", "ADD")
   local hl = btn:GetHighlightTexture()
   if hl then
     hl:SetBlendMode("ADD")
-    hl:SetSize(36, 36)
-    hl:SetPoint("CENTER", btn, "CENTER", 0, 0)
+    hl:SetSize(MNM_MM_TRACK, MNM_MM_TRACK)
+    hl:SetPoint("TOPLEFT", 0, 0)
+  end
+  PlaceMinimapButton(btn)
+
+  local track = btn:CreateTexture(nil, "OVERLAY")
+  track:SetSize(MNM_MM_TRACK, MNM_MM_TRACK)
+  track:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+  track:SetPoint("TOPLEFT", btn, "TOPLEFT", 0, 0)
+
+  local bg = btn:CreateTexture(nil, "BACKGROUND")
+  bg:SetSize(MNM_MM_BG_SIZE, MNM_MM_BG_SIZE)
+  bg:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
+  bg:SetPoint("TOPLEFT", btn, "TOPLEFT", MNM_MM_BG_X, MNM_MM_BG_Y)
+
+  local icon = btn:CreateTexture(nil, "ARTWORK")
+  icon:SetSize(MNM_MM_ICON_SIZE, MNM_MM_ICON_SIZE)
+  icon:SetPoint("TOPLEFT", btn, "TOPLEFT", MNM_MM_ICON_X, MNM_MM_ICON_Y)
+  icon:SetTexture("Interface\\AddOns\\MyNextMount\\Media\\mynextmount-icon.png")
+  icon:SetTexCoord(0.12, 0.88, 0.12, 0.88)
+
+  local function minimapDragOnUpdate(self)
+    local mx, my = Minimap:GetCenter()
+    local px, py = GetCursorPosition()
+    local scale = Minimap:GetEffectiveScale()
+    px, py = px / scale, py / scale
+    MyNextMountDB.minimapAngle = math.deg(math.atan2(py - my, -(px - mx)))
+    PlaceMinimapButton(self)
+    self._mnmDragMoved = true
   end
 
-  -- "AnyUp" is more reliable for right-click on minimap-adjacent buttons than Up-only pairs.
-  btn:RegisterForClicks("AnyUp")
-  btn:SetScript("OnClick", function(_, button)
-    if button == "RightButton" then
-      OpenAddonSettings()
-    else
-      RunExport()
+  btn:SetScript("OnDragStart", function(self)
+    self._mnmDragMoved = false
+    self:SetScript("OnUpdate", minimapDragOnUpdate)
+  end)
+  btn:SetScript("OnDragStop", function(self)
+    self:SetScript("OnUpdate", nil)
+    if self._mnmDragMoved then
+      self._mnmSuppressLeftClick = true
     end
+  end)
+
+  -- OnMouseUp: reliable over the minimap on 12.x; avoid duplicating with OnClick (would double-fire).
+  btn:SetScript("OnMouseUp", function(self, button)
+    if button == "RightButton" then
+      if IsShiftKeyDown() then
+        MyNextMountDB.minimapHidden = true
+        ApplyMinimapVisibility()
+        local cb = _G.MyNextMountMinimapShowCheck
+        if cb and cb.SetChecked then
+          cb:SetChecked(false)
+        end
+        return
+      end
+      OpenAddonSettings()
+      return
+    end
+    if button ~= "LeftButton" then
+      return
+    end
+    if self._mnmSuppressLeftClick then
+      self._mnmSuppressLeftClick = false
+      return
+    end
+    RunExport()
   end)
 
   btn:SetScript("OnEnter", function(self)
@@ -445,7 +533,21 @@ local function EnsureMinimapButton()
       true
     )
     GameTooltip:AddLine(
+      "Drag: move around minimap edge",
+      0.85,
+      0.85,
+      1,
+      true
+    )
+    GameTooltip:AddLine(
       "Right-click: addon options",
+      0.85,
+      0.85,
+      1,
+      true
+    )
+    GameTooltip:AddLine(
+      "Shift+right-click: hide minimap button (re-enable in addon options)",
       0.85,
       0.85,
       1,
@@ -460,14 +562,14 @@ local function EnsureMinimapButton()
     minimapButtonOnUpdateFrame = CreateFrame("Frame")
     minimapButtonOnUpdateFrame:RegisterEvent("MINIMAP_UPDATE_ZOOM")
     minimapButtonOnUpdateFrame:SetScript("OnEvent", function()
-      if minimapButton then
+      if minimapButton and minimapButton:IsShown() then
         PlaceMinimapButton(minimapButton)
       end
     end)
     if not Minimap._MyNextMountSizeHook then
       Minimap._MyNextMountSizeHook = true
       Minimap:HookScript("OnSizeChanged", function()
-        if minimapButton then
+        if minimapButton and minimapButton:IsShown() then
           PlaceMinimapButton(minimapButton)
         end
       end)
@@ -511,7 +613,7 @@ loadFrame:SetScript("OnEvent", function(_, _, name)
   if name == ADDON_NAME then
     MigrateLegacySavedVariables()
     RegisterOptionsPanel()
-    EnsureMinimapButton()
+    ApplyMinimapVisibility()
   end
 end)
 
