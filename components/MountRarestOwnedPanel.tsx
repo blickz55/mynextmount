@@ -1,14 +1,22 @@
+"use client";
+
+import { LoreMarkdown } from "@/components/MountLoreRelicTooltip";
+import {
+  OWNED_MOUNT_NO_LORE_YET_MSG,
+  resolveOwnedMountLoreText,
+} from "@/lib/resolveOwnedMountLoreText";
 import { scoreRarest } from "@/lib/scoreRarest";
 import type { Mount } from "@/types/mount";
 
 type Props = { mount: Mount };
 
 /**
- * "Your rarest mounts" showcase: congrats + numeric rarest score + mined flavor (wowheadMountFlavor).
+ * "Your rarest mounts" showcase: congrats + rarest score + same lore as View Your Mounts hover
+ * (`mountHoverLore` then `wowheadMountFlavor`), rendered as Markdown when applicable.
  */
 export function MountRarestOwnedPanel({ mount }: Props) {
   const score = scoreRarest(mount);
-  const flavor = mount.wowheadMountFlavor?.trim();
+  const loreText = resolveOwnedMountLoreText(mount);
   const retired = mount.retailObtainable === false;
 
   return (
@@ -44,13 +52,14 @@ export function MountRarestOwnedPanel({ mount }: Props) {
         </p>
       </div>
       <div className="rarest-owned-panel__flavor-block">
-        <p className="rarest-owned-panel__flavor-label">Spotlight</p>
-        {flavor ? (
-          <p className="rarest-owned-panel__flavor-text">{flavor}</p>
+        <p className="rarest-owned-panel__flavor-label">Flavor</p>
+        {loreText ? (
+          <div className="rarest-owned-panel__lore">
+            <LoreMarkdown text={loreText} />
+          </div>
         ) : (
           <p className="rarest-owned-panel__flavor-missing">
-            No mined spotlight blurb for this mount yet (we add these from our
-            data pipeline over time).
+            {OWNED_MOUNT_NO_LORE_YET_MSG}
           </p>
         )}
       </div>

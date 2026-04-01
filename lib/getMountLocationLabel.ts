@@ -13,6 +13,10 @@ export function getMountLocationLabel(mount: Mount): string {
     return "Stub row — run data:build for a real location";
   }
 
+  if (mount.retailObtainable === false) {
+    return "No longer obtainable in Retail (legacy / removed source)";
+  }
+
   const loc = mount.location?.trim();
   if (loc && loc !== "Unknown") {
     return mount.location;

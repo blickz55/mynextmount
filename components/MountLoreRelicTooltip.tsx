@@ -14,6 +14,10 @@ import { createPortal } from "react-dom";
 import Markdown from "react-markdown";
 
 import type { MountLoreTheme } from "@/lib/mountLoreTheme";
+import {
+  OWNED_MOUNT_NO_LORE_YET_MSG,
+  resolveOwnedMountLoreTextFromParts,
+} from "@/lib/resolveOwnedMountLoreText";
 
 export type OwnedMountLoreHoverPayload = {
   spellId: number;
@@ -45,10 +49,6 @@ export function useOwnedMountLoreRow(): LoreContextValue | null {
 
 const LEAVE_MS = 320;
 
-/** Shown when batch lore is not generated yet — keep copy end-user safe (no maintainer commands). */
-const NO_LORE_YET_MSG =
-  "The Archivist has no tale for this mount in our ledger yet. We add new verses over time—check back later.";
-
 function clampTooltipTarget(
   clientX: number,
   clientY: number,
@@ -67,7 +67,7 @@ function clampTooltipTarget(
   return { x, y };
 }
 
-function LoreMarkdown({ text }: { text: string }) {
+export function LoreMarkdown({ text }: { text: string }) {
   return (
     <div className="mount-lore-relic__markdown">
       <Markdown
@@ -97,15 +97,14 @@ function resolveHoverBody(payload: OwnedMountLoreHoverPayload): {
   lore: string;
   emptyMsg: string | null;
 } {
-  const archivist = payload.prebakedLore?.trim();
-  if (archivist) {
-    return { phase: "ready", lore: archivist, emptyMsg: null };
+  const lore = resolveOwnedMountLoreTextFromParts(
+    payload.prebakedLore,
+    payload.flavorFallback,
+  );
+  if (lore) {
+    return { phase: "ready", lore, emptyMsg: null };
   }
-  const fb = payload.flavorFallback?.trim();
-  if (fb) {
-    return { phase: "ready", lore: fb, emptyMsg: null };
-  }
-  return { phase: "empty", lore: "", emptyMsg: NO_LORE_YET_MSG };
+  return { phase: "empty", lore: "", emptyMsg: OWNED_MOUNT_NO_LORE_YET_MSG };
 }
 
 export function OwnedMountsLoreProvider({ children }: { children: ReactNode }) {

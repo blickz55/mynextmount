@@ -16,6 +16,13 @@ export function buildRecommendationReason(
   mount: Mount,
   mode: RecommendationMode,
 ): string {
+  if (mount.retailObtainable === false) {
+    return pickVariant(mount.id, [
+      "Not obtainable in current Retail — legacy or removed source; verify on Wowhead before planning.",
+      "Curated as unobtainable in Retail — do not treat vendor or drop metadata as current.",
+    ]);
+  }
+
   const tip = mount.farmTip?.trim();
   if (tip) return tip;
 

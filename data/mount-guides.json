@@ -13,13 +13,11 @@
       "sourceLabel": "Wowhead — Brown Horse (spell 458)"
     },
     "468": {
-      "overview": "White Stallion is a vendor mount, so there is no farm or drop chance involved. Buy it from the appropriate vendor once you have the required gold and any reputation or other unlocks that may apply on the current Retail version. Because vendor availability can change by patch or faction, verify the exact requirements on the linked page before you travel.",
+      "overview": "White Stallion is a legacy Alliance racial mount that is no longer sold in Retail. The old Elwynn Forest / Katie Hunter vendor path does not apply anymore, and it is not a normal farm target. Verify current status on the linked page; do not plan around buying it from an NPC.",
       "checklist": [
-        "Open Collections → Mounts, select White Stallion, and read the Source line for the vendor name and zone.",
-        "Check your gold and any listed reputation or unlock requirement before traveling.",
-        "Fly or portal to the vendor’s zone, then use the map pin to reach the NPC.",
-        "Buy White Stallion from the vendor and add it to your mount journal.",
-        "If the vendor is absent, swap faction/phase or revisit the journal source text for the correct NPC location."
+        "Treat White Stallion as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "Confirm on Wowhead comments and patch notes before spending gold or time on a removed source.",
+        "If you already own it on a character from years ago, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=468",
       "sourceLabel": "Wowhead — White Stallion (spell 468)"
@@ -58,12 +56,11 @@
       "sourceLabel": "Wowhead — Black Wolf (spell 578)"
     },
     "579": {
-      "overview": "Red Wolf is a vendor mount, so there is no farm or drop chance involved. You just need to find the correct vendor for your faction or reputation setup, then buy it once you meet the requirement and have the gold. Because vendor availability can change with patches or faction updates, verify the current details on the linked page before you travel.",
+      "overview": "Red Wolf is a legacy Horde racial mount that is no longer sold in Retail. The old Orgrimmar vendor path does not apply anymore, so you cannot farm or purchase it through normal means. If you still want the appearance, check whether it ever appears on the Black Market Auction House and verify current availability on the linked page.",
       "checklist": [
-        "Open Collections → Mounts, select Red Wolf, and read the Source line for the vendor name and any requirement.",
-        "Travel to the vendor NPC in the listed zone or hub.",
-        "If needed, raise the required faction or reputation before buying.",
-        "Purchase Red Wolf from the vendor once the requirement and gold cost are met."
+        "Treat Red Wolf as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you are hunting legacy appearances, watch the Black Market Auction House and community news for rare listings.",
+        "Confirm the mount’s current status on Wowhead comments and patch notes before spending gold or time on a dead route."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=579",
       "sourceLabel": "Wowhead — Red Wolf (spell 579)"
@@ -146,12 +143,11 @@
       "sourceLabel": "Wowhead — Gray Ram (spell 6777)"
     },
     "6896": {
-      "overview": "Black Ram is a vendor mount, so there is no boss farm or weekly lockout to worry about. The main task is finding the correct vendor and meeting any purchase requirements, which can vary by faction, reputation, or event depending on the current game version. Check the linked page before you travel, since vendor availability and requirements can change with patches.",
+      "overview": "Black Ram is the legacy unarmored epic ram that was removed from normal vendors long ago. The Veron Amberstill / Amberstill Ranch purchase path does not apply in current Retail. Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
       "checklist": [
-        "Open Collections → Mounts and select Black Ram to read its vendor source and any purchase requirements.",
-        "Travel to the appropriate faction hub or vendor NPC for this mount.",
-        "Check your currency, reputation, and faction access before interacting with the vendor.",
-        "Buy Black Ram from the vendor and learn it from your mount collection."
+        "Treat Black Ram as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=6896",
       "sourceLabel": "Wowhead — Black Ram (spell 6896)"
@@ -236,12 +232,11 @@
       "sourceLabel": "Wowhead — Striped Nightsaber (spell 10793)"
     },
     "10795": {
-      "overview": "Ivory Raptor is a vendor mount, so there is no farm or drop chance involved. The only real work is finding the correct vendor and meeting any reputation, currency, or faction requirements that apply on the current Retail version, so double-check the linked page before you travel.",
+      "overview": "Ivory Raptor is a legacy Horde racial mount that is no longer sold in Retail. The old Durotar / Zjolnir vendor path does not apply anymore. Watch the Black Market Auction House if you care about the appearance, and verify current status on the linked page.",
       "checklist": [
-        "Open Collections → Mounts, search Ivory Raptor, and read its Source entry to note the vendor name and zone.",
-        "Check your faction, reputation, and currency requirements before traveling.",
-        "Fly or hearth to the listed vendor location and open the vendor window.",
-        "Buy Ivory Raptor directly from the vendor and add it to your mount journal."
+        "Treat Ivory Raptor as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=10795",
       "sourceLabel": "Wowhead — Ivory Raptor (spell 10795)"
@@ -348,12 +343,11 @@
       "sourceLabel": "Wowhead — Ancient Frostsaber (spell 16056)"
     },
     "16080": {
-      "overview": "Red Wolf is a vendor mount, so there is no dungeon, raid, or rare spawn to farm. Your main task is to find the correct vendor for your faction or reputation path and make sure you have enough gold and any required currency or standing. Because vendor availability and requirements can change over time, verify the current details on the linked page before you travel.",
+      "overview": "Red Wolf is a legacy Horde racial mount that is no longer sold in Retail. The old Orgrimmar vendor path does not apply anymore, so you cannot farm or purchase it through normal means. If you still want the appearance, check whether it ever appears on the Black Market Auction House and verify current availability on the linked page.",
       "checklist": [
-        "Open Collections → Mounts, select Red Wolf, and read the Source line to see the vendor type and any requirement.",
-        "If the mount is locked, check your reputation, currency, or faction standing needed to unlock the vendor purchase.",
-        "Travel to the appropriate faction hub or vendor zone with enough gold and any required currency.",
-        "Browse the vendor’s mount tab and buy Red Wolf once the requirement is met."
+        "Treat Red Wolf as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you are hunting legacy appearances, watch the Black Market Auction House and community news for rare listings.",
+        "Confirm the mount’s current status on Wowhead comments and patch notes before spending gold or time on a dead route."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=16080",
       "sourceLabel": "Wowhead — Red Wolf (spell 16080)"
@@ -371,35 +365,31 @@
       "sourceLabel": "Wowhead — Arctic Wolf (spell 16081)"
     },
     "16082": {
-      "overview": "Palomino is a vendor-purchased mount, so there is no farm or drop chance involved. The only thing to verify is which vendor sells it on your version of Retail, since vendor location details can vary by source data and patch history. Check the linked page for the current purchase requirements and exact NPC location.",
+      "overview": "Palomino is a legacy Alliance racial mount that is no longer sold in Retail. The old Stormwind-area vendor path does not apply anymore, and it is not a normal farm target. Verify current status on the linked page; do not plan around buying it from an NPC.",
       "checklist": [
-        "Open Collections → Mounts, select Palomino, and read the Source entry to identify the vendor and zone.",
-        "Travel to the listed hub, then use the map and nearby vendor NPCs to find the mount seller.",
-        "Check the vendor window for Palomino and buy it with gold, reputation, or any required currency.",
-        "Open your Mounts journal and learn Palomino if it does not auto-add to your collection."
+        "Treat Palomino as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "Confirm on Wowhead comments and patch notes before spending gold or time on a removed source.",
+        "If you already own it on a character from years ago, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=16082",
       "sourceLabel": "Wowhead — Palomino (spell 16082)"
     },
     "16083": {
-      "overview": "White Stallion is a vendor mount, so there is no farm or drop chance involved. Buy it from the appropriate vendor once you have the required currency and any reputation or faction requirements; the exact NPC and location can vary, so verify the current details on the linked page before you travel.",
+      "overview": "White Stallion is a legacy Alliance racial mount that is no longer sold in Retail. The old Elwynn Forest / Katie Hunter vendor path does not apply anymore, and it is not a normal farm target. Verify current status on the linked page; do not plan around buying it from an NPC.",
       "checklist": [
-        "Open Collections → Mounts, select White Stallion, and read the Source line to identify the vendor type.",
-        "Bring enough gold and any required currency or reputation before traveling.",
-        "Go to the listed vendor NPC in the relevant zone, then buy White Stallion from the vendor window.",
-        "If the vendor has faction or character restrictions, switch to the correct character before purchasing."
+        "Treat White Stallion as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "Confirm on Wowhead comments and patch notes before spending gold or time on a removed source.",
+        "If you already own it on a character from years ago, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=16083",
       "sourceLabel": "Wowhead — White Stallion (spell 16083)"
     },
     "16084": {
-      "overview": "This is a vendor mount, so there is no farming or drop chance involved. The only real work is finding the correct vendor for your faction and reputation setup, then buying it once it is available. Because vendor location and requirements can change across patches or database updates, verify the current details on the linked page before you travel.",
+      "overview": "Mottled Red Raptor is a legacy Horde racial mount that is no longer sold in Retail. The old Sen'jin Village / Zjolnir vendor path does not apply anymore, so you cannot plan a normal NPC purchase. If you care about the appearance, watch the Black Market Auction House and verify current availability on the linked page.",
       "checklist": [
-        "Open the Mounts journal and select Mottled Red Raptor to read its Source entry.",
-        "Travel to the vendor NPC in the zone shown by the mount source and any faction hub tied to it.",
-        "Check your faction reputation and any currency or token requirement before buying.",
-        "Talk to the vendor and purchase Mottled Red Raptor.",
-        "Learn the mount from your Collections journal and add it to your mount list."
+        "Treat Mottled Red Raptor as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm status on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=16084",
       "sourceLabel": "Wowhead — Mottled Red Raptor (spell 16084)"
@@ -417,12 +407,11 @@
       "sourceLabel": "Wowhead — Winterspring Frostsaber (spell 17229)"
     },
     "17450": {
-      "overview": "Ivory Raptor is a vendor mount, so there is no farm or lockout to worry about. Your main task is to find the correct vendor and meet any reputation, currency, or faction requirements that apply on the current version of Retail. Because vendor availability can change with patches and faction updates, verify the exact purchase details on the linked page before you travel.",
+      "overview": "Ivory Raptor is a legacy Horde racial mount that is no longer sold in Retail. The old Durotar / Zjolnir vendor path does not apply anymore. Watch the Black Market Auction House if you care about the appearance, and verify current status on the linked page.",
       "checklist": [
-        "Open Collections → Mounts, search Ivory Raptor, and read the Source entry to identify the vendor and any requirement.",
-        "Check your reputation, currency, and faction standing in the Character and Currency tabs before traveling.",
-        "Fly to the vendor NPC in the listed zone, then open the vendor window and buy Ivory Raptor.",
-        "If the vendor is phased or missing, swap to the correct faction hub or phase and try the same vendor again."
+        "Treat Ivory Raptor as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=17450",
       "sourceLabel": "Wowhead — Ivory Raptor (spell 17450)"
@@ -450,34 +439,31 @@
       "sourceLabel": "Wowhead — Unpainted Mechanostrider (spell 17454)"
     },
     "17459": {
-      "overview": "This is a vendor mount, so there is no farm or drop chance involved. Buy the Icy Blue Mechanostrider Mod A from the appropriate vendor once you meet the required reputation or faction conditions, then learn it from your collection. Vendor details and any requirements can change over time, so verify the current source on the linked page before you travel.",
+      "overview": "Icy Blue Mechanostrider Mod A is a legacy gnome racial mount that was removed from normal vendors long ago (classic “Mod A” line). The Milli Featherwhistle / Dun Morogh purchase path does not apply in current Retail. Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
       "checklist": [
-        "Open Collections → Mounts and select Icy Blue Mechanostrider Mod A to read its Vendor source and note any faction or reputation requirement.",
-        "Travel to the appropriate vendor NPC for your faction or reputation in the listed zone.",
-        "Buy Icy Blue Mechanostrider Mod A from the vendor using gold or the required currency.",
-        "Open your Mount Journal and learn the mount if it is not learned automatically."
+        "Treat Icy Blue Mechanostrider Mod A as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=17459",
       "sourceLabel": "Wowhead — Icy Blue Mechanostrider Mod A (spell 17459)"
     },
     "17460": {
-      "overview": "Frost Ram is a vendor mount, so there is no farm or drop chance involved. The only real work is finding the correct vendor for your faction or reputation setup and paying the required currency or gold. Because vendor availability and requirements can change over time, verify the current details on the linked page before you travel.",
+      "overview": "Frost Ram is the legacy unarmored dwarf racial ram that was removed from normal vendors long ago. The Veron Amberstill / Amberstill Ranch purchase path does not apply in current Retail. Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
       "checklist": [
-        "Open Collections → Mounts, select Frost Ram, and read the Source line to identify the vendor and any requirement.",
-        "Travel to the matching faction hub or vendor zone and use the map to pin the NPC if needed.",
-        "Check the vendor’s buy window for Frost Ram and meet the currency, reputation, or faction requirement.",
-        "Purchase Frost Ram, then open your Mounts journal to learn it and favorite it if desired."
+        "Treat Frost Ram as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=17460",
       "sourceLabel": "Wowhead — Frost Ram (spell 17460)"
     },
     "17461": {
-      "overview": "Black Ram is a vendor mount, so there is no farm or lockout to worry about. The only real task is finding the correct vendor and meeting any reputation, currency, or faction requirements tied to that specific seller. Because vendor details can shift with patches or database updates, verify the current requirements on the linked page before you travel.",
+      "overview": "Black Ram is the legacy unarmored epic ram that was removed from normal vendors long ago. The Veron Amberstill / Amberstill Ranch purchase path does not apply in current Retail. Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
       "checklist": [
-        "Open Collections → Mounts, select Black Ram, and read the Source line to identify the vendor and any requirements.",
-        "Travel to the listed zone or city and find the vendor NPC that sells Black Ram.",
-        "Check the vendor window for Black Ram, then buy it if you have the required currency and standing.",
-        "If it is not sold, meet any faction or unlock requirement, then return to the vendor and purchase it."
+        "Treat Black Ram as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=17461",
       "sourceLabel": "Wowhead — Black Ram (spell 17461)"
@@ -562,24 +548,21 @@
       "sourceLabel": "Wowhead — Brown Kodo (spell 18990)"
     },
     "18991": {
-      "overview": "Green Kodo is a vendor mount, so there is no farm or drop chance involved. You just need to find the correct vendor for your faction and expansion-era access, then buy it if it is currently available on Retail. Because vendor location and requirements can change across patches or with reputation/faction rules, verify the details on the linked Wowhead page before you go.",
+      "overview": "Green Kodo is the legacy unarmored epic kodo that was removed from normal vendors long ago. The Harb Clawhoof / Bloodhoof Village purchase path does not apply in current Retail. Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
       "checklist": [
-        "Open the Mounts journal, select Green Kodo, and read the Source line to identify the vendor and any requirements.",
-        "Travel to the correct faction vendor in the listed zone or hub.",
-        "Check your gold, reputation, or currency before interacting with the vendor.",
-        "Buy Green Kodo from the vendor and learn it from your Collections journal."
+        "Treat Green Kodo as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=18991",
       "sourceLabel": "Wowhead — Green Kodo (spell 18991)"
     },
     "18992": {
-      "overview": "Teal Kodo is a vendor mount, so there is no farm or RNG involved. The only real step is finding the correct vendor and making sure you meet any race, reputation, or currency requirements tied to that NPC. Because vendor availability and requirements can change over time, verify the details on the linked page before you travel.",
+      "overview": "Teal Kodo is the legacy unarmored epic kodo that was removed from normal vendors long ago. The Harb Clawhoof / Bloodhoof Village purchase path does not apply in current Retail. Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
       "checklist": [
-        "Open the Mounts journal, select Teal Kodo, and read the Source line to identify the vendor and any requirements.",
-        "Check your race, reputation, and currency in the Character and Currency tabs before traveling.",
-        "Use the map or nearest flight path to reach the listed vendor NPC in the correct zone.",
-        "Buy Teal Kodo from the vendor and confirm it appears in your mount collection.",
-        "If the vendor is missing, swap to the appropriate faction hub or revisit after meeting the listed requirement."
+        "Treat Teal Kodo as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+        "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+        "If you already own it on an older character, it remains in that collection only."
       ],
       "sourceUrl": "https://www.wowhead.com/spell=18992",
       "sourceLabel": "Wowhead — Teal Kodo (spell 18992)"

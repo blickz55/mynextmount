@@ -944,6 +944,47 @@ html[data-theme="dark"] .auth-nav__btn {
 }
 
 /* Epic I.7 — farm list + catalog QA search */
+/* Tool page — farm list explainer (plain English, collapsed by default) */
+.tool-farm-help-disclosure {
+  margin-top: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.tool-farm-help-disclosure__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  text-align: left;
+  max-width: 100%;
+}
+
+.tool-farm-help-disclosure__summary-title {
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.tool-farm-help-disclosure__summary-hint {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.tool-farm-help-disclosure > summary:hover .tool-farm-help-disclosure__summary-hint {
+  color: color-mix(in srgb, var(--text-muted) 65%, var(--accent-gold-bright));
+}
+
+.tool-farm-help-disclosure__body p {
+  margin: 0 0 0.65rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.tool-farm-help-disclosure__body p:last-child {
+  margin-bottom: 0;
+}
+
 .farm-list-search-disclosure {
   margin-top: 0.75rem;
 }
@@ -1284,6 +1325,13 @@ html[data-theme="dark"] .auth-nav__btn {
   font-size: 0.86rem;
   line-height: 1.5;
   color: color-mix(in srgb, var(--text) 92%, var(--text-muted));
+}
+
+/* Same Markdown pipeline as View Your Mounts tooltip (Archivist + digest). */
+.rarest-owned-panel__lore {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text);
 }
 
 .rarest-owned-panel__flavor-missing {

@@ -725,8 +725,8 @@ export default function HomePage() {
                   <div className="rarest-showcase-disclosure__body">
                     <p className="section-intro">
                       Each mount shows a quick congrats, this site&apos;s rarity
-                      score, and a short spotlight when we&apos;ve mined one from
-                      our data pipeline.
+                      score, and the same flavor / Archivist lore you see when you
+                      hover that mount in View Your Mounts.
                     </p>
                     <div className="results-stack">
                       <ol className="mount-results-list">
@@ -758,26 +758,58 @@ export default function HomePage() {
               aria-label="Results"
             >
               <h2 className="section-title">Top mounts to farm</h2>
-              <p className="section-intro">
-                Each row shows the decision line first (where, boss, why). When
-                you&apos;re signed in, <strong>Farm tries</strong> is how many
-                saves incremented this mount while it sat in your top{" "}
-                {K_ATTEMPT_INCREMENT_CAP} farm suggestions (same recommendation
-                mode, source filters, and farm search as here; duplicate or rapid
-                re-saves may skip counts). <strong>Est. ≥1 drop seen</strong> is
-                a rough hint from the catalog drop rate and your tries.{" "}
-                <strong>Lockout</strong> shows daily/weekly availability from
-                your last qualifying save; change the weekly calendar on{" "}
-                <Link href="/account">My Mounts</Link>. While signed in, sort
-                order adds a light nudge from tries, lockout rows, and weekly
-                reset timing (baseline mode score unchanged for guests; farm
-                data loads for the first {FARM_ATTEMPT_LOOKUP_MAX_IDS} mounts in
-                the baseline list — narrow filters if your target is deeper).
-                Open the section below
-                for the written guide, source link, summarized community tips,
-                and the full Wowhead comments link. Scroll down to load more in
-                batches of {PAGE_SIZE}.
-              </p>
+              <details className="disclosure-block tool-farm-help-disclosure">
+                <summary>
+                  <span className="tool-farm-help-disclosure__summary">
+                    <span className="tool-farm-help-disclosure__summary-title">
+                      How this list works
+                    </span>
+                    <span className="tool-farm-help-disclosure__summary-hint">
+                      Tap to read — what the columns mean, saves, and sorting
+                    </span>
+                  </span>
+                </summary>
+                <div className="disclosure-block__body tool-farm-help-disclosure__body">
+                  <p>
+                    Each row starts with the stuff you actually need: where to go,
+                    what to kill or do, and a short reason it&apos;s on the list.
+                  </p>
+                  <p>
+                    <strong>Farm tries</strong> (signed-in only) counts how many
+                    times you clicked <strong>Save to my account</strong> while
+                    this mount was in your top {K_ATTEMPT_INCREMENT_CAP}{" "}
+                    suggestions — using the same mode, source filters, and search
+                    you have right here. Saving the exact same list again right
+                    away usually won&apos;t add another try.
+                  </p>
+                  <p>
+                    <strong>Est. ≥1 drop seen</strong> is a rough &quot;you
+                    might have seen a drop by now&quot; hint from our listed drop
+                    rate and how many tries we&apos;ve logged. It isn&apos;t a
+                    guarantee.
+                  </p>
+                  <p>
+                    <strong>Lockout</strong> tells you if it&apos;s on a daily or
+                    weekly timer, based on your last qualifying save. If weekly
+                    dates look wrong, set your region on{" "}
+                    <Link href="/account">My Mounts</Link>.
+                  </p>
+                  <p>
+                    When you&apos;re signed in, we <strong>gently bump</strong>{" "}
+                    the order using tries, lockout info, and weekly reset so mounts
+                    you&apos;re working on float up. Guests still see the same base
+                    ranking. We only load farm stats for the first{" "}
+                    {FARM_ATTEMPT_LOOKUP_MAX_IDS} mounts in your current filtered
+                    list — if something you want is way down, try narrowing
+                    filters.
+                  </p>
+                  <p>
+                    Use the <strong>Quick steps &amp; Wowhead</strong> fold under
+                    each row for guides, links, tips, and comments. Scroll down to
+                    load more mounts, {PAGE_SIZE} at a time.
+                  </p>
+                </div>
+              </details>
 
               <fieldset className="source-filter-fieldset">
                 <legend className="source-filter-fieldset__legend">

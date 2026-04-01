@@ -12,10 +12,8 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Buy from Katie Hunter in Elwynn Forest.",
-      "Find her at Eastvale Logging Camp.",
-      "Requires Exalted with Stormwind or a Human character.",
-      "Pay gold; no lockout or RNG."
+      "Unobtainable in Retail; legacy Stormwind / Elwynn vendor mount removed.",
+      "Not sold by any current vendor or BMAH."
     ]
   },
   "470": {
@@ -50,9 +48,8 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Buy from Ogunaro Wolfrunner in Orgrimmar's Valley of Honor",
-      "Costs gold; no lockout or RNG",
-      "Requires Exalted with Orgrimmar if not Orc"
+      "Unobtainable in Retail; legacy Orgrimmar vendor mount removed.",
+      "Check Black Market Auction House for rare relists."
     ]
   },
   "580": {
@@ -128,10 +125,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Amberstill Ranch, Dun Morogh.",
-      "Buy from Veron Amberstill.",
-      "Requires Exalted with Ironforge, unless Dwarf.",
-      "No lockout; vendor purchase, no RNG."
+      "Unobtainable in Retail; legacy unarmored black ram removed from vendors (Amberstill / Ironforge path).",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "6898": {
@@ -204,8 +200,9 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Unobtainable in Retail; removed legacy troll racial mount.",
-      "Formerly bought from Zjolnir in Durotar."
+      "Unobtainable in Retail; original vendor sale was removed.",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "10796": {
@@ -298,10 +295,8 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Ogunaro Wolfrunner in Orgrimmar, Valley of Honor",
-      "Buy the Red Wolf mount item",
-      "Requires Exalted with Orgrimmar or Orc character",
-      "No lockout; vendor purchase, no RNG"
+      "Unobtainable in Retail; legacy Orgrimmar vendor mount removed.",
+      "Check Black Market Auction House for rare relists."
     ]
   },
   "16081": {
@@ -325,20 +320,16 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Eastvale Logging Camp, Elwynn Forest.",
-      "Buy from Katie Hunter.",
-      "Requires Exalted with Stormwind, unless Human.",
-      "No lockout; vendor purchase, no RNG."
+      "Unobtainable in Retail; legacy Stormwind / Elwynn vendor mount removed.",
+      "Not sold by any current vendor or BMAH."
     ]
   },
   "16084": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Sen'jin Village, Durotar.",
-      "Buy from Zjolnir, the raptor mount vendor.",
-      "Requires Exalted with Darkspear Trolls.",
-      "Costs gold; no lockout or RNG."
+      "Unobtainable in Retail; legacy Sen'jin / Zjolnir vendor mount removed.",
+      "Check Black Market Auction House for rare relists."
     ]
   },
   "17229": {
@@ -385,30 +376,27 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Dun Morogh, outside Gnomeregan.",
-      "Buy from Milli Featherwhistle.",
-      "Requires Exalted with Gnomeregan Exiles, unless Gnome.",
-      "No lockout; costs gold."
+      "Unobtainable in Retail; legacy Gnomeregan mechanostrider removed from vendors (original Mod A).",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "17460": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Veron Amberstill, Amberstill Ranch, Dun Morogh",
-      "Buy Frost Ram for gold",
-      "Need Exalted with Ironforge unless you're a dwarf",
-      "No lockout, no RNG"
+      "Unobtainable in Retail; legacy unarmored ram vendor mount removed (Amberstill / Ironforge path).",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "17461": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Amberstill Ranch, Dun Morogh.",
-      "Buy from Veron Amberstill.",
-      "Requires Exalted with Ironforge if not Dwarf.",
-      "No lockout; vendor purchase, no RNG."
+      "Unobtainable in Retail; legacy unarmored black ram removed from vendors (Amberstill / Ironforge path).",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "17462": {
@@ -483,18 +471,18 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Bloodhoof Village, Mulgore.",
-      "Buy from Harb Clawhoof.",
-      "Costs gold; no lockout or RNG.",
-      "Requires Tauren or Exalted with Thunder Bluff."
+      "Unobtainable in Retail; legacy unarmored kodo removed from vendors (Bloodhoof / Harb Clawhoof path).",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "18992": {
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Harb Clawhoof in Bloodhoof Village, Mulgore",
-      "Buy Teal Kodo; requires Tauren or Exalted Thunder Bluff"
+      "Unobtainable in Retail; legacy unarmored kodo removed from vendors (Bloodhoof / Harb Clawhoof path).",
+      "Not sold by any current vendor.",
+      "Check Black Market Auction House for rare listings."
     ]
   },
   "22717": {

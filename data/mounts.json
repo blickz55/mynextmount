@@ -29,8 +29,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=468",
     "commentsUrl": "https://www.wowhead.com/spell=468#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-white-stallion",
     "sourceCategory": "vendor"
   },
   {
@@ -80,8 +80,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=578",
     "commentsUrl": "https://www.wowhead.com/spell=578#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-black-wolf",
     "sourceCategory": "vendor"
   },
   {
@@ -97,8 +97,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=579",
     "commentsUrl": "https://www.wowhead.com/spell=579#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-red-wolf",
     "sourceCategory": "vendor"
   },
   {
@@ -233,8 +233,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=6896",
     "commentsUrl": "https://www.wowhead.com/spell=6896#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-black-ram",
     "sourceCategory": "vendor"
   },
   {
@@ -318,8 +318,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=8980",
     "commentsUrl": "https://www.wowhead.com/spell=8980#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-skeletal-horse",
     "sourceCategory": "vendor"
   },
   {
@@ -369,8 +369,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=10795",
     "commentsUrl": "https://www.wowhead.com/spell=10795#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-ivory-raptor",
     "sourceCategory": "vendor"
   },
   {
@@ -471,8 +471,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=15779",
     "commentsUrl": "https://www.wowhead.com/spell=15779#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-white-mechanostrider-mod-b",
     "sourceCategory": "vendor"
   },
   {
@@ -488,8 +488,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=15780",
     "commentsUrl": "https://www.wowhead.com/spell=15780#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-green-mechanostrider",
     "sourceCategory": "vendor"
   },
   {
@@ -505,8 +505,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=16055",
     "commentsUrl": "https://www.wowhead.com/spell=16055#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-black-nightsaber",
     "sourceCategory": "vendor"
   },
   {
@@ -522,8 +522,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=16056",
     "commentsUrl": "https://www.wowhead.com/spell=16056#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-ancient-frostsaber",
     "sourceCategory": "vendor"
   },
   {
@@ -539,8 +539,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=16080",
     "commentsUrl": "https://www.wowhead.com/spell=16080#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-red-wolf",
     "sourceCategory": "vendor"
   },
   {
@@ -575,8 +575,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=16082",
     "commentsUrl": "https://www.wowhead.com/spell=16082#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-palomino",
     "sourceCategory": "vendor"
   },
   {
@@ -592,8 +592,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=16083",
     "commentsUrl": "https://www.wowhead.com/spell=16083#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-white-stallion",
     "sourceCategory": "vendor"
   },
   {
@@ -609,8 +609,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=16084",
     "commentsUrl": "https://www.wowhead.com/spell=16084#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-mottled-red-raptor",
     "sourceCategory": "vendor"
   },
   {
@@ -643,8 +643,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=17450",
     "commentsUrl": "https://www.wowhead.com/spell=17450#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-ivory-raptor",
     "sourceCategory": "vendor"
   },
   {
@@ -660,8 +660,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=17453",
     "commentsUrl": "https://www.wowhead.com/spell=17453#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-green-mechanostrider",
     "sourceCategory": "vendor"
   },
   {
@@ -694,8 +694,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=17459",
     "commentsUrl": "https://www.wowhead.com/spell=17459#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-icy-blue-mechanostrider-mod-a",
     "sourceCategory": "vendor"
   },
   {
@@ -711,8 +711,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=17460",
     "commentsUrl": "https://www.wowhead.com/spell=17460#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-frost-ram",
     "sourceCategory": "vendor"
   },
   {
@@ -728,8 +728,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=17461",
     "commentsUrl": "https://www.wowhead.com/spell=17461#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-black-ram",
     "sourceCategory": "vendor"
   },
   {
@@ -866,8 +866,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=18991",
     "commentsUrl": "https://www.wowhead.com/spell=18991#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-green-kodo",
     "sourceCategory": "vendor"
   },
   {
@@ -883,8 +883,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=18992",
     "commentsUrl": "https://www.wowhead.com/spell=18992#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-teal-kodo",
     "sourceCategory": "vendor"
   },
   {
@@ -4066,8 +4066,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=64658",
     "commentsUrl": "https://www.wowhead.com/spell=64658#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-03-black-wolf",
     "sourceCategory": "vendor"
   },
   {

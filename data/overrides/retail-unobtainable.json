@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows.",
+  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows. Legacy vendor phantoms: Palomino (16082), White Stallion (468, 16083), Mottled Red Raptor (16084), Black Wolf (578, 64658), Red Wolf (579, 16080), Black Ram (6896, 17461), Frost Ram (17460), Green Kodo (18991), Teal Kodo (18992), Skeletal Horse (8980), Ivory Raptor (10795, 17450), Icy Blue Mechanostrider Mod A (17459), White Mechanostrider Mod B (15779), Green Mechanostrider (15780, 17453), Black Nightsaber (16055), Ancient Frostsaber (16056) — not obtainable as listed in current Retail.",
   "patches": [
     {
       "id": 43688,
@@ -311,6 +311,116 @@
       "id": 1255471,
       "retailObtainable": false,
       "asOfPatch": "curated-2026-03"
+    },
+    {
+      "id": 468,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-white-stallion"
+    },
+    {
+      "id": 16083,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-white-stallion"
+    },
+    {
+      "id": 16082,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-palomino"
+    },
+    {
+      "id": 16084,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-mottled-red-raptor"
+    },
+    {
+      "id": 18991,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-green-kodo"
+    },
+    {
+      "id": 18992,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-teal-kodo"
+    },
+    {
+      "id": 578,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-black-wolf"
+    },
+    {
+      "id": 64658,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-black-wolf"
+    },
+    {
+      "id": 579,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-red-wolf"
+    },
+    {
+      "id": 16080,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-red-wolf"
+    },
+    {
+      "id": 6896,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-black-ram"
+    },
+    {
+      "id": 17461,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-black-ram"
+    },
+    {
+      "id": 17460,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-frost-ram"
+    },
+    {
+      "id": 8980,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-skeletal-horse"
+    },
+    {
+      "id": 10795,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-ivory-raptor"
+    },
+    {
+      "id": 17450,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-ivory-raptor"
+    },
+    {
+      "id": 15779,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-white-mechanostrider-mod-b"
+    },
+    {
+      "id": 15780,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-green-mechanostrider"
+    },
+    {
+      "id": 17459,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-icy-blue-mechanostrider-mod-a"
+    },
+    {
+      "id": 17453,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-green-mechanostrider"
+    },
+    {
+      "id": 16055,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-black-nightsaber"
+    },
+    {
+      "id": 16056,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-03-ancient-frostsaber"
     }
   ]
 }
