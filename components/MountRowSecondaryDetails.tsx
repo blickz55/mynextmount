@@ -32,27 +32,3 @@ export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
   );
 }
 
-/**
- * Epic D.3 — Wowhead link tucked under a disclosure for a compact scan line.
- */
-export function MountRarestSecondaryDetails({ mount }: { mount: Mount }) {
-  const hasWowhead = resolveWowheadCommentsLink(mount) !== null;
-  const hasDigest = mountHasSpotlightCopy(mount);
-  const retired = mount.retailObtainable === false;
-  if (!hasWowhead && !hasDigest && !retired) return null;
-
-  return (
-    <details className="mount-result-card__fold expandable-row--rarest">
-      <summary>
-        <span className="sr-only">{mount.name}: </span>
-        Quick steps & Wowhead
-        {retired ? (
-          <span className="expandable-row__summary-suffix"> — no longer obtainable</span>
-        ) : null}
-      </summary>
-      <div className="expandable-row__panel">
-        <WowheadCommentDigest mount={mount} />
-      </div>
-    </details>
-  );
-}

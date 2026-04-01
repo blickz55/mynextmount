@@ -15,7 +15,7 @@ import {
 } from "@/components/FarmRecommendationsList";
 import { FarmSessionPlanPanel } from "@/components/FarmSessionPlanPanel";
 import { MountIcon } from "@/components/MountIcon";
-import { MountRarestSecondaryDetails } from "@/components/MountRowSecondaryDetails";
+import { MountRarestOwnedPanel } from "@/components/MountRarestOwnedPanel";
 import { CollectionToolbar } from "@/components/CollectionToolbar";
 import { HowToExportPanel } from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
@@ -24,7 +24,6 @@ import {
   SmartSiteBrand,
   TOOL_ENGAGED_KEY,
 } from "@/components/SmartSiteBrand";
-import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import {
   buildFarmSessionPlan,
   type SessionBudgetPreset,
@@ -725,9 +724,9 @@ export default function HomePage() {
                   </summary>
                   <div className="rarest-showcase-disclosure__body">
                     <p className="section-intro">
-                      Names and locations stay visible in each row; summarized
-                      tips and the full Wowhead thread are one tap away under each
-                      mount.
+                      Each mount shows a quick congrats, this site&apos;s rarity
+                      score, and a short spotlight when we&apos;ve mined one from
+                      our data pipeline.
                     </p>
                     <div className="results-stack">
                       <ol className="mount-results-list">
@@ -741,11 +740,8 @@ export default function HomePage() {
                                   No longer obtainable
                                 </span>
                               ) : null}
-                              <span className="mount-result-card__meta">
-                                — {getMountLocationLabel(mount)}
-                              </span>
                             </div>
-                            <MountRarestSecondaryDetails mount={mount} />
+                            <MountRarestOwnedPanel mount={mount} />
                           </li>
                         ))}
                       </ol>

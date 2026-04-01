@@ -1218,6 +1218,82 @@ html[data-theme="dark"] .auth-nav__btn {
   color: var(--accent-gold-bright);
 }
 
+/* Your rarest mounts — congrats + score + mined flavor (no Wowhead fold) */
+.rarest-owned-panel {
+  margin-top: 0.55rem;
+  padding: 0.65rem 0.75rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+.rarest-owned-panel__congrats {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.rarest-owned-panel__score-block {
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+}
+
+.rarest-owned-panel__score-line {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.rarest-owned-panel__score-label {
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin-right: 0.35rem;
+}
+
+.rarest-owned-panel__score-value {
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--accent-gold-bright);
+}
+
+.rarest-owned-panel__score-hint {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.rarest-owned-panel__flavor-block {
+  margin: 0;
+}
+
+.rarest-owned-panel__flavor-label {
+  margin: 0 0 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.rarest-owned-panel__flavor-text {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--text) 92%, var(--text-muted));
+}
+
+.rarest-owned-panel__flavor-missing {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
 .field-label {
   display: block;
   margin-top: 1rem;
