@@ -2332,13 +2332,13 @@ MyNextMountGuideData.byId = {
   },
   [22722] = {
     name = "Red Skeletal Warhorse",
-    overview = "The Red Skeletal Warhorse is a vendor mount, so there is no farm or drop chance involved. You just need to find the correct vendor for your faction and pay the required currency or gold, depending on the current version of the game. Because vendor availability and requirements can change over time, verify the exact source details on the linked page before you travel.",
+    overview = "The Red Skeletal Warhorse is a vendor mount sold for Marks of Honor (not gold), so there is no drop farm involved. Find the correct Horde vendor, meet the reputation or race requirement, then pay the listed PvP currency. Vendor details can change by patch, so confirm the current cost in-game or on the linked page before you travel.",
     sourceUrl = "https://www.wowhead.com/item=29470",
     sourceLabel = "Wowhead — Red Skeletal Warhorse (item)",
     checklist = {
       "Open Collections → Mounts, select Red Skeletal Warhorse, and read the Source entry to see the vendor and any faction requirement.",
       "Travel to the listed vendor in the correct zone on the character or faction that can buy it.",
-      "Check the vendor’s inventory and purchase Red Skeletal Warhorse with the required currency or gold.",
+      "Farm or save enough Marks of Honor, then purchase Red Skeletal Warhorse from the vendor (typically 15 MoH on Retail).",
       "Open your Mount Journal and learn the mount if it does not appear automatically after purchase.",
     },
   },
@@ -2665,14 +2665,14 @@ MyNextMountGuideData.byId = {
   },
   [23509] = {
     name = "Frostwolf Howler",
-    overview = "Frostwolf Howler is a vendor mount, so there is no farm or drop chance involved. You simply need to find the correct vendor and meet any required reputation, currency, or faction conditions tied to the current version of the game. Because vendor requirements can change across patches and expansions, verify the exact purchase details on the linked page before you travel.",
+    overview = "Frostwolf Howler is sold by the Alterac Valley faction vendor for Marks of Honor (not gold) once you are Exalted with Frostwolf Clan. There is no drop RNG—earn the rep (often via Alterac Valley), save PvP currency, then buy from Jorek Ironside. Confirm the current MoH cost in-game or on the linked page, since vendors change with patches.",
     sourceUrl = "https://www.wowhead.com/item=19029",
     sourceLabel = "Wowhead — Frostwolf Howler (item)",
     checklist = {
       "Open Collections → Mounts, select Frostwolf Howler, and read the Source entry to see which vendor sells it.",
-      "Travel to the listed faction hub or vendor zone, then open the vendor window and check the mount tab or inventory.",
-      "Make sure you meet any reputation, faction, or currency requirement before buying.",
-      "If needed, farm the required currency or reputation, then return to the vendor and purchase Frostwolf Howler.",
+      "Reach Exalted with Frostwolf Clan (often by queuing Alterac Valley), on a Horde character.",
+      "Travel to Jorek Ironside in Hillsbrad Foothills and open his mount goods.",
+      "Farm or save enough Marks of Honor, then purchase Frostwolf Howler (typically 15 MoH on Retail).",
     },
   },
   [23510] = {

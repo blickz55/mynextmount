@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Cinzel, Source_Sans_3 } from "next/font/google";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Providers } from "@/components/Providers";
+import { SiteManifesto } from "@/components/SiteManifesto";
 import { SkipToMainContent } from "@/components/SkipToMainContent";
 
 const fontDisplay = Cinzel({
@@ -71,7 +72,10 @@ export default function RootLayout({
       <body className={fontBody.className}>
         <GoogleAnalytics />
         <SkipToMainContent />
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <SiteManifesto />
+        </Providers>
       </body>
     </html>
   );

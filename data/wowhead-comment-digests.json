@@ -540,7 +540,8 @@
     "lines": [
       "Buy from Zachariah Post in Tirisfal Glades, Brill",
       "Requires Exalted with Undercity, or be Undead",
-      "No lockout; costs gold"
+      "Costs 15 Marks of Honor (PvP currency), not gold",
+      "No lockout or RNG."
     ]
   },
   "22723": {
@@ -803,7 +804,8 @@
       "Horde only; reach Exalted with Frostwolf Clan.",
       "Queue Alterac Valley and farm reputation.",
       "Buy from Jorek Ironside in Hillsbrad Foothills.",
-      "Costs gold only; no RNG or lockout."
+      "Costs 15 Marks of Honor (PvP currency), not gold",
+      "No RNG or lockout."
     ]
   },
   "23510": {

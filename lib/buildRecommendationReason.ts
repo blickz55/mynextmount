@@ -128,7 +128,7 @@ export function buildRecommendationReason(
     }
     if (mode === "efficient") {
       return pickVariant(id, [
-        "High EV-style throughput in the current model — good odds and time/lockout tradeoff.",
+        "Strong farmable pick — good modeled odds and time/lockout tradeoff among drops and vendors.",
         "Favors mounts where modeled drop rate, run length, and weekly tries line up well.",
       ]);
     }

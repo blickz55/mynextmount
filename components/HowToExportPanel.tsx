@@ -99,3 +99,37 @@ export function HowToExportPanel() {
     </section>
   );
 }
+
+/**
+ * Short reminder for signed-in users replacing their saved collection — links to full steps.
+ */
+export function HowToExportCompact() {
+  const listingLabel = listingLinkLabel(addonListingUrl);
+
+  return (
+    <div className="how-to-compact" aria-label="Addon export reminder">
+      <p className="how-to-compact__text">
+        In game, run <strong>/mnm</strong> (or <strong>/mynextmount</strong>) and
+        copy the whole line the addon prints. Install from{" "}
+        <a
+          href={addonListingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="how-to-compact__link"
+        >
+          {listingLabel}
+        </a>
+        {" · "}
+        <a
+          href={ADDON_INSTALL_DOCS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="how-to-compact__link"
+        >
+          Manual install
+        </a>
+        .
+      </p>
+    </div>
+  );
+}

@@ -16,7 +16,10 @@ import {
 import { MountIcon } from "@/components/MountIcon";
 import { MountRarestOwnedPanel } from "@/components/MountRarestOwnedPanel";
 import { CollectionToolbar } from "@/components/CollectionToolbar";
-import { HowToExportPanel } from "@/components/HowToExportPanel";
+import {
+  HowToExportCompact,
+  HowToExportPanel,
+} from "@/components/HowToExportPanel";
 import { OwnedMountsCollection } from "@/components/OwnedMountsCollection";
 import { ShellTopbar } from "@/components/ShellTopbar";
 import {
@@ -38,6 +41,7 @@ import {
 import {
   anySourceFilterEnabled,
   initialSourceFiltersDefault,
+  mountPassesFarmableModeAcquisition,
   mountPassesSourceFilters,
   SOURCE_FILTER_OPTIONS,
   type SourceBucketId,
@@ -110,6 +114,8 @@ export default function HomePage() {
   >(null);
   const [farmPrefVersion, setFarmPrefVersion] = useState(0);
   const [prefsHydrated, setPrefsHydrated] = useState(false);
+  /** Signed-in: “Replace collection with new addon export” panel. */
+  const [authExportUpdateOpen, setAuthExportUpdateOpen] = useState(false);
 
   useEffect(() => {
     exportStringRef.current = exportString;
@@ -137,10 +143,14 @@ export default function HomePage() {
 
   const filteredUnowned = useMemo(() => {
     if (!anySourceFilterEnabled(sourceFilters)) return [];
-    return farmableUnownedMounts.filter((m) =>
-      mountPassesSourceFilters(m, sourceFilters),
-    );
-  }, [farmableUnownedMounts, sourceFilters]);
+    return farmableUnownedMounts.filter((m) => {
+      if (!mountPassesSourceFilters(m, sourceFilters)) return false;
+      if (mode === "efficient" && !mountPassesFarmableModeAcquisition(m)) {
+        return false;
+      }
+      return true;
+    });
+  }, [farmableUnownedMounts, sourceFilters, mode]);
 
   const baselineScoreFn = useMemo(() => recommendationScorer(mode), [mode]);
 
@@ -386,6 +396,7 @@ export default function HomePage() {
     setInputError(null);
     setParsedIds(ids);
     setOwnedRarestShowcase(selectTopOwnedByRarest(mounts, ids, 10));
+    setAuthExportUpdateOpen(false);
   }, []);
 
   useEffect(() => {
@@ -509,6 +520,14 @@ export default function HomePage() {
     unownedMounts.length > 0 &&
     farmableUnownedMounts.length === 0;
 
+  const isAuthenticated = sessionStatus === "authenticated";
+  const authCollectionLoading = isAuthenticated && !accountFetchSettled;
+  const showGuestExportHeader =
+    !isAuthenticated ||
+    (isAuthenticated && accountFetchSettled && parsedIds === null);
+  const showStreamlinedCollection =
+    isAuthenticated && parsedIds !== null;
+
   return (
     <main
       id="main-content"
@@ -522,101 +541,57 @@ export default function HomePage() {
         highlightBannerUrl={highlightBannerUrl}
       />
 
-      <HowToExportPanel />
-
-      <p className="lead" id="export-hint">
-        Paste your export here (summon spell IDs — same format the addon copies).
-      </p>
-      <label htmlFor="export" className="field-label">
-        Paste addon output here - type /mnm in game to generate
-      </label>
-      <textarea
-        id="export"
-        className="input-textarea"
-        value={exportString}
-        onChange={(e) => setExportString(e.target.value)}
-        rows={4}
-        placeholder="M:65645,59961,41256"
-        autoComplete="off"
-        spellCheck={false}
-        aria-describedby={
-          inputError !== null ? "export-hint export-error" : "export-hint"
-        }
-        aria-invalid={inputError !== null}
-      />
-      <fieldset className="mode-fieldset">
-        <legend>Mode</legend>
-        <label>
-          <input
-            type="radio"
-            name="recommendation-mode"
-            value="efficient"
-            checked={mode === "efficient"}
-            onChange={() => setMode("efficient")}
-          />
-          Efficient (EV-style)
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="recommendation-mode"
-            value="balanced"
-            checked={mode === "balanced"}
-            onChange={() => setMode("balanced")}
-          />
-          Balanced
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="recommendation-mode"
-            value="rarest"
-            checked={mode === "rarest"}
-            onChange={() => setMode("rarest")}
-          />
-          Rarest prestige
-        </label>
-      </fieldset>
-      <p className="mode-hint" aria-live="polite">
-        Using:{" "}
-        <strong>
-          {mode === "efficient"
-            ? "Efficient (EV-style)"
-            : mode === "balanced"
-              ? "Balanced"
-              : "Rarest prestige"}
-        </strong>{" "}
-        recommendations
-      </p>
-      <button type="button" className="btn-primary" onClick={handleSubmit}>
-        Find My Mounts
-      </button>
-      {inputError !== null && (
-        <p className="alert-error" id="export-error" role="alert">
-          {inputError}
+      {authCollectionLoading ? (
+        <p className="status-block collection-dashboard__loading" role="status">
+          Loading your saved collection…
         </p>
-      )}
-      <CollectionToolbar
-        parsedIds={parsedIds}
-        onApplyParsedIds={applyParsedIds}
-        remoteSavedCount={remoteSavedCount}
-        accountFetchSettled={accountFetchSettled}
-        saveContext={collectionSaveContext}
-      />
-      {parsedIds !== null && (
-        <>
-          <p
-            id="mnm-collection-anchor"
-            className="status-block"
-            role="status"
-            aria-live="polite"
-          >
-            Submitted {parsedIds.length}{" "}
-            {parsedIds.length === 1 ? "mount" : "mounts"}.
-          </p>
+      ) : null}
+
+      {showStreamlinedCollection ? (
+        <section
+          className="collection-dashboard content-section"
+          aria-labelledby="collection-dashboard-title"
+        >
+          <header className="collection-dashboard__head">
+            <h2
+              id="collection-dashboard-title"
+              className="section-title collection-dashboard__title"
+            >
+              Your Mount Collection
+            </h2>
+            <p
+              className="collection-dashboard__subtitle"
+              id="mnm-collection-anchor"
+            >
+              <strong>{parsedIds!.length}</strong>{" "}
+              {parsedIds!.length === 1 ? "mount" : "mounts"} saved on this
+              account
+              {collectionProgress !== null ? (
+                <>
+                  {" "}
+                  —{" "}
+                  <strong>{collectionProgress.percentComplete}%</strong> of
+                  obtainable Retail mounts in this catalog
+                </>
+              ) : null}
+              .{" "}
+              <Link href="/account" className="collection-dashboard__account-link">
+                Account &amp; region
+              </Link>
+            </p>
+          </header>
+
+          <CollectionToolbar
+            parsedIds={parsedIds}
+            onApplyParsedIds={applyParsedIds}
+            remoteSavedCount={remoteSavedCount}
+            accountFetchSettled={accountFetchSettled}
+            saveContext={collectionSaveContext}
+          />
+
           {collectionProgress !== null ? (
             <aside
-              className="collection-progress-k7"
+              className="collection-progress-k7 collection-dashboard__progress"
               aria-label="Collection progress vs obtainable catalog"
             >
               <p className="collection-progress-k7__lead">
@@ -649,24 +624,269 @@ export default function HomePage() {
               </p>
             </aside>
           ) : null}
-          <details className="disclosure-block owned-mounts-disclosure">
-            <summary>
-              <span
-                className="owned-mounts-disclosure__bg"
-                aria-hidden="true"
-              />
-              <span className="owned-mounts-disclosure__label">
-                <span className="sr-only">Owned collection: </span>
-                View Your Mounts ({parsedIds.length})
+
+          <div className="collection-dashboard__grid-wrap">
+            <OwnedMountsCollection parsedIds={parsedIds!} catalog={mounts} />
+          </div>
+
+          <details
+            className="disclosure-block collection-update-export-disclosure"
+            open={authExportUpdateOpen}
+            onToggle={(e) => {
+              const open = e.currentTarget.open;
+              setAuthExportUpdateOpen(open);
+              if (open) {
+                setExportString("");
+                setInputError(null);
+              }
+            }}
+          >
+            <summary className="collection-update-export-disclosure__summary">
+              <span className="collection-update-export-disclosure__title">
+                Replace collection with a new addon export
+              </span>
+              <span className="collection-update-export-disclosure__hint">
+                After new mounts in WoW — run /mnm and paste here
               </span>
             </summary>
-            <div className="disclosure-block__body">
-              <OwnedMountsCollection
-                parsedIds={parsedIds}
-                catalog={mounts}
+            <div className="disclosure-block__body collection-update-export-disclosure__body">
+              <p className="collection-update-export-disclosure__lead">
+                You don&apos;t need the raw export on screen day to day. Open
+                this when you want to refresh from a new{" "}
+                <code className="inline-code">/mnm</code> copy from the game.
+              </p>
+              <HowToExportCompact />
+              <label
+                htmlFor="export-auth-update"
+                className="field-label"
+              >
+                New addon output (same M:… format)
+              </label>
+              <textarea
+                id="export-auth-update"
+                className="input-textarea collection-update-export-disclosure__textarea"
+                value={exportString}
+                onChange={(e) => setExportString(e.target.value)}
+                rows={5}
+                placeholder="M:65645,59961,41256"
+                autoComplete="off"
+                spellCheck={false}
+                aria-describedby={
+                  inputError !== null
+                    ? "export-auth-hint export-error"
+                    : "export-auth-hint"
+                }
+                aria-invalid={inputError !== null}
               />
+              <p className="field-hint" id="export-auth-hint">
+                Apply replaces the in-browser list; use{" "}
+                <strong>Save to my account</strong> above to persist.
+              </p>
+              <div className="collection-update-export-disclosure__actions">
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={handleSubmit}
+                >
+                  Apply new export
+                </button>
+              </div>
+              {inputError !== null ? (
+                <p className="alert-error" id="export-error" role="alert">
+                  {inputError}
+                </p>
+              ) : null}
             </div>
           </details>
+        </section>
+      ) : null}
+
+      {showGuestExportHeader ? (
+        <>
+          <HowToExportPanel />
+
+          <p className="lead" id="export-hint">
+            {isAuthenticated
+              ? "You're signed in — paste your mount export below to load your collection. Use Save to my account when you're happy with it."
+              : "Paste your export here."}
+          </p>
+          <label htmlFor="export" className="field-label">
+            Paste addon output here - type /mnm in game to generate
+          </label>
+          <textarea
+            id="export"
+            className="input-textarea"
+            value={exportString}
+            onChange={(e) => setExportString(e.target.value)}
+            rows={4}
+            placeholder="M:65645,59961,41256"
+            autoComplete="off"
+            spellCheck={false}
+            aria-describedby={
+              inputError !== null ? "export-hint export-error" : "export-hint"
+            }
+            aria-invalid={inputError !== null}
+          />
+        </>
+      ) : null}
+
+      {!authCollectionLoading &&
+      (showGuestExportHeader || showStreamlinedCollection) ? (
+        <>
+      <fieldset className="mode-fieldset">
+        <legend>Mode</legend>
+        <span className="mode-fieldset__option-row">
+          <label htmlFor="recommendation-mode-efficient">
+            <input
+              id="recommendation-mode-efficient"
+              type="radio"
+              name="recommendation-mode"
+              value="efficient"
+              checked={mode === "efficient"}
+              onChange={() => setMode("efficient")}
+            />
+            Farmable
+          </label>
+          <button
+            type="button"
+            className="mode-fieldset__info"
+            title={
+              "Farmable mode only lists mounts we catalog as drops (open-world, dungeon, or raid kills) or vendor purchases. " +
+              "Vendor includes reputation and currency NPCs—Blizzard labels those the same as plain gold vendors, so we cannot split them here. " +
+              "Quests, achievements, shop, trading post, promotions, professions, TCG, world events, discovery, and other types are hidden."
+            }
+            aria-label="About Farmable mode: which mounts are included"
+          >
+            i
+          </button>
+        </span>
+        <label>
+          <input
+            type="radio"
+            name="recommendation-mode"
+            value="balanced"
+            checked={mode === "balanced"}
+            onChange={() => setMode("balanced")}
+          />
+          Balanced
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="recommendation-mode"
+            value="rarest"
+            checked={mode === "rarest"}
+            onChange={() => setMode("rarest")}
+          />
+          Rarest prestige
+        </label>
+      </fieldset>
+      <p className="mode-hint" aria-live="polite">
+        Using:{" "}
+        <strong>
+          {mode === "efficient"
+            ? "Farmable (drops & vendors only)"
+            : mode === "balanced"
+              ? "Balanced"
+              : "Rarest prestige"}
+        </strong>{" "}
+        recommendations
+      </p>
+      </>
+      ) : null}
+
+      {!authCollectionLoading && showGuestExportHeader ? (
+        <>
+          <button type="button" className="btn-primary" onClick={handleSubmit}>
+            Find My Mounts
+          </button>
+          {inputError !== null ? (
+            <p className="alert-error" id="export-error" role="alert">
+              {inputError}
+            </p>
+          ) : null}
+        </>
+      ) : null}
+
+      {!showStreamlinedCollection ? (
+        <CollectionToolbar
+          parsedIds={parsedIds}
+          onApplyParsedIds={applyParsedIds}
+          remoteSavedCount={remoteSavedCount}
+          accountFetchSettled={accountFetchSettled}
+          saveContext={collectionSaveContext}
+        />
+      ) : null}
+      {parsedIds !== null && (
+        <>
+          {!showStreamlinedCollection ? (
+            <>
+              <p
+                id="mnm-collection-anchor"
+                className="status-block"
+                role="status"
+                aria-live="polite"
+              >
+                Submitted {parsedIds.length}{" "}
+                {parsedIds.length === 1 ? "mount" : "mounts"}.
+              </p>
+              {collectionProgress !== null ? (
+                <aside
+                  className="collection-progress-k7"
+                  aria-label="Collection progress vs obtainable catalog"
+                >
+                  <p className="collection-progress-k7__lead">
+                    <strong>{collectionProgress.matchedObtainable}</strong> of{" "}
+                    <strong>{collectionProgress.obtainableTotal}</strong>{" "}
+                    obtainable Retail mounts in this catalog —{" "}
+                    <strong>{collectionProgress.percentComplete}%</strong>{" "}
+                    complete.
+                  </p>
+                  <p className="field-hint collection-progress-k7__hint">
+                    Obtainable = catalog rows with{" "}
+                    <code className="inline-code">retailObtainable</code> not
+                    false. Your export has{" "}
+                    <strong>{collectionProgress.storedSpellCount}</strong> spell
+                    ID
+                    {collectionProgress.storedSpellCount === 1 ? "" : "s"}.
+                    {collectionProgress.unknownSpellIdCount > 0 ? (
+                      <>
+                        {" "}
+                        <strong>{collectionProgress.unknownSpellIdCount}</strong>{" "}
+                        do not match an obtainable row here.
+                      </>
+                    ) : null}
+                  </p>
+                  <p className="collection-progress-k7__ref">
+                    <Link
+                      href="/tool/retail-unobtainable"
+                      className="collection-progress-k7__ref-link"
+                    >
+                      View mounts marked unobtainable in Retail (reference)
+                    </Link>
+                  </p>
+                </aside>
+              ) : null}
+              <details className="disclosure-block owned-mounts-disclosure">
+                <summary>
+                  <span
+                    className="owned-mounts-disclosure__bg"
+                    aria-hidden="true"
+                  />
+                  <span className="owned-mounts-disclosure__label">
+                    <span className="sr-only">Owned collection: </span>
+                    View Your Mounts ({parsedIds.length})
+                  </span>
+                </summary>
+                <div className="disclosure-block__body">
+                  <OwnedMountsCollection
+                    parsedIds={parsedIds}
+                    catalog={mounts}
+                  />
+                </div>
+              </details>
+            </>
+          ) : null}
           {ownedRarestShowcase !== null && (
             <>
               {ownedRarestShowcase.length === 0 ? (

@@ -109,6 +109,17 @@ export function getMountSourceBucket(mount: Mount): SourceBucketId {
   return PREFIX_TO_BUCKET[prefix] ?? "other";
 }
 
+/**
+ * “Farmable” recommendation mode (`efficient`): only drops (world, dungeon, raid kills)
+ * and vendor NPCs (reputation, gold, or currency — Blizzard buckets all as Vendor).
+ * Quests, achievements, shop, trading post, professions, TCG, promotions, world events,
+ * discovery, and other categories are excluded.
+ */
+export function mountPassesFarmableModeAcquisition(mount: Mount): boolean {
+  const b = getMountSourceBucket(mount);
+  return b === "drop" || b === "vendor";
+}
+
 /** Checkbox order + customer-facing labels */
 export const SOURCE_FILTER_OPTIONS: readonly {
   id: SourceBucketId;

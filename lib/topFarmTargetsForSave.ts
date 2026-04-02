@@ -5,6 +5,7 @@ import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligi
 import {
   anySourceFilterEnabled,
   initialSourceFiltersDefault,
+  mountPassesFarmableModeAcquisition,
   mountPassesSourceFilters,
   SOURCE_FILTER_OPTIONS,
   type SourceBucketId,
@@ -51,9 +52,13 @@ export function farmTargetRankingMounts(
   if (!anySourceFilterEnabled(sourceFilters)) return [];
   const unowned = filterUnownedMounts(mounts as readonly Mount[], ownedSpellIds);
   const farmable = filterMountsEligibleForFarmRecommendations(unowned);
-  const filtered = farmable.filter((m) =>
-    mountPassesSourceFilters(m, sourceFilters),
-  );
+  const filtered = farmable.filter((m) => {
+    if (!mountPassesSourceFilters(m, sourceFilters)) return false;
+    if (mode === "efficient" && !mountPassesFarmableModeAcquisition(m)) {
+      return false;
+    }
+    return true;
+  });
   const scoreFn = recommendationScorer(mode);
   const sorted = sortMountsByScore(filtered, scoreFn);
   return filterMountsByFarmSearchQuery(sorted, farmSearchQuery);

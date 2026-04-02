@@ -2,15 +2,12 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { getMountCommunitySummaryResilient } from "@/lib/mountCommunityBatch";
+import { MOUNT_COMMENT_MAX_LENGTH } from "@/lib/mountCommunityConstants";
 import {
   findAppUserFromSession,
   sessionHasDbIdentity,
 } from "@/lib/prismaUserFromSession";
-import { getMountCommunitySummaryResilient } from "@/lib/mountCommunityBatch";
-import {
-  MOUNT_COMMENT_MAX_LENGTH,
-  MOUNT_COMMENTS_PAGE_SIZE,
-} from "@/lib/mountCommunityConstants";
 
 export const runtime = "nodejs";
 
@@ -20,73 +17,21 @@ function parseSpellId(param: string): number | null {
   return Math.floor(n);
 }
 
-export async function GET(
-  _req: Request,
-  ctx: { params: Promise<{ spellId: string }> },
-) {
-  const { spellId: raw } = await ctx.params;
-  const spellId = parseSpellId(raw);
-  if (spellId === null) {
-    return NextResponse.json({ error: "Invalid spell id" }, { status: 400 });
-  }
-
-  const session = await auth();
-  let userId: string | null = null;
-  if (session?.user && sessionHasDbIdentity(session.user)) {
-    const u = await findAppUserFromSession(session.user);
-    userId = u?.id ?? null;
-  }
-
-  let rows: {
-    id: string;
-    body: string;
-    createdAt: Date;
-    updatedAt: Date;
-    userId: string;
-  }[] = [];
-  try {
-    rows = await prisma.mountComment.findMany({
-      where: { spellId },
-      orderBy: { createdAt: "desc" },
-      take: MOUNT_COMMENTS_PAGE_SIZE,
-      select: {
-        id: true,
-        body: true,
-        createdAt: true,
-        updatedAt: true,
-        userId: true,
-      },
-    });
-  } catch (e) {
-    console.error("[api/mounts/.../comments GET] mountComment.findMany", e);
-    rows = [];
-  }
-
-  const summary = await getMountCommunitySummaryResilient(
-    spellId,
-    userId ?? undefined,
-  );
-
-  return NextResponse.json({
-    comments: rows.map((r) => ({
-      id: r.id,
-      body: r.body,
-      createdAt: r.createdAt.toISOString(),
-      updatedAt: r.updatedAt.toISOString(),
-      isYou: userId !== null && r.userId === userId,
-    })),
-    summary,
-  });
-}
-
-export async function POST(
+export async function PATCH(
   req: Request,
-  ctx: { params: Promise<{ spellId: string }> },
+  ctx: { params: Promise<{ spellId: string; commentId: string }> },
 ) {
-  const { spellId: raw } = await ctx.params;
-  const spellId = parseSpellId(raw);
+  const { spellId: rawSpell, commentId } = await ctx.params;
+  const spellId = parseSpellId(rawSpell);
   if (spellId === null) {
     return NextResponse.json({ error: "Invalid spell id" }, { status: 400 });
+  }
+  if (
+    typeof commentId !== "string" ||
+    commentId.trim() === "" ||
+    commentId.length > 80
+  ) {
+    return NextResponse.json({ error: "Invalid comment id" }, { status: 400 });
   }
 
   const session = await auth();
@@ -119,12 +64,24 @@ export async function POST(
   }
 
   try {
-    const row = await prisma.mountComment.create({
-      data: {
-        userId: dbUser.id,
+    const existing = await prisma.mountComment.findFirst({
+      where: {
+        id: commentId.trim(),
         spellId,
-        body: text,
+        userId: dbUser.id,
       },
+      select: { id: true },
+    });
+    if (!existing) {
+      return NextResponse.json(
+        { error: "Comment not found or not yours." },
+        { status: 404 },
+      );
+    }
+
+    const row = await prisma.mountComment.update({
+      where: { id: existing.id },
+      data: { body: text },
       select: {
         id: true,
         body: true,
@@ -147,9 +104,9 @@ export async function POST(
       summary,
     });
   } catch (e) {
-    console.error("[api/mounts/.../comments POST]", e);
+    console.error("[api/mounts/.../comments/... PATCH]", e);
     return NextResponse.json(
-      { error: "Could not save comment." },
+      { error: "Could not update comment." },
       { status: 500 },
     );
   }

@@ -1,12 +1,13 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   useMountCommunityContext,
   useMountCommunitySummary,
 } from "@/components/mount-community/MountCommunityProvider";
+import type { MountCommunitySummary } from "@/types/mountCommunity";
 
 type Props = {
   spellId: number;
@@ -15,10 +16,50 @@ type Props = {
 
 const THANK_YOU_MS = 4500;
 
+/** Client-side mirror of vote toggles so the +n / −n line updates immediately. */
+function applyVoteDelta(
+  before: MountCommunitySummary,
+  value: 1 | -1 | 0,
+): MountCommunitySummary {
+  const my = before.myVote;
+  let up = before.upCount;
+  let down = before.downCount;
+  let myVote: 1 | -1 | null = my;
+  if (value === 0) {
+    if (my === 1) {
+      up = Math.max(0, up - 1);
+      myVote = null;
+    } else if (my === -1) {
+      down = Math.max(0, down - 1);
+      myVote = null;
+    }
+  } else if (value === 1) {
+    if (my === -1) down = Math.max(0, down - 1);
+    if (my !== 1) {
+      up += 1;
+      myVote = 1;
+    }
+  } else {
+    if (my === 1) up = Math.max(0, up - 1);
+    if (my !== -1) {
+      down += 1;
+      myVote = -1;
+    }
+  }
+  return {
+    commentCount: before.commentCount,
+    upCount: up,
+    downCount: down,
+    myVote,
+  };
+}
+
 export function MountPanelFeedback({ spellId, mountName }: Props) {
   const { data: session, status } = useSession();
   const summary = useMountCommunitySummary(spellId);
   const { patchSpell } = useMountCommunityContext();
+  const summaryRef = useRef(summary);
+  summaryRef.current = summary;
   const [pending, setPending] = useState<"up" | "down" | "clear" | null>(
     null,
   );
@@ -43,6 +84,9 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
       }
       setPending(value === 1 ? "up" : value === -1 ? "down" : "clear");
       setVoteError(null);
+      const before = { ...summaryRef.current };
+      const optimistic = applyVoteDelta(before, value);
+      patchSpell(spellId, optimistic);
       try {
         const res = await fetch(`/api/mounts/${spellId}/vote`, {
           method: "POST",
@@ -59,22 +103,44 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
             myVote?: 1 | -1 | null;
           };
         };
-        if (res.ok && data.summary) {
+
+        type ApiSummary = {
+          commentCount?: number;
+          upCount?: number;
+          downCount?: number;
+          myVote?: 1 | -1 | null;
+        };
+        const mergeSummary = (s: ApiSummary) => {
           patchSpell(spellId, {
-            commentCount: Number(data.summary.commentCount) || 0,
-            upCount: Number(data.summary.upCount) || 0,
-            downCount: Number(data.summary.downCount) || 0,
+            commentCount: Number(s.commentCount) || 0,
+            upCount: Number(s.upCount) || 0,
+            downCount: Number(s.downCount) || 0,
             myVote:
-              data.summary.myVote === 1 || data.summary.myVote === -1
-                ? data.summary.myVote
-                : null,
+              s.myVote === 1 || s.myVote === -1 ? s.myVote : null,
           });
+        };
+
+        if (res.ok) {
+          if (data.summary) {
+            mergeSummary(data.summary);
+          } else {
+            const r2 = await fetch(`/api/mounts/${spellId}/comments`, {
+              credentials: "include",
+            });
+            const d2 = (await r2.json().catch(() => ({}))) as {
+              summary?: ApiSummary;
+            };
+            if (d2.summary) {
+              mergeSummary(d2.summary);
+            }
+          }
           if (value === 1 || value === -1) {
             setShowThanks(true);
           } else {
             setShowThanks(false);
           }
-        } else if (!res.ok) {
+        } else {
+          patchSpell(spellId, before);
           setVoteError(
             res.status === 401
               ? data.error ||
@@ -82,6 +148,9 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
               : data.error || "Could not save vote.",
           );
         }
+      } catch {
+        patchSpell(spellId, before);
+        setVoteError("Network error saving vote.");
       } finally {
         setPending(null);
       }

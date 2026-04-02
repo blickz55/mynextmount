@@ -210,7 +210,8 @@ export default async function AccountPage() {
           This week&apos;s suggested farms
         </h2>
         <p className="section-intro">
-          Top 10 missing mounts by <strong>Efficient (EV-style)</strong> score,
+          Top 10 missing mounts by <strong>Farmable</strong> score (drops &amp;
+          vendors only),
           using default source filters (in-game shop opt-in, same as the tool).
         </p>
         {plan.length === 0 ? (

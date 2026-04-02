@@ -69,13 +69,20 @@ export async function POST(
         where: { userId, spellId },
       });
     } else {
-      await prisma.mountListingVote.upsert({
-        where: {
-          userId_spellId: { userId, spellId },
-        },
-        create: { userId, spellId, value },
-        update: { value },
+      const existing = await prisma.mountListingVote.findFirst({
+        where: { userId, spellId },
+        select: { id: true },
       });
+      if (existing) {
+        await prisma.mountListingVote.update({
+          where: { id: existing.id },
+          data: { value },
+        });
+      } else {
+        await prisma.mountListingVote.create({
+          data: { userId, spellId, value },
+        });
+      }
     }
 
     try {

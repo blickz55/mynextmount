@@ -15,8 +15,16 @@ type CommentRow = {
   id: string;
   body: string;
   createdAt: string;
+  updatedAt: string;
   isYou: boolean;
 };
+
+function commentLooksEdited(c: Pick<CommentRow, "createdAt" | "updatedAt">) {
+  return (
+    new Date(c.updatedAt).getTime() >
+    new Date(c.createdAt).getTime() + 750
+  );
+}
 
 type Props = {
   spellId: number;
@@ -44,6 +52,10 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
   const [posting, setPosting] = useState(false);
   const [draft, setDraft] = useState("");
   const [postMsg, setPostMsg] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editDraft, setEditDraft] = useState("");
+  const [editSaving, setEditSaving] = useState(false);
+  const [editMsg, setEditMsg] = useState<string | null>(null);
   const loadedRef = useRef(false);
 
   const loadThread = useCallback(async () => {
@@ -61,7 +73,15 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
         setLoadError(data.error || "Could not load discussion.");
         return;
       }
-      setComments(Array.isArray(data.comments) ? data.comments : []);
+      setComments(
+        (Array.isArray(data.comments) ? data.comments : []).map((c) => ({
+          ...c,
+          updatedAt:
+            typeof (c as CommentRow).updatedAt === "string"
+              ? (c as CommentRow).updatedAt
+              : (c as CommentRow).createdAt,
+        })),
+      );
       if (data.summary) {
         mergeSummaries({
           [spellId]: {
@@ -113,7 +133,11 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
         return;
       }
       if (data.comment) {
-        setComments((prev) => [data.comment!, ...(prev ?? [])]);
+        const com = {
+          ...data.comment,
+          updatedAt: data.comment.updatedAt ?? data.comment.createdAt,
+        };
+        setComments((prev) => [com, ...(prev ?? [])]);
       }
       if (data.summary) {
         patchSpell(spellId, {
@@ -125,6 +149,61 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
       setPostMsg("Network error.");
     } finally {
       setPosting(false);
+    }
+  };
+
+  const startEdit = (c: CommentRow) => {
+    setEditMsg(null);
+    setEditingId(c.id);
+    setEditDraft(c.body);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditDraft("");
+    setEditMsg(null);
+  };
+
+  const saveEdit = async () => {
+    if (editingId === null || status !== "authenticated") return;
+    const body = editDraft.trim();
+    if (body.length < 1) return;
+    setEditMsg(null);
+    setEditSaving(true);
+    try {
+      const res = await fetch(
+        `/api/mounts/${spellId}/comments/${encodeURIComponent(editingId)}`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ body }),
+        },
+      );
+      const data = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        comment?: CommentRow;
+      };
+      if (!res.ok) {
+        setEditMsg(
+          res.status === 401
+            ? data.error || "Session expired. Refresh and sign in again."
+            : data.error || "Could not update comment.",
+        );
+        return;
+      }
+      if (data.comment) {
+        setComments((prev) =>
+          (prev ?? []).map((x) =>
+            x.id === data.comment!.id ? { ...data.comment! } : x,
+          ),
+        );
+      }
+      cancelEdit();
+    } catch {
+      setEditMsg("Network error.");
+    } finally {
+      setEditSaving(false);
     }
   };
 
@@ -145,7 +224,14 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
     >
       <summary className="mount-community__summary">
         <span className="mount-community__summary-main">
-          <span className="mount-community__title">Community</span>
+          <span className="mount-community__title-line">
+            <span className="mount-community__title">Community</span>
+            <span
+              className="mount-community__toggle-icon"
+              aria-hidden
+              title="Expand or collapse"
+            />
+          </span>
           <span
             className={
               summary.commentCount > 0
@@ -154,7 +240,7 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
             }
             title={countLabel}
           >
-            {summary.commentCount > 0 ? summary.commentCount : "—"}
+            {summary.commentCount}
           </span>
         </span>
         <span className="mount-community__cta">
@@ -168,6 +254,12 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
           <span className="sr-only">{mountName}: </span>
           Player notes for this farm target. Be constructive; this is not
           official Blizzard support.
+          {status !== "authenticated" ? (
+            <>
+              {" "}
+              <strong>Sign in</strong> to post or edit comments.
+            </>
+          ) : null}
         </p>
         {loadError !== null && (
           <p className="mount-community__error" role="alert">
@@ -192,8 +284,62 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
                   {c.isYou ? "You" : "Member"}
                 </span>
                 <time dateTime={c.createdAt}>{formatAgo(c.createdAt)}</time>
+                {commentLooksEdited(c) ? (
+                  <span className="mount-community__msg-edited">Edited</span>
+                ) : null}
+                {c.isYou && status === "authenticated" && editingId !== c.id ? (
+                  <button
+                    type="button"
+                    className="mount-community__edit-link"
+                    onClick={() => startEdit(c)}
+                  >
+                    Edit
+                  </button>
+                ) : null}
               </div>
-              <p className="mount-community__msg-body">{c.body}</p>
+              {editingId === c.id ? (
+                <div className="mount-community__edit-box">
+                  <textarea
+                    className="mount-community__textarea mount-community__textarea--edit"
+                    rows={3}
+                    maxLength={MOUNT_COMMENT_MAX_LENGTH}
+                    value={editDraft}
+                    onChange={(e) => setEditDraft(e.target.value)}
+                    disabled={editSaving}
+                    aria-label="Edit comment"
+                  />
+                  <div className="mount-community__edit-actions">
+                    <span className="mount-community__counter">
+                      {editDraft.length}/{MOUNT_COMMENT_MAX_LENGTH}
+                    </span>
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      disabled={editSaving}
+                      onClick={cancelEdit}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-primary"
+                      disabled={
+                        editSaving || editDraft.trim().length < 1
+                      }
+                      onClick={() => void saveEdit()}
+                    >
+                      {editSaving ? "Saving…" : "Save"}
+                    </button>
+                  </div>
+                  {editMsg !== null ? (
+                    <p className="mount-community__error" role="status">
+                      {editMsg}
+                    </p>
+                  ) : null}
+                </div>
+              ) : (
+                <p className="mount-community__msg-body">{c.body}</p>
+              )}
             </li>
           ))}
         </ul>
