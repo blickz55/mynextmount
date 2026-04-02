@@ -6,7 +6,7 @@ import {
   findAppUserFromSession,
   sessionHasDbIdentity,
 } from "@/lib/prismaUserFromSession";
-import { loadMountCommunitySummaries } from "@/lib/mountCommunityBatch";
+import { getMountCommunitySummaryResilient } from "@/lib/mountCommunityBatch";
 import {
   MOUNT_COMMENT_MAX_LENGTH,
   MOUNT_COMMENTS_PAGE_SIZE,
@@ -37,13 +37,6 @@ export async function GET(
     userId = u?.id ?? null;
   }
 
-  const defaultSummary = {
-    commentCount: 0,
-    upCount: 0,
-    downCount: 0,
-    myVote: null as null | 1 | -1,
-  };
-
   let rows: {
     id: string;
     body: string;
@@ -67,20 +60,10 @@ export async function GET(
     rows = [];
   }
 
-  let summary = defaultSummary;
-  try {
-    const summaryMap = await loadMountCommunitySummaries(
-      [spellId],
-      userId ?? undefined,
-    );
-    summary = summaryMap[spellId] ?? defaultSummary;
-  } catch (e) {
-    console.error("[api/mounts/.../comments GET] loadMountCommunitySummaries", e);
-    summary = {
-      ...defaultSummary,
-      commentCount: rows.length,
-    };
-  }
+  const summary = await getMountCommunitySummaryResilient(
+    spellId,
+    userId ?? undefined,
+  );
 
   return NextResponse.json({
     comments: rows.map((r) => ({
@@ -147,11 +130,7 @@ export async function POST(
       },
     });
 
-    const summaryMap = await loadMountCommunitySummaries(
-      [spellId],
-      dbUser.id,
-    );
-    const summary = summaryMap[spellId];
+    const summary = await getMountCommunitySummaryResilient(spellId, dbUser.id);
 
     return NextResponse.json({
       comment: {

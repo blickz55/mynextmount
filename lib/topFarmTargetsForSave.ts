@@ -4,8 +4,8 @@ import { K_ATTEMPT_INCREMENT_CAP } from "@/lib/farmAttemptConstants";
 import { filterMountsEligibleForFarmRecommendations } from "@/lib/mountFarmEligibility";
 import {
   anySourceFilterEnabled,
-  getMountSourceBucket,
   initialSourceFiltersDefault,
+  mountPassesSourceFilters,
   SOURCE_FILTER_OPTIONS,
   type SourceBucketId,
 } from "@/lib/mountSourceBucket";
@@ -51,7 +51,9 @@ export function farmTargetRankingMounts(
   if (!anySourceFilterEnabled(sourceFilters)) return [];
   const unowned = filterUnownedMounts(mounts as readonly Mount[], ownedSpellIds);
   const farmable = filterMountsEligibleForFarmRecommendations(unowned);
-  const filtered = farmable.filter((m) => sourceFilters[getMountSourceBucket(m)]);
+  const filtered = farmable.filter((m) =>
+    mountPassesSourceFilters(m, sourceFilters),
+  );
   const scoreFn = recommendationScorer(mode);
   const sorted = sortMountsByScore(filtered, scoreFn);
   return filterMountsByFarmSearchQuery(sorted, farmSearchQuery);

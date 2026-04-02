@@ -13,6 +13,8 @@ export {
   scoreRarestDetailed,
 } from "./composite";
 export { PROFILE_BALANCED, PROFILE_EFFICIENT, PROFILE_LEGACY_RAREST } from "./profiles";
+export { recommendationScoreToAcquisitionBandLabel } from "./acquisitionBand";
+export type { AcquisitionBandLabel } from "./acquisitionBand";
 export { spearmanRho } from "./stats";
 export type {
   CompositeFactorKey,

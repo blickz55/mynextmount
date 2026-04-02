@@ -53,9 +53,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ summaries });
   } catch (e) {
     console.error("[api/mounts/community-batch]", e);
-    return NextResponse.json(
-      { error: "Could not load community summaries." },
-      { status: 500 },
-    );
+    const fallback: Record<
+      string,
+      {
+        commentCount: number;
+        upCount: number;
+        downCount: number;
+        myVote: null | 1 | -1;
+      }
+    > = {};
+    for (const id of spellIds) {
+      fallback[String(id)] = {
+        commentCount: 0,
+        upCount: 0,
+        downCount: 0,
+        myVote: null,
+      };
+    }
+    return NextResponse.json({ summaries: fallback });
   }
 }

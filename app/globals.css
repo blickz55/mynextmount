@@ -2258,6 +2258,16 @@ html[data-theme="dark"] .btn-primary {
   line-height: 1.2;
 }
 
+.mount-panel-feedback__error {
+  margin: 0.35rem 0 0;
+  width: 100%;
+  text-align: right;
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--danger, #f87171);
+  line-height: 1.25;
+}
+
 .mount-community {
   margin-top: 0.65rem;
   border-radius: var(--radius-md);
@@ -2925,6 +2935,30 @@ code.inline-code {
 
 .expandable-row--farm.mount-result-card__fold {
   margin-top: 0.45rem;
+}
+
+/* Quick steps + Wowhead — always expanded (farm cards; was <details>) */
+.mount-result-card__quicksteps {
+  margin-top: 0.45rem;
+  margin-left: -0.4rem;
+  margin-right: -0.4rem;
+  padding: 0.2rem 0.4rem 0.45rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--bg-elevated) 42%, var(--bg-card));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--border-subtle) 65%, transparent);
+}
+
+.mount-result-card__quicksteps__title {
+  margin: 0;
+  padding: 0.35rem 0.5rem 0.2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.mount-result-card__quicksteps__panel {
+  margin-top: 0.35rem;
 }
 
 .expandable-row--rarest.mount-result-card__fold {

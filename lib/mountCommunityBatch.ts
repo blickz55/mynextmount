@@ -65,3 +65,43 @@ export async function loadMountCommunitySummaries(
 
   return out;
 }
+
+/**
+ * Single-spell summary for API routes after a write. Uses `groupBy` batch logic first;
+ * if that fails, falls back to plain `count` / `findUnique` so votes and comments still return
+ * usable totals (some hosted DB setups choke on `groupBy` with certain poolers or policies).
+ */
+export async function getMountCommunitySummaryResilient(
+  spellId: number,
+  userId: string | undefined,
+): Promise<MountCommunitySummary> {
+  try {
+    const map = await loadMountCommunitySummaries([spellId], userId);
+    return map[spellId] ?? emptySummary();
+  } catch (e) {
+    console.error("[getMountCommunitySummaryResilient] groupBy path", e);
+    try {
+      const [commentCount, upCount, downCount, mine] = await Promise.all([
+        prisma.mountComment.count({ where: { spellId } }),
+        prisma.mountListingVote.count({ where: { spellId, value: 1 } }),
+        prisma.mountListingVote.count({ where: { spellId, value: -1 } }),
+        userId
+          ? prisma.mountListingVote.findUnique({
+              where: { userId_spellId: { userId, spellId } },
+              select: { value: true },
+            })
+          : Promise.resolve(null),
+      ]);
+      const v = mine?.value;
+      return {
+        commentCount,
+        upCount,
+        downCount,
+        myVote: v === 1 ? 1 : v === -1 ? -1 : null,
+      };
+    } catch (e2) {
+      console.error("[getMountCommunitySummaryResilient] count path", e2);
+      return emptySummary();
+    }
+  }
+}

@@ -37,8 +37,8 @@ import {
 } from "@/lib/farmAttemptConstants";
 import {
   anySourceFilterEnabled,
-  getMountSourceBucket,
   initialSourceFiltersDefault,
+  mountPassesSourceFilters,
   SOURCE_FILTER_OPTIONS,
   type SourceBucketId,
 } from "@/lib/mountSourceBucket";
@@ -137,8 +137,8 @@ export default function HomePage() {
 
   const filteredUnowned = useMemo(() => {
     if (!anySourceFilterEnabled(sourceFilters)) return [];
-    return farmableUnownedMounts.filter(
-      (m) => sourceFilters[getMountSourceBucket(m)],
+    return farmableUnownedMounts.filter((m) =>
+      mountPassesSourceFilters(m, sourceFilters),
     );
   }, [farmableUnownedMounts, sourceFilters]);
 
@@ -782,8 +782,9 @@ export default function HomePage() {
                     filters.
                   </p>
                   <p>
-                    Use the <strong>Quick steps &amp; Wowhead</strong> fold under
-                    each row for guides, links, tips, and comments. Scroll down to
+                    Each row shows <strong>Quick steps &amp; Wowhead</strong>{" "}
+                    (guides, links, tips) open by default; use{" "}
+                    <strong>Community</strong> below for comments. Scroll down to
                     load more mounts, {PAGE_SIZE} at a time.
                   </p>
                 </div>
@@ -794,8 +795,11 @@ export default function HomePage() {
                   Filter by how mounts are obtained
                 </legend>
                 <p className="source-filter-fieldset__hint">
-                  In-Game Shop starts <strong>unchecked</strong> (opt-in); turn
-                  it on if you want shop mounts in the list.
+                  <strong>In-Game Shop</strong>, <strong>Promotion</strong>, and{" "}
+                  <strong>Marks of Honor / PVP</strong> start{" "}
+                  <strong>unchecked</strong> (opt-in). Turn on Marks of Honor / PVP
+                  to include mounts whose <strong>Quick steps &amp; Wowhead</strong>{" "}
+                  text mentions Marks of Honor.
                 </p>
                 <div className="source-filter-grid">
                   {SOURCE_FILTER_OPTIONS.map(({ id, label }) => (

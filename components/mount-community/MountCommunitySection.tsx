@@ -49,7 +49,9 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
   const loadThread = useCallback(async () => {
     setLoadError(null);
     try {
-      const res = await fetch(`/api/mounts/${spellId}/comments`);
+      const res = await fetch(`/api/mounts/${spellId}/comments`, {
+        credentials: "include",
+      });
       const data = (await res.json().catch(() => ({}))) as {
         error?: string;
         comments?: CommentRow[];
@@ -90,6 +92,7 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
     try {
       const res = await fetch(`/api/mounts/${spellId}/comments`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ body }),
       });
@@ -99,7 +102,14 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
         summary?: MountCommunitySummary;
       };
       if (!res.ok) {
-        setPostMsg(data.error || "Could not post.");
+        if (res.status === 401) {
+          setPostMsg(
+            data.error ||
+              "Session expired or not signed in. Refresh the page and sign in again.",
+          );
+        } else {
+          setPostMsg(data.error || "Could not save comment.");
+        }
         return;
       }
       if (data.comment) {

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { mounts } from "@/lib/mounts";
 import { maybeNotifyAdminNegativeListingFeedback } from "@/lib/mountCommunityAlert";
-import { loadMountCommunitySummaries } from "@/lib/mountCommunityBatch";
+import { getMountCommunitySummaryResilient } from "@/lib/mountCommunityBatch";
 import { prisma } from "@/lib/prisma";
 import { refreshMountListingCommunityAggregate } from "@/lib/refreshMountListingCommunityAggregate";
 import {
@@ -78,14 +78,27 @@ export async function POST(
       });
     }
 
-    await refreshMountListingCommunityAggregate(prisma, spellId);
+    try {
+      await refreshMountListingCommunityAggregate(prisma, spellId);
+    } catch (aggErr) {
+      console.error(
+        "[api/mounts/.../vote POST] refreshMountListingCommunityAggregate",
+        aggErr,
+      );
+    }
 
-    const summaryMap = await loadMountCommunitySummaries([spellId], userId);
-    const summary = summaryMap[spellId]!;
+    const summary = await getMountCommunitySummaryResilient(spellId, userId);
 
     const mountName =
       mounts.find((m) => m.id === spellId)?.name ?? `Spell ${spellId}`;
-    await maybeNotifyAdminNegativeListingFeedback(spellId, mountName);
+    try {
+      await maybeNotifyAdminNegativeListingFeedback(spellId, mountName);
+    } catch (notifyErr) {
+      console.error(
+        "[api/mounts/.../vote POST] maybeNotifyAdminNegativeListingFeedback",
+        notifyErr,
+      );
+    }
 
     return NextResponse.json({ summary });
   } catch (e) {

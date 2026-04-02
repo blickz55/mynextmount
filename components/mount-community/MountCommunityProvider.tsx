@@ -86,6 +86,7 @@ export function MountCommunityProvider({
       try {
         const res = await fetch("/api/mounts/community-batch", {
           method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ spellIds: spellIdsFromKey }),
         });

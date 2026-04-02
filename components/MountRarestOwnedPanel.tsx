@@ -5,6 +5,7 @@ import {
   OWNED_MOUNT_NO_LORE_YET_MSG,
   resolveOwnedMountLoreText,
 } from "@/lib/resolveOwnedMountLoreText";
+import { recommendationScoreToAcquisitionBandLabel } from "@/lib/scoring";
 import { scoreRarest } from "@/lib/scoreRarest";
 import type { Mount } from "@/types/mount";
 
@@ -16,6 +17,7 @@ type Props = { mount: Mount };
  */
 export function MountRarestOwnedPanel({ mount }: Props) {
   const score = scoreRarest(mount);
+  const band = recommendationScoreToAcquisitionBandLabel(score, true);
   const loreText = resolveOwnedMountLoreText(mount);
   const retired = mount.retailObtainable === false;
 
@@ -41,14 +43,18 @@ export function MountRarestOwnedPanel({ mount }: Props) {
           <span className="rarest-owned-panel__score-label">Rarity score</span>{" "}
           <span
             className="rarest-owned-panel__score-value"
-            title="Same composite as “rarest” mode elsewhere on the tool (drop weight, difficulty, rare tags)."
+            title={
+              Number.isFinite(score)
+                ? `Same composite as “rarest” mode elsewhere on the tool (drop weight, difficulty, rare tags). Numeric score: ${score.toFixed(4)}.`
+                : "Same composite as “rarest” mode elsewhere on the tool (drop weight, difficulty, rare tags)."
+            }
           >
-            {Number.isFinite(score) ? score.toFixed(2) : "—"}
+            {band}
           </span>
         </p>
         <p className="rarest-owned-panel__score-hint">
-          Higher = rarer / harder on this site&apos;s formula (for fun, not an
-          official WoW stat).
+          Band is from this site&apos;s “rarest” formula (for fun, not an
+          official WoW stat). Hover the value for the underlying number.
         </p>
       </div>
       <div className="rarest-owned-panel__flavor-block">

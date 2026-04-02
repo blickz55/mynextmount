@@ -12,6 +12,7 @@ import { formatUnlockInShort } from "@/lib/formatLockoutCountdown";
 import { getMountLocationLabel } from "@/lib/getMountLocationLabel";
 import { recordFarmScoreEngagement } from "@/lib/farmPreferenceStorage";
 import {
+  recommendationScoreToAcquisitionBandLabel,
   scoreForRecommendationMode,
   type ScoringContext,
 } from "@/lib/scoring";
@@ -55,6 +56,10 @@ function FarmResultCardBody({
   scoringContext?: ScoringContext;
 }) {
   const scored = scoreForRecommendationMode(mount, mode, scoringContext);
+  const scoreBand = recommendationScoreToAcquisitionBandLabel(
+    scored.score,
+    mode === "rarest",
+  );
   const attempts = farmAttempt.attempts;
   const pSeen = farmAttempt.pSeenDropPct;
   const lock = farmAttempt.lockout;
@@ -142,7 +147,15 @@ function FarmResultCardBody({
           }
         }}
       >
-        <summary>Score ({scored.score.toFixed(4)})</summary>
+        <summary
+          title={
+            Number.isFinite(scored.score)
+              ? `Numeric score: ${scored.score.toFixed(4)}`
+              : undefined
+          }
+        >
+          Score ({scoreBand})
+        </summary>
         <ul className="mount-result-card__scoring-list">
           {scored.reasons.map((line, i) => (
             <li key={i}>{line}</li>

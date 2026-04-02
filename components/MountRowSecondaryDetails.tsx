@@ -8,7 +8,7 @@ function mountHasSpotlightCopy(m: Mount): boolean {
 }
 
 /**
- * Epic D.3 — Collapsible quick steps + Wowhead (farm list); mount-guides.json is unused here.
+ * Epic D.3 — Quick steps + Wowhead always visible on the farm list (no details/summary).
  */
 export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
   const hasWowhead = resolveWowheadCommentsLink(mount) !== null;
@@ -16,19 +16,27 @@ export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
   const retired = mount.retailObtainable === false;
   if (!hasWowhead && !hasDigest && !retired) return null;
 
+  const headingId = `mount-quicksteps-${mount.id}`;
+
   return (
-    <details className="mount-result-card__fold expandable-row--farm">
-      <summary>
+    <section
+      className="mount-result-card__quicksteps expandable-row--farm"
+      aria-labelledby={headingId}
+    >
+      <h4 className="mount-result-card__quicksteps__title" id={headingId}>
         <span className="sr-only">{mount.name}: </span>
         Quick steps & Wowhead
         {retired ? (
-          <span className="expandable-row__summary-suffix"> — no longer obtainable</span>
+          <span className="expandable-row__summary-suffix">
+            {" "}
+            — no longer obtainable
+          </span>
         ) : null}
-      </summary>
-      <div className="expandable-row__panel">
+      </h4>
+      <div className="expandable-row__panel mount-result-card__quicksteps__panel">
         <WowheadCommentDigest mount={mount} />
       </div>
-    </details>
+    </section>
   );
 }
 

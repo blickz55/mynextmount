@@ -23,9 +23,11 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
     null,
   );
   const [showThanks, setShowThanks] = useState(false);
+  const [voteError, setVoteError] = useState<string | null>(null);
 
   useEffect(() => {
     setShowThanks(false);
+    setVoteError(null);
   }, [spellId]);
 
   useEffect(() => {
@@ -40,13 +42,16 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
         return;
       }
       setPending(value === 1 ? "up" : value === -1 ? "down" : "clear");
+      setVoteError(null);
       try {
         const res = await fetch(`/api/mounts/${spellId}/vote`, {
           method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ value }),
         });
         const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
           summary?: {
             commentCount?: number;
             upCount?: number;
@@ -56,6 +61,7 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
         };
         if (res.ok && data.summary) {
           patchSpell(spellId, {
+            commentCount: Number(data.summary.commentCount) || 0,
             upCount: Number(data.summary.upCount) || 0,
             downCount: Number(data.summary.downCount) || 0,
             myVote:
@@ -68,6 +74,13 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
           } else {
             setShowThanks(false);
           }
+        } else if (!res.ok) {
+          setVoteError(
+            res.status === 401
+              ? data.error ||
+                  "Sign in again to rate listings (session may have expired)."
+              : data.error || "Could not save vote.",
+          );
         }
       } finally {
         setPending(null);
@@ -154,6 +167,15 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
       {showThanks ? (
         <p className="mount-panel-feedback__thanks" aria-live="polite">
           Thank you
+        </p>
+      ) : null}
+      {voteError !== null ? (
+        <p
+          className="mount-panel-feedback__error"
+          role="alert"
+          aria-live="polite"
+        >
+          {voteError}
         </p>
       ) : null}
     </div>
