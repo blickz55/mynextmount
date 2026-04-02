@@ -78,7 +78,7 @@ export function HowToExportPanel() {
           <p className="how-to-step__sub">or /mynextmount</p>
         </div>
         <div className="how-to-step how-to-step--paste">
-          <h3 className="how-to-step__heading">Paste Output Below</h3>
+          <h3 className="how-to-step__heading">Paste it below</h3>
           <span className="how-to-step__arrow" aria-hidden>
             ↓
           </span>
@@ -89,11 +89,11 @@ export function HowToExportPanel() {
           href="/tool/retail-unobtainable"
           className="how-to-panel__catalog-note-link"
         >
-          Retail unobtainable list
+          Mounts we call gone from Retail
         </Link>
         <span className="how-to-panel__catalog-note-muted">
           {" "}
-          — catalog reference (legacy / removed vendors, etc.)
+          — old vendors, retired stuff, curiosity browsing
         </span>
       </p>
     </section>

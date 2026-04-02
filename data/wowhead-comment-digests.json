@@ -237,12 +237,12 @@
     ]
   },
   "10969": {
-    "asOf": "2026-03-28",
+    "asOf": "2026-04-02",
     "flavor": "",
     "lines": [
-      "Go to Milli Featherwhistle in New Tinkertown, Dun Morogh",
-      "Buy Blue Mechanostrider for gold",
-      "Requires Gnome or Exalted with Gnomeregan"
+      "Unobtainable in Retail; legacy Blue Mechanostrider removed from normal vendors (Dun Morogh path no longer applies).",
+      "Watch the Black Market Auction House if you want the appearance.",
+      "Verify current status on Wowhead comments / patch notes."
     ]
   },
   "13819": {
@@ -812,10 +812,10 @@
     "asOf": "2026-03-28",
     "flavor": "",
     "lines": [
-      "Go to Alterac Valley vendor in Hillsbrad Foothills",
-      "Buy from Lieutenant Largent for 50 Alterac Valley marks",
-      "Requires Exalted with Stormpike Guard",
-      "Alliance only mount"
+      "Go to Lieutenant Largent in Hillsbrad Foothills (Stormpike quartermaster).",
+      "Requires Exalted with Stormpike Guard; queue Alterac Valley to farm rep.",
+      "Costs 15 Marks of Honor (PvP currency), not legacy AV marks or gold.",
+      "Alliance only; no RNG or lockout."
     ]
   },
   "24242": {
@@ -908,16 +908,6 @@
       "Could only come from the Scarab Lord questline.",
       "No boss drop, vendor, or current farm exists.",
       "Not available from weekly lockouts or raid clears."
-    ]
-  },
-  "28828": {
-    "asOf": "2026-03-28",
-    "flavor": "",
-    "lines": [
-      "Reach Exalted with Netherwing in Shadowmoon Valley, Outland.",
-      "Buy your chosen drake from Drake Dealer Hurlunk.",
-      "He stands at Netherwing Ledge after unlocking Netherwing faction.",
-      "No lockout; reputation grind plus gold purchase."
     ]
   },
   "30174": {
@@ -1066,13 +1056,12 @@
     ]
   },
   "33630": {
-    "asOf": "2026-03-28",
+    "asOf": "2026-04-02",
     "flavor": "",
     "lines": [
-      "Go to Milli Featherwhistle, Kharanos, Dun Morogh",
-      "Buy Blue Mechanostrider",
-      "Gnomes need Apprentice Riding and gold",
-      "Other races need Exalted with Gnomeregan"
+      "Unobtainable in Retail; legacy Blue Mechanostrider removed from normal vendors (journal may show a second summon spell for the same appearance).",
+      "Watch the Black Market Auction House if you want the appearance.",
+      "Verify current status on Wowhead comments / patch notes."
     ]
   },
   "33660": {

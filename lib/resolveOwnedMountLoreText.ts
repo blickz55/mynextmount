@@ -2,7 +2,7 @@ import type { Mount } from "@/types/mount";
 
 /** Shown when batch lore and digest flavor are both absent — matches tooltip copy. */
 export const OWNED_MOUNT_NO_LORE_YET_MSG =
-  "The Archivist has no tale for this mount in our ledger yet. We add new verses over time—check back later.";
+  "No story on file for this one yet — we add flavor text over time.";
 
 /**
  * Same precedence as “View Your Mounts” hover (`OwnedMountsCollection` → tooltip):

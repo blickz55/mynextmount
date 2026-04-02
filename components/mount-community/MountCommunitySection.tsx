@@ -70,7 +70,7 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
         summary?: MountCommunitySummary;
       };
       if (!res.ok) {
-        setLoadError(data.error || "Could not load discussion.");
+        setLoadError(data.error || "Couldn’t load comments.");
         return;
       }
       setComments(
@@ -97,7 +97,7 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
       }
       loadedRef.current = true;
     } catch {
-      setLoadError("Network error loading discussion.");
+      setLoadError("Network blip — comments didn’t load.");
     }
   }, [spellId, mergeSummaries]);
 
@@ -128,7 +128,7 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
               "Session expired or not signed in. Refresh the page and sign in again.",
           );
         } else {
-          setPostMsg(data.error || "Could not save comment.");
+          setPostMsg(data.error || "Couldn’t post that.");
         }
         return;
       }
@@ -146,7 +146,7 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
       }
       setDraft("");
     } catch {
-      setPostMsg("Network error.");
+      setPostMsg("Network blip — didn’t post.");
     } finally {
       setPosting(false);
     }
@@ -187,8 +187,8 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
       if (!res.ok) {
         setEditMsg(
           res.status === 401
-            ? data.error || "Session expired. Refresh and sign in again."
-            : data.error || "Could not update comment.",
+            ? data.error || "Sign-in looks stale — refresh and try again."
+            : data.error || "Couldn’t save edit.",
         );
         return;
       }
@@ -252,8 +252,8 @@ export function MountCommunitySection({ spellId, mountName }: Props) {
       <div className="mount-community__panel">
         <p className="mount-community__intro">
           <span className="sr-only">{mountName}: </span>
-          Player notes for this farm target. Be constructive; this is not
-          official Blizzard support.
+          Player tips for this mount. Don’t be a jerk — we’re not Blizzard
+          support.
           {status !== "authenticated" ? (
             <>
               {" "}

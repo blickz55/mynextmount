@@ -38,14 +38,14 @@ function withFarmAttemptNote(
 ): string {
   if (count <= 0) return base;
   if (farmAttempts?.sideEffectsFailed) {
-    return `${base} Your collection was saved, but farm-try / lockout counters did not update (timeout or database load). Try Save again in a moment.`;
+    return `${base} Saved, but we couldn’t update your farm-try timers — hit Save again in a sec.`;
   }
   const bumped = farmAttempts?.spellIdsBumped ?? 0;
   if (farmAttempts?.skippedIncrement && bumped === 0) {
-    return `${base} Farm attempt counts for your top suggestions were unchanged (duplicate snapshot or rapid re-save).`;
+    return `${base} Farm tries didn’t tick up (same list as last save, or you mashed Save twice).`;
   }
   if (bumped > 0) {
-    return `${base} Logged a farm try for ${bumped} top suggestion${bumped === 1 ? "" : "s"}.`;
+    return `${base} Counted a farm try for ${bumped} mount${bumped === 1 ? "" : "s"} in your top picks.`;
   }
   return base;
 }
@@ -107,19 +107,19 @@ export function CollectionToolbar({
       if (!res.ok) {
         setMessage(
           data.error?.trim() ||
-            `Save failed (HTTP ${res.status}). Try again or sign out and back in.`,
+            `Couldn’t save (${res.status}). Try again, or sign out and back in.`,
         );
         return;
       }
       const count = data.count ?? parsedIds.length;
       if (data.snapshot === null && count === 0) {
-        setMessage("Cleared your saved collection on this account.");
+        setMessage("Wiped your saved mounts on this account.");
         return;
       }
       if (data.snapshot?.duplicateSkipped) {
         setMessage(
           withFarmAttemptNote(
-            `Saved ${count} spell IDs — same as your last snapshot, so we did not add a duplicate history row.`,
+            `Saved ${count} mounts — nothing changed vs last time, so no new “before/after” note.`,
             count,
             data.farmAttempts,
           ),
@@ -140,20 +140,20 @@ export function CollectionToolbar({
         } else {
           setGainHighlight(null);
         }
-        const parts: string[] = [`Saved ${count} spell IDs to your account.`];
+        const parts: string[] = [`Saved ${count} mounts to your account.`];
         if (na === 0 && nr === 0) {
           parts.push(
-            "First collection snapshot stored — next time you change the list, we’ll show what was added or removed.",
+            "First save logged — next time we’ll call out what you added or dropped.",
           );
         } else {
           if (na > 0) {
             parts.push(
-              `You gained ${na} mount${na === 1 ? "" : "s"} since your last snapshot — see the list below.`,
+              `+${na} new since last save — peek the list below.`,
             );
           }
           if (nr > 0) {
             parts.push(
-              `Removed ${nr} mount${nr === 1 ? "" : "s"} vs your previous snapshot.`,
+              `−${nr} vs last save.`,
             );
           }
         }
@@ -164,13 +164,13 @@ export function CollectionToolbar({
       }
       setMessage(
         withFarmAttemptNote(
-          `Saved ${count} spell IDs to your account.`,
+          `Saved ${count} mounts to your account.`,
           count,
           data.farmAttempts,
         ),
       );
     } catch {
-      setMessage("Network error while saving.");
+      setMessage("Network hiccup — save didn’t go through.");
     } finally {
       setPending(null);
     }
@@ -187,16 +187,16 @@ export function CollectionToolbar({
         spellIds?: number[];
       };
       if (!res.ok) {
-        setMessage(data.error || "Could not load saved collection.");
+        setMessage(data.error || "Couldn’t load your saved mounts.");
         return;
       }
       const ids = Array.isArray(data.spellIds) ? data.spellIds : [];
       if (ids.length === 0) {
-        setMessage("No saved collection yet — paste an export and click Save.");
+        setMessage("Nothing saved yet — paste /mnm and hit Save.");
         return;
       }
       onApplyParsedIds(ids);
-      setMessage(`Loaded ${ids.length} spell IDs from your account.`);
+      setMessage(`Pulled ${ids.length} mounts from your account.`);
     } catch {
       setMessage("Network error while loading.");
     } finally {
@@ -216,7 +216,7 @@ export function CollectionToolbar({
       el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
       return;
     }
-    setMessage("Your collection appears below once spell IDs are on screen.");
+    setMessage("Scroll down — your grid shows once mounts are loaded.");
   }, [collectionAnchorId]);
 
   if (status === "loading") {
@@ -230,9 +230,8 @@ export function CollectionToolbar({
   if (status !== "authenticated") {
     return (
       <p className="collection-toolbar collection-toolbar--guest">
-        <Link href="/login">Sign in</Link> to save your export to your account
-        and reload it on another device. After you save once, we can pull your
-        collection automatically the next time you open this page.
+        <Link href="/login">Sign in</Link> to stash your list on your account
+        and grab it on another PC. Save once and we’ll auto-load it next visit.
       </p>
     );
   }
@@ -241,21 +240,20 @@ export function CollectionToolbar({
   const showingCollection =
     parsedIds !== null && parsedIds.length > 0;
   const loadLabel =
-    hasRemote && showingCollection ? "Sync from account" : "Load saved collection";
+    hasRemote && showingCollection ? "Reload from account" : "Load my saved mounts";
 
   return (
     <div className="collection-toolbar">
       <p className="collection-toolbar__signed-in-hint">
-        Signed in — use <strong>Save to my account</strong> after pasting an
-        export, or open{" "}
+        Paste /mnm, then <strong>Save to my account</strong>.{" "}
         <Link href="/account" className="collection-toolbar__account-link">
           My Mounts
         </Link>{" "}
-        for stats and weekly ideas, or{" "}
+        for the dashboard;{" "}
         <Link href="/account/settings" className="collection-toolbar__account-link">
           settings
         </Link>{" "}
-        for lockout timing and account data.
+        for region / weekly reset timing.
       </p>
       <div className="collection-toolbar__actions">
         <button
@@ -304,10 +302,10 @@ export function CollectionToolbar({
         <div
           className="collection-toolbar__gains"
           role="region"
-          aria-label="Mounts gained since last snapshot"
+          aria-label="Mounts added since last save"
         >
           <p className="collection-toolbar__gains-title">
-            <strong>New since last snapshot</strong>
+            <strong>New since last save</strong>
           </p>
           <ul className="collection-toolbar__gains-list">
             {gainHighlight.slice(0, 12).map((row) => (

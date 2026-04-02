@@ -93,7 +93,9 @@ export default function HomePage() {
   const [ownedRarestShowcase, setOwnedRarestShowcase] = useState<
     Mount[] | null
   >(null);
-  const [sourceFilters, setSourceFilters] = useState(initialSourceFiltersDefault);
+  const [sourceFilters, setSourceFilters] = useState(() =>
+    initialSourceFiltersDefault(),
+  );
   const [visibleFarmCount, setVisibleFarmCount] = useState(PAGE_SIZE);
   const [farmSearchInput, setFarmSearchInput] = useState("");
   const [debouncedFarmSearch, setDebouncedFarmSearch] = useState("");
@@ -543,7 +545,7 @@ export default function HomePage() {
 
       {authCollectionLoading ? (
         <p className="status-block collection-dashboard__loading" role="status">
-          Loading your saved collection…
+          Loading your mounts…
         </p>
       ) : null}
 
@@ -570,8 +572,8 @@ export default function HomePage() {
                 <>
                   {" "}
                   —{" "}
-                  <strong>{collectionProgress.percentComplete}%</strong> of
-                  obtainable Retail mounts in this catalog
+                  <strong>{collectionProgress.percentComplete}%</strong> of the
+                  mounts we still count as gettable in Retail
                 </>
               ) : null}
               .{" "}
@@ -592,25 +594,25 @@ export default function HomePage() {
           {collectionProgress !== null ? (
             <aside
               className="collection-progress-k7 collection-dashboard__progress"
-              aria-label="Collection progress vs obtainable catalog"
+              aria-label="Collection completion"
             >
               <p className="collection-progress-k7__lead">
                 <strong>{collectionProgress.matchedObtainable}</strong> of{" "}
-                <strong>{collectionProgress.obtainableTotal}</strong> obtainable
-                Retail mounts in this catalog —{" "}
-                <strong>{collectionProgress.percentComplete}%</strong> complete.
+                <strong>{collectionProgress.obtainableTotal}</strong> mounts you
+                can still get —{" "}
+                <strong>{collectionProgress.percentComplete}%</strong> done.
               </p>
               <p className="field-hint collection-progress-k7__hint">
-                Obtainable = catalog rows with{" "}
-                <code className="inline-code">retailObtainable</code> not false.
-                Your export has{" "}
-                <strong>{collectionProgress.storedSpellCount}</strong> spell ID
+                “Still gettable” is our call for current Retail — not a guarantee
+                Blizzard agrees with. Your line has{" "}
+                <strong>{collectionProgress.storedSpellCount}</strong> mount
                 {collectionProgress.storedSpellCount === 1 ? "" : "s"}.
                 {collectionProgress.unknownSpellIdCount > 0 ? (
                   <>
                     {" "}
-                    <strong>{collectionProgress.unknownSpellIdCount}</strong> do
-                    not match an obtainable row here.
+                    <strong>{collectionProgress.unknownSpellIdCount}</strong>{" "}
+                    didn&apos;t match anything we list (removed mount, typo, or
+                    we&apos;re missing data).
                   </>
                 ) : null}
               </p>
@@ -619,7 +621,7 @@ export default function HomePage() {
                   href="/tool/retail-unobtainable"
                   className="collection-progress-k7__ref-link"
                 >
-                  View mounts marked unobtainable in Retail (reference)
+                  Mounts we mark as gone from Retail
                 </Link>
               </p>
             </aside>
@@ -643,24 +645,24 @@ export default function HomePage() {
           >
             <summary className="collection-update-export-disclosure__summary">
               <span className="collection-update-export-disclosure__title">
-                Replace collection with a new addon export
+                Update my collection from the game
               </span>
               <span className="collection-update-export-disclosure__hint">
-                After new mounts in WoW — run /mnm and paste here
+                New mounts? Run /mnm and paste here
               </span>
             </summary>
             <div className="disclosure-block__body collection-update-export-disclosure__body">
               <p className="collection-update-export-disclosure__lead">
-                You don&apos;t need the raw export on screen day to day. Open
-                this when you want to refresh from a new{" "}
-                <code className="inline-code">/mnm</code> copy from the game.
+                Only open this when you want a fresh copy from WoW. In game, run{" "}
+                <code className="inline-code">/mnm</code> and paste the line it
+                prints.
               </p>
               <HowToExportCompact />
               <label
                 htmlFor="export-auth-update"
                 className="field-label"
               >
-                New addon output (same M:… format)
+                Paste your new M:… line
               </label>
               <textarea
                 id="export-auth-update"
@@ -679,8 +681,9 @@ export default function HomePage() {
                 aria-invalid={inputError !== null}
               />
               <p className="field-hint" id="export-auth-hint">
-                Apply replaces the in-browser list; use{" "}
-                <strong>Save to my account</strong> above to persist.
+                Apply updates what you see here. Hit{" "}
+                <strong>Save to my account</strong> above if you want it stored
+                on your login.
               </p>
               <div className="collection-update-export-disclosure__actions">
                 <button
@@ -688,7 +691,7 @@ export default function HomePage() {
                   className="btn-primary"
                   onClick={handleSubmit}
                 >
-                  Apply new export
+                  Apply paste
                 </button>
               </div>
               {inputError !== null ? (
@@ -707,11 +710,11 @@ export default function HomePage() {
 
           <p className="lead" id="export-hint">
             {isAuthenticated
-              ? "You're signed in — paste your mount export below to load your collection. Use Save to my account when you're happy with it."
-              : "Paste your export here."}
+              ? "Paste your /mnm line below to load your mounts. When it looks right, use Save to my account."
+              : "Paste your /mnm line from WoW below."}
           </p>
           <label htmlFor="export" className="field-label">
-            Paste addon output here - type /mnm in game to generate
+            Addon output (type /mnm in game)
           </label>
           <textarea
             id="export"
@@ -735,62 +738,63 @@ export default function HomePage() {
         <>
       <fieldset className="mode-fieldset">
         <legend>Mode</legend>
-        <span className="mode-fieldset__option-row">
-          <label htmlFor="recommendation-mode-efficient">
+        <div className="mode-fieldset__inner">
+          <span className="mode-fieldset__option-row">
+            <label htmlFor="recommendation-mode-efficient">
+              <input
+                id="recommendation-mode-efficient"
+                type="radio"
+                name="recommendation-mode"
+                value="efficient"
+                checked={mode === "efficient"}
+                onChange={() => setMode("efficient")}
+              />
+              <span className="mode-fieldset__label-text">Farmable</span>
+            </label>
+            <button
+              type="button"
+              className="mode-fieldset__info"
+              title={
+                "Farmable = stuff you can grind: world/dungeon/raid drops or buying from an NPC. " +
+                "That includes rep and currency vendors (Blizzard calls those “vendor” too). " +
+                "Hidden here: quests, achievements, shop, trading post, promos, prof crafts, TCG, holidays, secrets, and the rest."
+              }
+              aria-label="What Farmable mode includes"
+            >
+              i
+            </button>
+          </span>
+          <label>
             <input
-              id="recommendation-mode-efficient"
               type="radio"
               name="recommendation-mode"
-              value="efficient"
-              checked={mode === "efficient"}
-              onChange={() => setMode("efficient")}
+              value="balanced"
+              checked={mode === "balanced"}
+              onChange={() => setMode("balanced")}
             />
-            Farmable
+            <span className="mode-fieldset__label-text">Balanced</span>
           </label>
-          <button
-            type="button"
-            className="mode-fieldset__info"
-            title={
-              "Farmable mode only lists mounts we catalog as drops (open-world, dungeon, or raid kills) or vendor purchases. " +
-              "Vendor includes reputation and currency NPCs—Blizzard labels those the same as plain gold vendors, so we cannot split them here. " +
-              "Quests, achievements, shop, trading post, promotions, professions, TCG, world events, discovery, and other types are hidden."
-            }
-            aria-label="About Farmable mode: which mounts are included"
-          >
-            i
-          </button>
-        </span>
-        <label>
-          <input
-            type="radio"
-            name="recommendation-mode"
-            value="balanced"
-            checked={mode === "balanced"}
-            onChange={() => setMode("balanced")}
-          />
-          Balanced
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="recommendation-mode"
-            value="rarest"
-            checked={mode === "rarest"}
-            onChange={() => setMode("rarest")}
-          />
-          Rarest prestige
-        </label>
+          <label>
+            <input
+              type="radio"
+              name="recommendation-mode"
+              value="rarest"
+              checked={mode === "rarest"}
+              onChange={() => setMode("rarest")}
+            />
+            <span className="mode-fieldset__label-text">Rarest first</span>
+          </label>
+        </div>
       </fieldset>
       <p className="mode-hint" aria-live="polite">
-        Using:{" "}
+        Sorted with:{" "}
         <strong>
           {mode === "efficient"
-            ? "Farmable (drops & vendors only)"
+            ? "Farmable (drops & vendors)"
             : mode === "balanced"
               ? "Balanced"
-              : "Rarest prestige"}
-        </strong>{" "}
-        recommendations
+              : "Rarest first"}
+        </strong>
       </p>
       </>
       ) : null}
@@ -798,7 +802,7 @@ export default function HomePage() {
       {!authCollectionLoading && showGuestExportHeader ? (
         <>
           <button type="button" className="btn-primary" onClick={handleSubmit}>
-            Find My Mounts
+            Load my mounts
           </button>
           {inputError !== null ? (
             <p className="alert-error" id="export-error" role="alert">
@@ -827,33 +831,31 @@ export default function HomePage() {
                 role="status"
                 aria-live="polite"
               >
-                Submitted {parsedIds.length}{" "}
+                Loaded {parsedIds.length}{" "}
                 {parsedIds.length === 1 ? "mount" : "mounts"}.
               </p>
               {collectionProgress !== null ? (
                 <aside
                   className="collection-progress-k7"
-                  aria-label="Collection progress vs obtainable catalog"
+                  aria-label="Collection completion"
                 >
                   <p className="collection-progress-k7__lead">
                     <strong>{collectionProgress.matchedObtainable}</strong> of{" "}
-                    <strong>{collectionProgress.obtainableTotal}</strong>{" "}
-                    obtainable Retail mounts in this catalog —{" "}
-                    <strong>{collectionProgress.percentComplete}%</strong>{" "}
-                    complete.
+                    <strong>{collectionProgress.obtainableTotal}</strong> mounts
+                    you can still get —{" "}
+                    <strong>{collectionProgress.percentComplete}%</strong> done.
                   </p>
                   <p className="field-hint collection-progress-k7__hint">
-                    Obtainable = catalog rows with{" "}
-                    <code className="inline-code">retailObtainable</code> not
-                    false. Your export has{" "}
-                    <strong>{collectionProgress.storedSpellCount}</strong> spell
-                    ID
+                    “Still gettable” is our call for current Retail — not a guarantee
+                    Blizzard agrees with. Your line has{" "}
+                    <strong>{collectionProgress.storedSpellCount}</strong> mount
                     {collectionProgress.storedSpellCount === 1 ? "" : "s"}.
                     {collectionProgress.unknownSpellIdCount > 0 ? (
                       <>
                         {" "}
                         <strong>{collectionProgress.unknownSpellIdCount}</strong>{" "}
-                        do not match an obtainable row here.
+                        didn&apos;t match anything we list (removed mount, typo, or
+                        we&apos;re missing data).
                       </>
                     ) : null}
                   </p>
@@ -862,7 +864,7 @@ export default function HomePage() {
                       href="/tool/retail-unobtainable"
                       className="collection-progress-k7__ref-link"
                     >
-                      View mounts marked unobtainable in Retail (reference)
+                      Mounts we mark as gone from Retail
                     </Link>
                   </p>
                 </aside>
@@ -875,7 +877,7 @@ export default function HomePage() {
                   />
                   <span className="owned-mounts-disclosure__label">
                     <span className="sr-only">Owned collection: </span>
-                    View Your Mounts ({parsedIds.length})
+                    Your mounts ({parsedIds.length})
                   </span>
                 </summary>
                 <div className="disclosure-block__body">
@@ -896,16 +898,9 @@ export default function HomePage() {
                 >
                   <h2 className="section-title">Your rarest mounts</h2>
                   <p className="status-block">
-                    None of your exported spell IDs match a mount in this
-                    site&apos;s data yet. Run{" "}
-                    <code className="inline-code">npm run data:merge-stubs</code>{" "}
-                    after pasting your export into{" "}
-                    <code className="inline-code">
-                      fixtures/my-collection-export.txt
-                    </code>{" "}
-                    (writes{" "}
-                    <code className="inline-code">data/mounts.stubs.json</code>,
-                    not <code className="inline-code">mounts.json</code>).
+                    We couldn&apos;t match any of your mounts to our list yet.
+                    Try a fresh <code className="inline-code">/mnm</code> paste,
+                    or check back after the site updates its data.
                   </p>
                 </section>
               ) : (
@@ -919,16 +914,14 @@ export default function HomePage() {
                         Your rarest mounts
                       </span>
                       <span className="rarest-showcase-disclosure__cta">
-                        Tap to expand — top 10 you own by the same
-                        &quot;rarest&quot; score (for fun, not farming advice)
+                        Tap — your 10 rarest (by our score, just for bragging)
                       </span>
                     </span>
                   </summary>
                   <div className="rarest-showcase-disclosure__body">
                     <p className="section-intro">
-                      Each mount shows a quick congrats, this site&apos;s rarity
-                      score, and the same flavor / Archivist lore you see when you
-                      hover that mount in View Your Mounts.
+                      Quick blurb, rarity score, and the same hover story you get
+                      in your mount grid.
                     </p>
                     <div className="results-stack">
                       <ol className="mount-results-list">
@@ -939,7 +932,7 @@ export default function HomePage() {
                               <strong>{mount.name}</strong>
                               {mount.retailObtainable === false ? (
                                 <span className="mount-result-card__unobtainable">
-                                  No longer obtainable
+                                  Gone in Retail (our list)
                                 </span>
                               ) : null}
                             </div>
@@ -960,66 +953,58 @@ export default function HomePage() {
                 <summary>
                   <span className="tool-farm-help-disclosure__summary">
                     <span className="tool-farm-help-disclosure__summary-title">
-                      How this list works
+                      What you&apos;re looking at
                     </span>
                     <span className="tool-farm-help-disclosure__summary-hint">
-                      Tap to read — what the columns mean, saves, and sorting
+                      Tap — columns, saves, sorting
                     </span>
                   </span>
                 </summary>
                 <div className="disclosure-block__body tool-farm-help-disclosure__body">
                   <p>
-                    Each row starts with the stuff you actually need: where to go,
-                    what to kill or do, and a short reason it&apos;s on the list.
+                    Each card: where to go, what to do, and why it&apos;s on the
+                    list.
                   </p>
                   <p>
-                    <strong>Farm tries</strong> (signed-in only) counts how many
-                    times you clicked <strong>Save to my account</strong> while
-                    this mount was in your top {K_ATTEMPT_INCREMENT_CAP}{" "}
-                    suggestions — using the same mode, source filters, and search
-                    you have right here. Saving the exact same list again right
-                    away usually won&apos;t add another try.
+                    <strong>Farm tries</strong> (logged-in): how often you hit{" "}
+                    <strong>Save to my account</strong> while this mount was in
+                    your top {K_ATTEMPT_INCREMENT_CAP} with the same mode, filters,
+                    and search you have now. Saving the same list twice in a row
+                    usually won&apos;t add another tick.
                   </p>
                   <p>
-                    <strong>Est. ≥1 drop seen</strong> is a rough &quot;you
-                    might have seen a drop by now&quot; hint from our listed drop
-                    rate and how many tries we&apos;ve logged. It isn&apos;t a
-                    guarantee.
+                    <strong>Est. saw a drop</strong>: rough guess from our drop %
+                    and your tries — not a promise, just math on a napkin.
                   </p>
                   <p>
-                    <strong>Lockout</strong> tells you if it&apos;s on a daily or
-                    weekly timer, based on your last qualifying save. If weekly
-                    dates look wrong, set your region on{" "}
+                    <strong>Lockout</strong>: daily or weekly wait after a save
+                    that counted this mount. If the day looks wrong, set region on{" "}
                     <Link href="/account">My Mounts</Link>.
                   </p>
                   <p>
-                    When you&apos;re signed in, we <strong>gently bump</strong>{" "}
-                    the order using tries, lockout info, and weekly reset so mounts
-                    you&apos;re working on float up. Guests still see the same base
-                    ranking. We only load farm stats for the first{" "}
-                    {FARM_ATTEMPT_LOOKUP_MAX_IDS} mounts in your current filtered
-                    list — if something you want is way down, try narrowing
-                    filters.
+                    Logged in? We nudge mounts you&apos;re actively poking toward
+                    the top. Everyone else gets the plain sort. We only pull try
+                    stats for the first {FARM_ATTEMPT_LOOKUP_MAX_IDS} rows in your
+                    current filter — tighten filters if your target is buried.
                   </p>
                   <p>
-                    Each row shows <strong>Quick steps &amp; Wowhead</strong>{" "}
-                    (guides, links, tips) open by default; use{" "}
-                    <strong>Community</strong> below for comments. Scroll down to
-                    load more mounts, {PAGE_SIZE} at a time.
+                    <strong>Quick steps &amp; Wowhead</strong> opens first;{" "}
+                    <strong>Community</strong> is player notes. Scroll for more,{" "}
+                    {PAGE_SIZE} at a time.
                   </p>
                 </div>
               </details>
 
               <fieldset className="source-filter-fieldset">
                 <legend className="source-filter-fieldset__legend">
-                  Filter by how mounts are obtained
+                  How do you get it?
                 </legend>
                 <p className="source-filter-fieldset__hint">
-                  <strong>In-Game Shop</strong>, <strong>Promotion</strong>, and{" "}
-                  <strong>Marks of Honor / PVP</strong> start{" "}
-                  <strong>unchecked</strong> (opt-in). Turn on Marks of Honor / PVP
-                  to include mounts whose <strong>Quick steps &amp; Wowhead</strong>{" "}
-                  text mentions Marks of Honor.
+                  <strong>Shop</strong>, <strong>Promo</strong>,{" "}
+                  <strong>Marks of Honor</strong>, and{" "}
+                  <strong>Halaa</strong> start <strong>off</strong> — turn them on
+                  if you want those grinds. Halaa = Nagrand PvP token stuff when
+                  our tips say so.
                 </p>
                 <div className="source-filter-grid">
                   {SOURCE_FILTER_OPTIONS.map(({ id, label }) => (
@@ -1041,23 +1026,21 @@ export default function HomePage() {
                   role="status"
                   aria-live="polite"
                 >
-                  Select at least one source filter above to see farm
-                  recommendations.
+                  Pick at least one checkbox above or the list stays empty.
                 </p>
               )}
 
               {filtersActive && unownedEmpty && (
                 <p className="status-block" role="status" aria-live="polite">
-                  No unowned mounts left in this dataset.
+                  You own everything we&apos;re showing. Nice.
                 </p>
               )}
 
               {filtersActive && allUnownedMarkedUnobtainable && (
                 <p className="status-block" role="status" aria-live="polite">
-                  You still have unowned mounts in the catalog, but every one
-                  is marked{" "}
-                  <strong>no longer obtainable</strong> in Retail (curated
-                  list). Nothing to farm from this dataset.
+                  You&apos;re still missing some mounts, but every leftover one
+                  is marked <strong>not gettable in Retail</strong> on our list —
+                  so there&apos;s nothing left to &quot;farm&quot; here.
                 </p>
               )}
 
@@ -1066,8 +1049,7 @@ export default function HomePage() {
                 !allUnownedMarkedUnobtainable &&
                 sortedFarmList.length === 0 && (
                   <p className="status-block" role="status" aria-live="polite">
-                    No mounts match your selected filters. Try turning more
-                    sources on.
+                    Nothing matches those checkboxes. Try turning more on.
                   </p>
                 )}
 
@@ -1075,14 +1057,14 @@ export default function HomePage() {
                 <details className="disclosure-block farm-list-search-disclosure">
                   <summary>
                     <span className="sr-only">Farm list: </span>
-                    Filter by name or spell ID
+                    Search this list
                   </summary>
                   <div className="disclosure-block__body">
                     <label
                       htmlFor="farm-list-search"
                       className="field-label farm-list-search__label"
                     >
-                      Narrows the sorted list below (same source filters).
+                      Search within this list (filters still apply).
                     </label>
                     <input
                       id="farm-list-search"
@@ -1091,7 +1073,7 @@ export default function HomePage() {
                       className="farm-list-search__input"
                       value={farmSearchInput}
                       onChange={(e) => setFarmSearchInput(e.target.value)}
-                      placeholder="Mount name or spell ID…"
+                      placeholder="Mount name or number…"
                       autoComplete="off"
                       spellCheck={false}
                     />
@@ -1108,9 +1090,8 @@ export default function HomePage() {
                     role="status"
                     aria-live="polite"
                   >
-                    No mounts match &quot;{debouncedFarmSearch}&quot;. Clear the
-                    filter above to see all {sortedFarmList.length} mounts in
-                    this view.
+                    Nothing for &quot;{debouncedFarmSearch}&quot;. Clear the box
+                    to see all {sortedFarmList.length} here.
                   </p>
                 )}
 
@@ -1122,9 +1103,9 @@ export default function HomePage() {
                       className="farm-pref-reset-btn"
                       onClick={() => clearFarmPreferenceStored()}
                     >
-                      Reset local farm ranking hints
+                      Reset my sort tweaks
                     </button>{" "}
-                    (this browser — opening Score details on rows)
+                    (this browser only — from opening Score on cards)
                   </p>
                   {/* Archived: Suggested farm session — FarmSessionPlanPanel + buildFarmSessionPlan (lib/farmSessionPlan.ts). */}
                   <p className="farm-count-hint" aria-live="polite">
@@ -1161,9 +1142,9 @@ export default function HomePage() {
                               )
                             }
                           >
-                            Load more mounts (
+                            Load more (
                             {searchFilteredFarmList.length - visibleFarmCount}{" "}
-                            remaining)
+                            left)
                           </button>
                         </p>
                         <div
@@ -1193,19 +1174,18 @@ export default function HomePage() {
 
       <details className="disclosure-block catalog-qa-search-disclosure">
         <summary>
-          <span className="sr-only">Maintainer: </span>
-          Search full catalog (QA)
+          <span className="sr-only">Power user: </span>
+          Search every mount (no export needed)
         </summary>
         <div className="disclosure-block__body">
           <p className="catalog-qa-search__hint">
-            Find any mount by name or summon spell ID without pasting an export.
-            Up to {CATALOG_QA_MAX_RESULTS} results.
+            Hunt by name or ID. Shows up to {CATALOG_QA_MAX_RESULTS} hits.
           </p>
           <label
             htmlFor="catalog-qa-search"
             className="field-label catalog-qa-search__label"
           >
-            Catalog search
+            Full catalog search
           </label>
           <input
             id="catalog-qa-search"
@@ -1214,32 +1194,32 @@ export default function HomePage() {
             className="farm-list-search__input catalog-qa-search__input"
             value={catalogSearchInput}
             onChange={(e) => setCatalogSearchInput(e.target.value)}
-            placeholder="Mount name or spell ID…"
+            placeholder="Mount name or number…"
             autoComplete="off"
             spellCheck={false}
           />
           {debouncedCatalogSearch && catalogQaMatches.length === 0 && (
             <p className="status-block" role="status" aria-live="polite">
-              No catalog matches for &quot;{debouncedCatalogSearch}&quot;.
+              No hits for &quot;{debouncedCatalogSearch}&quot;.
             </p>
           )}
           {catalogQaMatches.length > 0 && (
             <ul
               className="catalog-qa-search__results"
               role="list"
-              aria-label="Catalog search results"
+              aria-label="Search results"
             >
               {catalogQaMatches.map((m) => (
                 <li key={m.id} className="catalog-qa-search__row">
                   <span className="catalog-qa-search__name">{m.name}</span>
                   {m.retailObtainable === false ? (
                     <span className="catalog-qa-search__retired">
-                      No longer obtainable
+                      Gone in Retail (our list)
                     </span>
                   ) : null}
                   <span className="catalog-qa-search__spell">
                     {" "}
-                    (spell {m.id})
+                    (ID {m.id})
                   </span>
                   {m.wowheadUrl?.trim() ? (
                     <a

@@ -78,8 +78,8 @@ export default async function AccountPage() {
         />
         <h2 className="section-title">My Mounts</h2>
         <p className="lead">
-          We couldn&apos;t load your saved data from the database. This is
-          usually a temporary connection issue on the server.
+          Couldn&apos;t reach the server to load your mounts. Usually this
+          passes in a minute.
         </p>
         <p className="status-block">
           <Link href="/account">Try again</Link>
@@ -87,10 +87,6 @@ export default async function AccountPage() {
           <Link href="/tool">Open the tool</Link>
           {" · "}
           <Link href="/login">Sign in again</Link>
-        </p>
-        <p className="field-hint">
-          If this keeps happening, check host logs for{" "}
-          <code>[account/page] prisma.user.findUnique</code>.
         </p>
       </main>
     );
@@ -108,8 +104,8 @@ export default async function AccountPage() {
         />
         <h2 className="section-title">My Mounts</h2>
         <p className="lead">
-          Your browser session is active, but we could not find a matching account
-          in the database (for example after a reset or provider change).
+          You&apos;re signed in here, but we don&apos;t see that login in our
+          records anymore (reset account, changed Google/Discord, etc.).
         </p>
         <AccountStaleSessionActions />
         <p className="status-block">
@@ -150,57 +146,55 @@ export default async function AccountPage() {
       />
       <h2 className="section-title">My Mounts</h2>
       <p className="lead">
-        Signed in as <strong>{user.email}</strong>. Your saved export is used for
-        completion stats and the weekly suggestions below — same rules as the
-        main tool (Retail catalog, unobtainable mounts excluded from farm math).
+        Signed in as <strong>{user.email}</strong>. We use your saved /mnm line
+        for the progress bar and the weekly picks — same rules as the main tool
+        (Retail-only, “gone” mounts skipped for farming).
       </p>
       <p className="status-block">
         <Link href="/account/settings">Account settings</Link>
         {" — "}
-        farm lockout timing, weekly reset calendar, and deleting your account.
+        region, weekly reset time, delete account.
       </p>
 
       <section className="content-section" aria-labelledby="saved-heading">
         <h2 id="saved-heading" className="section-title account-section-heading">
-          Saved export
+          Saved collection
         </h2>
         <ul className="account-stats">
           <li>
-            <strong>{progress.storedSpellCount}</strong> spell IDs stored
+            <strong>{progress.storedSpellCount}</strong> mounts in your saved
+            line
           </li>
           <li>
             Last updated: {formatUpdatedAt(user.collectionUpdatedAt)}
           </li>
           <li>
             <strong>{progress.matchedObtainable}</strong> of{" "}
-            <strong>{progress.obtainableTotal}</strong> obtainable Retail mounts
-            in this catalog ({progress.percentComplete}% complete). Obtainable =
-            catalog entries with <code>retailObtainable</code> not false (same as
-            farm math on the tool).
+            <strong>{progress.obtainableTotal}</strong> still-gettable Retail
+            mounts on our list ({progress.percentComplete}% done). Same meaning
+            as the green progress on the tool.
           </li>
           {progress.unknownSpellIdCount > 0 ? (
             <li className="account-stats__hint">
-              <strong>{progress.unknownSpellIdCount}</strong> stored ID
-              {progress.unknownSpellIdCount === 1 ? "" : "s"} do not match an
-              obtainable mount row here (stubs, unobtainable, or data gaps).
+              <strong>{progress.unknownSpellIdCount}</strong>{" "}
+              {progress.unknownSpellIdCount === 1 ? "entry" : "entries"} in your
+              line
+              don&apos;t match anything we list (typo, removed mount, or we&apos;re
+              behind).
             </li>
           ) : null}
         </ul>
         {owned.length === 0 ? (
           <p className="status-block">
-            Nothing saved for this account yet. On{" "}
-            <Link href="/tool">the tool</Link>, paste your <code>M:…</code> line
-            and click <strong>Save to my account</strong>; after it succeeds,
-            refresh this page. Spell IDs are stored on your user row in Postgres
-            (e.g. via Supabase) — same flow as login, no separate upload service.
+            Nothing saved yet. On <Link href="/tool">the tool</Link>, paste your{" "}
+            <code>M:…</code> from <code>/mnm</code>, hit{" "}
+            <strong>Save to my account</strong>, then refresh here.
           </p>
         ) : (
           <p className="status-block">
-            <Link href="/tool?loadSaved=1">View my collection on the tool</Link>{" "}
-            — loads your saved spell list on the recommender (use this if the
-            textarea still has an old export). You can also use{" "}
-            <strong>Sync from account</strong> on the tool after pasting
-            something else.
+            <Link href="/tool?loadSaved=1">Open the tool with this list</Link>{" "}
+            — handy if the big text box still has an old paste. Or hit{" "}
+            <strong>Reload from account</strong> on the tool.
           </p>
         )}
       </section>
@@ -210,14 +204,15 @@ export default async function AccountPage() {
           This week&apos;s suggested farms
         </h2>
         <p className="section-intro">
-          Top 10 missing mounts by <strong>Farmable</strong> score (drops &amp;
-          vendors only),
-          using default source filters (in-game shop opt-in, same as the tool).
+          Ten mounts you&apos;re missing that score well in{" "}
+          <strong>Farmable</strong> mode (drops &amp; vendors), with the same
+          default checkboxes as the tool (shop off until you turn it on).
         </p>
         {plan.length === 0 ? (
           <p className="status-block">
-            No suggestions — save a collection that leaves at least one farmable
-            mount missing, or enable more source filters on the tool.
+            Nothing to suggest — you&apos;re either done or everything left is
+            outside Farmable rules. Tweak filters on the tool or add mounts you&apos;re
+            missing.
           </p>
         ) : (
           <ol className="weekly-plan-list">
@@ -226,7 +221,7 @@ export default async function AccountPage() {
                 <span className="weekly-plan-list__name">{m.name}</span>
                 <span className="weekly-plan-list__meta">
                   {" "}
-                  — spell {m.id}
+                  — #{m.id}
                 </span>
               </li>
             ))}

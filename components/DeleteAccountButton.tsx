@@ -36,7 +36,7 @@ export function DeleteAccountButton() {
   return (
     <div className="delete-account-confirm">
       <p className="alert-error" role="alert">
-        This removes your login and saved collection permanently. Continue?
+        This nukes your login and saved mounts for good. Sure?
       </p>
       <div className="delete-account-confirm__actions">
         <button

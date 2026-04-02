@@ -69,7 +69,7 @@ function OwnedMountRow({ row: r }: { row: Row }) {
     if (!r.mount) {
       return {
         spellId: r.spellId,
-        mountName: `Unknown (${r.spellId})`,
+        mountName: `Not on our list (${r.spellId})`,
         expansion: "Unknown",
         theme: loreThemeWithRotation(
           {
@@ -111,7 +111,7 @@ function OwnedMountRow({ row: r }: { row: Row }) {
       : {};
 
   const href = wowheadUrlForOwnedRow(r);
-  const label = r.mount?.name ?? `Unknown (${r.spellId})`;
+  const label = r.mount?.name ?? `Not on our list (${r.spellId})`;
   const inner = (
     <>
       {r.mount ? (
@@ -121,14 +121,14 @@ function OwnedMountRow({ row: r }: { row: Row }) {
       )}
       <div
         className="owned-collection__name-stack"
-        title={r.mount?.name ?? `Spell ${r.spellId}`}
+        title={r.mount?.name ?? `Mount #${r.spellId}`}
       >
         <span className="owned-collection__name-text">
-          {r.mount ? r.mount.name : `Unknown (${r.spellId})`}
+          {r.mount ? r.mount.name : `Not on our list (${r.spellId})`}
         </span>
         {r.mount?.retailObtainable === false ? (
           <span className="owned-collection__badge-unobtainable">
-            No longer obtainable
+            Gone in Retail (our list)
           </span>
         ) : null}
       </div>
@@ -137,8 +137,8 @@ function OwnedMountRow({ row: r }: { row: Row }) {
         role="img"
         aria-label={
           r.mount
-            ? `Rarity score about ${r.rarityPct} percent`
-            : "No score — mount not in site data"
+            ? `About ${r.rarityPct}% rare on our scale`
+            : "No score — we do not list this mount yet"
         }
       >
         <div
@@ -200,7 +200,7 @@ function OwnedMountsGridVirtual({ rows }: { rows: Row[] }) {
       ref={scrollRef}
       className="owned-collection__viewport"
       role="list"
-      aria-label="Owned mounts (virtualized list)"
+      aria-label="Your mounts"
     >
       <div
         className="owned-collection__virtual-sizer"
@@ -271,22 +271,21 @@ function OwnedMountsCollectionInner({ parsedIds, catalog }: Props) {
   return (
     <div className="owned-collection">
       <p className="owned-collection__meta">
-        {rows.length} mount{rows.length === 1 ? "" : "s"} in export
+        {rows.length} mount{rows.length === 1 ? "" : "s"} from your line
         {unknown > 0 ? (
           <>
             {" "}
-            ({known} in this site&apos;s data, {unknown} id
-            {unknown === 1 ? "" : "s"} not matched)
+            ({known} we recognize, {unknown} we don&apos;t)
           </>
         ) : null}
-        . Bar = rarity score (more green = rarer on our formula).
+        . Greener bar = rarer on our silly formula.
         {useVirtual ? (
           <>
             {" "}
-            Large list: scrollable window for {rows.length} mounts (faster UI).
+            Big list — scroll inside this box so the page stays fast.
           </>
         ) : null}{" "}
-        Hover a mount for Archivist lore when we have a tale for it.
+        Hover for flavor text when we wrote one.
       </p>
       {useVirtual ? (
         <OwnedMountsGridVirtual rows={rows} />

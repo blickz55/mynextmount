@@ -50,14 +50,14 @@ export function WeeklyResetCalendarPreference({
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) {
-        setMessage(data.error ?? "Could not update setting.");
+        setMessage(data.error ?? "Could not save that.");
         return;
       }
       setValue(next);
       setMessage("Saved.");
       router.refresh();
     } catch {
-      setMessage("Network error.");
+      setMessage("Network blip — try again.");
     } finally {
       setPending(false);
     }
@@ -70,13 +70,12 @@ export function WeeklyResetCalendarPreference({
       aria-busy={pending}
     >
       <legend className="weekly-reset-fieldset__legend">
-        Weekly lockout calendar
+        When does your week reset?
       </legend>
       <p className="section-intro weekly-reset-fieldset__intro">
-        Applies to mounts marked <strong>weekly</strong> in the catalog. Daily
-        lockouts use <strong>24 hours</strong> from the last save that updated
-        that mount. Stored in <strong>UTC</strong>; farm rows show your local
-        time.
+        For mounts on a <strong>weekly</strong> timer. Daily timers are just{" "}
+        <strong>24 hours</strong> after a save that counted that mount. We store
+        UTC; cards show your local time.
       </p>
       <div className="weekly-reset-options">
         {OPTIONS.map((opt) => (

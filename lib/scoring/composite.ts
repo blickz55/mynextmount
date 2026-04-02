@@ -19,20 +19,18 @@ import type {
 
 /** Plain-language hints for the score breakdown (shown under “Score” on farm cards). */
 const REASON_LABEL: Record<CompositeFactorKey, string> = {
-  easeFromDifficulty: "Easier content—we weight low difficulty here",
-  dropLogProspect: "Drop odds look friendlier than the worst ultra-rares",
-  dropLinear: "Listed drop rate helps this row",
-  dropScarcity: "Very rare on paper (low listed drop chance)",
-  timeEfficiency: "Runs are relatively short per attempt",
-  difficultyIntensity: "Hooked to harder content (prestige)",
-  rareTagBonus: "Tagged as a rare spawn or rare drop in our data",
-  lockoutFlex: "You can try often—not stuck on a single weekly lockout",
-  accessibility: "Straightforward source (vendor, quest, shop, event, etc.)",
-  prestige: "Feels like a trophy (scarce, tough, or rare-tagged)",
-  evThroughput:
-    "Good mix of drop chance, time per run, and tries you can fit in a week",
-  progressProximity:
-    "Lines up with how complete you are in this expansion (when we know it)",
+  easeFromDifficulty: "Easier content",
+  dropLogProspect: "Drop rate beats the worst ultra-rares",
+  dropLinear: "Listed drop chance helps",
+  dropScarcity: "Super low listed drop chance",
+  timeEfficiency: "Short runs per try",
+  difficultyIntensity: "Harder content (prestige)",
+  rareTagBonus: "Marked as a rare spawn / drop",
+  lockoutFlex: "Not stuck on one weekly lockout",
+  accessibility: "Simple source (vendor, quest, shop, holiday, etc.)",
+  prestige: "Trophy vibes — scarce, tough, or rare-tagged",
+  evThroughput: "Nice mix of drop %, run time, and tries per week",
+  progressProximity: "Fits how far along you are this expansion (when we know)",
 };
 
 function sumWeights(w: CompositeWeights): number {
@@ -89,7 +87,7 @@ function buildReasons(
     if (!(totalScore > 1e-12)) return label;
     const pct = Math.round((100 * part) / totalScore);
     const clamped = Math.min(100, Math.max(1, pct));
-    return `${label} (~${clamped}% of this recommendation score).`;
+    return `${label} (~${clamped}% of this card’s score).`;
   });
 }
 
@@ -101,7 +99,7 @@ export function scoreRarestDetailed(mount: Mount): MountScoreResult {
     "legacy_rarest",
   );
   if (result.reasons.length === 0) {
-    result.reasons.push("Rarity ranking vs other missing mounts.");
+    result.reasons.push("Ranks rare vs the other mounts you’re missing.");
   }
   return result;
 }

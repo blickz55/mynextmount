@@ -34,6 +34,7 @@
 | 239363 | Swift Spectral Hippogryph | Never shipped | Same. |
 | 239766 | Blue Qiraji War Tank | Never shipped | Same. |
 | 239767 | Red Qiraji War Tank | Never shipped | Same. |
+| 28828 | “Nether Drake” (mis-keyed) | Not a mount spell | Not learnable as a mount on Retail; journal map pointed at wrong spell — real Netherwing drakes use other summon IDs. |
 | 302794 | Swift Spectral Fathom Ray | Never shipped | Same. |
 | 302795 | Swift Spectral Magnetocraft | Never shipped | Same. |
 | 302796 | Swift Spectral Armored Gryphon | Never shipped | Same. |

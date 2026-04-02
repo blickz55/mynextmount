@@ -26,39 +26,37 @@ export function MountRarestOwnedPanel({ mount }: Props) {
       <p className="rarest-owned-panel__congrats">
         {retired ? (
           <>
-            Congratulations — you carry <strong>{mount.name}</strong> in your
-            collection even though it&apos;s{" "}
-            <strong>no longer obtainable on Retail</strong>. That&apos;s a real
-            trophy slot.
+            Nice — you kept <strong>{mount.name}</strong> even though we list it
+            as <strong>gone from Retail</strong>. True trophy energy.
           </>
         ) : (
           <>
-            Congratulations on earning <strong>{mount.name}</strong> — it ranks
-            among the rarest mounts you own here by our &quot;rarest&quot; formula.
+            Nice grab — <strong>{mount.name}</strong> is one of the rarer ones
+            you own on our scale.
           </>
         )}
       </p>
       <div className="rarest-owned-panel__score-block">
         <p className="rarest-owned-panel__score-line">
-          <span className="rarest-owned-panel__score-label">Rarity score</span>{" "}
+          <span className="rarest-owned-panel__score-label">Rarity band</span>{" "}
           <span
             className="rarest-owned-panel__score-value"
             title={
               Number.isFinite(score)
-                ? `Same composite as “rarest” mode elsewhere on the tool (drop weight, difficulty, rare tags). Numeric score: ${score.toFixed(4)}.`
-                : "Same composite as “rarest” mode elsewhere on the tool (drop weight, difficulty, rare tags)."
+                ? `Same math as Rarest-first mode on the tool. Raw number: ${score.toFixed(4)}.`
+                : "Same math as Rarest-first mode on the tool."
             }
           >
             {band}
           </span>
         </p>
         <p className="rarest-owned-panel__score-hint">
-          Band is from this site&apos;s “rarest” formula (for fun, not an
-          official WoW stat). Hover the value for the underlying number.
+          For bragging only — not an official WoW stat. Hover the band for the
+          nerd number.
         </p>
       </div>
       <div className="rarest-owned-panel__flavor-block">
-        <p className="rarest-owned-panel__flavor-label">Flavor</p>
+        <p className="rarest-owned-panel__flavor-label">Lore blurb</p>
         {loreText ? (
           <div className="rarest-owned-panel__lore">
             <LoreMarkdown text={loreText} />

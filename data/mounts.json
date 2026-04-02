@@ -437,8 +437,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=10969",
     "commentsUrl": "https://www.wowhead.com/spell=10969#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-04-blue-mechanostrider",
     "sourceCategory": "vendor"
   },
   {
@@ -1637,23 +1637,6 @@
     "sourceCategory": "drop"
   },
   {
-    "id": 28828,
-    "name": "Nether Drake",
-    "source": "VENDOR — Vendor",
-    "location": "Vendor NPC (which NPC and zone varies by mount)",
-    "dropRate": 1,
-    "difficulty": 1,
-    "timeToComplete": 20,
-    "lockout": "none",
-    "expansion": "Unknown",
-    "tags": [],
-    "wowheadUrl": "https://www.wowhead.com/spell=28828",
-    "commentsUrl": "https://www.wowhead.com/spell=28828#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
-    "sourceCategory": "vendor"
-  },
-  {
     "id": 30174,
     "name": "Riding Turtle",
     "source": "TCG — Trading Card Game",
@@ -1925,8 +1908,8 @@
     "tags": [],
     "wowheadUrl": "https://www.wowhead.com/spell=33630",
     "commentsUrl": "https://www.wowhead.com/spell=33630#comments",
-    "retailObtainable": true,
-    "asOfPatch": "retail-static-us",
+    "retailObtainable": false,
+    "asOfPatch": "curated-2026-04-blue-mechanostrider",
     "sourceCategory": "vendor"
   },
   {

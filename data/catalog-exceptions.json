@@ -2,10 +2,11 @@
   "schemaVersion": 1,
   "excludedSpellIds": [
     459, 581, 10790, 18363, 59572, 60136, 60140, 62048, 123182, 127209, 127213,
-    194046, 239363, 239766, 239767, 302794, 302795, 302796, 302797
+    194046, 239363, 239766, 239767, 28828, 302794, 302795, 302796, 302797
   ],
   "notes": [
     "Spell IDs listed in excludedSpellIds are obtainable in-game (or appear in API) but are intentionally omitted from mounts.json. Each ID must be justified in docs/mount-catalog-exceptions.md.",
-    "2026-03: Datamined / never-shipped Retail mounts (cut before release); excluded so exports and farm lists stay honest."
+    "2026-03: Datamined / never-shipped Retail mounts (cut before release); excluded so exports and farm lists stay honest.",
+    "28828: Not a learnable mount spell on Retail (bogus / legacy map entry); real Netherwing drakes use other summon spells."
   ]
 }

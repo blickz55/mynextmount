@@ -39,10 +39,10 @@ export type FarmAttemptRowStats = {
 const FARM_ROW_ESTIMATE_PX = 140;
 
 const FARM_ATTEMPT_TOOLTIP =
-  "Counts how many times you saved your collection while this mount was in your top farm suggestions (same mode, filters, and farm search as the tool). The drop estimate uses the catalog drop rate and assumes independent tries (heuristic).";
+  "How often you hit Save while this mount sat in your top picks (same mode, checkboxes, and search you’re using now). The % is a rough “you might’ve seen a drop by now” guess from our listed drop rate — don’t bet gold on it.";
 
 const LOCKOUT_TOOLTIP =
-  "Daily: locked for 24h after a save that counted this mount. Weekly: uses your account calendar (Tuesday 15:00 UTC Americas/Oceania or Wednesday 04:00 UTC Europe). UTC storage; countdown uses your device clock.";
+  "Daily: wait ~24h after a save that counted this mount. Weekly: follows your region’s reset (set it under My Mounts). Countdown uses your PC clock.";
 
 function FarmResultCardBody({
   mount,
@@ -71,30 +71,31 @@ function FarmResultCardBody({
         <MountIcon mount={mount} />
         <strong>{mount.name}</strong>
         {mount.retailObtainable === false ? (
-          <span className="mount-result-card__unobtainable">No longer obtainable</span>
+          <span className="mount-result-card__unobtainable">
+            Gone in Retail (our list)
+          </span>
         ) : null}
         <MountCommunityHeadBadge spellId={mount.id} />
       </div>
       <div className="mount-result-card__line">
-        Location: {getMountLocationLabel(mount)}
+        Where: {getMountLocationLabel(mount)}
       </div>
       {mount.boss !== undefined && mount.boss !== "" && (
         <div className="mount-result-card__line">Boss: {mount.boss}</div>
       )}
       <div className="mount-result-card__line">
-        Why: {buildRecommendationReason(mount, mode)}
+        Why it’s here: {buildRecommendationReason(mount, mode)}
       </div>
       <div
         className="mount-result-card__line mount-result-card__farm-attempts"
         title={FARM_ATTEMPT_TOOLTIP}
       >
         <span className="mount-result-card__farm-attempts__label">
-          Farm tries (saved while in top suggestions):{" "}
-          <strong>{attempts}</strong>
+          Farm tries: <strong>{attempts}</strong>
         </span>
         {pSeen !== null ? (
           <span className="mount-result-card__farm-attempts__est">
-            Est. ≥1 drop seen: {pSeen}%
+            Rough drop-seen guess: {pSeen}%
           </span>
         ) : null}
       </div>
@@ -105,7 +106,7 @@ function FarmResultCardBody({
         >
           {lock.state === "available" ? (
             <>
-              Lockout: <strong>Available</strong>
+              Timer: <strong>Ready</strong>
               <span className="mount-result-card__lockout__kind">
                 {" "}
                 ({lock.kind})
@@ -113,7 +114,7 @@ function FarmResultCardBody({
             </>
           ) : (
             <>
-              Lockout: <strong>Locked</strong>
+              Timer: <strong>On cooldown</strong>
               {unlockDate !== null && !Number.isNaN(unlockDate.getTime()) ? (
                 <>
                   {" "}
@@ -150,7 +151,7 @@ function FarmResultCardBody({
         <summary
           title={
             Number.isFinite(scored.score)
-              ? `Numeric score: ${scored.score.toFixed(4)}`
+              ? `Exact score: ${scored.score.toFixed(4)}`
               : undefined
           }
         >
@@ -246,7 +247,7 @@ function FarmRecommendationsListWindowed({
     <div
       className="mount-results-list mount-results-list--virtual"
       role="list"
-      aria-label="Top mounts to farm"
+      aria-label="Suggested mounts to farm"
     >
       <div
         className="mount-results-list__virtual-sizer"

@@ -1,4 +1,5 @@
 import { resolveWowheadCommentsLink } from "@/lib/wowheadCommentsUrl";
+import { renderQuickStepLineWithExaltedLinks } from "@/lib/reputationExaltedQuickStep";
 import type { Mount } from "@/types/mount";
 
 const MAX_LINES = 5;
@@ -24,41 +25,43 @@ export function WowheadCommentDigest({ mount }: Props) {
 
   const linkLabel =
     target?.pageKind === "item"
-      ? `Wowhead item page, comments tab — ${mount.name}`
-      : `Wowhead spell page, comments tab — ${mount.name}`;
+      ? `Wowhead item comments — ${mount.name}`
+      : `Wowhead spell comments — ${mount.name}`;
 
   const linkExplanation =
     target?.pageKind === "item"
-      ? "We open the item page (the journal “teach item” context) on the comments section."
-      : "Spell page is shown until you map a Wowhead item id in data/overrides/wowhead-item-by-spell.json.";
+      ? "Opens the item page straight to player comments (journal “teach” item)."
+      : "Opens the spell page to comments — we use item links when we have them.";
 
   return (
     <div className="comment-digest">
       {retired ? (
         <p className="comment-digest__unobtainable-banner" role="status">
-          <strong>No longer obtainable in Retail.</strong> Notes and Wowhead links below are for
-          history and context only — you cannot earn this mount on current Retail servers.
+          <strong>Gone from Retail on our list.</strong> Tips and Wowhead links are for history
+          — don’t farm this expecting it to drop in live Retail.
         </p>
       ) : null}
       {hasCopy ? (
         <>
           <p className="comment-digest__heading">
-            {flavor ? "Mount spotlight" : "Quick steps"}
+            {flavor ? "The vibe" : "Quick steps"}
           </p>
           {flavor ? (
-            <p className="comment-digest__flavor">{flavor}</p>
+            <p className="comment-digest__flavor">
+              {renderQuickStepLineWithExaltedLinks(flavor)}
+            </p>
           ) : null}
           {lines.length > 0 ? (
             <ul className="comment-digest__list">
               {lines.map((line, i) => (
-                <li key={i}>{line}</li>
+                <li key={i}>{renderQuickStepLineWithExaltedLinks(line)}</li>
               ))}
             </ul>
           ) : null}
           <p className="comment-digest__fineprint">
             {retired
-              ? "These steps may describe sources that no longer exist or were time-limited. Treat as archival reference; confirm details on Wowhead."
-              : "Steps are generated with OpenAI from our mount metadata (or edited by hand). Verify in-game; drops and vendors change with patches."}
+              ? "Old sources may be dead or time-gated — treat as museum text and verify on Wowhead."
+              : "Drafted from our notes (AI or hand-edited). Double-check in game; patches move vendors and drop tables."}
             {mount.wowheadCommentDigestAsOf
               ? ` Updated ${mount.wowheadCommentDigestAsOf}.`
               : ""}
@@ -67,12 +70,12 @@ export function WowheadCommentDigest({ mount }: Props) {
       ) : target ? (
         <p className="comment-digest__empty">
           {retired
-            ? "No spotlight copy in our data. Use Wowhead for historical discussion."
-            : "No spotlight copy in our data yet for this mount."}
+            ? "No write-up here — hit Wowhead for old war stories."
+            : "No write-up here yet."}
         </p>
       ) : retired ? (
         <p className="comment-digest__empty">
-          No Wowhead link in our data for this mount.
+          No Wowhead link on file for this one.
         </p>
       ) : null}
 
@@ -85,8 +88,8 @@ export function WowheadCommentDigest({ mount }: Props) {
             aria-label={`${linkLabel} (opens in new tab)`}
           >
             {target.pageKind === "item"
-              ? "Open Wowhead (item → comments)"
-              : "Open Wowhead (spell → comments)"}
+              ? "Wowhead — item comments"
+              : "Wowhead — spell comments"}
           </a>
           <span className="comment-digest__suffix"> — {linkExplanation}</span>
         </div>

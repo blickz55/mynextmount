@@ -18,8 +18,8 @@ export function buildRecommendationReason(
 ): string {
   if (mount.retailObtainable === false) {
     return pickVariant(mount.id, [
-      "Not obtainable in current Retail — legacy or removed source; verify on Wowhead before planning.",
-      "Curated as unobtainable in Retail — do not treat vendor or drop metadata as current.",
+      "We mark this as gone from Retail — check Wowhead before you spend time on it.",
+      "Not gettable in Retail on our list — old tips may be wrong.",
     ]);
   }
 
@@ -32,63 +32,63 @@ export function buildRecommendationReason(
   if (mode === "efficient" || mode === "balanced") {
     if (cat === "petstore") {
       return pickVariant(id, [
-        "Shop mount — no raid lockout; buy when it’s on sale or in a bundle.",
-        "Battle.net / in-game Shop: checkout-only, so it ranks high on ease if you’re fine spending.",
-        "Straight purchase path — compare full price vs promotional balance before you click buy.",
+        "Shop mount — no raid lockout; grab it on sale or in a bundle.",
+        "Real money / balance checkout — easy path if your wallet’s fine with it.",
+        "Compare full price vs a promo before you click buy.",
       ]);
     }
     if (cat === "promotion") {
       return pickVariant(id, [
-        "Promo mount — watch Blizzard’s campaigns; often returns during cross-promos or anniversaries.",
-        "Limited-time offer pattern: easiest when the promotion is live, impossible between windows.",
+        "Promo mount — watch Blizz campaigns; sometimes comes back for anniversaries.",
+        "Easy when the promo’s live, impossible between windows.",
       ]);
     }
     if (cat === "tradingpost") {
       return pickVariant(id, [
-        "Trading Post Tender item — no boss RNG; grind currency and wait for the rotation.",
-        "Monthly shop stock — save Tender and snap it when the mount is listed.",
+        "Trading Post — farm Tender, wait for it to hit the rotation.",
+        "Monthly stock — save up and snap it when it’s listed.",
       ]);
     }
     if (cat === "vendor") {
       return pickVariant(id, [
-        "Vendor purchase or currency grind — predictable compared to pure drop luck.",
-        "Gold or token sink at an NPC — Wowhead lists the exact vendor and coordinates.",
+        "Buy from an NPC — gold or tokens, usually predictable.",
+        "Vendor grind — Wowhead has the who and where.",
       ]);
     }
     if (cat === "quest") {
       return pickVariant(id, [
-        "Quest chain reward — longer setup than a shop click but no weekly loot dice.",
-        "One-time storyline payoff — good if you like guided content over farm loops.",
+        "Quest chain — longer setup than clicking shop, no weekly loot dice.",
+        "One-and-done story payoff if you like guided stuff.",
       ]);
     }
     if (cat === "achievement") {
       return pickVariant(id, [
-        "Achievement gated — work through the checklist once, then the mount is guaranteed.",
-        "Skill or time achievement — harder than a shop mount but still deterministic at the end.",
+        "Achievement checklist — finish it once, mount’s yours.",
+        "Takes skill or time, but the end is guaranteed.",
       ]);
     }
     if (cat === "profession") {
       return pickVariant(id, [
-        "Profession craft — farm mats or buy them, then craft without raid lockouts.",
-        "Crafted sink — usually expensive on AH but you control the timeline.",
+        "Craft it — farm mats or buy them, no raid lockout.",
+        "Usually pricey on the AH, but you pick the pace.",
       ]);
     }
     if (cat === "discovery") {
       return pickVariant(id, [
-        "Secret-style unlock — follow a guide once; after that it’s on your account.",
-        "Puzzle or hidden objective — front-loaded research, then usually a fixed reward.",
+        "Secret-style — follow a guide once, then it’s on your account.",
+        "Weird puzzle hunt up front, fixed reward at the end.",
       ]);
     }
     if (cat === "worldevent") {
       return pickVariant(id, [
-        "Holiday event mount — easy during the two-week window if you plan dailies.",
-        "Seasonal currency or boss — mark your calendar so you don’t miss the year’s window.",
+        "Holiday window — easy if you hit dailies during the event.",
+        "Seasonal boss or currency — set a calendar reminder.",
       ]);
     }
     if (cat === "tcg") {
       return pickVariant(id, [
-        "TCG / legacy redemption — check current legitimate codes and BMAH / promotions.",
-        "Rare tag in data: supply is limited, so “easy” is about wallet, not boss difficulty.",
+        "TCG / old codes — check legit sources and BMAH.",
+        "Rare in the wild — more about supply and gold than boss skill.",
       ]);
     }
 
@@ -98,43 +98,43 @@ export function buildRecommendationReason(
 
     if (comfyDrop && quick) {
       return pickVariant(id, [
-        "High modeled drop odds and a short time cost — strong “next attempt” pick.",
-        "Data says comfy drop + quick run — good for squeezing tries between other content.",
+        "Decent drop odds and a short run — good “one more try” material.",
+        "Friendly RNG + quick trip — squeeze runs between other stuff.",
       ]);
     }
     if (comfyDrop) {
       return pickVariant(id, [
-        "Strong drop odds; longer run but still efficient over time.",
-        "Favorable RNG profile — worth repeating if you can spare the session length.",
+        "Nice drop odds; run’s longer but still worth repeating.",
+        "RNG’s on your side — keep showing up.",
       ]);
     }
     if (easyFight && quick) {
       return pickVariant(id, [
-        "Low difficulty, short clear — low friction to spam attempts.",
-        "Chill fight + snappy route — nice when you don’t want a raid slog.",
+        "Chill fight, short route — easy to spam.",
+        "Low stress farm when you don’t want a raid slog.",
       ]);
     }
     if (easyFight) {
       return pickVariant(id, [
-        "Approachable fight; pace yourself on the longer route.",
-        "Mechanics-light relative to other farms — focus on consistency over gear checks.",
+        "Easy boss; just pace yourself on travel time.",
+        "Light mechanics — consistency beats gear checks.",
       ]);
     }
     if (mount.lockout === "weekly") {
       return pickVariant(id, [
-        "Weekly lockout — still worth a calendar slot when the model likes your odds and time cost.",
-        "Once per week pin; efficient/balanced modes factor attempts-per-week into the ranking.",
+        "Weekly lock — still worth a calendar slot when the odds and time fit.",
+        "Once a week pin; plan around reset.",
       ]);
     }
     if (mode === "efficient") {
       return pickVariant(id, [
-        "Strong farmable pick — good modeled odds and time/lockout tradeoff among drops and vendors.",
-        "Favors mounts where modeled drop rate, run length, and weekly tries line up well.",
+        "Solid farm pick — drop rate, run length, and tries per week line up well.",
+        "Good bang-for-buck among drops and vendors.",
       ]);
     }
     return pickVariant(id, [
-      "Balanced composite — mixes odds, time, lockouts, source friction, and a touch of prestige.",
-      "Middle-of-road pick when you want neither pure speed-farming nor pure trophy chasing.",
+      "Middle ground — not pure speed-farm, not pure trophy chase.",
+      "Balanced pick when you want something sensible.",
     ]);
   }
 
@@ -144,43 +144,43 @@ export function buildRecommendationReason(
 
   if (cat === "petstore" || cat === "promotion") {
     return pickVariant(id, [
-      "Not really a “farm” — scarcity is about availability and money, not boss RNG.",
-      "Rarity here is supply / shop timing, not a drop table — different bragging rights.",
+      "Not really a farm — rarity is money and timing, not boss RNG.",
+      "Bragging rights here are wallet / promo luck, not drop luck.",
     ]);
   }
 
   if (isRareTag && veryLowDrop) {
     return pickVariant(id, [
-      "Marquee RNG: rare tag plus a very low modeled drop — expect a long campaign.",
-      "Prestige mount territory — community war stories match the harsh odds.",
+      "Big RNG energy — rare tag + stingy drop; pack patience.",
+      "Prestige territory — expect a long campaign.",
     ]);
   }
   if (isRareTag && hard) {
     return pickVariant(id, [
-      "Hard content + rare flag — double sting if you’re chasing prestige.",
-      "Boss skill check meets stingy loot — celebrate hard if it ever procs.",
+      "Hard content + rare flag — double pain, double flex if it drops.",
+      "Skill check meets mean loot — celebrate if it ever procs.",
     ]);
   }
   if (isRareTag) {
     return pickVariant(id, [
-      "Flagged rare in the dataset — stands out from everyday collection fillers.",
-      "Tagged rare: either real low supply or brutal odds in player memory.",
+      "Marked rare — stands out from collection filler.",
+      "Either nasty odds or low supply — people remember this one.",
     ]);
   }
   if (veryLowDrop) {
     return pickVariant(id, [
-      "Very low modeled drop — a long-haul commitment, mentally budget months not days.",
-      "Lottery-style odds — pair with podcasts and friends so burns out slower.",
+      "Brutal drop rate — think months, not afternoons.",
+      "Lottery boss — bring podcasts and friends.",
     ]);
   }
   if (hard) {
     return pickVariant(id, [
-      "Harder content with rough drop math — flex mount if you land it.",
-      "Mechanics and tuning matter; wipe recovery time is part of the real cost.",
+      "Tough content + rough odds — flex mount if you land it.",
+      "Wipes and repair bills count toward the real cost.",
     ]);
   }
   return pickVariant(id, [
-    "Scores high on scarcity — a strong pick when you want something uncommon.",
-    "Weighted toward rarity in this mode — good when you’re bored of easy checks.",
+    "Scores high on scarcity — good when you want something uncommon.",
+    "Rarest-first mode likes this one — trophy hunting.",
   ]);
 }

@@ -63,8 +63,8 @@ export default function LoginForm() {
         </p>
       )}
       <p className="lead">
-        After signing in you&apos;ll return to the tool (or use{" "}
-        <Link href="/account">My Mounts</Link> for your saved collection).
+        After sign-in you land back on the tool (or open{" "}
+        <Link href="/account">My Mounts</Link> for your dashboard).
       </p>
       <form className="auth-form" onSubmit={onSubmit}>
         <label className="field-label" htmlFor="email">

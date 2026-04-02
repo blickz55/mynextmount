@@ -6,9 +6,9 @@ import { listRetailUnobtainableMounts } from "@/lib/listRetailUnobtainableMounts
 import { mounts } from "@/lib/mounts";
 
 export const metadata: Metadata = {
-  title: "Retail unobtainable (reference)",
+  title: "Gone from Retail (our list)",
   description:
-    "Reference list of World of Warcraft mounts this catalog marks as not obtainable in current Retail.",
+    "World of Warcraft mounts we currently treat as not gettable in live Retail — for curiosity, not farming.",
 };
 
 export default function RetailUnobtainableReferencePage() {
@@ -25,13 +25,11 @@ export default function RetailUnobtainableReferencePage() {
         <p className="retail-unobtainable-page__back">
           <Link href="/tool">← Back to tool</Link>
         </p>
-        <h1 className="section-title">Retail unobtainable mounts</h1>
+        <h1 className="section-title">Mounts we call gone from Retail</h1>
         <p className="retail-unobtainable-page__intro">
-          These entries have{" "}
-          <code className="inline-code">retailObtainable: false</code> in the
-          merged catalog. They are excluded from farm recommendations and use
-          unobtainable copy where the UI supports it. Data can still be wrong
-          after a patch — verify in-game or on Wowhead.
+          We hide these from the farm list and flag them elsewhere as “don’t
+          chase this in live Retail.” Our call can be wrong after a patch —
+          always verify in game or on Wowhead.
         </p>
         <p className="retail-unobtainable-page__meta" role="status">
           <strong>{rows.length}</strong> mount
@@ -42,8 +40,8 @@ export default function RetailUnobtainableReferencePage() {
             <thead>
               <tr>
                 <th scope="col">Mount</th>
-                <th scope="col">Spell ID</th>
-                <th scope="col">Curated stamp</th>
+                <th scope="col">ID</th>
+                <th scope="col">Patch note</th>
                 <th scope="col">Wowhead</th>
               </tr>
             </thead>
@@ -69,7 +67,7 @@ export default function RetailUnobtainableReferencePage() {
                         rel="noopener noreferrer"
                         className="retail-unobtainable-page__wh-link"
                       >
-                        Spell
+                        Open
                       </a>
                     ) : (
                       <span className="retail-unobtainable-page__na">—</span>
@@ -80,11 +78,6 @@ export default function RetailUnobtainableReferencePage() {
             </tbody>
           </table>
         </div>
-        <p className="retail-unobtainable-page__maintainer-hint">
-          Maintainers: how this list is produced is documented in{" "}
-          <code className="inline-code">docs/retail-unobtainable-mounts.md</code>
-          .
-        </p>
       </section>
     </main>
   );

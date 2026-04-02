@@ -29,7 +29,7 @@ export function MountFarmSecondaryDetails({ mount }: { mount: Mount }) {
         {retired ? (
           <span className="expandable-row__summary-suffix">
             {" "}
-            — no longer obtainable
+            — gone in Retail (our list)
           </span>
         ) : null}
       </h4>

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Maintainer reference: docs/retail-unobtainable-mounts.md. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows. Stormwind Skychaser (245723), Orgrimmar Interceptor (245725) — legacy limited promotion pair. Cindermane Charger (171847) — legacy Heroes of the Storm promotion. Legacy Recruit-A-Friend: Swift Zhevra (48954, 49322). Legacy vendor phantoms: Palomino (16082), White Stallion (468, 16083), Mottled Red Raptor (16084), Black Wolf (578, 64658), Red Wolf (579, 16080), Black Ram (6896, 17461), Frost Ram (17460), Green Kodo (18991), Teal Kodo (18992), Skeletal Horse (8980), Ivory Raptor (10795, 17450), Icy Blue Mechanostrider Mod A (17459), White Mechanostrider Mod B (15779), Green Mechanostrider (15780, 17453), Black Nightsaber (16055), Ancient Frostsaber (16056) — not obtainable as listed in current Retail.",
+  "notes": "Summon spell IDs no longer obtainable in Retail (curated). Merge via npm run data:apply-overrides or data:build. Maintainer reference: docs/retail-unobtainable-mounts.md. Includes 2026-03 retired promos / removed rewards batch; verify on Wowhead before adding rows. Stormwind Skychaser (245723), Orgrimmar Interceptor (245725) — legacy limited promotion pair. Cindermane Charger (171847) — legacy Heroes of the Storm promotion. Legacy Recruit-A-Friend: Swift Zhevra (48954, 49322). Legacy vendor phantoms: Palomino (16082), White Stallion (468, 16083), Mottled Red Raptor (16084), Black Wolf (578, 64658), Red Wolf (579, 16080), Black Ram (6896, 17461), Frost Ram (17460), Green Kodo (18991), Teal Kodo (18992), Skeletal Horse (8980), Ivory Raptor (10795, 17450), Icy Blue Mechanostrider Mod A (17459), White Mechanostrider Mod B (15779), Green Mechanostrider (15780, 17453), Blue Mechanostrider (10969, 33630), Black Nightsaber (16055), Ancient Frostsaber (16056) — not obtainable as listed in current Retail.",
   "patches": [
     {
       "id": 43688,
@@ -411,6 +411,16 @@
       "id": 17453,
       "retailObtainable": false,
       "asOfPatch": "curated-2026-03-green-mechanostrider"
+    },
+    {
+      "id": 10969,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-04-blue-mechanostrider"
+    },
+    {
+      "id": 33630,
+      "retailObtainable": false,
+      "asOfPatch": "curated-2026-04-blue-mechanostrider"
     },
     {
       "id": 16055,

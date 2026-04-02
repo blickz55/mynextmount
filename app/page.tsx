@@ -19,11 +19,11 @@ const addonListingUrl = getAddonListingUrl();
 export const metadata: Metadata = {
   title: "Coming soon",
   description:
-    "Early alpha: MyNextMount is a World of Warcraft mount helper still in active development — we’re building toward a tool that’s useful for every collector. Farm suggestions from what you own, guides, and an in-game export addon.",
+    "MyNextMount — early alpha WoW mount helper: paste /mnm, see what to farm next, with quick tips and links.",
   openGraph: {
     title: "MyNextMount — early alpha",
     description:
-      "We’re in early alpha and still building. A mount farming companion: know what to farm next from your collection, with guides and a WoW addon export.",
+      "Still rough. Paste your addon line, get farm ideas, filters, and guides.",
     url: "/",
   },
 };
@@ -48,11 +48,8 @@ export default function ComingSoonPage() {
       >
         <p className="home-alpha-callout__eyebrow">Early alpha</p>
         <p className="home-alpha-callout__body">
-          You&apos;re seeing MyNextMount while it&apos;s still rough around the
-          edges. We&apos;re shipping and iterating so the product becomes
-          genuinely useful for <strong>every</strong> mount collector—not just
-          early testers. Expect changes, missing polish, and the occasional bug;
-          we appreciate everyone who tries it while we build.
+          The site&apos;s half-baked on purpose — we ship fast, fix fast. Expect
+          janky UI and weird bugs. Thanks for poking it while we build.
         </p>
       </aside>
 
@@ -60,44 +57,40 @@ export default function ComingSoonPage() {
         className="how-to-panel coming-soon-pitch"
         aria-label="What MyNextMount is"
       >
-        <h2 className="how-to-panel__title">What we&apos;re building</h2>
+        <h2 className="how-to-panel__title">What this is</h2>
         <p className="coming-soon-lead">
-          A <strong>personal-first</strong> companion for WoW players who care
-          about mounts: given the mounts you <strong>already own</strong>, it
-          helps you decide <strong>what to farm next</strong> — with
-          trustworthy links, short written guidance, and community context
-          where it helps.
+          You tell us what you <strong>already own</strong>; we point at stuff
+          you <strong>don&apos;t</strong>, with filters, short tips, Wowhead
+          links, and player comments where we have them.
         </p>
         <p className="coming-soon-lead">
-          You&apos;ll paste a one-line export from the in-game{" "}
-          <strong>MyNextMount</strong> addon (your collection as summon spell
-          IDs). The site never treats something you own as a farming target, and
-          you can narrow results by how mounts are obtained (dungeon, vendor,
-          achievement, and more).
+          In game, <strong>/mnm</strong> on the <strong>MyNextMount</strong>{" "}
+          addon copies one line — paste it here. We never farm-suggest mounts
+          sitting in your line. Tick boxes for drops, vendors, holidays, shop,
+          whatever you care about.
         </p>
         <p className="coming-soon-lead">
-          Install <strong>MyNextMount</strong> from the{" "}
+          Grab the addon from the{" "}
           <a
             href={addonListingUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            public listing
+            listing
           </a>{" "}
-          or follow{" "}
+          or{" "}
           <a
             href={ADDON_INSTALL_DOCS_URL}
             target="_blank"
             rel="noopener noreferrer"
           >
-            manual install
-          </a>{" "}
-          from the repository.
+            install it by hand
+          </a>
+          .
         </p>
         <p className="coming-soon-lead coming-soon-lead--last">
-          The full experience is still in active development; we&apos;re
-          polishing the tool before we call it the default homepage. Thanks for
-          stopping by early.
+          The real homepage is still the tool — this page is the “hi, we exist”
+          stub.
         </p>
       </section>
 
@@ -105,16 +98,15 @@ export default function ComingSoonPage() {
         className="content-section coming-soon-actions"
         aria-label="Join the beta or learn more"
       >
-        <h2 className="section-title">Try the recommender</h2>
+        <h2 className="section-title">Jump in</h2>
         <p className="section-intro">
-          We&apos;re running a <strong>closed beta</strong>: create a free
-          account, then paste your{" "}
-          <code className="inline-code">M:…</code> export from the in-game addon
-          to see personalized farm suggestions, filters, and guides.
+          <strong>Closed beta</strong> — free account, paste your{" "}
+          <code className="inline-code">M:…</code> line, get a sorted farm list
+          and filters.
         </p>
         <p className="coming-soon-cta-row">
           <Link href="/beta" className="btn-primary coming-soon-cta">
-            Sign up for Beta
+            Beta signup
           </Link>
         </p>
       </section>

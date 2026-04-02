@@ -10,11 +10,11 @@ type CategoryMap = Record<string, string> & { default: string };
  */
 export function getMountLocationLabel(mount: Mount): string {
   if (mount.tags?.includes("stub")) {
-    return "Stub row — run data:build for a real location";
+    return "Location not filled in yet on our side";
   }
 
   if (mount.retailObtainable === false) {
-    return "No longer obtainable in Retail (legacy / removed source)";
+    return "Gone from Retail (our list)";
   }
 
   const loc = mount.location?.trim();

@@ -144,13 +144,13 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
           setVoteError(
             res.status === 401
               ? data.error ||
-                  "Sign in again to rate listings (session may have expired)."
-              : data.error || "Could not save vote.",
+                  "Session looks stale — refresh and sign in, then try again."
+              : data.error || "Vote did not stick.",
           );
         }
       } catch {
         patchSpell(spellId, before);
-        setVoteError("Network error saving vote.");
+        setVoteError("Network blip — vote did not save.");
       } finally {
         setPending(null);
       }
@@ -185,10 +185,10 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
     <div
       className="mount-panel-feedback"
       role="group"
-      aria-label={`Feedback for ${mountName}`}
+      aria-label={`Thumbs for ${mountName}`}
     >
       <span className="mount-panel-feedback__hint" aria-hidden>
-        Rate this listing
+        Was this helpful?
       </span>
       <div className="mount-panel-feedback__buttons">
         <button
@@ -196,13 +196,13 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
           className="mount-panel-feedback__btn"
           disabled={busy || status !== "authenticated"}
           aria-pressed={summary.myVote === 1}
-          aria-label="This farm listing was helpful"
+          aria-label="Helpful farm tip"
           title={
             status !== "authenticated"
-              ? "Sign in to rate this listing"
+              ? "Sign in to vote"
               : summary.myVote === 1
-                ? "Remove thumbs up"
-                : "Thumbs up"
+                ? "Undo upvote"
+                : "Upvote"
           }
           onClick={onUp}
         >
@@ -213,13 +213,13 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
           className="mount-panel-feedback__btn"
           disabled={busy || status !== "authenticated"}
           aria-pressed={summary.myVote === -1}
-          aria-label="This farm listing was not helpful"
+          aria-label="Not helpful"
           title={
             status !== "authenticated"
-              ? "Sign in to rate this listing"
+              ? "Sign in to vote"
               : summary.myVote === -1
-                ? "Remove thumbs down"
-                : "Thumbs down"
+                ? "Undo downvote"
+                : "Downvote"
           }
           onClick={onDown}
         >
@@ -229,7 +229,7 @@ export function MountPanelFeedback({ spellId, mountName }: Props) {
       <p
         className="mount-panel-feedback__score"
         aria-live="polite"
-        title="Community thumbs up vs thumbs down on this listing"
+        title="Community upvotes vs downvotes for this card"
       >
         +{up} / -{down}
       </p>

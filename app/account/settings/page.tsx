@@ -67,8 +67,8 @@ export default async function AccountSettingsPage() {
         />
         <h2 className="section-title">Account settings</h2>
         <p className="lead">
-          We couldn&apos;t load your account from the database. This is usually
-          a temporary connection issue on the server.
+          Couldn&apos;t reach the server for settings. Give it a minute and
+          retry.
         </p>
         <p className="status-block">
           <Link href="/account/settings">Try again</Link>
@@ -93,8 +93,8 @@ export default async function AccountSettingsPage() {
         />
         <h2 className="section-title">Account settings</h2>
         <p className="lead">
-          Your browser session is active, but we could not find a matching
-          account in the database.
+          You&apos;re signed in here, but we don&apos;t see that login in our
+          records anymore.
         </p>
         <AccountStaleSessionActions />
         <p className="status-block">
@@ -120,8 +120,8 @@ export default async function AccountSettingsPage() {
       </p>
       <h2 className="section-title">Account settings</h2>
       <p className="lead">
-        Signed in as <strong>{user.email}</strong>. Preferences here affect how
-        weekly lockouts and farm timing are interpreted on the recommender.
+        Signed in as <strong>{user.email}</strong>. Region here drives weekly
+        reset math on farm cards.
       </p>
 
       <section
@@ -132,7 +132,7 @@ export default async function AccountSettingsPage() {
           id="lockout-calendar-heading"
           className="section-title account-section-heading"
         >
-          Farm lockout timing
+          Weekly reset region
         </h2>
         <WeeklyResetCalendarPreference initial={user.weeklyResetCalendar} />
       </section>
@@ -145,8 +145,8 @@ export default async function AccountSettingsPage() {
           Account data
         </h2>
         <p className="section-intro">
-          Delete removes your email, password hash, saved spell list, snapshots,
-          farm attempts, and related rows from this server.
+          Delete wipes your login, saved mounts, snapshots, farm-try history, and
+          votes — everything tied to this account on our server.
         </p>
         <DeleteAccountButton />
       </section>

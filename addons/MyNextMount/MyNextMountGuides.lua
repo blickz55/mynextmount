@@ -102,7 +102,6 @@ MyNextMountGuideData.order = {
   26056,
   26655,
   26656,
-  28828,
   30174,
   32235,
   32239,
@@ -1926,14 +1925,13 @@ MyNextMountGuideData.byId = {
   },
   [10969] = {
     name = "Blue Mechanostrider",
-    overview = "Blue Mechanostrider is a straightforward vendor mount, so there is no farm or lockout to worry about. You just need the right vendor and enough gold, but the exact NPC and location can vary by faction or patch changes, so verify the current details on the linked page before you travel.",
+    overview = "Blue Mechanostrider is a legacy gnome racial mount that was removed from normal vendors (the Milli Featherwhistle / Dun Morogh purchase path no longer applies in current Retail). Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
     sourceUrl = "https://www.wowhead.com/item=8595",
     sourceLabel = "Wowhead — Blue Mechanostrider (item)",
     checklist = {
-      "Open Collections → Mounts, select Blue Mechanostrider, and read the Source line to identify the vendor and zone.",
-      "Travel to the listed vendor NPC and open the merchant window.",
-      "Buy Blue Mechanostrider with gold if it is available to your faction.",
-      "If the vendor is missing, check nearby faction mount vendors or your reputation requirements in-game.",
+      "Treat Blue Mechanostrider as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+      "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+      "If you already own it on an older character, it remains in that collection only.",
     },
   },
   [13819] = {
@@ -2677,15 +2675,14 @@ MyNextMountGuideData.byId = {
   },
   [23510] = {
     name = "Stormpike Battle Charger",
-    overview = "Stormpike Battle Charger is a vendor mount, so there is no farm or RNG grind involved. The only real work is finding the correct vendor and meeting the required reputation, currency, or faction conditions for your character. Because vendor availability and requirements can change over time, verify the current details on the linked page before you travel.",
+    overview = "Stormpike Battle Charger is sold by the Alterac Valley faction vendor for Marks of Honor (not legacy Alterac Valley marks or gold) once you are Exalted with Stormpike Guard. There is no drop RNG—earn the rep (often via Alterac Valley), save PvP currency, then buy from Lieutenant Largent. Confirm the current MoH cost in-game or on the linked page, since vendors change with patches.",
     sourceUrl = "https://www.wowhead.com/item=19030",
     sourceLabel = "Wowhead — Stormpike Battle Charger (item)",
     checklist = {
-      "Open Collections > Mounts, select Stormpike Battle Charger, and read the Source line for the vendor name and any requirements.",
-      "Check your reputation, faction, and currency before traveling so you can actually buy it when you arrive.",
-      "Use the map or a flight path to reach the listed vendor NPC, then open their shop window.",
-      "Buy Stormpike Battle Charger from the vendor and learn it from your mount journal.",
-      "If it is missing, swap to the correct faction or character and re-open the vendor to refresh the stock.",
+      "Open Collections → Mounts, select Stormpike Battle Charger, and read the Source entry for the vendor and requirements.",
+      "Reach Exalted with Stormpike Guard (often by queuing Alterac Valley), on an Alliance character.",
+      "Travel to Lieutenant Largent in Hillsbrad Foothills and open his mount goods.",
+      "Farm or save enough Marks of Honor, then purchase Stormpike Battle Charger (typically 15 MoH on Retail).",
     },
   },
   [24242] = {
@@ -2799,18 +2796,6 @@ MyNextMountGuideData.byId = {
       "Clear the boss or source encounter once per weekly reset; this mount uses a weekly lockout.",
       "If the source is a raid, use a saved lockout or the fastest reset route to repeat the farm efficiently.",
       "Keep running the weekly farm until it drops; at 0.02% this can take many resets.",
-    },
-  },
-  [28828] = {
-    name = "Nether Drake",
-    overview = "Nether Drake is a vendor mount, so there is no boss farm or weekly lockout to worry about. The main work is unlocking the right vendor and meeting any reputation, currency, or quest requirements tied to that vendor; those details can change with game updates, so verify the current requirements on the linked page before you travel.",
-    sourceUrl = "https://www.wowhead.com/spell=28828",
-    sourceLabel = "Wowhead — Nether Drake (spell 28828)",
-    checklist = {
-      "Open the Mounts journal, select Nether Drake, and read the Source entry to identify the vendor and any unlock requirement.",
-      "Travel to the listed zone or hub and complete the needed questline or reputation step to make the vendor available.",
-      "Farm the required currency or gather the item cost from the relevant activity shown in-game.",
-      "Visit the vendor NPC and purchase Nether Drake from the vendor window.",
     },
   },
   [30174] = {
@@ -3001,14 +2986,13 @@ MyNextMountGuideData.byId = {
   },
   [33630] = {
     name = "Blue Mechanostrider",
-    overview = "Blue Mechanostrider is a vendor mount, so there is no farm or drop chance involved. You just need to find the correct vendor, meet any race/faction requirements, and pay the gold cost. Because vendor availability can change with patches or NPC updates, verify the current details on the linked Wowhead page before you travel.",
+    overview = "Blue Mechanostrider is a legacy gnome racial mount that was removed from normal vendors (the Milli Featherwhistle / Dun Morogh purchase path no longer applies in current Retail; the journal may list a second summon spell for the same appearance). Watch the Black Market Auction House if you want the appearance and verify status on the linked page.",
     sourceUrl = "https://www.wowhead.com/spell=33630",
     sourceLabel = "Wowhead — Blue Mechanostrider (spell 33630)",
     checklist = {
-      "Open Collections → Mounts and select Blue Mechanostrider to read its vendor source and any faction or race requirements",
-      "Travel to the appropriate vendor NPC for your faction in the correct city or zone",
-      "Buy Blue Mechanostrider from the vendor if you meet the requirements and have enough gold",
-      "If the mount is not sold, check your faction, race, and reputation status in-game before returning to the vendor",
+      "Treat Blue Mechanostrider as unobtainable through vendors or drops in current Retail unless Blizzard reintroduces it.",
+      "If you hunt legacy appearances, watch the BMAH and confirm on Wowhead comments / patch notes.",
+      "If you already own it on an older character, it remains in that collection only.",
     },
   },
   [33660] = {

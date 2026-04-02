@@ -12,7 +12,7 @@ export function parseMountExport(exportString: string): ParseMountExportResult {
     return {
       ok: false,
       error:
-        'Export must start with M: followed by comma-separated mount IDs (e.g. M:12,45,78).',
+        "Your line must start with M: then numbers, e.g. M:12,45,78 (from /mnm).",
     };
   }
 
@@ -29,7 +29,7 @@ export function parseMountExport(exportString: string): ParseMountExportResult {
     if (token === "") {
       return {
         ok: false,
-        error: "Empty mount ID — remove extra commas or fill in every ID.",
+        error: "Extra comma — put a number between every comma.",
       };
     }
     if (!/^\d+$/.test(token)) {
